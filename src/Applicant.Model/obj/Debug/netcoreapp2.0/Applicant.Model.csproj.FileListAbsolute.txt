@@ -1,0 +1,10 @@
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\bin\Debug\netcoreapp2.0\Applicant.Model.deps.json
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\bin\Debug\netcoreapp2.0\Applicant.Model.dll
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\bin\Debug\netcoreapp2.0\Applicant.Model.pdb
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\obj\Debug\netcoreapp2.0\Applicant.Model.csproj.CoreCompileInputs.cache
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\obj\Debug\netcoreapp2.0\Applicant.Model.AssemblyInfoInputs.cache
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\obj\Debug\netcoreapp2.0\Applicant.Model.AssemblyInfo.cs
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\obj\Debug\netcoreapp2.0\Applicant.Model.dll
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant.Model\obj\Debug\netcoreapp2.0\Applicant.Model.pdb
