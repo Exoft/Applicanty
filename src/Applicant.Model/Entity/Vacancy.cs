@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Applicant.Model.Entity
@@ -8,12 +9,10 @@ namespace Applicant.Model.Entity
     public class Vacancy:IPrimary<long>
     {
         public long Id { get; set; }
-        [Required]
+        [Required, ForeignKey("User")]
         public long IdUser { get; set; }
-        [Required]
+        [Required, ForeignKey("Experience")]
         public int IdExperience { get; set; }
-        [Required]
-        public int IdVacancy_Technology { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -25,5 +24,10 @@ namespace Applicant.Model.Entity
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public bool IsArchived { get; set; }
+
+        public User User { get; set; }
+        public Experience Experiences { get; set; }
+        public ICollection<Candidate> Candidates { get; set; }
+        public ICollection<Technology> Technologies { get; set; }
     }
 }

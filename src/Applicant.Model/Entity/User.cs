@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Applicant.Model.Entity
@@ -9,7 +10,7 @@ namespace Applicant.Model.Entity
     public class User : IPrimary<long>
     {
         public long Id { get; set; }
-        [Required]
+        [Required, ForeignKey("Role")]
         public int IdRole { get; set; }
         [Required]
         public string FirstName { get; set; }
@@ -21,5 +22,7 @@ namespace Applicant.Model.Entity
         public string Password { get; set; }
         public bool IsArchived { get; set; }
         public DateTime UpdatedOn { get; set; }
+
+        public Role Role { get; set; }
     }
 }

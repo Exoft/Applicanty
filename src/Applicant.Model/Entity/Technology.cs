@@ -10,5 +10,9 @@ namespace Applicant.Model.Entity
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+
+
+        public ICollection<Candidate> Candidates { get; set; }
+        public ICollection<Vacancy> Vacancies { get; set; }
     }
 }

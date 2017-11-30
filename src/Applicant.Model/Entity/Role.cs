@@ -12,6 +12,7 @@ namespace Applicant.Model.Entity
         public string Name { get; set; }
         public bool IsArchived { get; set; }
 
+        public ICollection<User> Users { get; set; }
 
     }
 }
