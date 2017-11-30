@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Applicant.Controllers
+namespace Applicant.UI.Controllers
 {
     public class HomeController : Controller
     {
