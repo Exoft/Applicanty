@@ -11,8 +11,8 @@ using System;
 namespace Applicant.Data.Migrations
 {
     [DbContext(typeof(AtsDbContext))]
-    [Migration("20171130230413_Initial")]
-    partial class Initial
+    [Migration("20171201150418_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
