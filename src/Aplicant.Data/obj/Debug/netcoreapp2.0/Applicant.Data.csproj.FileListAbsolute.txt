@@ -10,7 +10,6 @@ C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.
 C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\bin\Debug\netcoreapp2.0\Applicant.Data.deps.json
 C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\bin\Debug\netcoreapp2.0\Applicant.Data.dll
 C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\bin\Debug\netcoreapp2.0\Applicant.Data.pdb
-C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Applicant.Data.csprojResolveAssemblyReference.cache
 C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Applicant.Data.csproj.CoreCompileInputs.cache
 C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Applicant.Data.AssemblyInfoInputs.cache
 C:\Users\taras\source\repos\Exoft_ATS2\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Applicant.Data.AssemblyInfo.cs
