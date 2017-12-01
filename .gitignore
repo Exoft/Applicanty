@@ -4,3 +4,5 @@
 
 /src/.vs
 !launchSettings.json
+/src/Applicant/bin
+/src/Applicant/obj
