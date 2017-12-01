@@ -1,0 +1,13 @@
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.deps.json
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.runtimeconfig.json
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.runtimeconfig.dev.json
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.dll
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.pdb
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.Data.dll
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\bin\Debug\netcoreapp2.0\Applicant.Data.pdb
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\obj\Debug\netcoreapp2.0\Applicant.csprojResolveAssemblyReference.cache
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\obj\Debug\netcoreapp2.0\Applicant.csproj.CoreCompileInputs.cache
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\obj\Debug\netcoreapp2.0\Applicant.AssemblyInfoInputs.cache
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\obj\Debug\netcoreapp2.0\Applicant.AssemblyInfo.cs
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\obj\Debug\netcoreapp2.0\Applicant.dll
+C:\Users\taras\source\repos\Exoft_ATS2\src\Applicant\obj\Debug\netcoreapp2.0\Applicant.pdb
