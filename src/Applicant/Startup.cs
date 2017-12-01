@@ -24,7 +24,7 @@ namespace Applicant
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<Applicant.Model.Context.ATSDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<Data.AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.Configure<IISOptions>(options => { });
         }
 
