@@ -6,7 +6,7 @@ using Applicant.Data.Entity.Abstract;
 
 namespace Applicant.Data.Entity
 {
-    public class Experience:IEntity<int>
+    public class Experience :IEntity<int>
     {
         public int Id { get; set; }
         [Required]

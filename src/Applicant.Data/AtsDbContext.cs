@@ -16,6 +16,11 @@ namespace Applicant.Data
         {
         }
 
+        public AtsDbContext()
+        {
+                
+        }
+
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{

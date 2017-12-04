@@ -4014,11 +4014,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\taras\\source\\repos\\Exoft_ATS2\\src\\Aplicant.Data\\Applicant.Data.csproj",
+      "projectUniqueName": "E:\\Work\\exsoft\\Ats\\Exoft_ATS\\src\\Aplicant.Data\\Applicant.Data.csproj",
       "projectName": "Applicant.Data",
-      "projectPath": "C:\\Users\\taras\\source\\repos\\Exoft_ATS2\\src\\Aplicant.Data\\Applicant.Data.csproj",
+      "projectPath": "E:\\Work\\exsoft\\Ats\\Exoft_ATS\\src\\Aplicant.Data\\Applicant.Data.csproj",
       "packagesPath": "C:\\Users\\taras\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\taras\\source\\repos\\Exoft_ATS2\\src\\Aplicant.Data\\obj\\",
+      "outputPath": "E:\\Work\\exsoft\\Ats\\Exoft_ATS\\src\\Aplicant.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
