@@ -1,9 +1,0 @@
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\bin\Debug\netcoreapp2.0\Aplicant.Data.deps.json
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\bin\Debug\netcoreapp2.0\Aplicant.Data.dll
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\bin\Debug\netcoreapp2.0\Aplicant.Data.pdb
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Aplicant.Data.csproj.CoreCompileInputs.cache
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Aplicant.Data.AssemblyInfoInputs.cache
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Aplicant.Data.AssemblyInfo.cs
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Aplicant.Data.dll
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Aplicant.Data.pdb
-C:\Users\taras\Desktop\Exoft_ATS-mishaK\src\Aplicant.Data\obj\Debug\netcoreapp2.0\Aplicant.Data.csprojResolveAssemblyReference.cache
