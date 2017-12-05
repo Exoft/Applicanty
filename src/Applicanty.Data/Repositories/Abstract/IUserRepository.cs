@@ -1,8 +1,9 @@
 ﻿using Applicanty.Data.Entity;
 
 namespace Applicanty.Data.Repositories
-{ 
-    public interface IStatusRepository : IEntityBaseRepository<Status, int>
+{
+    public interface IUserRepository : IEntityBaseRepository<User, long>
     {
+        
     }
 }

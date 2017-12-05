@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Repositories
 { 
-    public interface IVacancyRepository : IRepository<Vacancy, long>
+    public interface IVacancyRepository : IEntityBaseRepository<Vacancy, long>
     {
     }
 }
