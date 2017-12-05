@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Repositories
 { 
-    public interface IExperienceRepository : IRepository<Experience, int>
+    public interface IExperienceRepository : IEntityBaseRepository<Experience, int>
     {
     }
 }

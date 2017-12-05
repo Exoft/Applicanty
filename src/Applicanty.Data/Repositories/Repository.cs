@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Applicanty.Data.Repositories
 {
-    public class EntityBaseRepository<TEntity, TKey>: IRepository<TEntity, TKey> where TEntity : class
+    public class EntityBaseRepository<TEntity, TKey>: IEntityBaseRepository<TEntity, TKey> where TEntity : class
     {
         private AtsDbContext _entities;
         private readonly DbSet<TEntity> _dbSet;
@@ -140,58 +140,6 @@ namespace Applicanty.Data.Repositories
         {
             _entities.Entry(entity).State = EntityState.Modified;
         }
-
-        //public  async Task UpdateAsync(TEntity entity)
-        //{
-        //    using (var db = new DataContextProvider())
-        //    {
-        //        _entities.Entry(entity).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //    }
-        //}
-
-
-        //public void Update(TEntity entity, params Expression<Func<TEntity, object>>[] properties)
-        //{
-        //    using (var dm = new DataContextProvider())
-        //    {
-        //        dm.Set<TEntity>().Attach(entity);
-        //        DbEntityEntry<TEntity> entry = dm.Entry(entity);
-
-        //        foreach (var selector in properties)
-        //            entry.Property(selector).IsModified = true;
-        //    }
-        //}
-
-        //public  void Delete(TKey id)
-        //{
-        //    using (var db = new DataContextProvider())
-        //    {
-        //        var entity = GetOne(id);
-        //        var entry = db.Entry(entity);
-
-        //        if (entry.State == EntityState.Detached)
-        //            _dbSet.Attach(entity);
-
-        //        _dbSet.Remove(entity);
-        //        db.SaveChanges();
-        //    }
-        //}
-
-        //public  void Delete(TEntity entity)
-        //{
-        //    using (var db = new DataContextProvider())
-        //    {
-        //        var entry = db.Entry(entity);
-
-        //        if (entry.State == EntityState.Detached)
-        //            _dbSet.Attach(entity);
-
-        //        _dbSet.Remove(entity);
-        //        db.SaveChanges();
-        //    }
-        //}
-
 
         /// <summary>
         /// Gets the count of the number of objects in the databse

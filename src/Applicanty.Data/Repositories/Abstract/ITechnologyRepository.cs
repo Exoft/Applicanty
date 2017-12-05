@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Repositories
 { 
-    public interface ITechnologyRepository : IRepository<Technology, int>
+    public interface ITechnologyRepository : IEntityBaseRepository<Technology, int>
     {
     }
 }
