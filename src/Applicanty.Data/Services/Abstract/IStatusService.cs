@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Services
 {
-    public interface IStasutService : IEntityService<Status>
+    public interface IStatusService : IEntityService<Status>
     {
         
     }

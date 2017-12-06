@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Applicanty.Data.Services;
 using Applicanty.Data.Repositories;
 using Applicanty.Data.UnitOfWork.Interface;
@@ -32,7 +30,7 @@ namespace Applicanty
             services.AddScoped<IExperienceService, ExperienceService>();
             services.AddScoped<ITechnologyService, TechnologyService>();
             services.AddScoped<IVacancyService, VacancyService>();
-            services.AddScoped<IStasutService, StatusService>();
+            services.AddScoped<IStatusService, StatusService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICandidateRepository, CandidateRepository>();
