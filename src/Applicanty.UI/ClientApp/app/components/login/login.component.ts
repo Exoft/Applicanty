@@ -12,7 +12,7 @@ export class LoginComponent {
         "userPassword": new FormControl("*****",Validators.required),
     });
 
-    getData(event) {
+    loginClick(event) {
         console.log(this.authorizationFrom.controls['userName'].value);
         console.log(this.authorizationFrom.controls['userPassword'].value);
     }
