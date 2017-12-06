@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace Applicant
+namespace Applicanty
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AtsDbContext>
     {

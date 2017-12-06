@@ -259,6 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-
-*.csproj
-/src/Applicanty.Data/Migrations
+/src/Applicanty.Data/Migrations/20171206121357_initial.cs
+/src/Applicanty.Data/Migrations/20171206121357_initial.Designer.cs
