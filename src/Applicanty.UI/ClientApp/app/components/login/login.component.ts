@@ -11,7 +11,8 @@ export class LoginComponent {
         "userName": new FormControl("", Validators.required),
         "userPassword": new FormControl("*****",Validators.required),
     });
-    send(event) {
+
+    getData(event) {
         console.log(this.authorizationFrom.controls['userName'].value);
         console.log(this.authorizationFrom.controls['userPassword'].value);
     }

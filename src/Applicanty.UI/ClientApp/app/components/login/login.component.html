@@ -7,29 +7,29 @@
                     <option>Administrator</option>
                 </select>
             </div>
-            <label for="empFullName"
+            <label for="userName"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
                    [class.invalid]="authorizationFrom.get('userName').invalid
                     && (authorizationFrom.get('userName').dirty || authorizationFrom.get('userName').touched)">
-                <input class="form-control" id="login_username" type="text" formControlName="userName" placeholder="user name">
+                <input class="form-control" type="text" formControlName="userName" placeholder="user name">
                 <span class="tooltip-content">
                     Name is required.
                 </span>
             </label>
-            <label for="empFullName"
+            <label for="userPassword"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
                    [class.invalid]="authorizationFrom.get('userPassword').invalid
                     && (authorizationFrom.get('userPassword').dirty || authorizationFrom.get('userPassword').touched)">
-                <input class="form-control" type="password" id="login_password" formControlName="userPassword" placeholder="Password">
+                <input class="form-control" type="password" formControlName="userPassword" placeholder="Password">
                 <span class="tooltip-content">
                     Password is required.
                 </span>
             </label>
-            <button type="submit" class="btn btn-primary" (click)="send($event)">Sign in</button>
+            <button type="submit" class="btn btn-primary" (click)="getData($event)">Sign in</button>
             <button type="submit" class="btn btn-success">Sign Up</button>
         </div>
     </form>
