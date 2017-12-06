@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Services
 {
-    interface IExperienceService:IEntityService<Experience>
+    public interface IExperienceService:IEntityService<Experience>
     {
     }
 }

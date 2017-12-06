@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Services
 {
-    interface IVacancyService :IEntityService<Vacancy>
+    public interface IVacancyService :IEntityService<Vacancy>
     {
         Vacancy GetById(long Id);
     }

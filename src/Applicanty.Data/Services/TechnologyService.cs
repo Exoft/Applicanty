@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Applicanty.Data.Services
 {
-    class TechnologyService : EntityService<Technology, int>, ITechnologyService
+    public class TechnologyService : EntityService<Technology, int>, ITechnologyService
     {
         IUnitOfWork _unitOfWork;
         ITechnologyRepository _technologyRepository;
