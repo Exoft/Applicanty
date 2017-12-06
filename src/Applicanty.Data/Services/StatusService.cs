@@ -4,7 +4,7 @@ using Applicanty.Data.UnitOfWork.Interface;
 
 namespace Applicanty.Data.Services
 {
-    public class StatusService : EntityService<Status, int>, IStasutService
+    public class StatusService : EntityService<Status, int>, IStatusService
     {
         private IUnitOfWork _unitOfWork;
         private IStatusRepository _statusRepository;

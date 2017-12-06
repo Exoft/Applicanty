@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Applicanty.Data.Services
 {
-    class VacancyService : EntityService<Vacancy, long>, IVacancyService
+    public class VacancyService : EntityService<Vacancy, long>, IVacancyService
     {
         IUnitOfWork _unitOfWork;
         IVacancyRepository _vacancyRepository;
