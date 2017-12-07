@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Applicanty": {
+    "Applicant.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
