@@ -7,8 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Applicanty.Data.Services;
 using Applicanty.Data.Repositories;
 using Applicanty.Data.UnitOfWork.Interface;
+using Applicanty.Data.UnitOfWork.Services;
 
-namespace Applicanty
+namespace Applicant.API
 {
     public class Startup
     {
@@ -39,7 +40,7 @@ namespace Applicanty
             services.AddScoped<IVacancyRepository, VacancyRepository>();
             services.AddScoped<IStatusRepository, StatusRepository>();
 
-            services.AddScoped<IUnitOfWork, IUnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

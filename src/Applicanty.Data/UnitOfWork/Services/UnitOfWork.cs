@@ -6,7 +6,7 @@ using Applicanty.Data.Repositories;
 
 namespace Applicanty.Data.UnitOfWork.Services
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private AtsDbContext _dbContext;
 
