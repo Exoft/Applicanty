@@ -5,35 +5,40 @@ import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
-import { LoginComponent } from './components/login/login.component';
-import { userPageComponent } from './components/userPage/userPage.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
-import { HttpClientModule } from '@angular/common/http';
+import { AuthModule, authRoutes } from '../auth/auth.module';
+
+import { LoginComponent } from '../auth/components/login/login.component';
+
+import { AuthService } from '../../services/auth.service';
+
+import 'clarity-icons';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
-        userPageComponent,
+        LoginComponent
     ],
+    providers: [AuthService],
     imports: [
+        AuthModule,
         CommonModule,
-        ClarityModule.forRoot(),
-        BrowserAnimationsModule,
-        HttpModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule,
+        ClarityModule.forRoot(),
+        BrowserAnimationsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'login', pathMatch: 'full' },
-            { path: 'login', component: LoginComponent },
-            { path: '**', redirectTo: 'login' },
-            { path: 'userPage', component: userPageComponent },
+            { path: '', redirectTo: 'userpage', pathMatch: 'full' },
+
+            ...authRoutes,
+
+            { path: '**', redirectTo: 'userpage' }
         ])
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModuleShared {
 

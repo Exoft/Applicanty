@@ -17,17 +17,18 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\modules\app\components\userPage\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\modules\app\components\userPage\**" />
+    <None Remove="ClientApp\modules\app\components\userPage\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\app\http.service.ts" />
-    <None Remove="ClientApp\app\components\userPage\userPage.component.ts" />
+    <None Remove="ClientApp\modules\app\components\app\http.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\app\http.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\userPage\userPage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
