@@ -12,7 +12,7 @@ namespace Applicant.API.Controllers
         [HttpPost]
         public IActionResult Login()
         {
-            return new OkObjectResult("Губіш хуй");
+            return  Ok(true);
         }
 
     
