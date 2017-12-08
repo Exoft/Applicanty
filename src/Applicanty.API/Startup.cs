@@ -41,6 +41,12 @@ namespace Applicant.API
             services.AddScoped<IStatusRepository, StatusRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +56,12 @@ namespace Applicant.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Applicanty");
+            });
 
             app.UseMvc();
         }
