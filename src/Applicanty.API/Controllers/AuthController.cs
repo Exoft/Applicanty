@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Applicanty.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Applicant.API.Controllers
@@ -10,11 +7,9 @@ namespace Applicant.API.Controllers
     public class AuthController : Controller
     {
         [HttpPost]
-        public IActionResult Login()
+        public IActionResult Login([FromBody]LoginModel loginModel)
         {
-            return  Ok(true);
+            return Json(new { accessToken = $"this will became an accessToken for {loginModel.UserName} soon!!!" });
         }
-
-    
     }
 }
