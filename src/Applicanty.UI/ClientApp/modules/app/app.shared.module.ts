@@ -11,18 +11,19 @@ import { ClarityModule } from 'clarity-angular';
 
 import { AuthModule, authRoutes } from '../auth/auth.module';
 
-import { LoginComponent } from '../auth/components/login/login.component';
-
 import { AuthService } from '../../services/auth.service';
+import { AuthGuard } from '../../services/authguard.service';
 
 import 'clarity-icons';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LoginComponent
+        AppComponent
     ],
-    providers: [AuthService],
+    providers: [
+        AuthService,
+        AuthGuard
+    ],
     imports: [
         AuthModule,
         CommonModule,

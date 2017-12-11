@@ -7,8 +7,7 @@
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
-                   [class.invalid]="authorizationFrom.get('userName').invalid
-                    && (authorizationFrom.get('userName').dirty || authorizationFrom.get('userName').touched)">
+                   [class.invalid]="authorizationFrom.get('userName')?.invalid && (authorizationFrom.get('userName')?.dirty || authorizationFrom.get('userName')?.touched)">
                 <input class="form-control" type="text" formControlName="userName" placeholder="User name">
                 <span class="tooltip-content">
                     Name is required.
@@ -18,8 +17,7 @@
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
-                   [class.invalid]="authorizationFrom.get('userPassword').invalid
-                    && (authorizationFrom.get('userPassword').dirty || authorizationFrom.get('userPassword').touched)">
+                   [class.invalid]="authorizationFrom.get('userPassword')?.invalid && (authorizationFrom.get('userPassword')?.dirty || authorizationFrom.get('userPassword')?.touched)">
                 <input class="form-control" type="password" formControlName="userPassword" placeholder="Password">
                 <span class="tooltip-content">
                     Password is required.
