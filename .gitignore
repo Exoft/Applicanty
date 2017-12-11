@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /src/Applicanty.Data/Migrations/
+/src/Applicanty.API/tempkey.rsa

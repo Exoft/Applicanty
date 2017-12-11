@@ -8,14 +8,20 @@ using Applicanty.Data.Services;
 using Applicanty.Data.Repositories;
 using Applicanty.Data.UnitOfWork.Interface;
 using Applicanty.Data.UnitOfWork.Services;
+using Applicanty.API;
 
 namespace Applicant.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -46,6 +52,27 @@ namespace Applicant.API
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
             });
 
+            // configure identity server with in-memory stores, keys, clients and scopes
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryIdentityResources(AuthConfig.GetIdentityResources())
+                .AddInMemoryApiResources(AuthConfig.GetApiResources())
+                .AddInMemoryClients(AuthConfig.GetClients())
+                .AddTestUsers(AuthConfig.GetUsers());
+
+            services.AddMvcCore()
+                .AddAuthorization()
+                .AddJsonFormatters();
+
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:8001";
+                    options.RequireHttpsMetadata = false;
+
+                    options.ApiName = "applicantyAPI";
+                });
+            
             services.AddCors();
             services.AddMvc();
         }
@@ -63,6 +90,10 @@ namespace Applicant.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Applicanty");
             });
+
+            app.UseIdentityServer();
+
+            app.UseAuthentication();
 
             app.UseCors(options => options.WithOrigins("http://localhost:8001").AllowAnyMethod().AllowAnyHeader());
 
