@@ -12,7 +12,9 @@ export class AuthService {
     }
 
     public login(loginData: any) {
-        localStorage.setItem('accessToken', 'here will be token soon');
+        this.http.post('http://localhost:8000/api/Auth', loginData).subscribe(data => {
+            localStorage.setItem('accessToken', data['accessToken'])
+        });
     }
 
     public logout() {
