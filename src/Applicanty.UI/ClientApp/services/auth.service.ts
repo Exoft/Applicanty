@@ -14,7 +14,7 @@ export class AuthService {
     public login(loginData: any) {
         this.http.post('http://localhost:8000/api/Auth', loginData).subscribe(data => {
             console.log(data);
-            localStorage.setItem('accessToken', 'here will be token soon');
+            localStorage.setItem('accessToken', data['accessToken'])
         });
     }
 
