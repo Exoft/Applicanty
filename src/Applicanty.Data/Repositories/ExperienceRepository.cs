@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Repositories
 {
-    public class ExperienceRepository : EntityBaseRepository<Experience, int>, IExperienceRepository
+    public class ExperienceRepository : PrimaryEntityRepository<Experience, int>, IExperienceRepository
     {
         public ExperienceRepository(AtsDbContext context) 
             : base(context)

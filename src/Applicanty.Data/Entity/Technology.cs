@@ -6,7 +6,7 @@ using Applicanty.Data.Entity.Abstract;
 
 namespace Applicanty.Data.Entity
 {
-    public class Technology:IEntity<int>
+    public class Technology:IPrimary<int>
     {
         public int Id { get; set; }
         [Required]
