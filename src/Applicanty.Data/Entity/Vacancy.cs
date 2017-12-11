@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Applicanty.Data.Entity.Abstract;
+using Applicanty.Data.Repositories;
 
 namespace Applicanty.Data.Entity
 {
-    public class Vacancy:IEntity<long>
+    public class Vacancy : Statable,IPrimary<long>
     {
         public long Id { get; set; }
         [Required, ForeignKey("User")]
@@ -24,7 +25,6 @@ namespace Applicanty.Data.Entity
         public int MaxSalary { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public bool IsArchived { get; set; }
 
         public User User { get; set; }
         public Experience Experiences { get; set; }

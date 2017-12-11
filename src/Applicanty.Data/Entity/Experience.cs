@@ -6,7 +6,7 @@ using Applicanty.Data.Entity.Abstract;
 
 namespace Applicanty.Data.Entity
 {
-    public class Experience :IEntity<int>
+    public class Experience :IPrimary<int>
     {
         public int Id { get; set; }
         [Required]

@@ -1,8 +1,9 @@
 ﻿using Applicanty.Data.Entity;
+using Applicanty.Data.Repositories.Abstract;
 
 namespace Applicanty.Data.Repositories
 { 
-    public interface ICandidateRepository : IEntityBaseRepository<Candidate, long>
+    public interface ICandidateRepository : IStatableRepository<Candidate, long>
     {
     }
 }

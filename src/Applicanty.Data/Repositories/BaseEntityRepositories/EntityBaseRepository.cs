@@ -10,8 +10,8 @@ namespace Applicanty.Data.Repositories
 {
     public class EntityBaseRepository<TEntity, TKey>: IEntityBaseRepository<TEntity, TKey> where TEntity : class
     {
-        private AtsDbContext _entities;
-        private readonly DbSet<TEntity> _dbSet;
+        protected AtsDbContext _entities;
+        protected readonly DbSet<TEntity> _dbSet;
         public EntityBaseRepository(AtsDbContext context)
         {
             _entities = context;

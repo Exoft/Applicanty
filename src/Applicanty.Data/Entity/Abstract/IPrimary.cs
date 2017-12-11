@@ -1,7 +1,7 @@
 ﻿
 namespace Applicanty.Data.Entity.Abstract
 {
-    public interface IEntity<TKey>
+    public interface IPrimary<TKey>
     {
         TKey Id { get; set; }
     }
