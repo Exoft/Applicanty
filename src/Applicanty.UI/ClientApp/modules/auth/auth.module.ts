@@ -7,12 +7,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
+import { LoginComponent } from './components/login/login.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
 export const authRoutes = [
-    { path: 'userpage', component: UserPageComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'profile', component: UserPageComponent }
 ];
 
 @NgModule({

@@ -31,11 +31,11 @@ import 'clarity-icons';
         ClarityModule.forRoot(),
         BrowserAnimationsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'userpage', pathMatch: 'full' },
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
 
             ...authRoutes,
-
-            { path: '**', redirectTo: 'userpage' }
+            
+            { path: '**', redirectTo: 'notfound' }
         ])
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
