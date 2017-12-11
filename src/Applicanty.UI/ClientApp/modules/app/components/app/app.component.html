@@ -1,4 +1,4 @@
-<login *ngIf="!authService.isAuthenticated()"></login>
+<router-outlet *ngIf="!authService.isAuthenticated()"></router-outlet>
 
 <div *ngIf="authService.isAuthenticated()" class="main-container">
     <header class="header-4">
@@ -15,7 +15,7 @@
                     <clr-icon shape="caret down"></clr-icon>
                 </button>
                 <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-                    <a [routerLink]="['userpage']" clrDropdownItem>Profile</a>
+                    <a [routerLink]="['profile']" clrDropdownItem>Profile</a>
                     <a href clrDropdownItem (click)="logoutClick($event)">Log out</a>
                 </clr-dropdown-menu>
             </clr-dropdown>
@@ -23,7 +23,7 @@
     </header>
     <div class="content-container">
         <div class="content-area">
-            <router-outlet *ngIf="authService.isAuthenticated()"></router-outlet>
+            <router-outlet></router-outlet>
         </div>
         <nav class="sidenav">
             <section class="sidenav-content">

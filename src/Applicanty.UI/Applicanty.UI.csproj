@@ -26,9 +26,11 @@
   <ItemGroup>
     <None Remove=".gitignore" />
     <None Remove="ClientApp\modules\app\components\app\http.service.ts" />
+    <None Remove="ClientApp\modules\auth\components\user-page\user-page.guard.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\services\authguard.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
   </ItemGroup>
 
