@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Repositories
 {
-    public class VacancyRepository: StatableRepository<Vacancy, long>, IVacancyRepository
+    public class VacancyRepository: StateableRepository<Vacancy, long>, IVacancyRepository
     {
         public VacancyRepository(AtsDbContext context) 
             : base(context)

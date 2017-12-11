@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Applicanty.Data.Repositories
 {
-    public class StatableRepository<TEntity, TKey> : PrimaryEntityRepository<TEntity, TKey>
+    public class StateableRepository<TEntity, TKey> : PrimaryEntityRepository<TEntity, TKey>
         where TEntity : class, IPrimary<TKey>, IStatable
         where TKey : IEquatable<TKey>
     {
-        public StatableRepository(AtsDbContext context) : base(context)
+        public StateableRepository(AtsDbContext context) : base(context)
         {
         }
 

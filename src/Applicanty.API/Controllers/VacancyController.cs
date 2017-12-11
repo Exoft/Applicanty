@@ -26,16 +26,16 @@ namespace Applicanty.API.Controllers
             var vacancy = _vacancyService.GetOne(id);
             if (vacancy == null)
             {
-                return new OkObjectResult("Db Empty");
+                return BadRequest();
             }
-            return new OkObjectResult(vacancy);
+            return Json(vacancy);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             var vacancy = _vacancyService.GetAll();
-            return new OkObjectResult(vacancy);
+            return Json(vacancy);
         }
 
         [HttpPost("{model}")]

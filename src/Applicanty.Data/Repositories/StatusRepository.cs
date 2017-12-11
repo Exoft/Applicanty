@@ -2,7 +2,7 @@
 
 namespace Applicanty.Data.Repositories
 {
-    public class StatusRepository : StatableRepository<Status, int>, IStatusRepository
+    public class StatusRepository : StateableRepository<Status, int>, IStatusRepository
     {
         public StatusRepository(AtsDbContext context) 
             : base(context)
