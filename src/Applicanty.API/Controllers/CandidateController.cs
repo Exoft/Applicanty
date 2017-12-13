@@ -4,67 +4,67 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Applicanty.Data.Services;
 using Applicanty.Data.Entity;
+using Applicanty.Data.Services;
 
 namespace Applicanty.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Vacancy")]
-    public class VacancyController : Controller
+    [Route("api/Candidate")]
+    public class CandidateController : Controller
     {
-        IVacancyService _vacancyService;
+        ICandidateService _candidateService;
 
-        public VacancyController(IVacancyService vacancyService)
+        public CandidateController(ICandidateService CandidateService)
         {
-            _vacancyService = vacancyService;
+            _candidateService = CandidateService;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var vacancy = _vacancyService.GetOne(id);
-            if (vacancy == null)
+            var Candidate = _candidateService.GetOne(id);
+            if (Candidate == null)
             {
                 return BadRequest();
             }
-            return Json(vacancy);
+            return Json(Candidate);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var vacancy = _vacancyService.GetAll();
-            return Json(vacancy);
+            var Candidate = _candidateService.GetAll();
+            return Json(Candidate);
         }
 
         [HttpPost("{model}")]
-        public IActionResult Create(Vacancy model)
+        public IActionResult Create(Candidate model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(model);
             }
-            _vacancyService.Create(model);
+            _candidateService.Create(model);
             return Ok();
         }
 
         [HttpPut("{model}")]
-        public IActionResult Edit(Vacancy model)
+        public IActionResult Edit(Candidate model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(model);
             }
-            _vacancyService.Create(model);
+            _candidateService.Create(model);
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Archive(long id)
         {
-            _vacancyService.Archive(id);
-            return Ok(); 
+            _candidateService.Archive(id);
+            return Ok();
         }
     }
 }
