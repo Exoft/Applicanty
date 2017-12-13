@@ -10,7 +10,7 @@ export class AuthService {
     public isAuthenticated() {
         let accessToken = localStorage.getItem('accessToken');
 
-        return accessToken !== 'undefined' && accessToken !== null;
+        return accessToken !== 'undefined' && accessToken !== undefined && accessToken !== null;
     }
 
     public login(loginData: any) {

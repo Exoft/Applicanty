@@ -6,5 +6,5 @@
     styleUrls: ['./vacancies.component.scss']
 })
 export class VacanciesComponent {
-    @Input() Salary: number = 150;
+    @Input() salary: number = 150;
 }
