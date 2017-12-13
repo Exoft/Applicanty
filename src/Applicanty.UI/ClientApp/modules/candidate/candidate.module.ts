@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+﻿import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -7,21 +7,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
-import { LoginComponent } from './components/login/login.component';
-import { UserPageComponent } from './components/user-page/user-page.component';
+import { CandidateComponent } from '../candidate/components/candidate.component';
 import { AuthGuard } from '../../services/authguard.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
-export const authRoutes = [
-    { path: 'profile', component: UserPageComponent, canActivate: [AuthGuard]},
-    { path: 'login', component: LoginComponent }
+export const candidateRoutes = [
+    { path: 'candidate', component: CandidateComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
     declarations: [
-        UserPageComponent,
-        LoginComponent
+        CandidateComponent
     ],
     imports: [
         CommonModule,
@@ -31,5 +28,5 @@ export const authRoutes = [
         HttpClientModule
     ]
 })
-export class AuthModule {
+export class CandidateModule {
 }

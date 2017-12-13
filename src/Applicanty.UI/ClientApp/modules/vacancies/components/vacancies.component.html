@@ -1,0 +1,71 @@
+﻿<div class="content-container">
+    <div class="content-area">
+        <div align="right"><button class="btn btn-success" align="rigth">+ Create new vacancy</button></div>
+       <div align="center"><input type="search" placeholder="search vacancies" class="search"/></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-header">
+                        Vacancy Title
+                    </div>
+                    <div class="card-block">
+                        <div class="card-title">
+                            Project description: Platinium Group (PG) occupies a prominent role in the ticketing industry. Interacting with some of the biggest names of the Sports and Entertainment businesses, the company provides its powerful technology to international event organizers across the world such as Formula1, MotoGP/Motocross.
+                        </div>
+                        <div class="card-text">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-header">
+                        Vacancy Title
+                    </div>
+                    <div class="card-block">
+                        <div class="card-title">
+                            Project description: Platinium Group (PG) occupies a prominent role in the ticketing industry. Interacting with some of the biggest names of the Sports and Entertainment businesses, the company provides its powerful technology to international event organizers across the world such as Formula1, MotoGP/Motocross.
+                        </div>
+                        <div class="card-text">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="sidenav">
+        <section class="sidenav-content">
+            <table border="1" width="100%">
+              <p>Type of employment</p>
+                <div class="form-group">
+                    <select id="selects_2">
+                        <option>full time</option>
+                        <option>San Francisco</option>
+                    </select>
+                    <p>Exsperience</p>
+                    <div class="form-group">
+                        <select id="selects_2">
+                            <option>1-2years</option>
+                            <option>San Francisco</option>
+                        </select>
+                    </div>
+                    <p>Education</p>
+                    <div class="form-group">
+                        <select id="selects_2">
+                            <option>highter</option>
+                            <option>San Francisco</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <p>Salary:</p><div class="class-decorator salary">{{salary}}<span>$</span></div>
+                </div>
+                <input type="range" class="range" [(ngModel)]="salary" min="150" max="300" placeholder="150$">
+            </table>
+        </section>
+    </nav>
+</div>

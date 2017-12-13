@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
 import { AuthModule, authRoutes } from '../auth/auth.module';
+import { VacanciesModule, vacanciesRoutes } from '../vacancies/vacancies.module';
+import { CandidateModule, candidateRoutes } from '../candidate/candidate.module';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../services/authguard.service';
@@ -26,15 +28,21 @@ import 'clarity-icons';
     ],
     imports: [
         AuthModule,
+        VacanciesModule,
+        CandidateModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         ClarityModule.forRoot(),
         BrowserAnimationsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: '', redirectTo: 'vacancies', pathMatch: 'full' },
 
             ...authRoutes,
+
+            ...vacanciesRoutes,
+
+            ...candidateRoutes,
             
             { path: '**', redirectTo: 'notfound' }
         ])
