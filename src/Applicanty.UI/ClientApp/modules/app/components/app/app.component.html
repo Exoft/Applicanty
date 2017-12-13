@@ -1,11 +1,24 @@
 <router-outlet *ngIf="!authService.isAuthenticated()"></router-outlet>
-
 <div *ngIf="authService.isAuthenticated()" class="main-container">
     <header class="header-4">
         <div class="branding">
             <a href="/" class="nav-link">
                 <clr-icon shape="vm-bug"></clr-icon>
                 <span class="title">Applicanty</span>
+            </a>
+        </div>
+        <div class="header-nav">
+            <a class="nav-link" [routerLink]="['vacancies']" routerLinkActive="active">
+                <span class="nav-text">Vacancies</span>
+            </a>
+            <a class="nav-link" [routerLink]="['candidate']" routerLinkActive="active">
+                <span class="nav-text">Candidate</span>
+            </a>
+            <a class="nav-link" routerLinkActive="active">
+                <span class="nav-text">Contacts</span>
+            </a>
+            <a class="nav-link" routerLinkActive="active">
+                <span class="nav-text">About</span>
             </a>
         </div>
         <div class="header-actions">
@@ -21,17 +34,6 @@
             </clr-dropdown>
         </div>
     </header>
-    <div class="content-container">
-        <div class="content-area">
-            <router-outlet></router-outlet>
-        </div>
-        <nav class="sidenav">
-            <section class="sidenav-content">
-                <a [routerLink]="['userpage']" class="nav-link" routerLinkActive="active">
-                    Profile
-                </a>
-            </section>
-        </nav>
-    </div>
+    <router-outlet></router-outlet>
 </div>
 

@@ -10,16 +10,15 @@ export class AuthService {
     public isAuthenticated() {
         let accessToken = localStorage.getItem('accessToken');
 
-        return accessToken !== undefined && accessToken !== null;
+        return accessToken !== 'undefined' && accessToken !== null;
     }
 
     public login(loginData: any) {
         let that = this;
-
         that.http.post('http://localhost:8000/api/Auth', loginData).subscribe(data => {
             localStorage.setItem('accessToken', data['access_token']);
 
-            that.router.navigate(['profile']);
+            that.router.navigate(['vacancies']);
         });
     }
 

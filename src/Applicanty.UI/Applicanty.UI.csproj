@@ -27,9 +27,16 @@
     <None Remove=".gitignore" />
     <None Remove="ClientApp\modules\app\components\app\http.service.ts" />
     <None Remove="ClientApp\modules\auth\components\user-page\user-page.guard.ts" />
+    <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
+    <None Remove="ClientApp\modules\candidate\candidate.module.ts" />
+    <None Remove="ClientApp\modules\candidate\components\candidate.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\modules\candidate\candidate.module.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\candidate\components\candidate.component.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\vacancies\components\vacancies.component.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\vacancies\vacancies.module.ts" />
     <TypeScriptCompile Include="ClientApp\services\authguard.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
   </ItemGroup>
