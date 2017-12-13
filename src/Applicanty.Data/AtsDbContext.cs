@@ -21,7 +21,6 @@ namespace Applicanty.Data
                 
         }
 
-
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    base.OnModelCreating(builder);

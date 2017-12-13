@@ -9,7 +9,7 @@ namespace Applicanty.Data
         public AtsDbContext Create(DbContextFactoryOptions options)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AtsDbContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=AtsDb;AttachDbFilename=|DataDirectory|\\AtsDB.mdf;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=AtsDB;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             return new AtsDbContext(optionsBuilder.Options);
         }

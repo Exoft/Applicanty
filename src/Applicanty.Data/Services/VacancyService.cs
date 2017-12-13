@@ -1,9 +1,7 @@
 ﻿using Applicanty.Data.Entity;
 using Applicanty.Data.Repositories;
 using Applicanty.Data.UnitOfWork.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Applicanty.Data.Services
 {
