@@ -26,7 +26,8 @@ export const vacanciesRoutes = [
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class VacanciesModule {
 }

@@ -17,6 +17,7 @@ import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../services/authguard.service';
 
 import 'clarity-icons';
+import 'clarity-icons/shapes/all-shapes';
 
 @NgModule({
     declarations: [

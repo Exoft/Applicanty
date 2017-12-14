@@ -1,7 +1,37 @@
-﻿<div class="candidate-container">
-    <div class="button-container">
-        <button class="btn btn-success">Create</button>
-        <button class="btn btn-warning">Delete Marked</button>
+﻿<div class="content-container">
+    <div class="content-area">
+        <clr-datagrid>
+            <clr-dg-action-bar>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-success-outline">
+                        <clr-icon shape="plus"></clr-icon>
+                        Add
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger-outline">
+                        <clr-icon shape="close"></clr-icon>
+                        Delete
+                    </button>
+                </div>
+            </clr-dg-action-bar>
+
+            <clr-dg-column>Name</clr-dg-column>
+            <clr-dg-column>Expirions Level</clr-dg-column>
+            <clr-dg-column>Last Vacancy</clr-dg-column>
+            <clr-dg-column>Email</clr-dg-column>
+            <clr-dg-column>LinkedIn</clr-dg-column>
+            <clr-dg-column>Phone</clr-dg-column>
+            <clr-dg-column>Age</clr-dg-column>
+
+            <clr-dg-row *ngFor="let candidate of candidates">
+                <clr-dg-cell>{{candidate.name}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate.experienceLevel}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate.lastVacancy}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate.email}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate.linkedIn}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate.phone}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate.age}}</clr-dg-cell>
+            </clr-dg-row>
+            <!--<clr-dg-footer>{{users.length}} users</clr-dg-footer>-->
+        </clr-datagrid>
     </div>
-    <input type="search" placeholder="search vacancies" class="search" />
 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClarityIcons } from 'clarity-icons';
 
 import { AuthService } from '../../../../services/auth.service';
 
