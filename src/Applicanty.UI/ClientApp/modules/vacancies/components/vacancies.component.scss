@@ -2,23 +2,22 @@
     display: inline-block;
     border: 1px solid black;
 }
+
 table {
     margin-left: 10px;
     padding-left: 30px;
 }
-.search {
-    width: 500px;
-    background-image: url(https://cdn3.iconfinder.com/data/icons/miniglyphs/500/014-20.png);
-    background-repeat: no-repeat;
-    background-position: right;
-    border-radius: 15px;
-}
-.range{
+
+.range {
     margin-top: 5px;
 }
+
 .salary {
     width: 40px;
     height: 25px;
 }
 
-
+.search-input {
+    margin-left: -20px;
+    padding-left: 20px;
+}

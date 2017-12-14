@@ -25,8 +25,11 @@ export const candidateRoutes = [
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
+        ClarityModule.forRoot(),
+        BrowserAnimationsModule,
         HttpClientModule
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CandidateModule {
 }
