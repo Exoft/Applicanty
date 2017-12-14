@@ -7,18 +7,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
-import { CandidateComponent } from '../candidate/components/candidate.component';
+import { CandidatesListComponent } from '../candidates/components/candidates-list/candidates-list.component';
 import { AuthGuard } from '../../services/authguard.service';
+
+import { CandidatesDataService } from './services/candidates-data.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
 export const candidateRoutes = [
-    { path: 'candidate', component: CandidateComponent, canActivate: [AuthGuard] }
+    { path: 'candidates', component: CandidatesListComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
     declarations: [
-        CandidateComponent
+        CandidatesListComponent
+    ],
+    providers: [
+        CandidatesDataService
     ],
     imports: [
         CommonModule,
@@ -31,5 +36,5 @@ export const candidateRoutes = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CandidateModule {
+export class CandidatesModule {
 }
