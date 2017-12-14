@@ -21,10 +21,13 @@ namespace Applicanty.Data
                 
         }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\\mssqllocaldb;Initial Catalog=TutorialsTeam;Integrated Security=True");
+            }
+        }
 
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
