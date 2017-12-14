@@ -7,18 +7,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
-import { VacanciesComponent } from '../vacancies/components/vacancies.component';
+import { VacanciesListComponent } from '../vacancies/components/vacancies-list/vacancies-list.component';
 import { AuthGuard } from '../../services/authguard.service';
+
+import { VacanciesDataService } from './services/vacancies-data.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
 export const vacanciesRoutes = [
-    { path: 'vacancies', component: VacanciesComponent, canActivate: [AuthGuard] }
+    { path: 'vacancies', component: VacanciesListComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
     declarations: [
-        VacanciesComponent
+        VacanciesListComponent
+    ],
+    providers: [
+        VacanciesDataService
     ],
     imports: [
         CommonModule,

@@ -1,11 +1,10 @@
 ﻿import { Component } from '@angular/core';
 
 @Component({
-    selector: 'candidate',
-    templateUrl: './candidate.component.html',
-    styleUrls: ['./candidate.component.scss']
+    templateUrl: './candidates-list.component.html',
+    styleUrls: ['./candidates-list.component.scss']
 })
-export class CandidateComponent {
+export class CandidatesListComponent {
 
     candidates: any[] = [
         {
