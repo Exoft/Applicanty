@@ -1,10 +1,10 @@
 ﻿using Applicanty.Data.Entity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Applicanty.Data;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace Applicanty.Data
 {
@@ -18,7 +18,7 @@ namespace Applicanty.Data
 
         public AtsDbContext()
         {
-                
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
