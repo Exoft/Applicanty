@@ -9,41 +9,9 @@
                 <input type="text" class="search-input" id="search" placeholder="Search" size="50" />
             </label>
         </div>
-
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="card-header">
-                        Vacancy Title
-                    </div>
-                    <div class="card-block">
-                        <div class="card-title">
-                            Project description: Platinium Group (PG) occupies a prominent role in the ticketing industry. Interacting with some of the biggest names of the Sports and Entertainment businesses, the company provides its powerful technology to international event organizers across the world such as Formula1, MotoGP/Motocross.
-                        </div>
-                        <div class="card-text">
-                            ...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="card-header">
-                        Vacancy Title
-                    </div>
-                    <div class="card-block">
-                        <div class="card-title">
-                            Project description: Platinium Group (PG) occupies a prominent role in the ticketing industry. Interacting with some of the biggest names of the Sports and Entertainment businesses, the company provides its powerful technology to international event organizers across the world such as Formula1, MotoGP/Motocross.
-                        </div>
-                        <div class="card-text">
-                            ...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <vacancy *ngFor="let item of vacanciesList" 
+                 [vacancy]="item">
+        </vacancy>
     </div>
     <nav class="sidenav">
         <section class="sidenav-content">
