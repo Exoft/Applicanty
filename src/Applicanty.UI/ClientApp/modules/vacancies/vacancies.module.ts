@@ -9,6 +9,7 @@ import { ClarityModule } from 'clarity-angular';
 
 import { VacanciesListComponent } from '../vacancies/components/vacancies-list/vacancies-list.component';
 import { AuthGuard } from '../../services/authguard.service';
+import { VacancyComponent } from '../vacancies/components/vacancy/vacancy.component';
 
 import { VacanciesDataService } from './services/vacancies-data.service';
 
@@ -20,7 +21,9 @@ export const vacanciesRoutes = [
 
 @NgModule({
     declarations: [
-        VacanciesListComponent
+        VacanciesListComponent,
+        VacancyComponent
+        //here will be vacancy component and vacancy's page
     ],
     providers: [
         VacanciesDataService
