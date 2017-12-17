@@ -3,8 +3,7 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
 
 @Component({
     templateUrl: './candidates-list.component.html',
-    styleUrls: ['./candidates-list.component.scss'],
-    providers: [CandidatesDataService]
+    styleUrls: ['./candidates-list.component.scss']
 })
 export class CandidatesListComponent implements OnInit {
     candidates = [];
