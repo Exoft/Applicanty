@@ -1,6 +1,7 @@
 ﻿import { Component, Input, OnInit } from '@angular/core';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 
+
 @Component({
     templateUrl: './vacancies-list.component.html',
     styleUrls: ['./vacancies-list.component.scss'],
