@@ -29,6 +29,8 @@ namespace Applicant.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddDbContext<AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserServices, UserSerices>();
@@ -67,19 +69,20 @@ namespace Applicant.API
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:8001";
+                    options.Authority = "http://localhost:8000";
                     options.RequireHttpsMetadata = false;
 
                     options.ApiName = "applicantyAPI";
                 });
-            
-            services.AddCors();
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(options => options.WithOrigins("http://localhost:8001").AllowAnyMethod().AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,8 +97,6 @@ namespace Applicant.API
             app.UseIdentityServer();
 
             app.UseAuthentication();
-
-            app.UseCors(options => options.WithOrigins("http://localhost:8001").AllowAnyMethod().AllowAnyHeader());
 
             app.UseMvc();
         }

@@ -15,11 +15,15 @@ namespace Applicant.API
         {
             //Use that method if you want to seed database
             //SeedDb(args);
+            
+            var host = new WebHostBuilder()
+               .UseKestrel()
+               .UseContentRoot(Directory.GetCurrentDirectory())
+               .UseIISIntegration()
+               .UseStartup<Startup>()
+               .Build();
 
-            WebHost.CreateDefaultBuilder()
-                .UseStartup<Startup>()
-                .Build()
-                .Run();
+            host.Run();
         }
 
         // Only used by EF Tooling
