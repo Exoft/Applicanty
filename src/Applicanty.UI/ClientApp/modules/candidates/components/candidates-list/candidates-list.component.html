@@ -1,6 +1,6 @@
 ﻿<div class="content-container">
     <div class="content-area">
-        <clr-datagrid>
+        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
             <clr-dg-action-bar>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-success-outline">
@@ -15,7 +15,7 @@
             </clr-dg-action-bar>
 
             <clr-dg-column>Name</clr-dg-column>
-            <clr-dg-column>Expirions Level</clr-dg-column>
+            <clr-dg-column>Experience Level</clr-dg-column>
             <clr-dg-column>Last Vacancy</clr-dg-column>
             <clr-dg-column>Email</clr-dg-column>
             <clr-dg-column>LinkedIn</clr-dg-column>
@@ -32,6 +32,11 @@
                 <clr-dg-cell>{{candidate.age}}</clr-dg-cell>
             </clr-dg-row>
             <!--<clr-dg-footer>{{users.length}} users</clr-dg-footer>-->
+            <clr-dg-footer>
+                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                of {{pagination.totalItems}} users
+                <clr-dg-pagination #pagination [clrDgPageSize]="50"></clr-dg-pagination>
+            </clr-dg-footer>
         </clr-datagrid>
     </div>
 </div>

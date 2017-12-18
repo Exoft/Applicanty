@@ -13,7 +13,7 @@ export class VacanciesDataService {
     }
 
     public getVacancies(): Observable<any> {
-        return this.http.get('http://localhost:8000/api/Vacancy', { headers: this.authService.getAuthenticationHeader() });
+        return this.http.get('http://localhost:8000/api/vacancy', { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getVacancy(vacancyId: any): Observable<any> {

@@ -1,70 +1,108 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Applicanty.API.Models.Response;
 using Applicanty.Data.Entity;
 using Applicanty.Data.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
 
 namespace Applicanty.API.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Candidate")]
+    [Route("api/[controller]")]
     public class CandidateController : Controller
     {
         ICandidateService _candidateService;
 
-        public CandidateController(ICandidateService CandidateService)
+        public CandidateController(ICandidateService candidateService)
         {
-            _candidateService = CandidateService;
+            _candidateService = candidateService;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var Candidate = _candidateService.GetOne(id);
-            if (Candidate == null)
+            try
             {
-                return BadRequest();
+                var candidate = _candidateService.GetOne(id);
+
+                if (candidate == null)
+                {
+                    return BadRequest();
+                }
+
+                return Json(candidate);
             }
-            return Json(Candidate);
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+            }
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var Candidate = _candidateService.GetAll();
-            return Json(Candidate);
+            try
+            {
+                return Json(_candidateService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+            }
         }
 
         [HttpPost("{model}")]
         public IActionResult Create(Candidate model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(model);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                _candidateService.Create(model);
+
+                return Ok();
             }
-            _candidateService.Create(model);
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+            }
         }
 
         [HttpPut("{model}")]
         public IActionResult Edit(Candidate model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(model);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                _candidateService.Create(model);
+
+                return Ok();
             }
-            _candidateService.Create(model);
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult Archive(long id)
         {
-            _candidateService.Archive(id);
-            return Ok();
+            try
+            {
+                _candidateService.Archive(id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+            }
         }
     }
 }
