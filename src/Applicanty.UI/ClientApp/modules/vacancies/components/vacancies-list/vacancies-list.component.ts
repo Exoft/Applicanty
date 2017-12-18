@@ -11,9 +11,9 @@ export class VacanciesListComponent implements OnInit {
 
     vacanciesList = [];
 
-    constructor(private http: VacanciesDataService) { }
+    constructor(private vacanciesDataService: VacanciesDataService) { }
     ngOnInit() {
-        this.http.getVacancies().subscribe(data => this.vacanciesList = data);
+        this.vacanciesDataService.getVacancies().subscribe(data => this.vacanciesList = data);
             //.subscribe(data => console.log(data));
     }
 }
