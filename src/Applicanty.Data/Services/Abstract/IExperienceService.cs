@@ -1,8 +1,9 @@
 ﻿using Applicanty.Data.Entity;
+using Applicanty.Data.Services.Abstract;
 
 namespace Applicanty.Data.Services
 {
-    public interface IExperienceService:IEntityService<Experience>
+    public interface IExperienceService: IPimaryServices<Experience, int>
     {
     }
 }

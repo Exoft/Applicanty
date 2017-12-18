@@ -21,29 +21,6 @@ namespace Applicanty.Data.Repositories
         /// <summary>
         /// Returns a single object with a primary key of the provided id
         /// </summary>
-        /// <remarks>Synchronous</remarks>
-        /// <param name="id">The primary key of the object to fetch</param>
-        /// <returns>A single object with the provided primary key or null</returns>
-        public TEntity GetOne(TKey id)
-        {
-                return _dbSet.Find(id);
-        }
-
-        /// <summary>
-        /// Returns a single object which matches the provided expression
-        /// </summary>
-        /// <remarks>Synchronous</remarks>
-        /// <param name="predicate">A Linq expression filter to find a single result</param>
-        /// <returns>A single object which matches the expression filter. 
-        /// If more than one object is found or if zero are found, null is returned</returns>
-        public TEntity GetOne(Expression<Func<TEntity, bool>> predicate)
-        {
-                return _dbSet.FirstOrDefault(predicate.Compile());
-        }
-
-        /// <summary>
-        /// Returns a single object with a primary key of the provided id
-        /// </summary>
         /// <remarks>Asynchronous</remarks>
         /// <param name="id">The primary key of the object to fetch</param>
         /// <returns>A single object with the provided primary key or null</returns>
@@ -100,21 +77,6 @@ namespace Applicanty.Data.Repositories
         }
 
         /// <summary>
-        /// Inserts a single object to the database and commits the change
-        /// </summary>
-        /// <remarks>Asynchronous</remarks>
-        /// <param name="entity">The object to insert</param>
-        /// <returns>The resulting object including its primary key after the insert</returns>
-        //public  async Task AddAsync(TEntity entity)
-        //{
-        //    using (var db = new DataContextProvider())
-        //    {
-        //        _dbSet.Add(entity);
-        //        await db.SaveChangesAsync();
-        //    }
-        //}
-
-        /// <summary>
         /// Inserts a collection of objects into the database and commits the changes
         /// </summary>
         /// <remarks>Synchronous</remarks>
@@ -125,17 +87,7 @@ namespace Applicanty.Data.Repositories
             _dbSet.AddRange(entityList);
         }
 
-        /// <summary>
-        /// Inserts a collection of objects into the database and commits the changes
-        /// </summary>
-        /// <remarks>Asynchronous</remarks>
-        /// <param name="entityList">An IEnumerable list of objects to insert</param>
-        /// <returns>The IEnumerable resulting list of inserted objects including the primary keys</returns>
-        public void AddAllAsync(IEnumerable<TEntity> entityList)
-        {
-                _dbSet.AddRange(entityList);
-        }
-
+    
         public  void Update(TEntity entity)
         {
             _entities.Entry(entity).State = EntityState.Modified;

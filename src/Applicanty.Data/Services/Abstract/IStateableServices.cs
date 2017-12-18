@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Applicanty.Data.Repositories.Abstract
+
+namespace Applicanty.Data.Services.Abstract
 {
-    public interface IStatableRepository<TEntity, TKey> : IPrimaryEntityRepository<TEntity, TKey>
-        where TEntity : class, IPrimary<TKey>, IStateable
-        where TKey : IEquatable<TKey>
+    public interface IStateableServices<TEntity, TKey> : IPimaryServices<TEntity, TKey>
+        where TEntity : class 
+        where TKey: IEquatable<TKey>
     {
         void Archive(TKey id);
         void Archive(ICollection<TEntity> list);
