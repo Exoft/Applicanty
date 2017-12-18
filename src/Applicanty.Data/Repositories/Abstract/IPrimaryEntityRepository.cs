@@ -1,6 +1,7 @@
 ﻿using Applicanty.Data.Entity.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Applicanty.Data.Repositories.Abstract
@@ -10,6 +11,6 @@ namespace Applicanty.Data.Repositories.Abstract
         where TKey : IEquatable<TKey>
     {
         TEntity GetOne(TKey id);
-
+        TEntity GetOne(Expression<Func<TEntity, bool>> predicate);
     }
 }

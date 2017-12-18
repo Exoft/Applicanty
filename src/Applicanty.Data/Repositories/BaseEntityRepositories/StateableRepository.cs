@@ -8,7 +8,7 @@ using System.Text;
 namespace Applicanty.Data.Repositories
 {
     public class StateableRepository<TEntity, TKey> : PrimaryEntityRepository<TEntity, TKey>
-        where TEntity : class, IPrimary<TKey>, IStatable
+        where TEntity : class, IPrimary<TKey>, IStateable
         where TKey : IEquatable<TKey>
     {
         public StateableRepository(AtsDbContext context) : base(context)

@@ -1,9 +1,9 @@
 ﻿using Applicanty.Data.Entity;
+using Applicanty.Data.Services.Abstract;
 
 namespace Applicanty.Data.Services
 {
-    public interface ITechnologyService: IEntityService<Technology>
+    public interface ITechnologyService: IPimaryServices<Technology, int>
     {
-        Technology GetById(int Id);
     }
 }

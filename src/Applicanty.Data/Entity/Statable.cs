@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Applicanty.Data.Repositories
 {
-    public abstract class Statable : IStatable
+    public abstract class Statable : IStateable
     {
         public bool IsArchived { get; set; }
     }

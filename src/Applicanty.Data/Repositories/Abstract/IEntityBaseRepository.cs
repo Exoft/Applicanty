@@ -2,12 +2,11 @@
 
 namespace Applicanty.Data.Repositories
 { 
-    public interface IEntityBaseRepository<TRespository, TKey> where TRespository : class
+    public interface IEntityBaseRepository<TEntity, TKey> where TEntity : class
     {
-        TRespository GetOne(TKey id);
-        ICollection<TRespository> GetAll();
-        void Add(TRespository entity);
-        void Update(TRespository entity);
+        ICollection<TEntity> GetAll();
+        void Add(TEntity entity);
+        void Update(TEntity entity);
         int Count();
     }
 }

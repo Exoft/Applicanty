@@ -9,6 +9,8 @@ using Applicanty.Data.Repositories;
 using Applicanty.Data.UnitOfWork.Interface;
 using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.API;
+using Applicanty.Data.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Applicant.API
 {
@@ -54,13 +56,18 @@ namespace Applicant.API
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
             });
 
+            services.AddIdentity<User, IdentityRole<long>>()
+                .AddEntityFrameworkStores<AtsDbContext>()
+                .AddDefaultTokenProviders();
+
             // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryIdentityResources(AuthConfig.GetIdentityResources())
                 .AddInMemoryApiResources(AuthConfig.GetApiResources())
                 .AddInMemoryClients(AuthConfig.GetClients())
-                .AddTestUsers(AuthConfig.GetUsers());
+                .AddTestUsers(AuthConfig.GetUsers())
+                .AddAspNetIdentity<User>(); 
 
             services.AddMvcCore()
                 .AddAuthorization()
