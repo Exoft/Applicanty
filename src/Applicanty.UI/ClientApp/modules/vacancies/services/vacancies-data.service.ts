@@ -13,22 +13,22 @@ export class VacanciesDataService {
     }
 
     public getVacancies(): Observable<any> {
-        return this.http.get('http://localhost:8000/api/Vacancy', { headers: this.authService.getAuthenticationHeader() });
+        return this.http.get('http://localhost:8000/api/vacancy', { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getVacancy(vacancyId: any): Observable<any> {
-        return this.http.get('http://localhost:8000/api/Vacancy/' + vacancyId);//, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.get('http://localhost:8000/api/vacancy/' + vacancyId,{ headers: this.authService.getAuthenticationHeader() });
     }
 
     public createVacancy(vacancy: any): Observable<any> {
-        return this.http.post('http://localhost:8000/api/Vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.post('http://localhost:8000/api/vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public updateVacancy(vacancy: any): Observable<any> {
-        return this.http.put('http://localhost:8000/api/Vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.put('http://localhost:8000/api/vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public deleteVacancy(vacancyId: any): Observable<any> {
-        return this.http.delete('http://localhost:8000/api/Vacancy/' + vacancyId, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.delete('http://localhost:8000/api/vacancy/' + vacancyId, { headers: this.authService.getAuthenticationHeader() });
     }
 }

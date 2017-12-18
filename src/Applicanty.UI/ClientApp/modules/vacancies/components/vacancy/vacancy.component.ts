@@ -12,7 +12,6 @@ export class VacancyComponent {
     constructor(private route: Router){}
 
     public onClick(vacancyId: number) {
-        console.log("Hello:  " + vacancyId);
         this.route.navigate(['vacancy', vacancyId]);
 }
 }
