@@ -8,9 +8,9 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
 export class CandidatesListComponent implements OnInit {
     candidates = [];
 
-    constructor(private http: CandidatesDataService) { }
+    constructor(private сandidatesDataService: CandidatesDataService) { }
     ngOnInit() {
-        this.http.getCandidates().subscribe(data => this.candidates = data);
+        this.сandidatesDataService.getCandidates().subscribe(data => this.candidates = data);
     }
     //candidates: any[] = [
     //    {
