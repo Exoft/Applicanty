@@ -11,7 +11,7 @@ namespace Applicanty.Data.Entity
     {
         public long Id { get; set; }
         [Required, ForeignKey("Experience")]
-        public int IdExperience { get; set; }
+        public int ExperienceId { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -25,8 +25,8 @@ namespace Applicanty.Data.Entity
         public string CVPath { get; set; }
         public DateTime UpdateOn { get; set; }
 
-        public Experience Experiences { get; set; }
-        public ICollection<VacancyCandidate> VacancyCandidats { get; set; }
-        public ICollection<CandidateTechnology> CanditatTechnologies { get; set; }
+        public Experience Experience { get; set; }
+        public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
+        public ICollection<CandidateTechnology> CandidateTechnologies { get; set; }
     }
 }

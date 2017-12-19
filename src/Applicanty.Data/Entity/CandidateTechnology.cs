@@ -5,7 +5,7 @@
         public int TechnologyId { get; set; }
         public Technology Technology { get; set; }
 
-        public long CandidatId  { get; set; }
+        public long CandidateId  { get; set; }
         public Candidate Candidate { get; set; }
     }
 }
