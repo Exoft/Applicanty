@@ -11,6 +11,8 @@ using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.API;
 using Applicanty.Data.Entity;
 using Microsoft.AspNetCore.Identity;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace Applicant.API
 {
@@ -35,7 +37,7 @@ namespace Applicant.API
 
             services.AddDbContext<AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IUserServices, UserSerices>();
+            services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<ICandidateService, CandidateService>();
             services.AddScoped<IExperienceService, ExperienceService>();
             services.AddScoped<ITechnologyService, TechnologyService>();
@@ -86,13 +88,26 @@ namespace Applicant.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseCors(options => options.WithOrigins("http://localhost:8001").AllowAnyMethod().AllowAnyHeader());
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+                try
+                {
+                    var context = serviceProvider.GetRequiredService<AtsDbContext>();
+                    var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+                    AtsDbInitializer.Initialize(context, userManager);
+                }
+                catch (Exception ex)
+                {
+                    var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
             }
 
             app.UseSwagger();

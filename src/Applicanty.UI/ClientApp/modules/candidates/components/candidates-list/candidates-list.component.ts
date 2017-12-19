@@ -18,8 +18,8 @@ export class CandidatesListComponent {
         this.loading = true;
 
         this.сandidatesDataService.getCandidates().subscribe(
-            result => {
-                this.candidates = result;
+            data => {
+                this.candidates = data;
 
                 this.loading = false;
             },

@@ -10,7 +10,7 @@ namespace Applicanty.API.Models.Response
         public ErrorResponse(Exception ex)
         {
             StringBuilder sb = new StringBuilder(ex.Message);
-            
+
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
@@ -19,6 +19,11 @@ namespace Applicanty.API.Models.Response
             }
 
             Message = sb.ToString();
+        }
+        
+        public ErrorResponse(string message)
+        {
+            Message = message;
         }
     }
 }

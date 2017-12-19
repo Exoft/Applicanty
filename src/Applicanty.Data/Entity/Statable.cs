@@ -1,7 +1,4 @@
 ﻿using Applicanty.Data.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Applicanty.Data.Repositories
 {
@@ -9,5 +6,4 @@ namespace Applicanty.Data.Repositories
     {
         public bool IsArchived { get; set; }
     }
-
 }

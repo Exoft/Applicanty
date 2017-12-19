@@ -15,7 +15,7 @@ export class AuthService {
 
     public login(loginData: any) {
         let that = this;
-        that.http.post('http://localhost:8000/api/auth', loginData).subscribe(data => {
+        that.http.post('http://localhost:8000/auth', loginData).subscribe(data => {
             localStorage.setItem('accessToken', data['access_token']);
 
             that.router.navigate(['vacancies']);

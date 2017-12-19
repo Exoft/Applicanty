@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Applicanty.Data.Entity.Abstract;
+using Applicanty.Data.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using Applicanty.Data.Entity.Abstract;
-using Applicanty.Data.Repositories;
 
 namespace Applicanty.Data.Entity
 {
@@ -28,7 +27,7 @@ namespace Applicanty.Data.Entity
 
         public User User { get; set; }
         public Experience Experiences { get; set; }
-        public ICollection<VacancyCandidat> VacancyCandidats { get; set; }
-        public ICollection<VacancyTecnology> VacancyTecnologies { get; set; }
+        public ICollection<VacancyCandidate> VacancyCandidats { get; set; }
+        public ICollection<VacancyTechnology> VacancyTecnologies { get; set; }
     }
 }

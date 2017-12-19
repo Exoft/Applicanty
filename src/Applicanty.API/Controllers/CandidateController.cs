@@ -7,7 +7,7 @@ using System.Net;
 
 namespace Applicanty.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class CandidateController : Controller
     {
         ICandidateService _candidateService;
