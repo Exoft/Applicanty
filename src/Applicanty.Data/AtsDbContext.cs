@@ -1,4 +1,5 @@
-﻿using Applicanty.Data.Entity;
+﻿using System.Linq;
+using Applicanty.Data.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -39,12 +40,14 @@ namespace Applicanty.Data
             modelBuilder.Entity<VacancyCandidate>()
                 .HasOne(pt => pt.Vacancy)
                 .WithMany(p => p.VacancyCandidates)
-                .HasForeignKey(pt => pt.VacancyId);
+                .HasForeignKey(pt => pt.VacancyId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VacancyCandidate>()
                 .HasOne(pt => pt.Candidate)
                 .WithMany(t => t.VacancyCandidates)
-                .HasForeignKey(pt => pt.CandidateId);
+                .HasForeignKey(pt => pt.CandidateId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<CandidateTechnology>()
                 .HasKey(t => new { t.TechnologyId, t.CandidateId });
