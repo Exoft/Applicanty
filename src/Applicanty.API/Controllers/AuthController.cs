@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Applicant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : Controller
     {
         [HttpPost]

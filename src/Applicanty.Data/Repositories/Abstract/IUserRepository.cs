@@ -1,9 +1,9 @@
 ﻿using Applicanty.Data.Entity;
+using Applicanty.Data.Repositories.Abstract;
 
 namespace Applicanty.Data.Repositories
 {
-    public interface IUserRepository : IEntityBaseRepository<User, long>
+    public interface IUserRepository : IPrimaryEntityRepository<User, long>
     {
-        
     }
 }

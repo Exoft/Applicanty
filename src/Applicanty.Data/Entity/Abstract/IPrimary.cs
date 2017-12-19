@@ -1,5 +1,4 @@
-﻿
-namespace Applicanty.Data.Entity.Abstract
+﻿namespace Applicanty.Data.Entity.Abstract
 {
     public interface IPrimary<TKey>
     {

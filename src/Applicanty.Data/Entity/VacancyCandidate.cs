@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Applicanty.Data.Entity
+﻿namespace Applicanty.Data.Entity
 {
-    public class VacancyCandidat
+    public class VacancyCandidate
     {
         public long VacancyId { get; set; }
         public Vacancy Vacancy { get; set; }

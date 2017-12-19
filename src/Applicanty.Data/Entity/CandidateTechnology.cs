@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Applicanty.Data.Entity
+﻿namespace Applicanty.Data.Entity
 {
-    public class CanditatTechnology
+    public class CandidateTechnology
     {
         public int TechnologyId { get; set; }
         public Technology Technology { get; set; }
