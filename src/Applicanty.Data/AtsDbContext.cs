@@ -1,4 +1,5 @@
-﻿using Applicanty.Data.Entity;
+﻿using System.Linq;
+using Applicanty.Data.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +8,7 @@ namespace Applicanty.Data
 {
     public class AtsDbContext : IdentityDbContext<User, IdentityRole<long>, long>
     {
-        public AtsDbContext(DbContextOptions<AtsDbContext> options)
-        : base(options)
+        public AtsDbContext(DbContextOptions<AtsDbContext> options) : base(options)
         {
         }
 
@@ -35,42 +35,44 @@ namespace Applicanty.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<VacancyCandidate>()
-                .HasKey(t => new { t.VacancyId, t.CandidatId });
+                .HasKey(t => new { t.VacancyId, t.CandidateId });
 
             modelBuilder.Entity<VacancyCandidate>()
                 .HasOne(pt => pt.Vacancy)
-                .WithMany(p => p.VacancyCandidats)
-                .HasForeignKey(pt => pt.VacancyId);
+                .WithMany(p => p.VacancyCandidates)
+                .HasForeignKey(pt => pt.VacancyId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VacancyCandidate>()
                 .HasOne(pt => pt.Candidate)
-                .WithMany(t => t.VacancyCandidats)
-                .HasForeignKey(pt => pt.CandidatId);
+                .WithMany(t => t.VacancyCandidates)
+                .HasForeignKey(pt => pt.CandidateId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<CandidateTechnology>()
-                .HasKey(t => new { t.TechnologyId, t.CandidatId });
+                .HasKey(t => new { t.TechnologyId, t.CandidateId });
 
             modelBuilder.Entity<CandidateTechnology>()
                 .HasOne(pt => pt.Technology)
-                .WithMany(p => p.CanditatTechnologies)
+                .WithMany(p => p.CandidateTechnologies)
                 .HasForeignKey(pt => pt.TechnologyId);
 
             modelBuilder.Entity<CandidateTechnology>()
                 .HasOne(pt => pt.Candidate)
-                .WithMany(t => t.CanditatTechnologies)
-                .HasForeignKey(pt => pt.CandidatId);
+                .WithMany(t => t.CandidateTechnologies)
+                .HasForeignKey(pt => pt.CandidateId);
 
             modelBuilder.Entity<VacancyTechnology>()
                 .HasKey(t => new { t.TechnologyId, t.VacancyId });
 
             modelBuilder.Entity<VacancyTechnology>()
                 .HasOne(pt => pt.Technology)
-                .WithMany(p => p.VacancyTecnologies)
+                .WithMany(p => p.VacancyTechnologies)
                 .HasForeignKey(pt => pt.TechnologyId);
 
             modelBuilder.Entity<VacancyTechnology>()
                 .HasOne(pt => pt.Vacancy)
-                .WithMany(t => t.VacancyTecnologies)
+                .WithMany(t => t.VacancyTechnologies)
                 .HasForeignKey(pt => pt.VacancyId);
         }
     }

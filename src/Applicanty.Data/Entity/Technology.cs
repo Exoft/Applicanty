@@ -10,7 +10,7 @@ namespace Applicanty.Data.Entity
         [Required]
         public string Name { get; set; }
 
-        public ICollection<CandidateTechnology> CanditatTechnologies { get; set; }
-        public ICollection<VacancyTechnology> VacancyTecnologies { get; set; }
+        public ICollection<CandidateTechnology> CandidateTechnologies { get; set; }
+        public ICollection<VacancyTechnology> VacancyTechnologies { get; set; }
     }
 }

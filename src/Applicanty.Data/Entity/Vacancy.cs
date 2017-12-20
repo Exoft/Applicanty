@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Applicanty.Data.Entity
 {
-    public class Vacancy : Statable,IPrimary<long>
+    public class Vacancy : Statable, IPrimary<long>
     {
         public long Id { get; set; }
         [Required, ForeignKey("User")]
-        public long IdUser { get; set; }
+        public long UserId { get; set; }
         [Required, ForeignKey("Experience")]
-        public int IdExperience { get; set; }
+        public int ExperienceId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -26,8 +26,8 @@ namespace Applicanty.Data.Entity
         public DateTime UpdatedOn { get; set; }
 
         public User User { get; set; }
-        public Experience Experiences { get; set; }
-        public ICollection<VacancyCandidate> VacancyCandidats { get; set; }
-        public ICollection<VacancyTechnology> VacancyTecnologies { get; set; }
+        public Experience Experience { get; set; }
+        public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
+        public ICollection<VacancyTechnology> VacancyTechnologies { get; set; }
     }
 }

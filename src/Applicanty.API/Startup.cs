@@ -69,7 +69,7 @@ namespace Applicant.API
                 .AddInMemoryApiResources(AuthConfig.GetApiResources())
                 .AddInMemoryClients(AuthConfig.GetClients())
                 .AddTestUsers(AuthConfig.GetUsers())
-                .AddAspNetIdentity<User>(); 
+                .AddAspNetIdentity<User>();
 
             services.AddMvcCore()
                 .AddAuthorization()

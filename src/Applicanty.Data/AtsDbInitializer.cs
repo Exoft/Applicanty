@@ -100,8 +100,8 @@ namespace Applicanty.Data
                 context.Vacancies.Add(new Vacancy
                 {
                     CreatedOn = DateTime.Now,
-                    IdExperience = 1,
-                    IdUser = 1,
+                    ExperienceId = 1,
+                    UserId = 1,
                     IsArchived = false,
                     MaxSalary = 300,
                     MinSalary = 250,
@@ -114,8 +114,8 @@ namespace Applicanty.Data
                 context.Vacancies.Add(new Vacancy
                 {
                     CreatedOn = DateTime.Now,
-                    IdExperience = 2,
-                    IdUser = 2,
+                    ExperienceId = 2,
+                    UserId = 2,
                     IsArchived = false,
                     MaxSalary = 400,
                     MinSalary = 150,
@@ -128,8 +128,8 @@ namespace Applicanty.Data
                 context.Vacancies.Add(new Vacancy
                 {
                     CreatedOn = DateTime.Now,
-                    IdExperience = 3,
-                    IdUser = 3,
+                    ExperienceId = 3,
+                    UserId = 3,
                     IsArchived = false,
                     MaxSalary = 270,
                     MinSalary = 150,
@@ -144,13 +144,13 @@ namespace Applicanty.Data
 
             if (!context.Candidates.Any())
             {
-                context.Add(new Candidate { Email = "superman_duperman@mail.com", FirstName = "Clark", LastName = "Kent", IdExperience = 4, IsArchived = false, Phone = "06345345997", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "batman@mail.com", FirstName = "Bruce", LastName = "Wayne", IdExperience = 1, IsArchived = false, Phone = "06763454337", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "flash@mail.com", FirstName = "Barry", LastName = "Alan", IdExperience = 2, IsArchived = false, Phone = "0676834634", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "capitan_america@mail.com", FirstName = "Steve", LastName = "Rodgers", IdExperience = 4, IsArchived = false, Phone = "06745654997", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "hulk@mail.com", FirstName = "Bruce", LastName = "Banner", IdExperience = 3, IsArchived = false, Phone = "0676345697", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "thor@mail.com", FirstName = "Thor", LastName = "SunOfOdin", IdExperience = 3, IsArchived = false, Phone = "067233997", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "odin@mail.com", FirstName = "Odin", LastName = "FatherOfAll", IdExperience = 1, IsArchived = false, Phone = "067683997", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "superman_duperman@mail.com", FirstName = "Clark", LastName = "Kent", ExperienceId = 4, IsArchived = false, Phone = "06345345997", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "batman@mail.com", FirstName = "Bruce", LastName = "Wayne", ExperienceId = 1, IsArchived = false, Phone = "06763454337", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "flash@mail.com", FirstName = "Barry", LastName = "Alan", ExperienceId = 2, IsArchived = false, Phone = "0676834634", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "capitan_america@mail.com", FirstName = "Steve", LastName = "Rodgers", ExperienceId = 4, IsArchived = false, Phone = "06745654997", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "hulk@mail.com", FirstName = "Bruce", LastName = "Banner", ExperienceId = 3, IsArchived = false, Phone = "0676345697", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "thor@mail.com", FirstName = "Thor", LastName = "SunOfOdin", ExperienceId = 3, IsArchived = false, Phone = "067233997", UpdateOn = DateTime.Now });
+                context.Add(new Candidate { Email = "odin@mail.com", FirstName = "Odin", LastName = "FatherOfAll", ExperienceId = 1, IsArchived = false, Phone = "067683997", UpdateOn = DateTime.Now });
 
                 context.SaveChanges();
             }
