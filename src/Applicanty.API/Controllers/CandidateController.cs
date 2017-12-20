@@ -39,16 +39,21 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery]int? take, [FromQuery]int? skip)
         {
             try
             {
+                var candidatesCount = _candidateService.GetAll().Count();
+
                 var candidates = _candidateService.GetAll();
+
+                if (take != null && skip != null)
+                    candidates = _candidateService.GetAll().Take((int)take).Skip((int)skip);
 
                 var response = new Response<Candidate>
                 {
                     Result = candidates,
-                    TotalCount = candidates.Count()
+                    TotalCount = candidatesCount
                 };
                 return Json(response);
             }
