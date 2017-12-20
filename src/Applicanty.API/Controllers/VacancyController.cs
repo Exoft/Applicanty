@@ -24,9 +24,9 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancies = _vacancyService.GetOne(id);
+                var vacancy = _vacancyService.GetOne(id);
 
-                return Json(vacancies);
+                return Json(vacancy);
             }
             catch (Exception ex)
             {
@@ -39,12 +39,12 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetAll();
+                var vacancies = _vacancyService.GetAll();
 
                 var response = new Response<Vacancy>
                 {
-                    Result = vacancy,
-                    TotalCount = vacancy.Count()
+                    Result = vacancies,
+                    TotalCount = vacancies.Count()
                 };
 
                 return Json(response);

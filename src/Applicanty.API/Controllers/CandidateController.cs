@@ -23,14 +23,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidates = _candidateService.GetOne(id);
+                var candidate = _candidateService.GetOne(id);
 
-                if (candidates == null)
+                if (candidate == null)
                 {
                     return BadRequest();
                 }
 
-                return Json(candidates);
+                return Json(candidate);
             }
             catch (Exception ex)
             {
@@ -43,12 +43,12 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidate = _candidateService.GetAll();
+                var candidates = _candidateService.GetAll();
 
                 var response = new Response<Candidate>
                 {
-                    Result = candidate,
-                    TotalCount = candidate.Count()
+                    Result = candidates,
+                    TotalCount = candidates.Count()
                 };
                 return Json(response);
             }
