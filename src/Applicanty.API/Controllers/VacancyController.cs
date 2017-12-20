@@ -26,11 +26,6 @@ namespace Applicanty.API.Controllers
             {
                 var vacancies = _vacancyService.GetOne(id);
 
-                if (vacancies == null)
-                {
-                    return BadRequest();
-                }
-
                 return Json(vacancies);
             }
             catch (Exception ex)
@@ -65,11 +60,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _vacancyService.Create(model);
 
                 return Ok();
@@ -85,11 +75,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _vacancyService.Create(model);
 
                 return Ok();

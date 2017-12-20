@@ -63,11 +63,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _candidateService.Create(model);
 
                 return Ok();
@@ -83,11 +78,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _candidateService.Create(model);
 
                 return Ok();
