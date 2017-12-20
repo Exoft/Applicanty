@@ -19,7 +19,7 @@ namespace Applicanty.API
         {
             return new List<ApiResource>
             {
-                new ApiResource("applicantyAPI", "ApplicantyAPI")
+                new ApiResource("applicantyAPI")
             };
         }
 
@@ -39,19 +39,6 @@ namespace Applicanty.API
                         new Secret("secret".Sha256())
                     },
                     AllowedScopes = { "applicantyAPI" }
-                }
-            };
-        }
-
-        public static List<TestUser> GetUsers()
-        {
-            return new List<TestUser>
-            {
-                new TestUser
-                {
-                    SubjectId = "1",
-                    Username = "alice",
-                    Password = "password"
                 }
             };
         }
