@@ -44,10 +44,12 @@ namespace Applicanty.API.Controllers
         {
             try
             {
+                var vacancy = _vacancyService.GetAll();
+
                 var response = new Response<Vacancy>
                 {
-                    Result = _vacancyService.GetAll(),
-                    TotalCount = _vacancyService.GetAll().Count()
+                    Result = vacancy,
+                    TotalCount = vacancy.Count()
                 };
 
                 return Json(response);
