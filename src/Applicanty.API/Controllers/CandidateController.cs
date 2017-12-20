@@ -39,7 +39,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int take,int skip)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<Candidate>
                 {
-                    Result = candidates,
+                    Result = candidates.Take(take).Skip(skip),
                     TotalCount = candidates.Count()
                 };
                 return Json(response);

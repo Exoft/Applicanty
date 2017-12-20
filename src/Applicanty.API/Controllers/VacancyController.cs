@@ -35,7 +35,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int take, int skip)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<Vacancy>
                 {
-                    Result = vacancies,
+                    Result = vacancies.Take(take).Skip(skip),
                     TotalCount = vacancies.Count()
                 };
 
