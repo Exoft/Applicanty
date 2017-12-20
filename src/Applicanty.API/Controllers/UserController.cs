@@ -60,13 +60,8 @@ namespace Applicanty.API.Controllers
                     var tokenResponse = await RequestTokenAsync(model.Email, model.Password);
                     return Ok(tokenResponse.Raw);
                 }
-
-                StringBuilder errors = new StringBuilder();
-
-                foreach (var item in result.Errors)
-                    errors.AppendLine($"{item}");
-
-                throw new Exception(errors.ToString());
+                
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(result.Errors));
             }
             catch (Exception ex)
             {

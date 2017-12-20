@@ -1,0 +1,30 @@
+<div class="login-wrapper">
+    <form class="login" [formGroup]="authorizationFrom">
+        <div class="login-group form-group">
+            <div class="auth-source">
+            </div>
+            <label for="userName"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-sm"
+                   [class.invalid]="authorizationFrom.get('email')?.invalid && (authorizationFrom.get('email')?.dirty || authorizationFrom.get('email')?.touched)">
+                <input class="form-control" type="text" formControlName="email" placeholder="email">
+                <span class="tooltip-content">
+                    Name is required.
+                </span>
+            </label>
+            <label for="password"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-sm"
+                   [class.invalid]="authorizationFrom.get('password')?.invalid && (authorizationFrom.get('password')?.dirty || authorizationFrom.get('password')?.touched)">
+                <input class="form-control" type="password" formControlName="password" placeholder="password">
+                <span class="tooltip-content">
+                    Password is required.
+                </span>
+            </label>
+            <button type="button" class="btn btn-primary" style="margin: 0;" (click)="signIn($event)">Sign in</button>
+            <button type="button" class="btn btn-success" style="margin: 0; margin-top: 10px;" (click)="signUp($event)">Sign Up</button>
+        </div>
+    </form>
+</div>

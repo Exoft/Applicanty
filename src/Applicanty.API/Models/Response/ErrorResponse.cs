@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 namespace Applicanty.API.Models.Response
 {
     public class ErrorResponse
     {
+        public IEnumerable<IdentityError> IdentityErrors { get; set; }
+
         public string Message { get; set; }
 
         public ErrorResponse(Exception ex)
@@ -24,6 +28,11 @@ namespace Applicanty.API.Models.Response
         public ErrorResponse(string message)
         {
             Message = message;
+        }
+
+        public ErrorResponse(IEnumerable<IdentityError> errors)
+        {
+            IdentityErrors = errors;
         }
     }
 }

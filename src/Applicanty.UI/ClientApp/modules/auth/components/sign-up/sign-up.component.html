@@ -1,0 +1,43 @@
+<div class="login-wrapper">
+    <form class="login" [formGroup]="registrationForm">
+        <div class="login-group form-group">
+            <div class="auth-source" [innerHtml]="identityErrors">
+            </div>
+
+            <label for="email"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-sm"
+                   [class.invalid]="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
+                <input class="form-control" type="text" formControlName="email" placeholder="Email">
+                <span class="tooltip-content">
+                    Name is required.
+                </span>
+            </label>
+
+            <label for="password"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-sm"
+                   [class.invalid]="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
+                <input class="form-control" type="password" formControlName="password" placeholder="Password">
+                <span class="tooltip-content">
+                    Name is required.
+                </span>
+            </label>
+
+            <label for="confirmpassword"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   class="tooltip tooltip-validation tooltip-sm"
+                   [class.invalid]="registrationForm.get('confirmpassword')?.invalid && (registrationForm.get('confirmpassword')?.dirty || registrationForm.get('confirmpassword')?.touched)">
+                <input class="form-control" type="password" formControlName="confirmpassword" placeholder="Confirm password.">
+                <span class="tooltip-content">
+                    Name is required.
+                </span>
+            </label>
+
+            <button type="button" class="btn btn-success" style="margin: 0; margin-top: 10px;" (click)="signUp($event)">Sign Up</button>
+        </div>
+    </form>
+</div>
