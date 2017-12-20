@@ -3,6 +3,7 @@ using Applicanty.Data.Entity;
 using Applicanty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Net;
 
 namespace Applicanty.API.Controllers
@@ -42,7 +43,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                return Json(_candidateService.GetAll());
+                var candidates = _candidateService.GetAll();
+
+                var response = new Response<Candidate>
+                {
+                    Result = candidates,
+                    TotalCount = candidates.Count()
+                };
+                return Json(response);
             }
             catch (Exception ex)
             {
@@ -55,11 +63,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _candidateService.Create(model);
 
                 return Ok();
@@ -75,11 +78,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _candidateService.Create(model);
 
                 return Ok();

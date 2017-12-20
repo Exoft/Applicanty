@@ -3,6 +3,8 @@ using Applicanty.Data.Entity;
 using Applicanty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace Applicanty.API.Controllers
@@ -24,11 +26,6 @@ namespace Applicanty.API.Controllers
             {
                 var vacancy = _vacancyService.GetOne(id);
 
-                if (vacancy == null)
-                {
-                    return BadRequest();
-                }
-
                 return Json(vacancy);
             }
             catch (Exception ex)
@@ -42,9 +39,15 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetAll();
+                var vacancies = _vacancyService.GetAll();
 
-                return Json(vacancy);
+                var response = new Response<Vacancy>
+                {
+                    Result = vacancies,
+                    TotalCount = vacancies.Count()
+                };
+
+                return Json(response);
             }
             catch (Exception ex)
             {
@@ -57,11 +60,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _vacancyService.Create(model);
 
                 return Ok();
@@ -77,11 +75,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 _vacancyService.Create(model);
 
                 return Ok();
