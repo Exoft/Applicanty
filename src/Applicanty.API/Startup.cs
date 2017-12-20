@@ -53,6 +53,8 @@ namespace Applicant.API
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddSingleton(Configuration);
+
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
@@ -68,7 +70,6 @@ namespace Applicant.API
                 .AddInMemoryIdentityResources(AuthConfig.GetIdentityResources())
                 .AddInMemoryApiResources(AuthConfig.GetApiResources())
                 .AddInMemoryClients(AuthConfig.GetClients())
-                .AddTestUsers(AuthConfig.GetUsers())
                 .AddAspNetIdentity<User>();
 
             services.AddMvcCore()
@@ -117,9 +118,7 @@ namespace Applicant.API
             });
 
             app.UseIdentityServer();
-
-            app.UseAuthentication();
-
+            
             app.UseMvc();
         }
     }

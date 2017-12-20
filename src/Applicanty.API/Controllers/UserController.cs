@@ -1,15 +1,15 @@
 ﻿using Applicanty.API.Models;
 using Applicanty.API.Models.Response;
 using Applicanty.Data.Entity;
-using Applicanty.Data.Services;
-using IdentityServer4;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Applicanty.API.Controllers
 {
@@ -17,12 +17,12 @@ namespace Applicanty.API.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly IConfiguration _configuration;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         [HttpPost("login")]
@@ -30,36 +30,15 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                // Require the user to have a confirmed email before they can log on.
-                var user = await _userManager.FindByNameAsync(model.UserName);
-                if (user != null)
-                {
-                    if (!await _userManager.IsEmailConfirmedAsync(user))
-                    {
-                        ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                var tokenResponse = await RequesTokenAsync(model.Email, model.Password);
 
-                        return BadRequest(new ErrorResponse("Email is not verified"));
-                    }
-                }
-                
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, change to shouldLockout: true
-                //var result = await _signInManager.PasswordSignInAsync(model.UserName, model.UserPassword, false, lockoutOnFailure: false);
-                //switch (result)
-                //{
-                //    //    case SignInStatus.Success:
-                //    //        return RedirectToLocal(returnUrl);
-                //    //    case SignInStatus.LockedOut:
-                //    //        return View("Lockout");
-                //    //    case SignInStatus.RequiresVerification:
-                //    //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                //    //    case SignInStatus.Failure:
-                //    //    default:
-                //    //        ModelState.AddModelError("", "Invalid login attempt.");
-                //    //        return View(model);
-                //}
+                if (tokenResponse.HttpStatusCode == HttpStatusCode.OK)
+                    return Ok(tokenResponse.Raw);
 
-                return Ok();
+                if (tokenResponse.Error.Contains("invalid_grant"))
+                   return StatusCode((int)HttpStatusCode.Forbidden);
+
+                throw new Exception($"{tokenResponse.Error}{Environment.NewLine}{tokenResponse.ErrorDescription}");
             }
             catch (Exception ex)
             {
@@ -70,19 +49,47 @@ namespace Applicanty.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
                 var user = new User { UserName = model.Email, Email = model.Email };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
-                    return Ok();
+                {
+                    var tokenResponse = await RequesTokenAsync(model.Email, model.Password);
+                    return Ok(tokenResponse.Raw);
+                }
 
-                BadRequest(result);
+                StringBuilder errors = new StringBuilder();
+
+                foreach (var item in result.Errors)
+                    errors.AppendLine($"{item}");
+
+                throw new Exception(errors.ToString());
             }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+            }
+        }
 
-            return BadRequest(model);
+        private async Task<TokenResponse> RequesTokenAsync(string username, string password)
+        {
+            var discoveryClient = new DiscoveryClient(_configuration["ApiBaseUrl"]);
+            var doc = await discoveryClient.GetAsync();
+
+            var tokenClient = new TokenClient(doc.TokenEndpoint, "ro.client", "secret");
+            var tokenResponse = await tokenClient.RequestAsync(new Dictionary<string, string>
+            {
+                {"client_id", "ro.client"},
+                {"client_secret", "secret"},
+                {"grant_type", "password"},
+                {"username", username},
+                {"password",password}
+            });
+
+            return tokenResponse;
         }
     }
 }

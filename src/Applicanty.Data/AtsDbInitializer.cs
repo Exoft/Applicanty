@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Applicanty.Data
 {
     public static class AtsDbInitializer
     {
-        public static void Initialize(AtsDbContext context, UserManager<User> userManager)
+        public static async Task Initialize(AtsDbContext context, UserManager<User> userManager)
         {
             context.Database.EnsureCreated();
 
@@ -62,26 +63,19 @@ namespace Applicanty.Data
             if (!context.Users.Any())
             {
                 var user1 = new User { AccessFailedCount = 0, Email = "victor@mail.com", EmailConfirmed = true, IsArchived = false, UserName = "victor@mail.com", LastName = "Pavlik", LockoutEnabled = false, PhoneNumber = "0985434944", PhoneNumberConfirmed = true, TwoFactorEnabled = false, UpdatedOn = DateTime.Now };
-                user1.PasswordHash = userManager.PasswordHasher.HashPassword(user1, "password");
-                context.Users.Add(user1);
-                
+                await userManager.CreateAsync(user1, "Rerehelpf1@");
+
                 var user2 = new User { AccessFailedCount = 0, Email = "pashka@mail.com", EmailConfirmed = true, IsArchived = false, UserName = "pashka@mail.com", LastName = "Zibrov", LockoutEnabled = false, PhoneNumber = "0986823454", PhoneNumberConfirmed = true, TwoFactorEnabled = false, UpdatedOn = DateTime.Now };
-                user2.PasswordHash = userManager.PasswordHasher.HashPassword(user2, "password");
-                context.Users.Add(user2);
+                await userManager.CreateAsync(user2, "Rerehelpf1@");
 
                 var user3 = new User { AccessFailedCount = 0, Email = "batman@mail.com", EmailConfirmed = true, IsArchived = false, UserName = "batman@mail.com", LastName = "Wayne", LockoutEnabled = false, PhoneNumber = "0986833454", PhoneNumberConfirmed = true, TwoFactorEnabled = false, UpdatedOn = DateTime.Now };
-                user3.PasswordHash = userManager.PasswordHasher.HashPassword(user3, "password");
-                context.Users.Add(user3);
+                await userManager.CreateAsync(user3, "Rerehelpf1@");
 
                 var user4 = new User { AccessFailedCount = 0, Email = "stepanchik@mail.com", EmailConfirmed = true, IsArchived = false, UserName = "stepanchik@mail.com", LastName = "Hiha", LockoutEnabled = false, PhoneNumber = "09868344544", PhoneNumberConfirmed = true, TwoFactorEnabled = false, UpdatedOn = DateTime.Now };
-                user4.PasswordHash = userManager.PasswordHasher.HashPassword(user4, "password");
-                context.Users.Add(user4);
+                await userManager.CreateAsync(user4, "Rerehelpf1@");
 
                 var user5 = new User { AccessFailedCount = 0, Email = "dudka27@mail.com", EmailConfirmed = true, IsArchived = false, UserName = "dudka27@mail.com", LastName = "Hendrix", LockoutEnabled = false, PhoneNumber = "0986834544", PhoneNumberConfirmed = true, TwoFactorEnabled = false, UpdatedOn = DateTime.Now };
-                user5.PasswordHash = userManager.PasswordHasher.HashPassword(user5, "password");
-                context.Users.Add(user5);
-                
-                context.SaveChanges();
+                await userManager.CreateAsync(user5, "Rerehelpf1@");
             }
 
             if (!context.UserRoles.Any())
