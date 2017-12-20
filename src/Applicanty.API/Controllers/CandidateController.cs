@@ -3,6 +3,7 @@ using Applicanty.Data.Entity;
 using Applicanty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Net;
 
 namespace Applicanty.API.Controllers
@@ -42,7 +43,12 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                return Json(_candidateService.GetAll());
+                var response = new Response<Candidate>
+                {
+                    Result = _candidateService.GetAll(),
+                    TotalCount = _candidateService.GetAll().Count()
+                };
+                return Json(response);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,8 @@ using Applicanty.Data.Entity;
 using Applicanty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace Applicanty.API.Controllers
@@ -42,9 +44,13 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetAll();
+                var response = new Response<Vacancy>
+                {
+                    Result = _vacancyService.GetAll(),
+                    TotalCount = _vacancyService.GetAll().Count()
+                };
 
-                return Json(vacancy);
+                return Json(response);
             }
             catch (Exception ex)
             {

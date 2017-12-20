@@ -30,7 +30,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var tokenResponse = await RequesTokenAsync(model.Email, model.Password);
+                var tokenResponse = await RequestTokenAsync(model.Email, model.Password);
 
                 if (tokenResponse.HttpStatusCode == HttpStatusCode.OK)
                     return Ok(tokenResponse.Raw);
@@ -57,7 +57,7 @@ namespace Applicanty.API.Controllers
 
                 if (result.Succeeded)
                 {
-                    var tokenResponse = await RequesTokenAsync(model.Email, model.Password);
+                    var tokenResponse = await RequestTokenAsync(model.Email, model.Password);
                     return Ok(tokenResponse.Raw);
                 }
 
