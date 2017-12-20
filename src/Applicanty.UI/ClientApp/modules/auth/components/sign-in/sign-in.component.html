@@ -8,7 +8,7 @@
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
                    [class.invalid]="authorizationFrom.get('email')?.invalid && (authorizationFrom.get('email')?.dirty || authorizationFrom.get('email')?.touched)">
-                <input class="form-control" type="text" formControlName="email" placeholder="email">
+                <input class="form-control" type="text" formControlName="email" placeholder="Email">
                 <span class="tooltip-content">
                     Name is required.
                 </span>
@@ -18,7 +18,7 @@
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
                    [class.invalid]="authorizationFrom.get('password')?.invalid && (authorizationFrom.get('password')?.dirty || authorizationFrom.get('password')?.touched)">
-                <input class="form-control" type="password" formControlName="password" placeholder="password">
+                <input class="form-control" type="password" formControlName="password" placeholder="Password">
                 <span class="tooltip-content">
                     Password is required.
                 </span>
