@@ -1,5 +1,4 @@
 ﻿using IdentityServer4.Models;
-using IdentityServer4.Test;
 using System.Collections.Generic;
 
 namespace Applicanty.API
@@ -20,6 +19,12 @@ namespace Applicanty.API
             return new List<ApiResource>
             {
                 new ApiResource("applicantyAPI")
+                {
+                    ApiSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                }
             };
         }
 

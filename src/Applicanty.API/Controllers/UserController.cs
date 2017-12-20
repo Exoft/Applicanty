@@ -10,6 +10,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
 
 namespace Applicanty.API.Controllers
 {
@@ -72,6 +74,21 @@ namespace Applicanty.API.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
             }
+        }
+
+        [HttpPost("secure")]
+        public async Task<IActionResult> Secure([FromBody]string token)
+        {
+            var discoveryClient = new DiscoveryClient(_configuration["ApiBaseUrl"]);
+            var doc = await discoveryClient.GetAsync();
+
+            var introspectionClient = new IntrospectionClient(doc.IntrospectionEndpoint, "applicantyAPI", "secret");
+            var response = await introspectionClient.SendAsync(new IntrospectionRequest { Token = token });
+
+            if (response.IsError)
+                return Ok(false);
+
+            return Ok(response.IsActive);
         }
 
         private async Task<TokenResponse> RequestTokenAsync(string username, string password)
