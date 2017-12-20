@@ -24,14 +24,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetOne(id);
+                var vacancies = _vacancyService.GetOne(id);
 
-                if (vacancy == null)
+                if (vacancies == null)
                 {
                     return BadRequest();
                 }
 
-                return Json(vacancy);
+                return Json(vacancies);
             }
             catch (Exception ex)
             {
