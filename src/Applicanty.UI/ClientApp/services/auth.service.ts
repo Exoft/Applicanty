@@ -13,16 +13,16 @@ export class AuthService {
         return accessToken !== 'undefined' && accessToken !== undefined && accessToken !== null;
     }
 
-    public login(loginData: any) {
+    public signIn(loginData: any) {
         let that = this;
-        that.http.post('http://localhost:8000/auth', loginData).subscribe(data => {
+        that.http.post('http://localhost:8000/user/login', loginData).subscribe(data => {
             localStorage.setItem('accessToken', data['access_token']);
 
             that.router.navigate(['vacancies']);
         });
     }
 
-    public logout() {
+    public signOut() {
         localStorage.removeItem('accessToken');
 
         this.router.navigate(['login']);
@@ -30,5 +30,20 @@ export class AuthService {
 
     public getAuthenticationHeader() {
         return new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
+    }
+
+    public signUp(userData: any, signUpErrorCallback: any) {
+        let that = this;
+
+        that.http.post('http://localhost:8000/user/register', userData).subscribe(
+            data => {
+                localStorage.setItem('accessToken', data['access_token']);
+                that.router.navigate(['userpage']);
+            },
+            error => {
+                if (error.error.identityErrors && error.error.identityErrors.length && signUpErrorCallback) {
+                    signUpErrorCallback(error.error.identityErrors);
+                }
+            });
     }
 }

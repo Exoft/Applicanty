@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
 import { CandidatesListComponent } from '../candidates/components/candidates-list/candidates-list.component';
+import { CandidatePageComponent } from '../candidates/components/candidate-page/candidate-page.component';
 import { AuthGuard } from '../../services/authguard.service';
 
 import { CandidatesDataService } from './services/candidates-data.service';
@@ -15,12 +16,14 @@ import { CandidatesDataService } from './services/candidates-data.service';
 import { HttpClientModule } from '@angular/common/http';
 
 export const candidateRoutes = [
-    { path: 'candidates', component: CandidatesListComponent, canActivate: [AuthGuard] }
+    { path: 'candidates', component: CandidatesListComponent, canActivate: [AuthGuard] },
+    { path: 'candidate/:candidateId', component: CandidatePageComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
     declarations: [
-        CandidatesListComponent
+        CandidatesListComponent,
+        CandidatePageComponent
     ],
     providers: [
         CandidatesDataService

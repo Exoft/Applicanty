@@ -7,21 +7,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
-import { LoginComponent } from './components/login/login.component';
-import { UserPageComponent } from './components/user-page/user-page.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+
+import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
 import { AuthGuard } from '../../services/authguard.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
 export const authRoutes = [
-    { path: 'profile', component: UserPageComponent, canActivate: [AuthGuard]},
-    { path: 'login', component: LoginComponent }
+    { path: 'profile', component: UserProfilePageComponent, canActivate: [AuthGuard]},
+    { path: 'signin', component: SignInComponent },
+    { path: 'signup', component: SignUpComponent }
 ];
 
 @NgModule({
     declarations: [
-        UserPageComponent,
-        LoginComponent
+        UserProfilePageComponent,
+        SignInComponent,
+        SignUpComponent
     ],
     imports: [
         CommonModule,

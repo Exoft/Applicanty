@@ -16,6 +16,6 @@ export class AppComponent {
     logoutClick(e) {
         e.preventDefault();
 
-        this.authService.logout();
+        this.authService.signOut();
     }
 }
