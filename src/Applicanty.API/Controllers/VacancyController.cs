@@ -35,16 +35,21 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(int take, int skip)
+        public IActionResult GetAll([FromQuery]int? take, [FromQuery]int? skip)
         {
             try
             {
+                var vacanciesCount = _vacancyService.GetAll().Count();
+
                 var vacancies = _vacancyService.GetAll();
+
+                if (take != null && skip != null)
+                    vacancies = _vacancyService.GetAll().Take((int)take).Skip((int)skip);
 
                 var response = new Response<Vacancy>
                 {
-                    Result = vacancies.Take(take).Skip(skip),
-                    TotalCount = vacancies.Count()
+                    Result = vacancies,
+                    TotalCount = vacanciesCount
                 };
 
                 return Json(response);
