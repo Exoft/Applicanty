@@ -74,7 +74,7 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        private async Task<TokenResponse> RequesTokenAsync(string username, string password)
+        private async Task<TokenResponse> RequestTokenAsync(string username, string password)
         {
             var discoveryClient = new DiscoveryClient(_configuration["ApiBaseUrl"]);
             var doc = await discoveryClient.GetAsync();
