@@ -15,10 +15,11 @@ even if it's the same
 
 ### Test Users
 To create test users you have to run a Applicanty.API project in debugging mode
-| Email | Password |
-| ------ | ------ |
-|victor@mail.com|Rerehelpf1@|
-|pashka@mail.com|Rerehelpf1@|
-|batman@mail.com|Rerehelpf1@|
+
+| Email             | Password |
+| ------            | ------ |
+|victor@mail.com    |Rerehelpf1@|
+|pashka@mail.com    |Rerehelpf1@|
+|batman@mail.com    |Rerehelpf1@|
 |stepanchik@mail.com|Rerehelpf1@|
-|dudka27@mail.com|Rerehelpf1@|
+|dudka27@mail.com   |Rerehelpf1@|
