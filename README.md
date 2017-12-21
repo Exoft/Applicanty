@@ -1,1 +1,24 @@
 # Applicanty
+
+### Problem with Migration
+If during database generation this error occurred:
+``` sh
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify
+that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 50 - Local 
+Database Runtime error occurred.
+```
+try to replace  SQL server name in appsettings.json file to  
+```
+(localdb)\mssqllocaldb
+```
+even if it's the same
+
+### Test Users
+To create test users you have to run a Applicanty.API project in debugging mode
+| Email | Password |
+| ------ | ------ |
+|victor@mail.com|Rerehelpf1@|
+|pashka@mail.com|Rerehelpf1@|
+|batman@mail.com|Rerehelpf1@|
+|stepanchik@mail.com|Rerehelpf1@|
+|dudka27@mail.com|Rerehelpf1@|
