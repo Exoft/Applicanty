@@ -12,8 +12,8 @@ export class VacanciesDataService {
         private authService: AuthService) {
     }
 
-    public getVacancies(): Observable<any> {
-        return this.http.get('http://localhost:8000/vacancy', { headers: this.authService.getAuthenticationHeader() });
+    public getVacancies(take: any, skip: any): Observable<any> {
+        return this.http.get('http://localhost:8000/vacancy?take='+take+'&skip='+skip, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getVacancy(vacancyId: any): Observable<any> {

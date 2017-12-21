@@ -1,8 +1,10 @@
-﻿<div class="row" (click) ="onClick(vacancy.id)">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-        <div class="card"  style="cursor:pointer">
+﻿<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
             <div class="card-header">
-                {{vacancy?.title}}
+                <a [routerLink]="['../','vacancy', vacancy.id]" routerLinkActive="active"> 
+                {{vacancy?.title}} 
+                </a>
             </div>
             <div class="card-block">
                 <div class="card-title">

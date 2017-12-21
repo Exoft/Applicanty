@@ -39,6 +39,7 @@
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.7",
     "node-sass": "^4.5.2",
+    "ngx-infinite-scroll": "0.7.2",
     "sass-loader": "^6.0.6",
     "preboot": "^5.1.7",
     "raw-loader": "^0.5.1",

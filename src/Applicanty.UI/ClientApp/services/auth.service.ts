@@ -25,7 +25,7 @@ export class AuthService {
     public signOut() {
         localStorage.removeItem('accessToken');
 
-        this.router.navigate(['login']);
+        this.router.navigate(['signin']);
     }
 
     public getAuthenticationHeader() {

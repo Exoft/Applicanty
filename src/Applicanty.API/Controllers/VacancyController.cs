@@ -44,7 +44,7 @@ namespace Applicanty.API.Controllers
                 var vacancies = _vacancyService.GetAll();
 
                 if (take != null && skip != null)
-                    vacancies = _vacancyService.GetAll().Take((int)take).Skip((int)skip);
+                    vacancies = _vacancyService.GetAll().Skip((int)skip).Take((int)take);
 
                 var response = new Response<Vacancy>
                 {
