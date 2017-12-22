@@ -34,7 +34,6 @@ export class SignUpComponent {
         if (this.registrationForm.valid) {
             this.authService.signUp(this.registrationForm.value, this.onSignUpErrorOccured);
         }
-        this.router.navigate(['profile']);
     }
 
     onSignUpErrorOccured(errors: any[]) {

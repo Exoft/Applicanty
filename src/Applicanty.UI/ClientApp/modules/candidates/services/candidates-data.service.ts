@@ -11,8 +11,8 @@ export class CandidatesDataService {
         private authService: AuthService) {
     }
     
-    public getCandidates(): Observable<any> {
-        return this.http.get('http://localhost:8000/candidate', { headers: this.authService.getAuthenticationHeader() });
+    public getCandidates(skip: number, take: number): Observable<any> {
+        return this.http.get(`http://localhost:8000/candidate?skip=${skip}&take=${take}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getCandidate(candidateId: any): Observable<any> {

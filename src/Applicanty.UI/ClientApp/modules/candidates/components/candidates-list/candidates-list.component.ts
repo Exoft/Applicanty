@@ -8,6 +8,8 @@ import { State } from "clarity-angular";
 })
 export class CandidatesListComponent {
     candidates = [];
+    private skip: number = 0;
+    private take: number = 30;
     total: number;
     loading: boolean = true;
     private totalCount: number;
@@ -18,7 +20,7 @@ export class CandidatesListComponent {
     refresh(state: State) {
         this.loading = true;
 
-        this.сandidatesDataService.getCandidates().subscribe(
+        this.сandidatesDataService.getCandidates(this.skip, this.take).subscribe(
             data => {
                 this.candidates = data.result;
                 this.totalCount = data.totalCount;
