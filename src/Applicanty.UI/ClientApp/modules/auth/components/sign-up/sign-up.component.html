@@ -11,7 +11,7 @@
                    [class.invalid]="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
                 <input class="form-control" type="text" formControlName="email" placeholder="Email">
                 <span class="tooltip-content">
-                    Name is required.
+                    {{ validationService.getValidatorErrorMessage(registrationForm.get('email')) }}
                 </span>
             </label>
 
@@ -22,18 +22,18 @@
                    [class.invalid]="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
                 <input class="form-control" type="password" formControlName="password" placeholder="Password">
                 <span class="tooltip-content">
-                    Name is required.
+                    {{ validationService.getValidatorErrorMessage(registrationForm.get('password')) }}
                 </span>
             </label>
 
-            <label for="confirmpassword"
+            <label for="confirmPassword"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
-                   [class.invalid]="registrationForm.get('confirmpassword')?.invalid && (registrationForm.get('confirmpassword')?.dirty || registrationForm.get('confirmpassword')?.touched)">
-                <input class="form-control" type="password" formControlName="confirmpassword" placeholder="Confirm password.">
+                   [class.invalid]="registrationForm.get('confirmPassword')?.invalid && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+                <input class="form-control" type="password" formControlName="confirmPassword" placeholder="Confirm password.">
                 <span class="tooltip-content">
-                    Name is required.
+                    {{ validationService.getValidatorErrorMessage(registrationForm.get('confirmPassword')) }}
                 </span>
             </label>
 

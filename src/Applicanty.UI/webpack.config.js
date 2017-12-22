@@ -24,7 +24,7 @@ module.exports = (env) => {
 				{ test: /\.scss$/, loaders: ['to-string-loader', 'css-loader', 'sass-loader'] }
             ]
         },
-        plugins: [new CheckerPlugin()]
+        plugins: [new CheckerPlugin()] 
     };
 
     // Configuration for client-side bundle suitable for running in browsers

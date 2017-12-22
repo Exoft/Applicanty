@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
 import { AuthService } from '../../../../services/auth.service';
+import { ValidationService } from "../../../../services/validation.service";
 
 @Component({
     selector: 'signIn',
@@ -12,7 +13,8 @@ import { AuthService } from '../../../../services/auth.service';
 export class SignInComponent {
 
     constructor(private authService: AuthService,
-                private router: Router) {
+        private router: Router,
+        public validationService: ValidationService) {
     }
 
     authorizationFrom: FormGroup = new FormGroup({

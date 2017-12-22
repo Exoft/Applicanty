@@ -10,7 +10,7 @@
                    [class.invalid]="authorizationFrom.get('email')?.invalid && (authorizationFrom.get('email')?.dirty || authorizationFrom.get('email')?.touched)">
                 <input class="form-control" type="text" formControlName="email" placeholder="Email">
                 <span class="tooltip-content">
-                    Name is required.
+                    {{ validationService.getValidatorErrorMessage(authorizationFrom.get('email')) }}
                 </span>
             </label>
             <label for="password"
@@ -20,7 +20,7 @@
                    [class.invalid]="authorizationFrom.get('password')?.invalid && (authorizationFrom.get('password')?.dirty || authorizationFrom.get('password')?.touched)">
                 <input class="form-control" type="password" formControlName="password" placeholder="Password">
                 <span class="tooltip-content">
-                    Password is required.
+                    {{ validationService.getValidatorErrorMessage(authorizationFrom.get('password')) }}
                 </span>
             </label>
             <button type="button" class="btn btn-primary" style="margin: 0;" (click)="signIn($event)">Sign in</button>
