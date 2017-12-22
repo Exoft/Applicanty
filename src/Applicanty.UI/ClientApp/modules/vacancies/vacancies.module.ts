@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
@@ -26,16 +29,18 @@ export const vacanciesRoutes = [
         VacanciesListComponent,
         VacancyComponent,
         VacancyPageComponent
-        //here will be vacancy component and vacancy's page
     ],
     providers: [
         VacanciesDataService
     ],
     imports: [
+        BrowserModule,
+        InfiniteScrollModule,
         CommonModule,
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
+        RouterModule,
         HttpClientModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

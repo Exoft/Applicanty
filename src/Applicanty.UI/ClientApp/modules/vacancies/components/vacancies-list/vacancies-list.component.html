@@ -9,9 +9,15 @@
                 <input type="text" class="search-input" id="search" placeholder="Search" size="50" />
             </label>
         </div>
-        <vacancy *ngFor="let item of vacanciesList" 
-                 [vacancy]="item">
-        </vacancy>
+        <div infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="800"
+            (scrolled)="onScroll()">
+            <vacancy *ngFor="let item of vacanciesList"
+                     [vacancy]="item">
+            </vacancy>
+        </div>
+
     </div>
     <nav class="sidenav">
         <section class="sidenav-content">

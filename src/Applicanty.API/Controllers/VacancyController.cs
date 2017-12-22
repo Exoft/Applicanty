@@ -35,7 +35,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? take, [FromQuery]int? skip)
+        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take)
         {
             try
             {
@@ -43,8 +43,8 @@ namespace Applicanty.API.Controllers
 
                 var vacancies = _vacancyService.GetAll();
 
-                if (take != null && skip != null)
-                    vacancies = _vacancyService.GetAll().Take((int)take).Skip((int)skip);
+                if (skip != null && take != null)
+                    vacancies = _vacancyService.GetAll().Skip((int)skip).Take((int)take);
 
                 var response = new Response<Vacancy>
                 {

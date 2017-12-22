@@ -8,10 +8,4 @@ import { Router } from "@angular/router";
 })
 export class VacancyComponent {
     @Input() vacancy: any;
-
-    constructor(private route: Router){}
-
-    public onClick(vacancyId: number) {
-        this.route.navigate(['vacancy', vacancyId]);
-}
 }

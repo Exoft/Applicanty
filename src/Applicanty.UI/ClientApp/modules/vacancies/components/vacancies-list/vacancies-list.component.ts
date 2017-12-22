@@ -1,19 +1,38 @@
 ﻿import { Component, Input, OnInit } from '@angular/core';
-import { VacanciesDataService } from '../../services/vacancies-data.service';
-
+import { VacanciesDataService } from "../../services/vacancies-data.service";
 
 @Component({
     templateUrl: './vacancies-list.component.html',
     styleUrls: ['./vacancies-list.component.scss'],
-    providers: [VacanciesDataService]
 })
 export class VacanciesListComponent implements OnInit {
     @Input() salary: number = 150;
+    private take: number = 10;
+    private skip: number = 0;
+    private totalCount: number = 0;
 
-    vacanciesList = [];
-
+    public vacanciesList: any[];
+    onScroll() {
+        if (this.skip <= this.totalCount) {
+            this.vacanciesDataService.getVacancies(this.skip, this.take).subscribe(data => {
+                console.log(data);
+                for (var item of data.result) {
+                    this.vacanciesList.push(item);
+                }
+                this.totalCount = data.totalCount;
+            });
+            this.skip += this.take;
+        }
+    }
+    
     constructor(private vacanciesDataService: VacanciesDataService) { }
+
     ngOnInit() {
-        this.vacanciesDataService.getVacancies().subscribe(data => this.vacanciesList = data);
+        this.vacanciesDataService.getVacancies(this.skip, this.take).subscribe(data => {
+            this.vacanciesList = data.result;
+            this.totalCount = data.totalCount;
+        });
+
+        this.skip += this.take;
     }
 }
