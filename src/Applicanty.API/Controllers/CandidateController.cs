@@ -39,7 +39,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? take, [FromQuery]int? skip)
+        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take)
         {
             try
             {
@@ -47,8 +47,8 @@ namespace Applicanty.API.Controllers
 
                 var candidates = _candidateService.GetAll();
 
-                if (take != null && skip != null)
-                    candidates = _candidateService.GetAll().Take((int)take).Skip((int)skip);
+                if (skip != null&& take != null)
+                    candidates = _candidateService.GetAll().Skip((int)skip).Take((int)take);
 
                 var response = new Response<Candidate>
                 {

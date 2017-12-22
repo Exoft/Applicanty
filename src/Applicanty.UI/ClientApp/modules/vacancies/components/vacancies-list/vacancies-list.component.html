@@ -11,7 +11,7 @@
         </div>
         <div infiniteScroll
             [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="1000"
+            [infiniteScrollThrottle]="800"
             (scrolled)="onScroll()">
             <vacancy *ngFor="let item of vacanciesList"
                      [vacancy]="item">
