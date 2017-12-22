@@ -10,6 +10,7 @@ export class CandidatesListComponent {
     candidates = [];
     total: number;
     loading: boolean = true;
+    private totalCount: number;
 
     constructor(private сandidatesDataService: CandidatesDataService) {
     }
@@ -19,8 +20,8 @@ export class CandidatesListComponent {
 
         this.сandidatesDataService.getCandidates().subscribe(
             data => {
-                this.candidates = data;
-
+                this.candidates = data.result;
+                this.totalCount = data.totalCount;
                 this.loading = false;
             },
             error => {

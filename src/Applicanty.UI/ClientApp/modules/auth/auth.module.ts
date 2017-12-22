@@ -9,9 +9,10 @@ import { ClarityModule } from 'clarity-angular';
 
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
+
 import { AuthGuard } from '../../services/authguard.service';
+import { ValidationService } from '../../services/validation.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,6 +23,9 @@ export const authRoutes = [
 ];
 
 @NgModule({
+    providers: [
+        ValidationService
+    ],
     declarations: [
         UserProfilePageComponent,
         SignInComponent,
