@@ -10,15 +10,12 @@ namespace Applicanty.Data.Entity
     public class Vacancy : Statable, IPrimary<long>
     {
         public long Id { get; set; }
-        [Required, ForeignKey("User")]
+        [ForeignKey("User")]
         public long UserId { get; set; }
-        [Required, ForeignKey("Experience")]
+        [ForeignKey("Experience")]
         public int ExperienceId { get; set; }
-        [Required]
         public string Title { get; set; }
-        [Required]
         public string JobDescription { get; set; }
-        [Required]
         public string ProjectDescription { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
