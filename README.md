@@ -1,5 +1,12 @@
 # Applicanty
 
+### Create Database
+To  create database you must follow this steps:
+1. Open the console using the Tools > NuGet Package Manager > Package Manager Console command
+2. Set default project to Applicancy.Data (check if it has been set because VS doesn't work properly)
+3. In console enter comand `add-migration [Migration_Name]` to create migration
+4. Enter `update-database` to create database
+
 ### Problem with Migration
 If during database generation this error occurred:
 ``` sh
