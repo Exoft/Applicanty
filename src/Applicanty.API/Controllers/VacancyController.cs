@@ -30,7 +30,7 @@ namespace Applicanty.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
 
@@ -56,7 +56,7 @@ namespace Applicanty.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
 
@@ -71,7 +71,7 @@ namespace Applicanty.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
 
@@ -86,7 +86,7 @@ namespace Applicanty.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
 
@@ -101,7 +101,7 @@ namespace Applicanty.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, new ErrorResponse(ex));
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
     }
