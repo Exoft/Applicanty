@@ -9,8 +9,8 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
     styleUrls: ['./candidate-page.component.scss']
 })
 export class CandidatePageComponent implements OnInit {
-    candidate;
-    private id;
+    public candidate: any;
+    private id: number;
     private subscription: Subscription;
     constructor(private http: CandidatesDataService,
         private activeRoute: ActivatedRoute) {

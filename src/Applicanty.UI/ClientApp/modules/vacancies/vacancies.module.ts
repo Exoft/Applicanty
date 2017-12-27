@@ -45,5 +45,4 @@ export const vacanciesRoutes = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class VacanciesModule {
-}
+export class VacanciesModule {}

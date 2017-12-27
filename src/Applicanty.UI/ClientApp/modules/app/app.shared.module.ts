@@ -12,6 +12,7 @@ import { ClarityModule } from 'clarity-angular';
 import { AuthModule, authRoutes } from '../auth/auth.module';
 import { VacanciesModule, vacanciesRoutes } from '../vacancies/vacancies.module';
 import { CandidatesModule, candidateRoutes } from '../candidates/candidates.module';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../services/authguard.service';
@@ -31,6 +32,7 @@ import 'clarity-icons/shapes/all-shapes';
         AuthModule,
         VacanciesModule,
         CandidatesModule,
+        DashboardModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

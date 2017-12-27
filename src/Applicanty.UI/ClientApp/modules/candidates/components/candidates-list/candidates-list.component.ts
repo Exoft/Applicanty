@@ -1,13 +1,14 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 import { CandidatesDataService } from '../../services/candidates-data.service';
 import { State } from "clarity-angular";
+import { Router } from "@angular/router";
 
 @Component({
     templateUrl: './candidates-list.component.html',
     styleUrls: ['./candidates-list.component.scss']
 })
 export class CandidatesListComponent {
-    candidates = [];
+    public candidates = [];
     private skip: number = 0;
     private take: number = 30;
     total: number;
@@ -29,5 +30,6 @@ export class CandidatesListComponent {
             error => {
                 this.loading = false;
             });
+        console.log(this.candidates);
     }
 }
