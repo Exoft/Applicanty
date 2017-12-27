@@ -1,6 +1,13 @@
 ﻿<div class="content-container">
     <div class="content-area">
-        <div align="right"><button class="btn btn-success" align="rigth">+ Create new vacancy</button></div>
+
+        <clr-alert *ngIf="loadingError && !loading" [clrAlertType]="'alert-danger'" [clrAlertClosable]="true">
+            <div clr-alert-item class="alert-item">
+                <span class="alert-text">
+                    Data don't loading.
+                </span>
+            </div>
+        </clr-alert>
 
         <div class="form-group">
             <label for="search">
@@ -9,14 +16,43 @@
                 <input type="text" class="search-input" id="search" placeholder="Search" size="50" />
             </label>
         </div>
-        <div infiniteScroll
-            [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="800"
-            (scrolled)="onScroll()">
-            <vacancy *ngFor="let item of vacanciesList"
-                     [vacancy]="item">
-            </vacancy>
-        </div>
+
+        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+            <clr-dg-action-bar>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-success-outline">
+                        <clr-icon shape="plus"></clr-icon>
+                        Add
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger-outline">
+                        <clr-icon shape="close"></clr-icon>
+                        Delete
+                    </button>
+                </div>
+            </clr-dg-action-bar>
+
+            <clr-dg-column>Title</clr-dg-column>
+            <clr-dg-column>Experience Levels</clr-dg-column>
+            <clr-dg-column>Create Date</clr-dg-column>
+            <clr-dg-column>     </clr-dg-column>
+
+            <clr-dg-row *clrDgItems="let item of vacanciesList">
+                <clr-dg-cell><a [routerLink]="['../','vacancy', item?.id]" routerLinkActive="active">
+                    {{item?.title}}
+                    </a>
+                </clr-dg-cell>
+                <clr-dg-cell>{{item?.experienceId}}</clr-dg-cell>
+                <clr-dg-cell>{{item?.createdOn | date}}</clr-dg-cell>
+                <clr-dg-cell>edit | delete</clr-dg-cell>
+            </clr-dg-row>
+
+            <clr-dg-footer>
+                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                of {{pagination.totalItems}} vacancies
+                <clr-dg-pagination #pagination [clrDgPageSize]="12"></clr-dg-pagination>
+            </clr-dg-footer>
+
+        </clr-datagrid>
 
     </div>
     <nav class="sidenav">

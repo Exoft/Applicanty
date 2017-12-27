@@ -1,38 +1,38 @@
-﻿import { Component, Input, OnInit } from '@angular/core';
+﻿import { Component, Input} from '@angular/core';
+import { State } from "clarity-angular";
 import { VacanciesDataService } from "../../services/vacancies-data.service";
 
 @Component({
     templateUrl: './vacancies-list.component.html',
     styleUrls: ['./vacancies-list.component.scss'],
 })
-export class VacanciesListComponent implements OnInit {
-    @Input() salary: number = 150;
-    private take: number = 10;
+export class VacanciesListComponent {
+    @Input() salary: number = 150
+
+    private take: number = 40;
     private skip: number = 0;
-    private totalCount: number = 0;
+    public totalCount: number = 0;
+    public loading: boolean = true;
+    public loadingError: boolean = false;
 
     public vacanciesList: any[];
-    onScroll() {
-        if (this.skip <= this.totalCount) {
-            this.vacanciesDataService.getVacancies(this.skip, this.take).subscribe(data => {
-                console.log(data);
-                for (var item of data.result) {
-                    this.vacanciesList.push(item);
-                }
-                this.totalCount = data.totalCount;
-            });
-            this.skip += this.take;
-        }
-    }
-    
-    constructor(private vacanciesDataService: VacanciesDataService) { }
 
-    ngOnInit() {
-        this.vacanciesDataService.getVacancies(this.skip, this.take).subscribe(data => {
+    constructor(private vacanciesDataService: VacanciesDataService) {
+    }
+
+    refresh(state: State) {
+        this.loading = true;
+        this.vacanciesDataService.getVacancies(this.skip, this.take).subscribe(
+            data => {
             this.vacanciesList = data.result;
             this.totalCount = data.totalCount;
-        });
-
-        this.skip += this.take;
+            this.loading = false;
+            this.loadingError = false;
+            },
+            error => {
+                this.loading = false;
+                this.loadingError = true;
+            }
+        );
     }
 }
