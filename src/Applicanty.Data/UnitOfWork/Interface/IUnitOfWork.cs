@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Remotion.Linq.Clauses;
+﻿using Applicanty.Data.Repositories.Abstract;
+using System;
 
 namespace Applicanty.Data.UnitOfWork.Interface
 {
     public interface IUnitOfWork : IDisposable 
     {
+        IVacancyRepository VacancyRepository { get;  }
+        ICandidateRepository CandidateRepository { get;  }
+        IExperienceRepository ExperienceRepository { get; }
+        IStatusRepository StatusRepository { get; }
+        ITechnologyRepository TechnologyRepository { get; }
+
         void Commit();
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Applicanty.API.Models.Response;
-using Applicanty.Data.Entity;
-using Applicanty.Data.Services;
+using Applicanty.Core.Model;
+using Applicanty.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -20,7 +20,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public IActionResult Get(int id)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Archive(long id)
+        public IActionResult Archive(int id)
         {
             try
             {

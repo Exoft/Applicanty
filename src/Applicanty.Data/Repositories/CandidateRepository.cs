@@ -1,11 +1,12 @@
-﻿using Applicanty.Data.Entity;
+﻿using Applicanty.Core.Model;
+using Applicanty.Data.Repositories.Abstract;
 
 namespace Applicanty.Data.Repositories
 {
-    public class CandidateRepository : StateableRepository<Candidate, long>, ICandidateRepository
+    internal class CandidateRepository : StateableRepository<Candidate>, ICandidateRepository
     {
-        public CandidateRepository(AtsDbContext context) 
+        public CandidateRepository(AtsDbContext context)
             : base(context)
-        {}
+        { }
     }
 }

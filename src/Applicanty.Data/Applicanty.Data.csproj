@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Applicanty.Core\Applicanty.Core.csproj" />
+  </ItemGroup>
+
  
   
 </Project>

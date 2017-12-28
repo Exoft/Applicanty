@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using Applicanty.Data.Entity;
+﻿using Applicanty.Core.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Applicanty.Data
 {
-    public class AtsDbContext : IdentityDbContext<User, IdentityRole<long>, long>
+    public class AtsDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public AtsDbContext(DbContextOptions<AtsDbContext> options) : base(options)
         {

@@ -1,8 +1,9 @@
-﻿using Applicanty.Data.Entity;
+﻿using Applicanty.Core.Model;
+using Applicanty.Data.Repositories.Abstract;
 
 namespace Applicanty.Data.Repositories
 {
-    public class UserRepository : PrimaryEntityRepository<User, long>, IUserRepository
+    internal class UserRepository : EntityBaseRepository<User>, IUserRepository
     {
         public UserRepository(AtsDbContext context) 
             : base(context)

@@ -1,4 +1,4 @@
-﻿using Applicanty.Data.Entity;
+﻿using Applicanty.Core.Model;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
@@ -53,9 +53,9 @@ namespace Applicanty.Data
 
             if (!context.Roles.Any())
             {
-                context.Roles.Add(new IdentityRole<long> { Name = "Admininstrator", NormalizedName = "admin" });
-                context.Roles.Add(new IdentityRole<long> { Name = "HR", NormalizedName = "hr" });
-                context.Roles.Add(new IdentityRole<long> { Name = "Recruiter", NormalizedName = "recruiter" });
+                context.Roles.Add(new IdentityRole<int> { Name = "Admininstrator", NormalizedName = "admin" });
+                context.Roles.Add(new IdentityRole<int> { Name = "HR", NormalizedName = "hr" });
+                context.Roles.Add(new IdentityRole<int> { Name = "Recruiter", NormalizedName = "recruiter" });
 
                 context.SaveChanges();
             }
@@ -80,11 +80,11 @@ namespace Applicanty.Data
 
             if (!context.UserRoles.Any())
             {
-                context.UserRoles.Add(new IdentityUserRole<long> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Admininstrator")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("victor@mail.com")).Id });
-                context.UserRoles.Add(new IdentityUserRole<long> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Admininstrator")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("pashka@mail.com")).Id });
-                context.UserRoles.Add(new IdentityUserRole<long> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("HR")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("batman@mail.com")).Id });
-                context.UserRoles.Add(new IdentityUserRole<long> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Recruiter")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("stepanchik@mail.com")).Id });
-                context.UserRoles.Add(new IdentityUserRole<long> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Recruiter")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("dudka27@mail.com")).Id });
+                context.UserRoles.Add(new IdentityUserRole<int> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Admininstrator")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("victor@mail.com")).Id });
+                context.UserRoles.Add(new IdentityUserRole<int> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Admininstrator")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("pashka@mail.com")).Id });
+                context.UserRoles.Add(new IdentityUserRole<int> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("HR")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("batman@mail.com")).Id });
+                context.UserRoles.Add(new IdentityUserRole<int> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Recruiter")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("stepanchik@mail.com")).Id });
+                context.UserRoles.Add(new IdentityUserRole<int> { RoleId = context.Roles.FirstOrDefault(item => item.Name.Equals("Recruiter")).Id, UserId = context.Users.FirstOrDefault(item => item.UserName.Equals("dudka27@mail.com")).Id });
 
                 context.SaveChanges();
             }

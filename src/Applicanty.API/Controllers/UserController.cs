@@ -1,6 +1,5 @@
 ﻿using Applicanty.API.Models;
 using Applicanty.API.Models.Response;
-using Applicanty.Data.Entity;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
+using Applicanty.Core.Model;
 
 namespace Applicanty.API.Controllers
 {
