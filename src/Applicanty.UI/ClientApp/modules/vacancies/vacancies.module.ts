@@ -12,7 +12,6 @@ import { ClarityModule } from 'clarity-angular';
 
 import { VacanciesListComponent } from '../vacancies/components/vacancies-list/vacancies-list.component';
 import { AuthGuard } from '../../services/authguard.service';
-import { VacancyComponent } from '../vacancies/components/vacancy/vacancy.component';
 import { VacancyPageComponent } from '../vacancies/components/vacancy-page/vacancy-page.component';
 
 import { VacanciesDataService } from './services/vacancies-data.service';
@@ -27,7 +26,6 @@ export const vacanciesRoutes = [
 @NgModule({
     declarations: [
         VacanciesListComponent,
-        VacancyComponent,
         VacancyPageComponent
     ],
     providers: [
@@ -39,6 +37,7 @@ export const vacanciesRoutes = [
         CommonModule,
         HttpModule,
         FormsModule,
+        ClarityModule.forRoot(),
         ReactiveFormsModule,
         RouterModule,
         HttpClientModule
