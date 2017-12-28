@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Applicanty.Data.Services;
-using Applicanty.Data.Repositories;
-using Applicanty.Data.UnitOfWork.Interface;
-using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.API;
-using Applicanty.Data.Entity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using Microsoft.Extensions.Logging;
+using Applicanty.Core.Model;
+using Applicanty.Data.UnitOfWork.Interface;
+using Applicanty.Data.UnitOfWork.Services;
+using Applicanty.Services.Abstract;
+using Applicanty.Services.Services;
 
 namespace Applicant.API
 {
@@ -37,19 +37,12 @@ namespace Applicant.API
 
             services.AddDbContext<AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICandidateService, CandidateService>();
             services.AddScoped<IExperienceService, ExperienceService>();
             services.AddScoped<ITechnologyService, TechnologyService>();
             services.AddScoped<IVacancyService, VacancyService>();
             services.AddScoped<IStatusService, StatusService>();
-
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICandidateRepository, CandidateRepository>();
-            services.AddScoped<IExperienceRepository, ExperienceRepository>();
-            services.AddScoped<ITechnologyRepository, TechnologyRepository>();
-            services.AddScoped<IVacancyRepository, VacancyRepository>();
-            services.AddScoped<IStatusRepository, StatusRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -60,7 +53,7 @@ namespace Applicant.API
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
             });
 
-            services.AddIdentity<User, IdentityRole<long>>()
+            services.AddIdentity<User, IdentityRole<int>>()
                 .AddEntityFrameworkStores<AtsDbContext>()
                 .AddDefaultTokenProviders();
 

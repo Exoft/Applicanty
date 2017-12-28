@@ -1,9 +1,8 @@
-﻿using Applicanty.Data.Entity;
-using Applicanty.Data.Repositories.Abstract;
+﻿using Applicanty.Core.Model;
 
-namespace Applicanty.Data.Repositories
+namespace Applicanty.Data.Repositories.Abstract
 {
-    public interface IUserRepository : IPrimaryEntityRepository<User, long>
+    public interface IUserRepository : IEntityBaseRepository<User>
     {
     }
 }

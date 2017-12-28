@@ -1,9 +1,8 @@
-﻿using Applicanty.Data.Entity;
-using Applicanty.Data.Repositories.Abstract;
+﻿using Applicanty.Core.Model;
 
-namespace Applicanty.Data.Repositories
-{ 
-    public interface IStatusRepository : IStatableRepository<Status, int>
+namespace Applicanty.Data.Repositories.Abstract
+{
+    public interface IStatusRepository : IStatableRepository<Status>
     {
     }
 }

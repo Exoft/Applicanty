@@ -13,6 +13,7 @@
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.1.0" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.1.0" />
   </ItemGroup>
 
@@ -21,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Applicanty.Core\Applicanty.Core.csproj" />
     <ProjectReference Include="..\Applicanty.Data\Applicanty.Data.csproj" />
+    <ProjectReference Include="..\Applicanty.Service\Applicanty.Services.csproj" />
   </ItemGroup>
 
 </Project>
