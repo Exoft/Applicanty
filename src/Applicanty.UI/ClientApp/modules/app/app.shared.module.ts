@@ -39,7 +39,7 @@ import 'clarity-icons/shapes/all-shapes';
         ClarityModule.forRoot(),
         BrowserAnimationsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'profyle', pathMatch: 'full' },
+            { path: '', redirectTo: 'profile', pathMatch: 'full' },
 
             ...authRoutes,
 

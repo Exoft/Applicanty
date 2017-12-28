@@ -18,7 +18,6 @@ export class CandidatesListComponent {
     }
     refresh(state: State) {
         this.loading = true;
-        console.log(this.skip, this.take);
         this.сandidatesDataService.getCandidates(this.skip, this.take).subscribe(
             data => {
                 this.candidates = data.result;
