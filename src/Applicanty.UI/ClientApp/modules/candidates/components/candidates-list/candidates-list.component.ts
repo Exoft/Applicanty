@@ -10,17 +10,15 @@ import { Router } from "@angular/router";
 export class CandidatesListComponent {
     public candidates = [];
     private skip: number = 0;
-    private take: number = 30;
+    private take: number = 200;
     total: number;
     loading: boolean = true;
     private totalCount: number;
-
     constructor(private сandidatesDataService: CandidatesDataService) {
     }
-    
     refresh(state: State) {
         this.loading = true;
-
+        console.log(this.skip, this.take);
         this.сandidatesDataService.getCandidates(this.skip, this.take).subscribe(
             data => {
                 this.candidates = data.result;

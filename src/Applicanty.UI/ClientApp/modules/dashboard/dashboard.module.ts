@@ -1,5 +1,6 @@
 ﻿import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { ClarityModule } from 'clarity-angular';
 import { DashboardComponent } from '../dashboard/components/dashboard.component';

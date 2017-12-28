@@ -12,13 +12,13 @@ export class AuthService {
 
         return accessToken !== 'undefined' && accessToken !== undefined && accessToken !== null;
     }
-
+    debugger;
     public signIn(loginData: any) {
         let that = this;
         that.http.post('http://localhost:8000/user/login', loginData).subscribe(data => {
             localStorage.setItem('accessToken', data['access_token']);
 
-            that.router.navigate(['vacancies']);
+            that.router.navigate(['dashboard']);
         });
     }
 
