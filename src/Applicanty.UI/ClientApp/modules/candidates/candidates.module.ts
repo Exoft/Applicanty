@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
@@ -29,9 +30,11 @@ export const candidateRoutes = [
         CandidatesDataService
     ],
     imports: [
+        BrowserModule,
         CommonModule,
         HttpModule,
         FormsModule,
+        RouterModule,
         ReactiveFormsModule,
         ClarityModule.forRoot(),
         BrowserAnimationsModule,
