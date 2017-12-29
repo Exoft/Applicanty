@@ -95,7 +95,7 @@ namespace Applicant.API
                     var context = serviceProvider.GetRequiredService<AtsDbContext>();
                     var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-                    AtsDbInitializer.Initialize(context, userManager);
+                   AtsDbInitializer.Initialize(context, userManager).Wait();
                 }
                 catch (Exception ex)
                 {
