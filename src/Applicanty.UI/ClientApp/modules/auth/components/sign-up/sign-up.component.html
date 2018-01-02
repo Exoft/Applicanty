@@ -1,39 +1,55 @@
 <div class="login-wrapper">
     <form class="login" [formGroup]="registrationForm">
         <div class="login-group form-group">
-            <div class="auth-source" [innerHtml]="identityErrors">
+            <div class="auth-source" style="color: red;" [innerHtml]="identityErrors">
             </div>
 
             <label for="email"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
-                   [class.invalid]="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
+                   [class.invalid]="registrationForm?.get('email')?.invalid && (registrationForm?.get('email')?.dirty || registrationForm?.get('email')?.touched)">
                 <input class="form-control" type="text" formControlName="email" placeholder="Email">
                 <span class="tooltip-content">
                     {{ validationService.getValidatorErrorMessage(registrationForm.get('email')) }}
                 </span>
             </label>
 
-            <label for="password"
+            <label for="password" [formGroup]="registrationForm?.get('password')"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
-                   [class.invalid]="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
+                   [class.invalid]="(registrationForm?.get('password')?.invalid 
+                                    && (registrationForm?.get('password')?.dirty 
+                                    || registrationForm?.get('password')?.touched))
+                                    ||
+                                    (registrationForm?.get('password')?.get('password')?.invalid 
+                                    && (registrationForm?.get('password')?.get('password')?.dirty 
+                                    || registrationForm?.get('password')?.get('password')?.touched))">
                 <input class="form-control" type="password" formControlName="password" placeholder="Password">
                 <span class="tooltip-content">
-                    {{ validationService.getValidatorErrorMessage(registrationForm.get('password')) }}
+                    {{ validationService.getValidatorErrorMessage(registrationForm?.get('password')?.get('password')) }}
+                    <br *ngIf="validationService.getValidatorErrorMessage(registrationForm?.get('password')?.get('password'))"/>
+                    {{ validationService.getValidatorErrorMessage(registrationForm?.get('password')) }}
                 </span>
             </label>
 
-            <label for="confirmPassword"
+            <label for="confirmPassword" [formGroup]="registrationForm?.get('password')"
                    aria-haspopup="true"
                    role="tooltip"
                    class="tooltip tooltip-validation tooltip-sm"
-                   [class.invalid]="registrationForm.get('confirmPassword')?.invalid && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+                   [class.invalid]="(registrationForm?.get('password')?.invalid 
+                                    && (registrationForm?.get('password')?.dirty 
+                                    || registrationForm?.get('password')?.touched))
+                                    ||
+                                    (registrationForm?.get('password')?.get('confirmPassword')?.invalid 
+                                    && (registrationForm?.get('password')?.get('confirmPassword')?.dirty 
+                                    || registrationForm?.get('password')?.get('confirmPassword')?.touched))">
                 <input class="form-control" type="password" formControlName="confirmPassword" placeholder="Confirm password.">
                 <span class="tooltip-content">
-                    {{ validationService.getValidatorErrorMessage(registrationForm.get('confirmPassword')) }}
+                    {{ validationService.getValidatorErrorMessage(registrationForm?.get('password')?.get('confirmPassword')) }}
+                    <br *ngIf="validationService.getValidatorErrorMessage(registrationForm?.get('password')?.get('confirmPassword'))"/>
+                    {{ validationService.getValidatorErrorMessage(registrationForm?.get('password')) }}
                 </span>
             </label>
 

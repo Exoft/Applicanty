@@ -11,32 +11,40 @@ import { ValidationService } from "../../../../services/validation.service";
     styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-
     public identityErrors: any;
 
     static signUpComponentInstance: any;
 
+    public registrationForm: any;
+
     constructor(private authService: AuthService,
-                private router: Router,
+        private router: Router,
         public validationService: ValidationService) {
         SignUpComponent.signUpComponentInstance = this;
+
+        this.registrationForm = new FormGroup({
+            'email': new FormControl('', [Validators.required, this.validationService.emailValidator]),
+            'password': new FormGroup({
+                'password': new FormControl('', Validators.required),
+                'confirmPassword': new FormControl('', Validators.required)
+            }, this.validationService.confirmPasswordValidator)
+        });
     }
 
-    registrationForm: FormGroup = new FormGroup({
-        'email': new FormControl('', Validators.required),
-        'password': new FormControl('', Validators.required),
-        'confirmPassword': new FormControl('', Validators.required)
-    });
-
-    signUp(event) {
+    public signUp(event) {
         SignUpComponent.signUpComponentInstance.identityErrors = undefined;
 
         if (this.registrationForm.valid) {
-            this.authService.signUp(this.registrationForm.value, this.onSignUpErrorOccured);
+            let formData = {
+                email: this.registrationForm.value.email,
+                password: this.registrationForm.value.password.password
+            };
+
+            this.authService.signUp(formData, this.onSignUpErrorOccured);
         }
     }
 
-    onSignUpErrorOccured(errors: any[]) {
+    public onSignUpErrorOccured(errors: any[]) {
         if (errors.length) {
             SignUpComponent.signUpComponentInstance.identityErrors = errors.map(item => item.description).join('<br>');
         }

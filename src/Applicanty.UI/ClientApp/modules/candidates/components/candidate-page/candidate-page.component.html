@@ -1,27 +1,34 @@
-﻿<div class="container">
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <h1>Candidate page</h1>
-        <hr />
-        <div>
-            <h3>First Name:  {{candidate?.firstName}}</h3>
+﻿<h1>Candidate page</h1>
+<form>
+    <section class="form-block">
+        <div class="form-group">
+            <label for="aForm_1">First Name: {{candidate?.firstName}}</label>
+            <input type="text" placeholder="Enter value here" size="25">
         </div>
-        <div>
-            <h3>Last Name:  {{candidate?.lastName}}</h3>
+        <div class="form-group">
+            <label for="aForm_1">Last Name:  {{candidate?.lastName}}</label>
+            <input type="text" placeholder="Enter another value here">
         </div>
-        <div>
-            <h3>Candidate Experience: {{candidate?.idExperience}}</h3>
+        <div class="form-group">
+            <label for="aForm_1">Candidate Experience: {{candidate?.idExperience}}</label>
+            <input type="text" placeholder="Enter another value here" size="25">
         </div>
-        <div>
-            <h3>Email: {{candidate?.email}}</h3>
+        <div class="form-group">
+            <label for="aForm_1">Email: {{candidate?.email}}</label>
+            <input type="text" placeholder="Enter another value here" size="25">
         </div>
-        <div>
-            <h3>LinkedIn: {{candidate?.linkedIn}}</h3>
+        <div class="form-group">
+            <label for="aForm_1">LinkedIn: {{candidate?.linkedIn}}</label>
+            <input type="text" placeholder="Enter another value here" size="25">
         </div>
-        <div>
-            <h3>Phone: {{candidate?.phone}}</h3>
-        </div>    
-        <div>
-            <h3>Age: {{candidate?.age}}</h3>
+        <div class="form-group">
+            <label for="aForm_1">Phone: {{candidate?.phone}}</label>
+            <input type="text" placeholder="Enter another value here" size="25">
         </div>
-    </div>
-</div>
+        <div class="form-group">
+            <label for="aForm_1">Age: {{candidate?.age}}</label>
+            <input type="text" placeholder="Enter another value here" size="25">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </section>
+</form>
