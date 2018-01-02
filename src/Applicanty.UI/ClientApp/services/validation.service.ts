@@ -1,31 +1,23 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
-//import { ConfigService } from "./config.service";
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Injectable()
 export class ValidationService {
     private config = {};
-
-    //public static productId: any;
-
+    
     private static http: any;
-    //private static appConfig: any;
 
-    private static productNumberRegex = /^[0-9A-Z]{6}$/gm;
+    private static emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
 
-    constructor(private httpClient: HttpClient
-        //,
-        //@Inject('clientAppConfig') private clientAppConfig: any
-    ) {
+    constructor(private httpClient: HttpClient) {
         ValidationService.http = httpClient;
-        //ValidationService.appConfig = clientAppConfig;
 
         this.config = {
             'required': 'This field is required',
-            //'shouldBeNumeric': 'Value should be numeric',
-            'invalidProductNumber': 'Product number should match pattern [0-9A-Z]{6}',
-            //'productNumberIsUsed': 'Product number is used by another product'
+            'invalidEmail': 'Entered value is not valid email address',
+            'passwordsDoNotMatch': 'Password do not match'
         };
     }
 
@@ -40,70 +32,27 @@ export class ValidationService {
 
         return null;
     }
-
-    public getFormGroupValidatorErrorMessage(formGroup: any) {
-        let errors: any[] = [];
-
-        if (formGroup && formGroup !== null) {
-            Object.keys(formGroup.controls).forEach(control => {
-                let error = this.getValidatorErrorMessage(formGroup.get(control));
-
-                if (error && error !== null) {
-                    errors.push({ message: error, control: control });
-                }
-            });
-        }
-
-        if (errors.length) {
-            return errors.map(item => `${item.control}: ${item.message}`).join('<br>');
-        }
-
-        return null;
-    }
-
-    //public isDoubleValidator(control: any) {
-    //    if (!control.value) {
-    //        return null;
-    //    }
-    //    debugger;
-
-    //    let aaaaaa = parseFloat(control.value);
-
-    //    let aaa = !isNaN(control.value - parseFloat(control.value.toLocaleString('en-US')));
-
-    //    return null;
-
-    //    let isValid = !isNaN(parseFloat(control.value)) && isFinite(control.value);
-    //    if (isValid) {
-    //        return null;
-    //    } else {
-    //        return { "shouldBeNumeric": true };
-    //    }
-    //}
-
-    public productNumberPatternValidator(control) {
+    
+    public emailValidator(control) {
         if (!control.value || control.value === null)
             return null;
 
-        if (control.value.match(ValidationService.productNumberRegex)) {
+        if (control.value.match(ValidationService.emailRegex)) {
             return null;
         } else {
-            return { 'invalidProductNumber': true };
+            return { 'invalidEmail': true };
         }
     }
 
-    //public productNumberIsAvailableValidator(control): Promise<any> {
-    //    let that = this;
+    public confirmPasswordValidator(formGroup) {
+        if (!formGroup.get('password').value || !formGroup.get('confirmPassword').value
+            || formGroup.get('password').value === null || formGroup.get('confirmPassword').value === null)
+            return null;
 
-    //    return new Promise(resolve => {
-    //        ValidationService.http.get(`${ValidationService.appConfig['PRODUCTSERVICE_HOST']}products/product-number-available?productId=${ValidationService.productId}&productNumber=${control.value}`)
-    //            .subscribe(result => {
-    //                if (result['isAvailable']) {
-    //                    resolve(null);
-    //                } else {
-    //                    resolve({ "productNumberIsUsed": true });
-    //                }
-    //            });
-    //    });
-    //    }
+        if (formGroup.get('password').value === formGroup.get('confirmPassword').value) {
+            return null;
+        } else {
+            return { 'passwordsDoNotMatch': true };
+        }
+    }
 }
