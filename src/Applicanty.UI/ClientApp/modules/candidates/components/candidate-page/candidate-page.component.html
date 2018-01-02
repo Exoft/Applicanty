@@ -1,34 +1,45 @@
-﻿<h1>Candidate page</h1>
-<form>
-    <section class="form-block">
-        <div class="form-group">
-            <label for="aForm_1">First Name: {{candidate?.firstName}}</label>
-            <input type="text" placeholder="Enter value here" size="25">
-        </div>
-        <div class="form-group">
-            <label for="aForm_1">Last Name:  {{candidate?.lastName}}</label>
-            <input type="text" placeholder="Enter another value here">
-        </div>
-        <div class="form-group">
-            <label for="aForm_1">Candidate Experience: {{candidate?.idExperience}}</label>
-            <input type="text" placeholder="Enter another value here" size="25">
-        </div>
-        <div class="form-group">
-            <label for="aForm_1">Email: {{candidate?.email}}</label>
-            <input type="text" placeholder="Enter another value here" size="25">
-        </div>
-        <div class="form-group">
-            <label for="aForm_1">LinkedIn: {{candidate?.linkedIn}}</label>
-            <input type="text" placeholder="Enter another value here" size="25">
-        </div>
-        <div class="form-group">
-            <label for="aForm_1">Phone: {{candidate?.phone}}</label>
-            <input type="text" placeholder="Enter another value here" size="25">
-        </div>
-        <div class="form-group">
-            <label for="aForm_1">Age: {{candidate?.age}}</label>
-            <input type="text" placeholder="Enter another value here" size="25">
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </section>
-</form>
+﻿<div class="content-container">
+    <div class="content-area">
+        <form>
+            <section class="form-block">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" placeholder="First Name" size="25">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" placeholder="Last Name" size="25">
+                </div>
+                <div class="form-group">
+                    <label for="experienceId">Candidate Experience:</label>
+                    <div class="select">
+                        <select id="aForm_3">
+                            <option>year 1</option>
+                            <option>year 2</option>
+                            <option>year 3</option>
+                            <option>year 4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" placeholder="Email" size="25">
+                </div>
+                <div class="form-group">
+                    <label for="linkedIn">LinkedIn:</label>
+                    <input type="text" placeholder="LinkedIn" size="25">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" placeholder="Phone" size="25">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="text" placeholder="Age" size="25">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+            </section>
+        </form>
+    </div>
+</div>
