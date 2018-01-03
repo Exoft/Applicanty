@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
-using System.Net.Http;
 using Applicanty.Core.Model;
+using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
 {
@@ -20,11 +19,15 @@ namespace Applicanty.API.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
 
-        public UserController(UserManager<User> userManager, IConfiguration configuration)
+        public UserController(UserManager<User> userManager,
+            IConfiguration configuration,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _emailSender = emailSender;
         }
 
         [HttpPost("login")]
@@ -32,15 +35,27 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var tokenResponse = await RequestTokenAsync(model.Email, model.Password);
 
-                if (tokenResponse.HttpStatusCode == HttpStatusCode.OK)
-                    return Ok(tokenResponse.Raw);
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
-                if (tokenResponse.Error.Contains("invalid_grant"))
-                   return StatusCode((int)HttpStatusCode.Forbidden);
+                if (user != null)
+                {
+                    if (user.EmailConfirmed)
+                    {
+                        var tokenResponse = await RequestTokenAsync(model.Email, model.Password);
 
-                throw new Exception($"{tokenResponse.Error}{Environment.NewLine}{tokenResponse.ErrorDescription}");
+                        if (tokenResponse.HttpStatusCode == HttpStatusCode.OK)
+                            return Ok(tokenResponse.Raw);
+
+                        throw new Exception($"{tokenResponse.Error}{Environment.NewLine}{tokenResponse.ErrorDescription}");
+                    }
+                    else
+                    {
+                        throw new Exception("Confirm Email Address.");
+                    }
+                }
+
+                return StatusCode((int)HttpStatusCode.Forbidden);
             }
             catch (Exception ex)
             {
@@ -59,10 +74,21 @@ namespace Applicanty.API.Controllers
 
                 if (result.Succeeded)
                 {
-                    var tokenResponse = await RequestTokenAsync(model.Email, model.Password);
-                    return Ok(tokenResponse.Raw);
+                    string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
+
+                    string confirmationLink = Url.Action("ConfirmEmail",
+                      "User", new
+                      {
+                          userid = user.Id,
+                          token = confirmationToken
+                      },
+                       protocol: HttpContext.Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(user.Email, "ConfirmEmail", confirmationLink);
+
+                    return Ok();
                 }
-                
+
                 return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(result.Errors));
             }
             catch (Exception ex)
@@ -84,6 +110,22 @@ namespace Applicanty.API.Controllers
                 return Ok(false);
 
             return Ok(response.IsActive);
+        }
+
+        [HttpGet]
+        public IActionResult ConfirmEmail(string userid, string token)
+        {
+            User user = _userManager.FindByIdAsync(userid).Result;
+            IdentityResult result = _userManager.
+                        ConfirmEmailAsync(user, token).Result;
+            if (result.Succeeded)
+            {
+                return Ok("Success");
+            }
+            else
+            {
+                return Ok("Error");
+            }
         }
 
         private async Task<TokenResponse> RequestTokenAsync(string username, string password)

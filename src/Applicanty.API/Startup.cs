@@ -13,6 +13,7 @@ using Applicanty.Data.UnitOfWork.Interface;
 using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.Services.Abstract;
 using Applicanty.Services.Services;
+using Applicanty.API.Helpers;
 
 namespace Applicant.API
 {
@@ -37,6 +38,8 @@ namespace Applicant.API
 
             services.AddDbContext<AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICandidateService, CandidateService>();
             services.AddScoped<IExperienceService, ExperienceService>();
@@ -47,13 +50,17 @@ namespace Applicant.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton(Configuration);
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
             });
 
-            services.AddIdentity<User, IdentityRole<int>>()
+            services.AddIdentity<User, IdentityRole<int>>(conf =>
+            {
+                conf.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<AtsDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -89,13 +96,13 @@ namespace Applicant.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
                 try
                 {
                     var context = serviceProvider.GetRequiredService<AtsDbContext>();
                     var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-                   AtsDbInitializer.Initialize(context, userManager).Wait();
+                    AtsDbInitializer.Initialize(context, userManager).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -111,7 +118,7 @@ namespace Applicant.API
             });
 
             app.UseIdentityServer();
-            
+
             app.UseMvc();
         }
     }
