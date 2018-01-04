@@ -4,13 +4,14 @@ using System.Linq.Expressions;
 using Applicanty.Core.Model;
 using Applicanty.Data.UnitOfWork.Interface;
 using Applicanty.Services.Abstract;
+using AutoMapper;
 
 namespace Applicanty.Services.Services
 {
     public class StatusService : BaseService<Status>, IStatusService
     {
-        public StatusService(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
+        public StatusService(IUnitOfWork unitOfWork, IMapper mapper)
+            : base(unitOfWork, mapper)
         {}
 
         public override void Create(Status entity)
@@ -19,24 +20,29 @@ namespace Applicanty.Services.Services
             _unitOfWork.Commit();
         }
 
-        public override IEnumerable<Status> GetAll()
+        public override IEnumerable<StatusDTO> GetAll<StatusDTO>()
         {
-            return _unitOfWork.StatusRepository.GetAll();
+            var entity = _unitOfWork.StatusRepository.GetAll();
+            return _mapper.Map<IEnumerable<Status>,IEnumerable<StatusDTO>>(entity);
         }
 
-        public override ICollection<Status> GetAll(Expression<Func<Status, bool>> predicate)
+        public override ICollection<StatusDTO> GetAll<StatusDTO>(Expression<Func<Status, bool>> predicate)
         {
-            return _unitOfWork.StatusRepository.GetAll(predicate);
+            var entity = _unitOfWork.StatusRepository.GetAll(predicate);
+            return _mapper.Map<ICollection<Status>,ICollection<StatusDTO>>(entity);
         }
 
-        public override Status GetOne(int id)
+        public override StatusDTO GetOne<StatusDTO>(int id)
         {
-            return _unitOfWork.StatusRepository.GetOne(id);
+            var entity = _unitOfWork.StatusRepository.GetOne(id);
+            return _mapper.Map<Status, StatusDTO>(entity);
         }
 
-        public override Status GetOne(Expression<Func<Status, bool>> predicate)
+        public override StatusDTO GetOne<StatusDTO>(Expression<Func<Status, bool>> predicate)
         {
-            return _unitOfWork.StatusRepository.GetOne(predicate);
+            var entity =_unitOfWork.StatusRepository.GetOne(predicate);
+            return _mapper.Map<Status, StatusDTO>(entity);
+
         }
 
         public override void Update(Status entity)

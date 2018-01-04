@@ -6,11 +6,11 @@ namespace Applicanty.Services.Abstract
 {
     public interface IBaseService<TEntity> where TEntity : class
     {
-        TEntity GetOne(int id);
+        TDto GetOne<TDto>(int id);
         void Create(TEntity entity);
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TDto> GetAll<TDto>();
         void Update(TEntity entity);
-        TEntity GetOne(Expression<Func<TEntity, bool>> predicate);
-        ICollection<TEntity> GetAll(Expression<System.Func<TEntity, bool>> predicate);
+        TDto GetOne<TDto>(Expression<Func<TEntity, bool>> predicate);
+        ICollection<TDto> GetAll<TDto>(Expression<System.Func<TEntity, bool>> predicate);
     }
 }
