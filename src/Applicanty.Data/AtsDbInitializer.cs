@@ -91,48 +91,25 @@ namespace Applicanty.Data
 
             if (!context.Vacancies.Any())
             {
-                context.Vacancies.Add(new Vacancy
-                {
-                    CreatedOn = DateTime.Now,
-                    ExperienceId = 1,
-                    UserId = 1,
-                    IsArchived = false,
-                    MaxSalary = 300,
-                    MinSalary = 250,
-                    Title = "Lorem ipsum",
-                    UpdatedOn = DateTime.Now,
-                    ProjectDescription = "Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                    JobDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                });
+                var random = new Random();
 
-                context.Vacancies.Add(new Vacancy
+                for (int i = 0; i < 60; i++)
                 {
-                    CreatedOn = DateTime.Now,
-                    ExperienceId = 2,
-                    UserId = 2,
-                    IsArchived = false,
-                    MaxSalary = 400,
-                    MinSalary = 150,
-                    Title = "Lorem ipsum",
-                    UpdatedOn = DateTime.Now,
-                    ProjectDescription = "Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                    JobDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                });
-
-                context.Vacancies.Add(new Vacancy
-                {
-                    CreatedOn = DateTime.Now,
-                    ExperienceId = 3,
-                    UserId = 3,
-                    IsArchived = false,
-                    MaxSalary = 270,
-                    MinSalary = 150,
-                    Title = "Lorem ipsum",
-                    UpdatedOn = DateTime.Now,
-                    ProjectDescription = "Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                    JobDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                });
-
+                    context.Vacancies.Add(new Vacancy
+                    {
+                        CreatedOn = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
+                        ExperienceId = i % 3 + 1,
+                        UserId = i % 3 + 1,
+                        IsArchived = false,
+                        MaxSalary = 300 + random.Next(50, 200),
+                        MinSalary = 100 + random.Next(50, 200),
+                        Title = "Lorem ipsum" + i,
+                        UpdatedOn = DateTime.Now,
+                        ProjectDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
+                        JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
+                        EndDate = DateTime.Now.AddDays(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())
+                    });
+                }
                 context.SaveChanges();
             }
 
