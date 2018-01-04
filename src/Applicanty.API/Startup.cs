@@ -1,20 +1,20 @@
-﻿using Applicanty.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Applicanty.API;
-using Microsoft.AspNetCore.Identity;
-using System;
-using Microsoft.Extensions.Logging;
-using Applicanty.Core.Model;
-using Applicanty.Data.UnitOfWork.Interface;
+﻿using Applicanty.API;
+using Applicanty.API.Helpers;
+using Applicanty.Core.Data;
+using Applicanty.Core.Entities;
+using Applicanty.Data;
 using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.Services.Abstract;
 using Applicanty.Services.Services;
-using Applicanty.API.Helpers;
 using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Applicant.API
 {
@@ -86,7 +86,7 @@ namespace Applicant.API
                     options.ApiName = "applicantyAPI";
                 });
 
-            services.AddAutoMapper(a => a.AddProfile(new Applicanty.DTO.MappingProfile()));
+            services.AddAutoMapper(a => a.AddProfile(new Applicanty.Core.MappingProfile()));
 
             services.AddMvc();
         }

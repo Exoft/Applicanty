@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Applicanty.Core", "Applican
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Applicanty.Services", "Applicanty.Service\Applicanty.Services.csproj", "{FB923540-F9CE-4810-8045-3B47349494CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Applicanty.DTO", "Applicanty.DTO\Applicanty.DTO.csproj", "{ED89914B-B3FA-4CB3-BFF4-12F7B7E1BE34}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{FB923540-F9CE-4810-8045-3B47349494CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB923540-F9CE-4810-8045-3B47349494CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB923540-F9CE-4810-8045-3B47349494CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED89914B-B3FA-4CB3-BFF4-12F7B7E1BE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED89914B-B3FA-4CB3-BFF4-12F7B7E1BE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED89914B-B3FA-4CB3-BFF4-12F7B7E1BE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED89914B-B3FA-4CB3-BFF4-12F7B7E1BE34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

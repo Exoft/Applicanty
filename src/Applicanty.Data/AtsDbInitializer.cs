@@ -1,4 +1,4 @@
-﻿using Applicanty.Core.Model;
+﻿using Applicanty.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;

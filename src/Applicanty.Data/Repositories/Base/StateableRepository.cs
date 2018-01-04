@@ -1,8 +1,6 @@
-﻿using Applicanty.Core.Abstract;
+﻿using Applicanty.Core.Entities.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Applicanty.Data.Repositories
 {

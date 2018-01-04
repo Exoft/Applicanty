@@ -1,6 +1,6 @@
 ﻿using Applicanty.API.Models.Response;
-using Applicanty.Core.Model;
-using Applicanty.DTO.DtoModel;
+using Applicanty.Core.Entities;
+using Applicanty.Core.Dto;
 using Applicanty.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

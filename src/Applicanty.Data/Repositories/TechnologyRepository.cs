@@ -1,5 +1,5 @@
-﻿using Applicanty.Core.Model;
-using Applicanty.Data.Repositories.Abstract;
+﻿using Applicanty.Core.Entities;
+using Applicanty.Core.Data.Repositories;
 
 namespace Applicanty.Data.Repositories
 {
