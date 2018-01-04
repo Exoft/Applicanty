@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Applicanty.Core.Model;
 using Applicanty.Data.UnitOfWork.Interface;
+using Applicanty.DTO.DtoModel;
 using Applicanty.Services.Abstract;
+using AutoMapper;
 
 namespace Applicanty.Services.Services
 {
     public class VacancyService : StateableService<Vacancy>, IVacancyService
     {
-        public VacancyService(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
+        public VacancyService(IUnitOfWork unitOfWork, IMapper mapper)
+            : base(unitOfWork, mapper)
         { }
 
         public override void Archive(int id)
@@ -31,24 +33,28 @@ namespace Applicanty.Services.Services
             _unitOfWork.Commit();
         }
 
-        public override IEnumerable<Vacancy> GetAll()
+        public override IEnumerable<VacancyDTO> GetAll<VacancyDTO>()
         {
-            return _unitOfWork.VacancyRepository.GetAll();
+            var entity = _unitOfWork.VacancyRepository.GetAll();
+            return _mapper.Map<IEnumerable<Vacancy>, IEnumerable<VacancyDTO>>(entity);
         }
 
-        public override ICollection<Vacancy> GetAll(Expression<Func<Vacancy, bool>> predicate)
+        public override ICollection<VacancyDTO> GetAll<VacancyDTO>(Expression<Func<Vacancy, bool>> predicate)
         {
-            return _unitOfWork.VacancyRepository.GetAll(predicate);
+            var entity = _unitOfWork.VacancyRepository.GetAll(predicate);
+            return _mapper.Map<ICollection<Vacancy>, ICollection<VacancyDTO>>(entity);
         }
 
-        public override Vacancy GetOne(int id)
+        public override VacancyDetailDTO GetOne<VacancyDetailDTO>(int id)
         {
-            return _unitOfWork.VacancyRepository.GetOne(id);
+            var entity = _unitOfWork.VacancyRepository.GetOne(id);
+            return _mapper.Map<Vacancy, VacancyDetailDTO>(entity);
         }
 
-        public override Vacancy GetOne(Expression<Func<Vacancy, bool>> predicate)
+        public override VacancyDetailDTO GetOne<VacancyDetailDTO>(Expression<Func<Vacancy, bool>> predicate)
         {
-            return _unitOfWork.VacancyRepository.GetOne(predicate);
+            var entity = _unitOfWork.VacancyRepository.GetOne(predicate);
+            return _mapper.Map<Vacancy, VacancyDetailDTO>(entity);
         }
 
         public override void UnArchive(int id)

@@ -1,5 +1,6 @@
 ﻿using Applicanty.API.Models.Response;
 using Applicanty.Core.Model;
+using Applicanty.DTO.DtoModel;
 using Applicanty.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetOne(id);
+                var vacancy = _vacancyService.GetOne<VacancyDetailsDTO>(id);
 
                 return Json(vacancy);
             }
@@ -39,14 +40,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacanciesCount = _vacancyService.GetAll().Count();
+                var vacanciesCount = _vacancyService.GetAll<VacancyDTO>().Count();
 
-                var vacancies = _vacancyService.GetAll();
+                var vacancies = _vacancyService.GetAll<VacancyDTO>();
 
                 if (skip != null && take != null)
-                    vacancies = _vacancyService.GetAll().Skip((int)skip).Take((int)take);
+                    vacancies = _vacancyService.GetAll<VacancyDTO>().Skip((int)skip).Take((int)take);
 
-                var response = new Response<Vacancy>
+                var response = new Response<VacancyDTO>
                 {
                     Result = vacancies,
                     TotalCount = vacanciesCount

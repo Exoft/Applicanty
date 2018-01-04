@@ -2,6 +2,7 @@
 using Applicanty.Core.Abstract;
 using Applicanty.Data.UnitOfWork.Interface;
 using Applicanty.Services.Abstract;
+using AutoMapper;
 
 namespace Applicanty.Services.Services
 {
@@ -9,8 +10,8 @@ namespace Applicanty.Services.Services
         where TEntity : class, IEntity, IStateable
     {
 
-        public StateableService(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
+        public StateableService(IUnitOfWork unitOfWork, IMapper mapper)
+            : base(unitOfWork, mapper)
         {}
 
         public abstract void Archive(int id);

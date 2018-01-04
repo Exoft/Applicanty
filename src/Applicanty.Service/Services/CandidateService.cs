@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Applicanty.Core.Model;
 using Applicanty.Data.UnitOfWork.Interface;
+using Applicanty.DTO.DtoModel;
 using Applicanty.Services.Abstract;
+using AutoMapper;
 
 namespace Applicanty.Services.Services
 {
     public class CandidateService : StateableService<Candidate>, ICandidateService
     {
-        public CandidateService(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
-        {}
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
+            : base(unitOfWork, mapper)
+        { }
 
         public override void Archive(int id)
         {
@@ -31,24 +33,29 @@ namespace Applicanty.Services.Services
             _unitOfWork.Commit();
         }
 
-        public override IEnumerable<Candidate> GetAll()
+        public override IEnumerable<CandidateDTO> GetAll<CandidateDTO>()
         {
-            return _unitOfWork.CandidateRepository.GetAll();
+            var entity = _unitOfWork.CandidateRepository.GetAll();
+            return _mapper.Map<IEnumerable<Candidate>, IEnumerable<CandidateDTO>>(entity);
         }
 
-        public override ICollection<Candidate> GetAll(Expression<Func<Candidate, bool>> predicate)
+        public override ICollection<CandidateDTO> GetAll<CandidateDTO>(Expression<Func<Candidate, bool>> predicate)
         {
-            return _unitOfWork.CandidateRepository.GetAll(predicate);
+            var entity =_unitOfWork.CandidateRepository.GetAll(predicate);
+            return _mapper.Map<ICollection<Candidate>, ICollection<CandidateDTO>>(entity);
+
         }
 
-        public override Candidate GetOne(int id)
+        public override CandidateDetailsDTO GetOne<CandidateDetailsDTO>(int id)
         {
-            return _unitOfWork.CandidateRepository.GetOne(id);
+            var entity = _unitOfWork.CandidateRepository.GetOne(id);
+            return _mapper.Map<Candidate, CandidateDetailsDTO>(entity);
         }
 
-        public override Candidate GetOne(Expression<Func<Candidate, bool>> predicate)
+        public override CandidateDetailsDTO GetOne<CandidateDetailsDTO>(Expression<Func<Candidate, bool>> predicate)
         {
-            return _unitOfWork.CandidateRepository.GetOne(predicate);
+            var entity = _unitOfWork.CandidateRepository.GetOne(predicate);
+            return _mapper.Map<Candidate, CandidateDetailsDTO>(entity);
         }
 
         public override void UnArchive(int id)

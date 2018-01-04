@@ -14,6 +14,7 @@ using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.Services.Abstract;
 using Applicanty.Services.Services;
 using Applicanty.API.Helpers;
+using AutoMapper;
 
 namespace Applicant.API
 {
@@ -84,6 +85,8 @@ namespace Applicant.API
 
                     options.ApiName = "applicantyAPI";
                 });
+
+            services.AddAutoMapper(a => a.AddProfile(new Applicanty.DTO.MappingProfile()));
 
             services.AddMvc();
         }

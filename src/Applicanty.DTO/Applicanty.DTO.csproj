@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Applicanty.Core\Applicanty.Core.csproj" />
-    <ProjectReference Include="..\Applicanty.Data\Applicanty.Data.csproj" />
-    <ProjectReference Include="..\Applicanty.DTO\Applicanty.DTO.csproj" />
   </ItemGroup>
 
 </Project>

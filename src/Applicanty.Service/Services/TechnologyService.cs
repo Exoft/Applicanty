@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Applicanty.Core.Model;
 using Applicanty.Data.UnitOfWork.Interface;
+using Applicanty.DTO.DtoModel;
 using Applicanty.Services.Abstract;
+using AutoMapper;
 
 namespace Applicanty.Services.Services
 {
     public class TechnologyService : BaseService<Technology>, ITechnologyService
     {
-        public TechnologyService(IUnitOfWork unitOfWork)
-            :base(unitOfWork)
+        public TechnologyService(IUnitOfWork unitOfWork, IMapper mapper)
+            :base(unitOfWork,mapper)
         {}
 
         public override void Create(Technology entity)
@@ -19,24 +21,29 @@ namespace Applicanty.Services.Services
             _unitOfWork.Commit();
         }
 
-        public override IEnumerable<Technology> GetAll()
+        public override IEnumerable<TechnologyDTO> GetAll<TechnologyDTO>()
         {
-            return _unitOfWork.TechnologyRepository.GetAll();
+            var entity = _unitOfWork.TechnologyRepository.GetAll();
+            return _mapper.Map<IEnumerable<Technology>,IEnumerable<TechnologyDTO>>(entity);
         }
 
-        public override ICollection<Technology> GetAll(Expression<Func<Technology, bool>> predicate)
+        public override ICollection<TechnologyDTO> GetAll<TechnologyDTO>(Expression<Func<Technology, bool>> predicate)
         {
-            return _unitOfWork.TechnologyRepository.GetAll(predicate);
+            var entity = _unitOfWork.TechnologyRepository.GetAll(predicate);
+            return _mapper.Map<ICollection<Technology>, ICollection<TechnologyDTO>>(entity);
         }
 
-        public override Technology GetOne(int id)
+        public override TechnologyDTO GetOne<TechnologyDTO>(int id)
         {
-            return _unitOfWork.TechnologyRepository.GetOne(id);
+            var entity = _unitOfWork.TechnologyRepository.GetOne(id);
+            return _mapper.Map<Technology,TechnologyDTO>(entity);
         }
 
-        public override Technology GetOne(Expression<Func<Technology, bool>> predicate)
+        public override TechnologyDTO GetOne<TechnologyDTO>(Expression<Func<Technology, bool>> predicate)
         {
-            return _unitOfWork.TechnologyRepository.GetOne(predicate);
+            var entity = _unitOfWork.TechnologyRepository.GetOne(predicate);
+            return _mapper.Map<Technology, TechnologyDTO>(entity);
+
         }
 
         public override void Update(Technology entity)

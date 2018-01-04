@@ -19,6 +19,7 @@ namespace Applicanty.Core.Model
         public int MaxSalary { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
+        public DateTime EndDate { get; set; }
 
         public User User { get; set; }
         public Experience Experience { get; set; }

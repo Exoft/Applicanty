@@ -1,6 +1,8 @@
 ﻿using Applicanty.API.Models.Response;
 using Applicanty.Core.Model;
+using Applicanty.DTO.DtoModel;
 using Applicanty.Services.Abstract;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -12,10 +14,12 @@ namespace Applicanty.API.Controllers
     public class CandidateController : Controller
     {
         ICandidateService _candidateService;
+        private readonly IMapper _mapper;
 
-        public CandidateController(ICandidateService candidateService)
+        public CandidateController(ICandidateService candidateService, IMapper mapper)
         {
             _candidateService = candidateService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
@@ -23,7 +27,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidate = _candidateService.GetOne(id);
+                var candidate = _candidateService.GetOne<CandidateDetailsDTO>(id);
 
                 if (candidate == null)
                 {
@@ -43,14 +47,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidatesCount = _candidateService.GetAll().Count();
+                var candidates = _candidateService.GetAll<CandidateDTO>();
+                var candidatesCount = candidates.Count();
 
-                var candidates = _candidateService.GetAll();
 
                 if (skip != null&& take != null)
-                    candidates = _candidateService.GetAll().Skip((int)skip).Take((int)take);
+                    candidates = candidates.Skip((int)skip).Take((int)take);
 
-                var response = new Response<Candidate>
+                var response = new Response<CandidateDTO>
                 {
                     Result = candidates,
                     TotalCount = candidatesCount
