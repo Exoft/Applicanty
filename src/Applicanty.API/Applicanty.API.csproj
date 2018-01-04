@@ -25,7 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Applicanty.Core\Applicanty.Core.csproj" />
     <ProjectReference Include="..\Applicanty.Data\Applicanty.Data.csproj" />
-    <ProjectReference Include="..\Applicanty.DTO\Applicanty.DTO.csproj" />
     <ProjectReference Include="..\Applicanty.Service\Applicanty.Services.csproj" />
   </ItemGroup>
 

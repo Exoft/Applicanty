@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Applicanty.Core.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Applicanty.Data.Repositories.Abstract;
-using Microsoft.EntityFrameworkCore;
 
 namespace Applicanty.Data.Repositories
 {

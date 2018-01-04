@@ -9,7 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
-using Applicanty.Core.Model;
+using Applicanty.Core.Entities;
 using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
