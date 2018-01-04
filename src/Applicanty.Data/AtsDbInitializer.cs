@@ -11,6 +11,7 @@ namespace Applicanty.Data
         public static async Task Initialize(AtsDbContext context, UserManager<User> userManager)
         {
             context.Database.EnsureCreated();
+            var random = new Random();
 
             if (!context.Experiences.Any())
             {
@@ -91,60 +92,45 @@ namespace Applicanty.Data
 
             if (!context.Vacancies.Any())
             {
-                context.Vacancies.Add(new Vacancy
-                {
-                    CreatedOn = DateTime.Now,
-                    ExperienceId = 1,
-                    UserId = 1,
-                    IsArchived = false,
-                    MaxSalary = 300,
-                    MinSalary = 250,
-                    Title = "Lorem ipsum",
-                    UpdatedOn = DateTime.Now,
-                    ProjectDescription = "Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                    JobDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                });
 
-                context.Vacancies.Add(new Vacancy
+                for (int i = 0; i < 60; i++)
                 {
-                    CreatedOn = DateTime.Now,
-                    ExperienceId = 2,
-                    UserId = 2,
-                    IsArchived = false,
-                    MaxSalary = 400,
-                    MinSalary = 150,
-                    Title = "Lorem ipsum",
-                    UpdatedOn = DateTime.Now,
-                    ProjectDescription = "Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                    JobDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                });
-
-                context.Vacancies.Add(new Vacancy
-                {
-                    CreatedOn = DateTime.Now,
-                    ExperienceId = 3,
-                    UserId = 3,
-                    IsArchived = false,
-                    MaxSalary = 270,
-                    MinSalary = 150,
-                    Title = "Lorem ipsum",
-                    UpdatedOn = DateTime.Now,
-                    ProjectDescription = "Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                    JobDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                });
-
+                    context.Vacancies.Add(new Vacancy
+                    {
+                        CreatedOn = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
+                        ExperienceId = i % 3 + 1,
+                        UserId = i % 3 + 1,
+                        IsArchived = false,
+                        MaxSalary = 300 + random.Next(50, 200),
+                        MinSalary = 100 + random.Next(50, 200),
+                        Title = "Lorem ipsum" + i,
+                        UpdatedOn = DateTime.Now,
+                        ProjectDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
+                        JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
+                        EndDate = DateTime.Now.AddDays(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())
+                    });
+                }
                 context.SaveChanges();
             }
 
             if (!context.Candidates.Any())
             {
-                context.Add(new Candidate { Email = "superman_duperman@mail.com", FirstName = "Clark", LastName = "Kent", ExperienceId = 4, IsArchived = false, Phone = "06345345997", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "batman@mail.com", FirstName = "Bruce", LastName = "Wayne", ExperienceId = 1, IsArchived = false, Phone = "06763454337", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "flash@mail.com", FirstName = "Barry", LastName = "Alan", ExperienceId = 2, IsArchived = false, Phone = "0676834634", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "capitan_america@mail.com", FirstName = "Steve", LastName = "Rodgers", ExperienceId = 4, IsArchived = false, Phone = "06745654997", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "hulk@mail.com", FirstName = "Bruce", LastName = "Banner", ExperienceId = 3, IsArchived = false, Phone = "0676345697", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "thor@mail.com", FirstName = "Thor", LastName = "SunOfOdin", ExperienceId = 3, IsArchived = false, Phone = "067233997", UpdateOn = DateTime.Now });
-                context.Add(new Candidate { Email = "odin@mail.com", FirstName = "Odin", LastName = "FatherOfAll", ExperienceId = 1, IsArchived = false, Phone = "067683997", UpdateOn = DateTime.Now });
+                string[] Names = new string[6] { "Clark", "Bruce", "Barry", "Nicolas", "Ihor", "Stephan" };
+                string[] SurNames = new string[6] { "Kent", "Wayne", "Alien", "Kage", "Hubish", "Dali" };
+
+                for (int i = 0; i < 60; i++)
+                {
+                    context.Add(new Candidate
+                    {
+                        FirstName = Names[random.Next(0, 5)],
+                        Email = Names[random.Next(0, 5)] + "@gmail.com",
+                        LastName = SurNames[random.Next(0, 5)],
+                        ExperienceId = random.Next(1,4),
+                        IsArchived = false,
+                        Phone = "0634534599" + i,
+                        UpdateOn = DateTime.Now
+                    });
+                }
 
                 context.SaveChanges();
             }
