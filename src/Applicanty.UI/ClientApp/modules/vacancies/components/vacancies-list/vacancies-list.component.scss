@@ -21,3 +21,15 @@ table {
     margin-left: -20px;
     padding-left: 20px;
 }
+
+.username-list {
+    margin-bottom: 0;
+
+    .username:not(:last-child)::after {
+        content: ", ";
+    }
+
+    .username:last-child::after {
+        content: ".";
+    }
+}

@@ -4,18 +4,19 @@
             <h1>{{vacancy?.title}}</h1>
             <hr />
             <div>
-                <h4>Added:   {{vacancy?.createdOn}}</h4>
+                <h4>Added:   {{vacancy?.createDate | date}}</h4>
+                <h4>End Date:   {{vacancy?.endDate | date}}</h4>
             </div>
 
         </div>
         <div>
             <h3>Our requirments:</h3>
-            <h3>Required technolodies:   {{vacancy?.vacancyTecnologies}}</h3>
-            <h3>Experience:              {{vacancy?.experiences}}</h3>
+            <h3>Required technolodies:   {{vacancy?.technologies}}</h3>
+            <h3>Experience:              {{vacancy?.experienceId}}</h3>
         </div>
         <div>
             Vacancy Description:
-            <h4>{{vacancy?.projectDescription}}</h4>
+            <h4>{{vacancy?.vacancyDescription}}</h4>
             <hr />
         </div>
         <div>
