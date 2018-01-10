@@ -10,7 +10,7 @@ import { VacanciesDataService } from '../../services/vacancies-data.service';
 })
 export class VacancyPageComponent implements OnInit, OnDestroy {
 
-    public vacancy;
+    public vacancy: any;
 
     private id;
     private subscription: Subscription;

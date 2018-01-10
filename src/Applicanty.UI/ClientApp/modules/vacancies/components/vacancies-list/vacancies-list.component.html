@@ -17,7 +17,7 @@
             </label>
         </div>
 
-        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItem">
             <clr-dg-action-bar>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-success-outline">
@@ -31,28 +31,37 @@
                 </div>
             </clr-dg-action-bar>
 
-            <clr-dg-column>Title</clr-dg-column>
-            <clr-dg-column>Experience Levels</clr-dg-column>
-            <clr-dg-column>Create Date</clr-dg-column>
+            <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
+            <clr-dg-column [clrDgField]="'experienceLevels'">Experience Levels</clr-dg-column>
+            <clr-dg-column [clrDgField]="'endDate'">End Date</clr-dg-column>
             <clr-dg-column>     </clr-dg-column>
 
-            <clr-dg-row *clrDgItems="let item of vacanciesList">
-                <clr-dg-cell><a [routerLink]="['../','vacancy', item?.id]" routerLinkActive="active">
+            <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
+                <clr-dg-cell>
+                    <a [routerLink]="['../','vacancy', item?.id]" routerLinkActive="active">
                     {{item?.title}}
                     </a>
                 </clr-dg-cell>
                 <clr-dg-cell>{{item?.experienceId}}</clr-dg-cell>
-                <clr-dg-cell>{{item?.createdOn | date}}</clr-dg-cell>
+                <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
                 <clr-dg-cell>edit | delete</clr-dg-cell>
             </clr-dg-row>
 
             <clr-dg-footer>
                 {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
                 of {{pagination.totalItems}} vacancies
-                <clr-dg-pagination #pagination [clrDgPageSize]="12"></clr-dg-pagination>
+                <clr-dg-pagination #pagination [clrDgPageSize]="12" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
             </clr-dg-footer>
 
         </clr-datagrid>
+
+        <div class="card card-block">
+            <p class="card-text username-list">
+                Selected item(you can delete them):
+                <em *ngIf="selectedItem.length == 0">No item selected.</em>
+                <span class="username" *ngFor="let item of selectedItem">{{item?.title}}</span>
+            </p>
+        </div>
 
     </div>
     <nav class="sidenav">

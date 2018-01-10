@@ -2,7 +2,6 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 import { AuthService } from '../../../services/auth.service';
 
@@ -12,12 +11,12 @@ export class VacanciesDataService {
         private authService: AuthService) {
     }
 
-    public getVacancies(skip: number, take: number): Observable<any> {
+    public getVacancies(skip: number = 0, take: number = 10): Observable<any> {
         return this.http.get(`http://localhost:8000/vacancy?skip=${skip}&take=${take}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getVacancy(vacancyId: any): Observable<any> {
-        return this.http.get(`http://localhost:8000/vacancy/${vacancyId}`,{ headers: this.authService.getAuthenticationHeader() });
+        return this.http.get(`http://localhost:8000/vacancy/${vacancyId}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public createVacancy(vacancy: any): Observable<any> {
