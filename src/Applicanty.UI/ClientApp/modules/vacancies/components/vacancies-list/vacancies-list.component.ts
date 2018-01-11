@@ -16,6 +16,10 @@ export class VacanciesListComponent {
     public loading: boolean = true;
     public loadingError: boolean = false;
 
+    public deleteButtonclick: boolean = false;
+    public modalsMessage: string;
+    private deleting: number[]=[];
+
     public vacanciesList: any[];
 
     constructor(private vacanciesDataService: VacanciesDataService) {
@@ -36,5 +40,24 @@ export class VacanciesListComponent {
                 this.loadingError = true;
             }
         );
+    }
+
+    showModal() {
+        this.deleteButtonclick = true;
+        if (this.selectedItem.length == 0) {
+            this.modalsMessage="You don't selected item for deleting. Try again";
+        }
+        else {
+            this.modalsMessage="You realy want to delete selected items?"
+        }
+    }
+    delete() {
+        if (this.selectedItem.length !== 0) {
+            for (let item of this.selectedItem) {
+                this.deleting.push(item.id);
+            }
+            this.vacanciesDataService.deleteVacancy(this.deleting);
+        }
+        this.deleteButtonclick = false;
     }
 }
