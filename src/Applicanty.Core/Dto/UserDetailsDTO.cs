@@ -1,6 +1,4 @@
-﻿using Applicanty.Core.Entities;
-using AutoMapper;
-using System;
+﻿using System;
 
 namespace Applicanty.Core.Dto
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Applicanty.Core.Data.Repositories
 {
-    public interface IStatableRepository<TEntity> : IEntityBaseRepository<TEntity>
+    public interface IStateableRepository<TEntity> : IEntityBaseRepository<TEntity>
        where TEntity : class, IEntity, IStateable
     {
         void Archive(int id);

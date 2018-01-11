@@ -1,24 +1,26 @@
-﻿using Applicanty.Core.Entities.Abstract;
+﻿using Applicanty.Core.Data.Repositories;
+using Applicanty.Core.Entities.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Applicanty.Data.Repositories
 {
-    internal class StateableRepository<TEntity> : EntityBaseRepository<TEntity>
+    internal class StateableRepository<TEntity> : EntityBaseRepository<TEntity>,
+        IStateableRepository<TEntity>
         where TEntity : class, IEntity, IStateable
     {
         public StateableRepository(AtsDbContext context) : base(context)
         {
         }
 
-        public void Archive(int id)
+        public virtual void Archive(int id)
         {
             TEntity obj = _dbSet.Find(id);
             obj.IsArchived = true;
             _entities.Entry(obj).State = EntityState.Modified;
         }
 
-        public void Archive(ICollection<TEntity> list)
+        public virtual void Archive(ICollection<TEntity> list)
         {
             foreach (var item in list)
             {
@@ -27,7 +29,7 @@ namespace Applicanty.Data.Repositories
             }
         }
 
-        public void UnArchive(int id)
+        public virtual void UnArchive(int id)
         {
             TEntity obj = _dbSet.Find(id);
             obj.IsArchived = false;
@@ -35,7 +37,7 @@ namespace Applicanty.Data.Repositories
 
         }
 
-        public void UnArchive(ICollection<TEntity> list)
+        public virtual void UnArchive(ICollection<TEntity> list)
         {
             foreach (var item in list)
             {

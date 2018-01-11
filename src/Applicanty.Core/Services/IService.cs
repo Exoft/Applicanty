@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Applicanty.Core.Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Applicanty.Services.Abstract
 {
-    public interface IService<TEntity> where TEntity : class
+    public interface IService<TEntity> where TEntity : class, IEntity
     {
         TDto GetOne<TDto>(int id);
         void Create(TEntity entity);

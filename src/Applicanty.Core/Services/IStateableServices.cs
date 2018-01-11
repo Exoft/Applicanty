@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Applicanty.Core.Entities.Abstract;
+using System.Collections.Generic;
 
 namespace Applicanty.Services.Abstract
 {
     public interface IStateableService<TEntity> : IService<TEntity>
-        where TEntity : class 
+        where TEntity : class, IEntity, IStateable
     {
         void Archive(int id);
         void Archive(ICollection<TEntity> list);

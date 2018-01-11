@@ -2,7 +2,7 @@
 
 namespace Applicanty.Core.Data.Repositories
 {
-    public interface IVacancyRepository : IStatableRepository<Vacancy>
+    public interface IVacancyRepository : IStateableRepository<Vacancy>
     {
     }
 }

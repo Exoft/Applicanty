@@ -1,6 +1,6 @@
 ﻿namespace Applicanty.Services.Abstract
 {
-    public interface IUserService
+    public interface IUserService 
     {
     }
 }
