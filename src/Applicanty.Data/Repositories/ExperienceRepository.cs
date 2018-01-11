@@ -5,7 +5,7 @@ namespace Applicanty.Data.Repositories
 {
     internal class ExperienceRepository : EntityBaseRepository<Experience>, IExperienceRepository
     {
-        public ExperienceRepository(AtsDbContext context)
+        internal ExperienceRepository(AtsDbContext context)
             : base(context)
         {
         }

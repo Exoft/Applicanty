@@ -2,7 +2,7 @@
 
 namespace Applicanty.Core.Data.Repositories
 {
-    public interface IStatusRepository : IStatableRepository<Status>
+    public interface IStatusRepository : IEntityBaseRepository<Status>
     {
     }
 }
