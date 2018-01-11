@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Applicanty.Core.Dto
 {
-    class StatusDTO
+    public class ExperienceCreateOrUpdateDto
     {
         public string Name { get; set; }
     }

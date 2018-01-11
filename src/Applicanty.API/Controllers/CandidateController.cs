@@ -27,7 +27,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidate = _candidateService.GetOne<CandidateDetailsDTO>(id);
+                var candidate = _candidateService.GetOne<CandidateDetailsDto>(id);
 
                 if (candidate == null)
                 {
@@ -47,14 +47,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidates = _candidateService.GetAll<CandidateDTO>();
+                var candidates = _candidateService.GetAll<CandidateDto>();
                 var candidatesCount = candidates.Count();
 
 
                 if (skip != null&& take != null)
                     candidates = candidates.Skip((int)skip).Take((int)take);
 
-                var response = new Response<CandidateDTO>
+                var response = new Response<CandidateDto>
                 {
                     Result = candidates,
                     TotalCount = candidatesCount

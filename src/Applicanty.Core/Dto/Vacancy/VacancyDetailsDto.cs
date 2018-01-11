@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Applicanty.Core.Dto
 {
-    public class VacancyDetailsDTO
+    public class VacancyDetailsDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -16,7 +16,7 @@ namespace Applicanty.Core.Dto
         public int StatusId { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
-        public List<TechnologyDTO> Technologies { get; set; }
+        public List<TechnologyDto> Technologies { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsArchived { get; set; }
