@@ -25,7 +25,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetOne<VacancyDetailsDTO>(id);
+                var vacancy = _vacancyService.GetOne<VacancyDetailsDto>(id);
 
                 return Json(vacancy);
             }
@@ -40,14 +40,14 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacanciesCount = _vacancyService.GetAll<VacancyDTO>().Count();
+                var vacanciesCount = _vacancyService.GetAll<VacancyDto>().Count();
 
-                var vacancies = _vacancyService.GetAll<VacancyDTO>();
+                var vacancies = _vacancyService.GetAll<VacancyDto>();
 
                 if (skip != null && take != null)
-                    vacancies = _vacancyService.GetAll<VacancyDTO>().Skip((int)skip).Take((int)take);
+                    vacancies = _vacancyService.GetAll<VacancyDto>().Skip((int)skip).Take((int)take);
 
-                var response = new Response<VacancyDTO>
+                var response = new Response<VacancyDto>
                 {
                     Result = vacancies,
                     TotalCount = vacanciesCount

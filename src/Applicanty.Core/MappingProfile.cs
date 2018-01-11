@@ -8,29 +8,71 @@ namespace Applicanty.Core
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
+            #region UserMap
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
 
-            CreateMap<User, UserDetailsDTO>();
-            CreateMap<UserDetailsDTO, User>();
+            CreateMap<User, UserDetailsDto>();
+            CreateMap<UserDetailsDto, User>();
 
-            CreateMap<Technology, TechnologyDTO>();
-            CreateMap<TechnologyDTO, Technology>();
+            CreateMap<User, UserCreateDto>();
+            CreateMap<UserCreateDto, User>();
 
-            CreateMap<Experience, ExperienceDTO>();
-            CreateMap<ExperienceDTO, Experience>();
+            CreateMap<User, UserUpdateDto>();
+            CreateMap<UserUpdateDto, User>();
+            #endregion
 
-            CreateMap<Candidate, CandidateDTO>();
-            CreateMap<CandidateDTO, CandidateDTO>();
+            #region CandidateMap
+            CreateMap<Candidate, CandidateDto>();
+            CreateMap<Candidate, CandidateDto>();
 
-            CreateMap<Candidate, CandidateDetailsDTO>();
-            CreateMap<CandidateDetailsDTO, Candidate>();
+            CreateMap<Candidate, CandidateDetailsDto>();
+            CreateMap<CandidateDetailsDto, Candidate>();
 
-            CreateMap<Vacancy, VacancyDetailsDTO>();
-            CreateMap<VacancyDetailsDTO, Vacancy>();
+            CreateMap<Candidate, CandidateCreateDto>();
+            CreateMap<Candidate, CandidateCreateDto>();
 
-            CreateMap<Vacancy, VacancyDTO>();
-            CreateMap<VacancyDTO, Vacancy>();
+            CreateMap<Candidate, CandidateUpdateDto>();
+            CreateMap<CandidateUpdateDto, Candidate>();
+            #endregion
+
+            #region VacancyMap
+            CreateMap<Vacancy, VacancyDto>();
+            CreateMap<VacancyDto, Vacancy>();
+
+            CreateMap<Vacancy, VacancyDetailsDto>();
+            CreateMap<VacancyDetailsDto, Vacancy>();
+
+            CreateMap<Vacancy, VacancyCreateDto>();
+            CreateMap<VacancyCreateDto, Vacancy>();
+
+            CreateMap<Vacancy, VacancyUpdateDto>();
+            CreateMap<VacancyUpdateDto, Vacancy>();
+            #endregion
+
+            #region ExperienceMap
+            CreateMap<Experience, ExperienceDto>();
+            CreateMap<ExperienceDto, Experience>();
+
+            CreateMap<Experience, ExperienceCreateOrUpdateDto>();
+            CreateMap<ExperienceCreateOrUpdateDto, Experience>();
+            #endregion
+
+            #region TechnologyMap
+            CreateMap<Technology, TechnologyDto>();
+            CreateMap<TechnologyDto, Technology>();
+
+            CreateMap<Technology, TechnologyCreateOrUpdateDto>();
+            CreateMap<TechnologyCreateOrUpdateDto, Technology>();
+            #endregion
+
+            #region StatusMap
+            CreateMap<Status, StatusDto>();
+            CreateMap<StatusDto, Status>();
+
+            CreateMap<Status, StatusCreateOrUpdateDto>();
+            CreateMap<StatusCreateOrUpdateDto, Status>();
+            #endregion
         }
     }
 }

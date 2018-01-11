@@ -1,6 +1,6 @@
 ﻿namespace Applicanty.Core.Dto
 {
-    public class UserDTO
+    public class UserDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

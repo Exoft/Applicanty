@@ -1,14 +1,11 @@
-﻿using Applicanty.Core.Entities.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-namespace Applicanty.Core.Entities
+namespace Applicanty.Core.Dto
 {
-    public class Candidate : Statable, IEntity
+    public class CandidateUpdateDto
     {
-        public int Id { get; set; }
-        [ForeignKey("Experience")]
         public int ExperienceId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -19,9 +16,5 @@ namespace Applicanty.Core.Entities
         public string CVPath { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime UpdateOn { get; set; }
-
-        public Experience Experience { get; set; }
-        public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
-        public ICollection<CandidateTechnology> CandidateTechnologies { get; set; }
     }
 }

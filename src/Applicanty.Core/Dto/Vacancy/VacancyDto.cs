@@ -2,7 +2,7 @@
 
 namespace Applicanty.Core.Dto
 {
-    public class VacancyDTO
+    public class VacancyDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
