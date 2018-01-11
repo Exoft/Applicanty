@@ -9,14 +9,6 @@
             </div>
         </clr-alert>
 
-        <div class="form-group">
-            <label for="search">
-                <clr-icon shape="search"></clr-icon>
-
-                <input type="text" class="search-input" id="search" placeholder="Search" size="50" />
-            </label>
-        </div>
-
         <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItem">
             <clr-dg-action-bar>
                 <div class="btn-group">
@@ -24,7 +16,7 @@
                         <clr-icon shape="plus"></clr-icon>
                         Add
                     </button>
-                    <button type="button" class="btn btn-sm btn-danger-outline">
+                    <button type="button" class="btn btn-sm btn-danger-outline" (click)="showModal()">
                         <clr-icon shape="close"></clr-icon>
                         Delete
                     </button>
@@ -64,6 +56,18 @@
         </div>
 
     </div>
+
+    <clr-modal [(clrModalOpen)]="deleteButtonclick">
+        <h3 class="modal-title">Delete items</h3>
+        <div class="modal-body">
+            <p>{{modalsMessage}}</p>
+        </div>
+        <div class="modal-footer">
+            <button *ngIf="selectedItem.length != 0" type="button" class="btn btn-outline" (click)="deleteButtonclick = false">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="delete()">Ok</button>
+        </div>
+    </clr-modal>
+
     <nav class="sidenav">
         <section class="sidenav-content">
             <table border="1" width="100%">
