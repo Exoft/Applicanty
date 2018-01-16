@@ -18,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 export const candidateRoutes = [
     { path: 'candidates', component: CandidatesListComponent, canActivate: [AuthGuard] },
-    { path: 'candidate/:candidateId', component: CandidatePageComponent, canActivate: [AuthGuard] }
+    { path: 'candidates/details/:id', component: CandidatePageComponent, canActivate: [AuthGuard] },
+    { path: 'candidates/newcandidate', component: CandidatePageComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

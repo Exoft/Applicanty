@@ -37,8 +37,9 @@ export class AuthService {
 
         that.http.post('http://localhost:8000/user/register', userData).subscribe(
             data => {
+                console.log(data);
                 localStorage.setItem('accessToken', data['access_token']);
-                that.router.navigate(['vacancies']);
+                that.router.navigate(['signIn']);
             },
             error => {
                 if (error.error.identityErrors && error.error.identityErrors.length && signUpErrorCallback) {

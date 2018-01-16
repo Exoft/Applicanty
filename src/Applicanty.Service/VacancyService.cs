@@ -1,8 +1,8 @@
-﻿using Applicanty.Core.Entities;
-using Applicanty.Core.Data;
+﻿using Applicanty.Core.Data;
+using Applicanty.Core.Data.Repositories;
+using Applicanty.Core.Entities;
 using Applicanty.Services.Abstract;
 using AutoMapper;
-using Applicanty.Core.Data.Repositories;
 
 namespace Applicanty.Services.Services
 {

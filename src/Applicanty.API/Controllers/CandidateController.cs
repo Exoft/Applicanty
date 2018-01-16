@@ -17,7 +17,7 @@ namespace Applicanty.API.Controllers
         ICandidateService _candidateService;
         private readonly IMapper _mapper;
 
-        public CandidateController(ICandidateService candidateService, IMapper mapper) :base(candidateService)
+        public CandidateController(ICandidateService candidateService, IMapper mapper) : base(candidateService)
         {
             _candidateService = candidateService;
             _mapper = mapper;
@@ -31,9 +31,7 @@ namespace Applicanty.API.Controllers
                 var candidate = _candidateService.GetOne<CandidateDetailsDto>(id);
 
                 if (candidate == null)
-                {
-                    return BadRequest();
-                }
+                    return BadRequest("Candidate not found.");
 
                 return Json(candidate);
             }
@@ -62,6 +60,7 @@ namespace Applicanty.API.Controllers
                     Result = candidates,
                     TotalCount = candidatesCount
                 };
+
                 return Json(response);
             }
             catch (Exception ex)
@@ -70,14 +69,14 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPost("{model}")]
-        public IActionResult Create(Candidate model)
+        [HttpPost]
+        public IActionResult Create([FromBody]CandidateUpdateDto model)
         {
             try
             {
                 _candidateService.Create(model);
 
-                return Ok();
+                return Ok(true);
             }
             catch (Exception ex)
             {

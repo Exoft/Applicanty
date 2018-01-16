@@ -1,6 +1,6 @@
-﻿using Applicanty.Core.Entities;
+﻿using Applicanty.Core.Data;
 using Applicanty.Core.Data.Repositories;
-using Applicanty.Core.Data;
+using Applicanty.Core.Entities;
 using Applicanty.Services.Abstract;
 using AutoMapper;
 
@@ -14,6 +14,5 @@ namespace Applicanty.Services.Services
 
         protected override ICandidateRepository InitRepository() =>
             UnitOfWork.CandidateRepository;
-
     }
 }
