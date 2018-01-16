@@ -5,7 +5,7 @@ namespace Applicanty.Core.Dto
 {
     public class CandidateDto
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int ExperienceId { get; set; }

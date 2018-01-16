@@ -82,7 +82,7 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPut()]
+        [HttpPut]
         public IActionResult Edit([FromBody]CandidateUpdateDto model)
         {
             try

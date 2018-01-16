@@ -129,7 +129,7 @@ namespace Applicanty.Data
                         ExperienceId = random.Next(1,4),
                         StatusId = StatusType.Archived,
                         Phone = "0634534599" + i,
-                        Birthday = DateTime.Now.AddYears(random.Next(-20,-30)),
+                        Birthday = DateTime.Now.AddYears(random.Next(-30,-20)),
                         UpdateOn = DateTime.Now
                     });
                 }
