@@ -11,7 +11,7 @@ namespace Applicanty.Services.Services
 {
     public abstract class BaseService<TEntity, TRepository> : IService<TEntity>
         where TEntity : class, IEntity
-        where TRepository: IEntityBaseRepository<TEntity>
+        where TRepository : IEntityBaseRepository<TEntity>
     {
 
         private readonly IUnitOfWork _unitOfWork;
@@ -61,10 +61,14 @@ namespace Applicanty.Services.Services
             return _mapper.Map<TEntity, TDto>(entity);
         }
 
-        public virtual void Update(TEntity entity)
+        public TDto Update<TDto>(TDto dto)
         {
-            Repository.Update(entity);
+            var entity = _mapper.Map<TDto, TEntity>(dto);
+
+            var updatedEntity =  Repository.Update(entity);
             _unitOfWork.Commit();
+
+            return _mapper.Map<TEntity, TDto>(updatedEntity);
         }
     }
 }

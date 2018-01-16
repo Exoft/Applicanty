@@ -1,7 +1,9 @@
-﻿namespace Applicanty.Core.Entities.Abstract
+﻿using Applicanty.Core.Enums;
+
+namespace Applicanty.Core.Entities.Abstract
 {
     public interface IStateable
     {
-        bool IsArchived { get; set; }
+        StatusType StatusId { get; set; }
     }
 }

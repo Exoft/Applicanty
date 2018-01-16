@@ -11,12 +11,12 @@ using System.Net;
 namespace Applicanty.API.Controllers
 {
     [Route("[controller]")]
-    public class CandidateController : Controller
+    public class CandidateController : BaseController<Candidate>
     {
         ICandidateService _candidateService;
         private readonly IMapper _mapper;
 
-        public CandidateController(ICandidateService candidateService, IMapper mapper)
+        public CandidateController(ICandidateService candidateService, IMapper mapper) :base(candidateService)
         {
             _candidateService = candidateService;
             _mapper = mapper;
@@ -82,29 +82,14 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPut("{model}")]
-        public IActionResult Edit(Candidate model)
+        [HttpPut()]
+        public IActionResult Edit([FromBody]CandidateUpdateDto model)
         {
             try
             {
-                _candidateService.Create(model);
+                var updatedModel = _candidateService.Update(model);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Archive(int id)
-        {
-            try
-            {
-                _candidateService.Archive(id);
-
-                return Ok();
+                return Ok(updatedModel);
             }
             catch (Exception ex)
             {

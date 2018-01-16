@@ -6,6 +6,7 @@ namespace Applicanty.Core.Dto
 {
     public class VacancyUpdateDto
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int ExperienceId { get; set; }
         public string Title { get; set; }

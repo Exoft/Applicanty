@@ -1,4 +1,5 @@
 ﻿using Applicanty.Core.Entities;
+using Applicanty.Core.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
@@ -25,17 +26,17 @@ namespace Applicanty.Data
 
             if (!context.Statuses.Any())
             {
-                context.Add(new Status { Name = "To process", IsArchived = false });
-                context.Add(new Status { Name = "Selected", IsArchived = false });
-                context.Add(new Status { Name = "Contacted", IsArchived = false });
-                context.Add(new Status { Name = "Not interested in this time", IsArchived = false });
-                context.Add(new Status { Name = "Interviewed", IsArchived = false });
-                context.Add(new Status { Name = "Rejected", IsArchived = false });
-                context.Add(new Status { Name = "Offer Sent", IsArchived = false });
-                context.Add(new Status { Name = "Declined offer", IsArchived = false });
-                context.Add(new Status { Name = "Hired", IsArchived = false });
-                context.Add(new Status { Name = "Keep in the pool", IsArchived = false });
-                context.Add(new Status { Name = "Worked at Exoft", IsArchived = false });
+                context.Add(new Status { Name = "To process",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Selected",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Contacted",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Not interested in this time",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Interviewed",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Rejected",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Offer Sent",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Declined offer",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Hired",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Keep in the pool",StatusId = StatusType.Archived});
+                context.Add(new Status { Name = "Worked at Exoft",StatusId = StatusType.Archived});
 
                 context.SaveChanges();
             }
@@ -100,7 +101,7 @@ namespace Applicanty.Data
                         CreatedOn = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
                         ExperienceId = i % 3 + 1,
                         UserId = i % 3 + 1,
-                        IsArchived = false,
+                        StatusId = StatusType.Archived,
                         MaxSalary = 300 + random.Next(50, 200),
                         MinSalary = 100 + random.Next(50, 200),
                         Title = "Lorem ipsum" + i,
@@ -126,7 +127,7 @@ namespace Applicanty.Data
                         Email = Names[random.Next(0, 5)] + "@gmail.com",
                         LastName = SurNames[random.Next(0, 5)],
                         ExperienceId = random.Next(1,4),
-                        IsArchived = false,
+                        StatusId = StatusType.Archived,
                         Phone = "0634534599" + i,
                         Birthday = DateTime.Now.AddYears(random.Next(-20,-30)),
                         UpdateOn = DateTime.Now
