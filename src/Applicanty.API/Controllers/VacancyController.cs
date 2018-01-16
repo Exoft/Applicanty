@@ -76,7 +76,7 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPut()]
+        [HttpPut]
         public IActionResult Edit([FromBody]VacancyUpdateDto model)
         {
             try
