@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
+using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
 {
@@ -43,7 +44,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take)
+        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take, [FromQuery]string property, [FromQuery]string sortBy)
         {
             try
             {
@@ -51,8 +52,10 @@ namespace Applicanty.API.Controllers
                 var candidatesCount = candidates.Count();
 
 
-                if (skip != null&& take != null)
+                if (skip != null && take != null)
                     candidates = candidates.Skip((int)skip).Take((int)take);
+
+                candidates = ListHelper<CandidateDto>.SortBy(candidates, property, sortBy);
 
                 var response = new Response<CandidateDto>
                 {

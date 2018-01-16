@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
+using System.Reflection;
+using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
 {
@@ -36,16 +38,20 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take)
+        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take, [FromQuery]string property, [FromQuery]string sortBy)
         {
             try
             {
                 var vacanciesCount = _vacancyService.GetAll<VacancyDto>().Count();
-
+                VacancyDto vac = new VacancyDto();
                 var vacancies = _vacancyService.GetAll<VacancyDto>();
 
                 if (skip != null && take != null)
+                {
                     vacancies = _vacancyService.GetAll<VacancyDto>().Skip((int)skip).Take((int)take);
+                }
+
+                vacancies = ListHelper<VacancyDto>.SortBy(vacancies, property, sortBy);
 
                 var response = new Response<VacancyDto>
                 {
