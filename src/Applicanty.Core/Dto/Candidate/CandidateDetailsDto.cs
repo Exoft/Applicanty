@@ -11,8 +11,9 @@ namespace Applicanty.Core.Dto
         public string Email { get; set; }
         public string LinkedIn { get; set; }
         public string Skype { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
         public string CVPath { get; set; }
+        public DateTime Birthday { get; set; }
         public DateTime UpdateOn { get; set; }
     }
 }

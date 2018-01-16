@@ -1,44 +1,63 @@
 ﻿<div class="content-container">
     <div class="content-area">
-        <form>
+        <form [formGroup]="candidatePageFrom">
             <section class="form-block">
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
-                    <input type="text" placeholder="First Name" size="25">
+                    <input class="form-control" type="text" placeholder="First Name" formControlName="firstName" size="25">
                 </div>
+
                 <div class="form-group">
                     <label for="lastName">Last Name:</label>
-                    <input type="text" placeholder="Last Name" size="25">
+                    <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" size="25">
                 </div>
+
                 <div class="form-group">
                     <label for="experienceId">Candidate Experience:</label>
                     <div class="select">
-                        <select id="aForm_3">
-                            <option>year 1</option>
-                            <option>year 2</option>
-                            <option>year 3</option>
-                            <option>year 4</option>
+                        <select id="experienceId" formControlName="experienceId">
+                            <option value="1">year 1</option>
+                            <option value="2">year 2</option>
+                            <option value="3">year 3</option>
+                            <option value="4">year 4</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="text" placeholder="Email" size="25">
-                </div>
-                <div class="form-group">
-                    <label for="linkedIn">LinkedIn:</label>
-                    <input type="text" placeholder="LinkedIn" size="25">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="text" placeholder="Phone" size="25">
-                </div>
-                <div class="form-group">
-                    <label for="age">Age:</label>
-                    <input type="text" placeholder="Age" size="25">
+                    <input class="form-control" type="text" placeholder="Email" formControlName="email" size="25">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Save</button>
+                <div class="form-group">
+                    <label for="skype">Skype:</label>
+                    <input class="form-control" type="text" placeholder="Skype" formControlName="skype" size="25">
+                </div>
+
+                <div class="form-group">
+                    <label for="linkedIn">LinkedIn:</label>
+                    <input class="form-control" type="text" placeholder="LinkedIn" formControlName="linkedIn" size="25">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input class="form-control" type="text" placeholder="Phone" formControlName="phone" size="25">
+                </div>
+
+                <div class="form-group">
+                    <label for="cvPath">CV Path:</label>
+                    <input class="form-control" type="text" placeholder="CV Path" formControlName="cvPath" size="25">
+                </div>
+
+                <div class="form-group">
+                    <label for="birthday">Birthday:</label>
+                    <input class="form-control" type="date" formControlName="birthday" size="25">
+                </div>
+
+                <input type="hidden" formControlName="id">
+
+                <button type="button" class="btn btn-primary" (click)="saveCandidateClick($event)">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
             </section>
         </form>
     </div>

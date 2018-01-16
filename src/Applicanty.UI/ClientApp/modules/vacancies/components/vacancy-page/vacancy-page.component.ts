@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 
 @Component({
-    selector: 'vacancy-page',
     templateUrl: './vacancy-page.component.html',
     styleUrls: ['./vacancy-page.component.scss']
 })
@@ -18,8 +17,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     constructor(private http: VacanciesDataService,
         private activeRoute: ActivatedRoute) {
 
-        this.subscription = activeRoute.params.subscribe(
-            params => this.id = params['vacancyId']);
+        this.subscription = activeRoute.params.subscribe(params => this.id = params['id']);
     }
 
     ngOnInit() {

@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Applicanty.Core.Data;
+using Applicanty.Core.Data.Repositories;
 using Applicanty.Core.Entities.Abstract;
-using Applicanty.Core.Data;
+using Applicanty.Core.Enums;
 using Applicanty.Services.Abstract;
 using AutoMapper;
-using Applicanty.Core.Data.Repositories;
-using Applicanty.Core.Enums;
 
 namespace Applicanty.Services.Services
 {

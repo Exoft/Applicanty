@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using Applicanty.Core.Data;
 using Applicanty.Core.Data.Repositories;
-using Applicanty.Core.Data;
+using Applicanty.Core.Entities.Abstract;
 using Applicanty.Services.Abstract;
 using AutoMapper;
-using Applicanty.Core.Entities.Abstract;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Applicanty.Services.Services
 {
@@ -31,12 +31,6 @@ namespace Applicanty.Services.Services
 
         protected abstract TRepository InitRepository();
 
-        public virtual void Create(TEntity entity)
-        {
-            Repository.Add(entity);
-            _unitOfWork.Commit();
-        }
-
         public virtual IEnumerable<TDto> GetAll<TDto>()
         {
             var entities = Repository.GetAll();
@@ -59,6 +53,14 @@ namespace Applicanty.Services.Services
         {
             var entity = Repository.GetOne(predicate);
             return _mapper.Map<TEntity, TDto>(entity);
+        }
+
+        public virtual void Create<TDto>(TDto dto)
+        {
+            var entity = _mapper.Map<TDto, TEntity>(dto);
+
+            Repository.Add(entity);
+            _unitOfWork.Commit();
         }
 
         public TDto Update<TDto>(TDto dto)

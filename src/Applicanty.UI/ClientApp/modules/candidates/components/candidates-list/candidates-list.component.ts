@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 import { CandidatesDataService } from '../../services/candidates-data.service';
 import { State } from "clarity-angular";
 import { Router } from "@angular/router";
@@ -9,17 +9,23 @@ import { Router } from "@angular/router";
 })
 export class CandidatesListComponent {
     public candidates = [];
-    private curentPage;
     public total: number;
     public loading: boolean = true;
+    public selectedCandidates: any[] = [];
+
     private totalCount: number;
+    private curentPage;
+
 
     constructor(private сandidatesDataService: CandidatesDataService,) {
     }
 
     refresh(state: State) {
-        this.loading = true;
+        let that = this;
+
+        that.loading = true;
         let filters: { [prop: string]: any[] } = {};
+
         if (state.filters) {
             for (let filter of state.filters) {
                 let { property, value } = <{ property: string, value: string }>filter;
@@ -27,15 +33,15 @@ export class CandidatesListComponent {
             }
         }
 
-        this.curentPage = state.page;
-        this.сandidatesDataService.getCandidates(this.curentPage.from, this.curentPage.size).subscribe(
+        that.curentPage = state.page;
+        that.сandidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size).subscribe(
             data => {
-                this.candidates = data.result;
-                this.totalCount = data.totalCount;
-                this.loading = false;
+                that.candidates = data.result;
+                that.totalCount = data.totalCount;
+                that.loading = false;
             },
             error => {
-                this.loading = false;
+                that.loading = false;
             });
     }
 }
