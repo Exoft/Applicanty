@@ -4,6 +4,7 @@ using Applicanty.Core.Data;
 using Applicanty.Services.Abstract;
 using AutoMapper;
 using Applicanty.Core.Data.Repositories;
+using Applicanty.Core.Enums;
 
 namespace Applicanty.Services.Services
 {
@@ -16,27 +17,9 @@ namespace Applicanty.Services.Services
             : base(unitOfWork, mapper)
         {}
 
-        public virtual void Archive(int id)
+        public virtual void ChangeStatus(int[] arrayIds, StatusType status)
         {
-            Repository.Archive(id);
-            UnitOfWork.Commit();
-        }
-
-        public virtual void Archive(ICollection<TEntity> list)
-        {
-            Repository.Archive(list);
-            UnitOfWork.Commit();
-        }
-
-        public virtual void UnArchive(int id)
-        {
-            Repository.UnArchive(id);
-            UnitOfWork.Commit();
-        }
-
-        public virtual void UnArchive(ICollection<TEntity> list)
-        {
-            Repository.UnArchive(list);
+            Repository.ChangeStatus(arrayIds, status);
             UnitOfWork.Commit();
         }
     }

@@ -12,7 +12,7 @@ namespace Applicanty.Core.Data.Repositories
         ICollection<TEntity> GetAll();
         ICollection<TEntity> GetAll(Expression<System.Func<TEntity, bool>> predicate);
         void Add(TEntity entity);
-        void Update(TEntity entity);
+        TEntity Update(TEntity entity);
         int Count();
     }
 }

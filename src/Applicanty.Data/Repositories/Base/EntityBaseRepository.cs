@@ -50,9 +50,11 @@ namespace Applicanty.Data.Repositories
             _dbSet.AddRange(entityList);
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             _entities.Entry(entity).State = EntityState.Modified;
+
+            return entity;
         }
 
         public virtual int Count()

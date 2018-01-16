@@ -11,11 +11,11 @@ using System.Net;
 namespace Applicanty.API.Controllers
 {
     [Route("[controller]")]
-    public class VacancyController : Controller
+    public class VacancyController : BaseController<Vacancy>
     {
         IVacancyService _vacancyService;
 
-        public VacancyController(IVacancyService vacancyService)
+        public VacancyController(IVacancyService vacancyService):base(vacancyService)
         {
             _vacancyService = vacancyService;
         }
@@ -76,29 +76,14 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPut("{model}")]
-        public IActionResult Edit(Vacancy model)
+        [HttpPut()]
+        public IActionResult Edit([FromBody]VacancyUpdateDto model)
         {
             try
             {
-                _vacancyService.Create(model);
+               var updatedModel = _vacancyService.Update(model);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Archive(int id)
-        {
-            try
-            {
-                _vacancyService.Archive(id);
-
-                return Ok();
+                return Ok(updatedModel);
             }
             catch (Exception ex)
             {
