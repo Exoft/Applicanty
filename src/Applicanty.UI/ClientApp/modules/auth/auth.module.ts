@@ -10,6 +10,7 @@ import { ClarityModule } from 'clarity-angular';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 
 import { AuthGuard } from '../../services/authguard.service';
 import { ValidationService } from '../../services/validation.service';
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 export const authRoutes = [
     { path: 'profile', component: UserProfilePageComponent, canActivate: [AuthGuard]},
     { path: 'signin', component: SignInComponent },
-    { path: 'signup', component: SignUpComponent }
+    { path: 'signup', component: SignUpComponent },
+    { path: 'emailverification', component: EmailVerificationComponent }
 ];
 
 @NgModule({
@@ -29,7 +31,8 @@ export const authRoutes = [
     declarations: [
         UserProfilePageComponent,
         SignInComponent,
-        SignUpComponent
+        SignUpComponent,
+        EmailVerificationComponent
     ],
     imports: [
         CommonModule,

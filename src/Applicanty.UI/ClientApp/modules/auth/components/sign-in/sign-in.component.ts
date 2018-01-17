@@ -6,7 +6,6 @@ import { AuthService } from '../../../../services/auth.service';
 import { ValidationService } from "../../../../services/validation.service";
 
 @Component({
-    selector: 'signIn',
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss']
 })

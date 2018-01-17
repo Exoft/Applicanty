@@ -1,16 +1,15 @@
-﻿using Applicanty.API.Models;
+﻿using Applicanty.API.Helpers;
+using Applicanty.API.Models;
 using Applicanty.API.Models.Response;
+using Applicanty.Core.Entities;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authorization;
-using Applicanty.Core.Entities;
-using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
 {
@@ -86,7 +85,7 @@ namespace Applicanty.API.Controllers
 
                     await _emailSender.SendEmailAsync(user.Email, "ConfirmEmail", confirmationLink);
 
-                    return Ok();
+                    return Ok(true);
                 }
 
                 return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(result.Errors));
@@ -97,34 +96,22 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPost("secure")]
-        public async Task<IActionResult> Secure([FromBody]string token)
+        [HttpPost]
+        public IActionResult ConfirmEmail([FromQuery]string email, [FromQuery]string token)
         {
-            var discoveryClient = new DiscoveryClient(_configuration["ApiBaseUrl"]);
-            var doc = await discoveryClient.GetAsync();
-
-            var introspectionClient = new IntrospectionClient(doc.IntrospectionEndpoint, "applicantyAPI", "secret");
-            var response = await introspectionClient.SendAsync(new IntrospectionRequest { Token = token });
-
-            if (response.IsError)
-                return Ok(false);
-
-            return Ok(response.IsActive);
-        }
-
-        [HttpGet]
-        public IActionResult ConfirmEmail(string userid, string token)
-        {
-            User user = _userManager.FindByIdAsync(userid).Result;
-            IdentityResult result = _userManager.
-                        ConfirmEmailAsync(user, token).Result;
-            if (result.Succeeded)
+            try
             {
-                return Ok("Success");
+                User user = _userManager.FindByEmailAsync(email).Result;
+                IdentityResult result = _userManager.ConfirmEmailAsync(user, token).Result;
+
+                if (result.Succeeded)
+                    return Ok(true);
+
+                throw new Exception("Exception occured during email confirmation.");
             }
-            else
+            catch (Exception ex)
             {
-                return Ok("Error");
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
 
