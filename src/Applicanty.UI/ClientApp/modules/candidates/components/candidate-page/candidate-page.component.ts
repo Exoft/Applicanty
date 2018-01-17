@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
     templateUrl: './candidate-page.component.html',
     styleUrls: ['./candidate-page.component.scss']
 })
-export class CandidatePageComponent implements OnInit {
+export class CandidatePageComponent implements OnInit, OnDestroy {
     private id: number;
     private subscription: Subscription;
 
@@ -28,8 +28,9 @@ export class CandidatePageComponent implements OnInit {
     constructor(private candidatesDataService: CandidatesDataService,
         private activeRoute: ActivatedRoute,
         private router: Router) {
+        let that = this;
 
-        this.subscription = activeRoute.params.subscribe(params => this.id = params['id']);
+        that.subscription = activeRoute.params.subscribe(params => that.id = params['id']);
     }
 
     ngOnInit() {
@@ -42,6 +43,10 @@ export class CandidatePageComponent implements OnInit {
                 }
             });
         }
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     private setFormData(candidate) {

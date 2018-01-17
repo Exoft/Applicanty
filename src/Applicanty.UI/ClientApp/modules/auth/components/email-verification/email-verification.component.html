@@ -1,0 +1,15 @@
+<div *ngIf="email && !token">
+    Confirmation link sent to your email: <strong>{{email}}</strong>
+    <br />
+    Please check your inbox.
+</div>
+
+<div *ngIf="!confirmed && token">
+    Your email is being confimed. Hold a while please.
+</div>
+
+<div *ngIf="confirmed && token">
+    Email successfully validated.
+    <br />
+    Navigating to login in {{countdown}} seconds.
+</div>

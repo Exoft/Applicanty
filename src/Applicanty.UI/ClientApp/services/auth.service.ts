@@ -37,14 +37,16 @@ export class AuthService {
 
         that.http.post('http://localhost:8000/user/register', userData).subscribe(
             data => {
-                console.log(data);
-                localStorage.setItem('accessToken', data['access_token']);
-                that.router.navigate(['signIn']);
+                that.router.navigate(['emailverification'], { queryParams: { email: userData.email } });
             },
             error => {
                 if (error.error.identityErrors && error.error.identityErrors.length && signUpErrorCallback) {
                     signUpErrorCallback(error.error.identityErrors);
                 }
             });
+    }
+
+    public confirmEmail(email: any, token: any) {
+        return this.http.post('http://localhost:8000/user/confirmemail?email=' + email + '&token=' + token, {});
     }
 }
