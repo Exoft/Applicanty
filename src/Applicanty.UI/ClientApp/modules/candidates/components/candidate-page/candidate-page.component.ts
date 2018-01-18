@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CandidatesDataService } from '../../services/candidates-data.service';
+import { ValidationService } from "../../../../services/validation.service";
 
 @Component({
     templateUrl: './candidate-page.component.html',
@@ -13,20 +14,21 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
 
     public candidatePageFrom: FormGroup = new FormGroup({
-        'id': new FormControl('', Validators.required),
+        'id': new FormControl('',),
         'experienceId': new FormControl(0, Validators.required),
         'firstName': new FormControl('', Validators.required),
         'lastName': new FormControl('', Validators.required),
         'email': new FormControl('', Validators.required),
         'skype': new FormControl('', Validators.required),
-        'linkedIn': new FormControl('', Validators.required),
-        'phone': new FormControl('', Validators.required),
-        'cvPath': new FormControl('', Validators.required),
+        'linkedIn': new FormControl('',),
+        'phone': new FormControl('',),
+        'cvPath': new FormControl('',),
         'birthday': new FormControl(new Date(), Validators.required)
     });
 
     constructor(private candidatesDataService: CandidatesDataService,
         private activeRoute: ActivatedRoute,
+        public validationService: ValidationService,
         private router: Router) {
         let that = this;
 
