@@ -9,16 +9,14 @@ import { VacanciesDataService } from "../../services/vacancies-data.service";
 export class VacanciesListComponent {
     @Input() salary: number = 150;
 
-    @Input() selectedItem: any[] = [];
+    public selectedItems: any[] = [];
 
     private curentPage;
     public totalCount: number = 0;
     public loading: boolean = true;
     public loadingError: boolean = false;
 
-    public deleteButtonclick: boolean = false;
-    public modalsMessage: string;
-    private deleting: number[]=[];
+    public showModal: boolean = false;
 
     public vacanciesList: any[];
 
@@ -42,22 +40,10 @@ export class VacanciesListComponent {
         );
     }
 
-    showModal() {
-        this.deleteButtonclick = true;
-        if (this.selectedItem.length == 0) {
-            this.modalsMessage="You don't selected item for deleting. Try again";
+    deleteVacancies() {
+        if (this.selectedItems.length !== 0) {
+            this.vacanciesDataService.deleteVacancy(this.selectedItems.map(arr => arr.id));
         }
-        else {
-            this.modalsMessage="You realy want to delete selected items?"
-        }
-    }
-    delete() {
-        if (this.selectedItem.length !== 0) {
-            for (let item of this.selectedItem) {
-                this.deleting.push(item.id);
-            }
-            this.vacanciesDataService.deleteVacancy(this.deleting);
-        }
-        this.deleteButtonclick = false;
+        this.showModal = false;
     }
 }

@@ -1,27 +1,81 @@
-﻿<div class="container">
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <div>
-            <h1>{{vacancy?.title}}</h1>
-            <hr />
-            <div>
-                <h4>Added:   {{vacancy?.createDate | date}}</h4>
-                <h4>End Date:   {{vacancy?.endDate | date}}</h4>
-            </div>
+﻿<div class="content-container">
+    <div class="content-area">
+        <form [formGroup]="vacancyPageForm">
+            <section class="form-block">
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="title">Title:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="Title" formControlName="title" size="25">
+                    </div>
+                </div>
 
-        </div>
-        <div>
-            <h3>Our requirments:</h3>
-            <h3>Required technolodies:   {{vacancy?.technologies}}</h3>
-            <h3>Experience:              {{vacancy?.experienceId}}</h3>
-        </div>
-        <div>
-            Vacancy Description:
-            <h4>{{vacancy?.vacancyDescription}}</h4>
-            <hr />
-        </div>
-        <div>
-            Job Description:
-            <h4>{{vacancy?.jobDescription}}</h4>
-        </div>
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="createDate">Create Date:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <input type="text" readonly formControlName="createDate" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="experienceId">Experience:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <div class="select">
+                            <select id="experienceId" formControlName="experienceId">
+                                <option value="1">year 1</option>
+                                <option value="2">year 2</option>
+                                <option value="3">year 3</option>
+                                <option value="4">year 4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="technologies">Technologies:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" formControlName="technologies" size="25">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="endDate">End Date:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <input class="form-control" type="date" formControlName="endDate" size="25">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="vacancyDescription">Vacancy Description:</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div [froalaEditor] formControlName="vacancyDescription"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="jobDescription">Job Description:</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div [froalaEditor] formControlName="jobDescription"></div>
+                    </div>
+                </div>
+
+                <input type="hidden" formControlName="id">
+
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary">Cancel</button>
+            </section>
+        </form>
     </div>
 </div>
