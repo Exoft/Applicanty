@@ -12,7 +12,7 @@
         <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItems">
             <clr-dg-action-bar>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-success-outline">
+                    <button type="button" class="btn btn-sm btn-success-outline" [routerLink]="['newvacancy']">
                         <clr-icon shape="plus"></clr-icon>
                         Add
                     </button>
@@ -30,8 +30,8 @@
 
             <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
                 <clr-dg-cell>
-                    <a [routerLink]="['../','vacancy', item?.id]" routerLinkActive="active">
-                    {{item?.title}}
+                    <a [routerLink]="['../','vacancies', 'details', item?.id]" routerLinkActive="active">
+                        {{item?.title}}
                     </a>
                 </clr-dg-cell>
                 <clr-dg-cell>{{item?.experienceId}}</clr-dg-cell>
@@ -42,7 +42,7 @@
             <clr-dg-footer>
                 {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
                 of {{pagination.totalItems}} vacancies
-                <clr-dg-pagination #pagination [clrDgPageSize]="12" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
+                <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
             </clr-dg-footer>
 
         </clr-datagrid>
@@ -64,7 +64,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="deleteVacancies()">Ok</button>
+            <button type="button" class="btn btn-primary" (click)="deleteVacancies($event)">Ok</button>
         </div>
     </clr-modal>
 

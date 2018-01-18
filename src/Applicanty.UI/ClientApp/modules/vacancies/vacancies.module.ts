@@ -22,7 +22,8 @@ import '../../../node_modules/froala-editor/js/froala_editor.pkgd.min';
 
 export const vacanciesRoutes = [
     { path: 'vacancies', component: VacanciesListComponent, canActivate: [AuthGuard] },
-    { path: 'vacancy/:id', component: VacancyPageComponent, canActivate: [AuthGuard] }
+    { path: 'vacancies/details/:id', component: VacancyPageComponent, canActivate: [AuthGuard] },
+    { path: 'vacancies/newvacancy', component: VacancyPageComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
