@@ -16,7 +16,6 @@ const treeShakableModules = [
     'clarity-icons',
     'clarity-icons/shapes/all-shapes',
     'clarity-angular',
-    //'froala-editor/js/froala_editor.pkgd.min.js'
     'zone.js',
 ];
 const nonTreeShakableModules = [
@@ -49,7 +48,6 @@ module.exports = (env) => {
             library: '[name]_[hash]'
         },
         plugins: [
-            //new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
             new webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, path.join(__dirname, './ClientApp')), // Workaround for https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, path.join(__dirname, './ClientApp')), // Workaround for https://github.com/angular/angular/issues/14898
             new webpack.IgnorePlugin(/^vertx$/) // Workaround for https://github.com/stefanpenner/es6-promise/issues/100

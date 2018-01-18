@@ -42,7 +42,7 @@ export class VacanciesListComponent {
 
     deleteVacancies() {
         if (this.selectedItems.length !== 0) {
-            this.vacanciesDataService.deleteVacancy(this.selectedItems.map(arr => arr.id));
+            this.vacanciesDataService.deleteVacancies(this.selectedItems.map(arr => arr.id));
         }
         this.showModal = false;
     }
