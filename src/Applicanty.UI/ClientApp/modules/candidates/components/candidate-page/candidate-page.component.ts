@@ -13,15 +13,15 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
 
     public candidatePageFrom: FormGroup = new FormGroup({
-        'id': new FormControl(''),
+        'id': new FormControl('', Validators.required),
         'experienceId': new FormControl(0, Validators.required),
         'firstName': new FormControl('', Validators.required),
         'lastName': new FormControl('', Validators.required),
         'email': new FormControl('', Validators.required),
         'skype': new FormControl('', Validators.required),
-        'linkedIn': new FormControl(''),
-        'phone': new FormControl(''),
-        'cvPath': new FormControl(''),
+        'linkedIn': new FormControl('', Validators.required),
+        'phone': new FormControl('', Validators.required),
+        'cvPath': new FormControl('', Validators.required),
         'birthday': new FormControl(new Date(), Validators.required)
     });
 

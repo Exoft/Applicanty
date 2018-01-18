@@ -3,60 +3,120 @@
         <form [formGroup]="candidatePageFrom">
             <section class="form-block">
                 <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input class="form-control" type="text" placeholder="First Name" formControlName="firstName" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="firstName">First Name:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control ng-untouched ng-pristine ng-valid" type="text" placeholder="First Name" formControlName="firstName" size="10">
+                        <div [hidden]="candidatePageFrom.controls.firstName.valid" class="alert alert-danger">
+                            First Name: this fiel is required.
+                        </div>
+                    </div>
                 </div>
-
+              
                 <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" size="25">
-                </div>
-
-                <div class="form-group">
-                    <label for="experienceId">Candidate Experience:</label>
-                    <div class="select">
-                        <select id="experienceId" formControlName="experienceId">
-                            <option value="1">year 1</option>
-                            <option value="2">year 2</option>
-                            <option value="3">year 3</option>
-                            <option value="4">year 4</option>
-                        </select>
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="lastName">Last Name:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" size="25">
+                        <div [hidden]="candidatePageFrom.controls.lastName.valid" class="alert alert-danger">
+                            Last Name: this fiel is required.
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="form-control" type="text" placeholder="Email" formControlName="email" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="experienceId">Candidate Experience:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="select">
+                            <select id="experienceId" formControlName="experienceId">
+                                <option value="1">year 1</option>
+                                <option value="2">year 2</option>
+                                <option value="3">year 3</option>
+                                <option value="4">year 4</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="skype">Skype:</label>
-                    <input class="form-control" type="text" placeholder="Skype" formControlName="skype" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="email">Email:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="Email" formControlName="email" size="25">
+                        <div [hidden]="candidatePageFrom.controls.email.valid" class="alert alert-danger">
+                            Email: this fiel is required.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="linkedIn">LinkedIn:</label>
-                    <input class="form-control" type="text" placeholder="LinkedIn" formControlName="linkedIn" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="skype">Skype:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="Skype" formControlName="skype" size="25">
+                        <div [hidden]="candidatePageFrom.controls.skype.valid" class="alert alert-danger">
+                            Skype: this fiel is required.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input class="form-control" type="text" placeholder="Phone" formControlName="phone" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="linkedIn">LinkedIn:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="LinkedIn" formControlName="linkedIn" size="25">
+                        <div [hidden]="candidatePageFrom.controls.linkedIn.valid" class="alert alert-danger">
+                            LinkedIn: this fiel is required.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="cvPath">CV Path:</label>
-                    <input class="form-control" type="text" placeholder="CV Path" formControlName="cvPath" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                       <label for="phone">Phone:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="Phone" formControlName="phone" size="25">
+                        <div [hidden]="candidatePageFrom.controls.phone.valid" class="alert alert-danger">
+                            Phone: this fiel is required.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="birthday">Birthday:</label>
-                    <input class="form-control" type="date" formControlName="birthday" size="25">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="cvPath">CV Path:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" placeholder="CV Path" formControlName="cvPath" size="25">
+                        <div [hidden]="candidatePageFrom.controls.cvPath.valid" class="alert alert-danger">
+                            CV Path: this fiel is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <label for="birthday">Birthday:</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <input class="form-control" type="date" formControlName="birthday" size="25">
+                        <div [hidden]="candidatePageFrom.controls.birthday.valid" class="alert alert-danger">
+                            Birthday: this fiel is required.
+                        </div>
+                    </div>
                 </div>
 
                 <input type="hidden" formControlName="id">
 
-                <button type="button" class="btn btn-primary" (click)="saveCandidateClick($event)">Save</button>
+                <button type="button" [disabled]="!candidatePageFrom.valid" class="btn btn-primary" (click)="saveCandidateClick($event)">Save</button>
                 <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
             </section>
         </form>

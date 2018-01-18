@@ -1,15 +1,27 @@
-<div *ngIf="email && !token">
-    Confirmation link sent to your email: <strong>{{email}}</strong>
-    <br />
-    Please check your inbox.
-</div>
+<div class="login-wrapper">
+   <div class="login">
 
-<div *ngIf="!confirmed && token">
-    Your email is being confimed. Hold a while please.
-</div>
+       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+           <div *ngIf="email && !token">
+               Confirmation link sent to your email: <strong>{{email}}</strong>
+               <br />
+               Please check your inbox.
+           </div>
+       </div>
 
-<div *ngIf="confirmed && token">
-    Email successfully validated.
-    <br />
-    Navigating to login in {{countdown}} seconds.
+       <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+           <div *ngIf="!confirmed && token">
+               Your email is being confimed. Hold a while please.
+           </div>
+       </div>
+
+       <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+           <div *ngIf="confirmed && token">
+               Email successfully validated.
+               <br />
+               Navigating to login in {{countdown}} seconds.
+           </div>
+       </div>
+        
+    </div>
 </div>
