@@ -1,5 +1,4 @@
-﻿using Applicanty.API.Models.Response;
-using Applicanty.Core.Entities;
+﻿using Applicanty.Core.Entities;
 using Applicanty.Core.Dto;
 using Applicanty.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -7,19 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using Applicanty.API.Helpers;
+using Applicanty.Core.Responses;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Applicanty.API.Controllers
 {
     [Route("[controller]")]
     public class VacancyController : BaseController<Vacancy>
     {
-        IVacancyService _vacancyService;
+        private readonly IVacancyService _vacancyService;
+        private readonly UserManager<User> _userManager;
 
-        public VacancyController(IVacancyService vacancyService):base(vacancyService)
+
+        public VacancyController(IVacancyService vacancyService,
+            UserManager<User> userManager) :base(vacancyService)
         {
             _vacancyService = vacancyService;
+            _userManager = userManager;
         }
 
         [HttpGet("{id}")]
@@ -42,18 +47,17 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacanciesCount = _vacancyService.GetAll<VacancyDto>().Count();
-                VacancyDto vac = new VacancyDto();
-                var vacancies = _vacancyService.GetAll<VacancyDto>();
+                var vacanciesCount = _vacancyService.GetAll<VacancyGridDto>().Count();
+                var vacancies = _vacancyService.GetAll<VacancyGridDto>();
 
                 if (skip != null && take != null)
                 {
-                    vacancies = _vacancyService.GetAll<VacancyDto>().Skip((int)skip).Take((int)take);
+                    vacancies = _vacancyService.GetAll<VacancyGridDto>().Skip((int)skip).Take((int)take);
                 }
 
-                vacancies = ListHelper<VacancyDto>.SortBy(vacancies, property, sortBy);
+                vacancies = ListHelper<VacancyGridDto>.SortBy(vacancies, property, sortBy);
 
-                var response = new Response<VacancyDto>
+                var response = new Response<VacancyGridDto>
                 {
                     Result = vacancies,
                     TotalCount = vacanciesCount
@@ -67,11 +71,19 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPost("{model}")]
-        public IActionResult Create(Vacancy model)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]VacancyCreateDto model)
         {
             try
             {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                model.CreatedBy = user.Id;
+                model.ModifiedBy = user.Id;
+
+                model.CreatedAt = DateTime.Now;
+                model.ModifiedAt = DateTime.Now;
+
                 _vacancyService.Create(model);
 
                 return Ok();
@@ -83,11 +95,16 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Edit([FromBody]VacancyUpdateDto model)
+        public async Task<IActionResult> Edit([FromBody]VacancyUpdateDto model)
         {
             try
             {
-               var updatedModel = _vacancyService.Update(model);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                model.ModifiedAt = DateTime.Now;
+                model.ModifiedBy = user.Id;
+
+                var updatedModel = _vacancyService.Update(model);
 
                 return Ok(updatedModel);
             }

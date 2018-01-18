@@ -40,7 +40,7 @@ namespace Applicanty.Data.Repositories
             return _dbSet.AsNoTracking().AsEnumerable().Where(predicate.Compile()).ToList();
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual void Create(TEntity entity)
         {
             _dbSet.Add(entity);
         }

@@ -98,14 +98,14 @@ namespace Applicanty.Data
                 {
                     context.Vacancies.Add(new Vacancy
                     {
-                        CreatedOn = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
+                        CreatedAt = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
                         ExperienceId = i % 3 + 1,
-                        UserId = i % 3 + 1,
+                        CreatedBy = i % 3 + 1,
                         StatusId = StatusType.Archived,
                         MaxSalary = 300 + random.Next(50, 200),
                         MinSalary = 100 + random.Next(50, 200),
                         Title = "Lorem ipsum" + i,
-                        UpdatedOn = DateTime.Now,
+                        ModifiedAt = DateTime.Now,
                         ProjectDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
                         JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
                         EndDate = DateTime.Now.AddDays(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())
@@ -130,7 +130,7 @@ namespace Applicanty.Data
                         StatusId = StatusType.Archived,
                         Phone = "0634534599" + i,
                         Birthday = DateTime.Now.AddYears(random.Next(-30,-20)),
-                        UpdateOn = DateTime.Now
+                        ModifiedAt = DateTime.Now
                     });
                 }
 

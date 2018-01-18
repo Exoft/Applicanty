@@ -15,30 +15,30 @@ namespace Applicanty.Core
             CreateMap<User, UserDetailsDto>();
             CreateMap<UserDetailsDto, User>();
 
-            CreateMap<User, UserCreateDto>();
-            CreateMap<UserCreateDto, User>();
+            CreateMap<User, UserRegisterDto>();
+            CreateMap<UserRegisterDto, User>();
+
+            CreateMap<User, UserLoginDto>();
+            CreateMap<UserLoginDto, User>();
 
             CreateMap<User, UserUpdateDto>();
             CreateMap<UserUpdateDto, User>();
             #endregion
 
             #region CandidateMap
-            CreateMap<Candidate, CandidateDto>();
-            CreateMap<Candidate, CandidateDto>();
+            CreateMap<Candidate, CandidateGridDto>();
+            CreateMap<CandidateGridDto, Candidate>();
 
             CreateMap<Candidate, CandidateDetailsDto>();
             CreateMap<CandidateDetailsDto, Candidate>();
 
-            CreateMap<Candidate, CandidateCreateDto>();
-            CreateMap<Candidate, CandidateCreateDto>();
-
-            CreateMap<Candidate, CandidateUpdateDto>();
-            CreateMap<CandidateUpdateDto, Candidate>();
+            CreateMap<Candidate, CandidateCreateUpdateDto>();
+            CreateMap<CandidateCreateUpdateDto, Candidate>();
             #endregion
 
             #region VacancyMap
-            CreateMap<Vacancy, VacancyDto>();
-            CreateMap<VacancyDto, Vacancy>();
+            CreateMap<Vacancy, VacancyGridDto>();
+            CreateMap<VacancyGridDto, Vacancy>();
 
             CreateMap<Vacancy, VacancyDetailsDto>();
             CreateMap<VacancyDetailsDto, Vacancy>();

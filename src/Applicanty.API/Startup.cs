@@ -7,6 +7,8 @@ using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.Services.Abstract;
 using Applicanty.Services.Services;
 using AutoMapper;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -77,7 +79,11 @@ namespace Applicant.API
                 .AddAuthorization()
                 .AddJsonFormatters();
 
-            services.AddAuthentication("Bearer")
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = "http://localhost:8000";
@@ -121,7 +127,7 @@ namespace Applicant.API
             });
 
             app.UseIdentityServer();
-
+            
             app.UseMvc();
         }
     }

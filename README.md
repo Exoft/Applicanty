@@ -37,5 +37,4 @@ Also you neet specify Smtp Server and Smtp Port postal service you use. Now Smtp
 
 `UsernameEmail` - email from which the letters will  <br/>
 `UsernamePassword` - password for this email  <br/>
-`UsernamePassword` - UsernamePassword  <br/>
 `PrimaryPort` - The port, which the server will use to send SMTP transactions (emails)  <br/>

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using Applicanty.API.Models.Response;
 using Applicanty.Core.Entities.Abstract;
 using Applicanty.Core.Enums;
+using Applicanty.Core.Responses;
 using Applicanty.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Applicanty.API.Models.Response
+namespace Applicanty.Core.Responses
 {
     public class Response<T>
     {

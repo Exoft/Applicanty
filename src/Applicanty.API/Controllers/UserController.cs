@@ -1,7 +1,7 @@
 ﻿using Applicanty.API.Helpers;
-using Applicanty.API.Models;
-using Applicanty.API.Models.Response;
+using Applicanty.Core.Dto;
 using Applicanty.Core.Entities;
+using Applicanty.Core.Responses;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]LoginModel model)
+        public async Task<IActionResult> Login([FromBody]UserLoginDto model)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]RegisterModel model)
+        public async Task<IActionResult> Register([FromBody]UserRegisterDto model)
         {
             try
             {
@@ -74,14 +74,7 @@ namespace Applicanty.API.Controllers
                 if (result.Succeeded)
                 {
                     string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
-
-                    string confirmationLink = Url.Action("ConfirmEmail",
-                      "User", new
-                      {
-                          userid = user.Id,
-                          token = confirmationToken
-                      },
-                       protocol: HttpContext.Request.Scheme);
+                    string confirmationLink = $"{Request.Headers["Origin"].ToString()}/confirmEmail?email{user.Email}&token={confirmationToken}";
 
                     await _emailSender.SendEmailAsync(user.Email, "ConfirmEmail", confirmationLink);
 
