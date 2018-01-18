@@ -9,14 +9,14 @@
             </div>
         </clr-alert>
 
-        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItem">
+        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItems">
             <clr-dg-action-bar>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-success-outline">
                         <clr-icon shape="plus"></clr-icon>
                         Add
                     </button>
-                    <button type="button" class="btn btn-sm btn-danger-outline" (click)="showModal()">
+                    <button type="button" class="btn btn-sm btn-danger-outline" [disabled]="selectedItems.length===0" (click)="showModal=true">
                         <clr-icon shape="close"></clr-icon>
                         Delete
                     </button>
@@ -50,21 +50,21 @@
         <div class="card card-block">
             <p class="card-text username-list">
                 Selected item(you can delete them):
-                <em *ngIf="selectedItem.length == 0">No item selected.</em>
-                <span class="username" *ngFor="let item of selectedItem">{{item?.title}}</span>
+                <em *ngIf="selectedItems.length == 0">No item selected.</em>
+                <span class="username" *ngFor="let item of selectedItems">{{item?.title}}</span>
             </p>
         </div>
 
     </div>
 
-    <clr-modal [(clrModalOpen)]="deleteButtonclick">
+    <clr-modal [(clrModalOpen)]="showModal">
         <h3 class="modal-title">Delete items</h3>
         <div class="modal-body">
-            <p>{{modalsMessage}}</p>
+            <p>You realy want to delete selected items?</p>
         </div>
         <div class="modal-footer">
-            <button *ngIf="selectedItem.length != 0" type="button" class="btn btn-outline" (click)="deleteButtonclick = false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="delete()">Ok</button>
+            <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="deleteVacancies()">Ok</button>
         </div>
     </clr-modal>
 

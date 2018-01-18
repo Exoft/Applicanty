@@ -27,7 +27,7 @@ export class VacanciesDataService {
         return this.http.put('http://localhost:8000/vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public deleteVacancy(vacancies: number[]): Observable<any> {
+    public deleteVacancies(vacancies: number[]): Observable<any> {
         return this.http.delete('http://localhost:8000/vacancy/' + vacancies, { headers: this.authService.getAuthenticationHeader() });
     }
 }

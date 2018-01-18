@@ -19,11 +19,15 @@ const treeShakableModules = [
     'zone.js',
 ];
 const nonTreeShakableModules = [
+    "froala-editor/css/froala_editor.pkgd.min.css",
+    "froala-editor/css/froala_style.min.css",
+    "font-awesome/css/font-awesome.css",
     'clarity-ui/clarity-ui.min.css',
     'clarity-icons/clarity-icons.min.css',
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',
+    'jquery'
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 
