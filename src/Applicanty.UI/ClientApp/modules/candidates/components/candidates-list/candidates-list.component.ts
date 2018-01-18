@@ -15,12 +15,18 @@ export class CandidatesListComponent {
 
     private totalCount: number;
     private curentPage;
-
-
-    constructor(private сandidatesDataService: CandidatesDataService,) {
+    
+    constructor(private candidatesDataService: CandidatesDataService) {
     }
 
-    refresh(state: State) {
+    public changeStatus($event, candidate, status) {
+        let that = this;
+
+        that.candidatesDataService.changeCandidateStatus([candidate.id], status).subscribe(data => {
+        });
+    }
+
+    public refresh(state: State) {
         let that = this;
 
         that.loading = true;
@@ -34,7 +40,7 @@ export class CandidatesListComponent {
         }
 
         that.curentPage = state.page;
-        that.сandidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size).subscribe(
+        that.candidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size).subscribe(
             data => {
                 that.candidates = data.result;
                 that.totalCount = data.totalCount;

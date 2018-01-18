@@ -31,7 +31,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         public validationService: ValidationService) {
         let that = this;
 
-        that.subscription = activeRoute.params.subscribe(params => this.id = params['id']);
+        that.subscription = activeRoute.params.subscribe(params => that.id = params['id']);
     }
 
     ngOnInit() {
