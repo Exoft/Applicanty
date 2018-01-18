@@ -6,8 +6,14 @@
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                         <label for="title">Title:</label>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                        <input class="form-control" type="text" placeholder="Title" formControlName="title" size="25">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
+                         aria-haspopup="true"
+                         role="tooltip"
+                         [class.invalid]="vacancyPageForm.get('title')?.invalid && (vacancyPageForm.get('title')?.dirty || vacancyPageForm.get('title')?.touched)">
+                        <input class="form-control" type="text" placeholder="Title" formControlName="title" size="25" />
+                        <span class="tooltip-content">
+                            {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('title')) }}
+                        </span>
                     </div>
                 </div>
 
@@ -19,6 +25,7 @@
                         <input type="text" readonly formControlName="createDate" />
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                         <label for="experienceId">Experience:</label>
@@ -39,8 +46,14 @@
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                         <label for="technologies">Technologies:</label>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
+                         aria-haspopup="true"
+                         role="tooltip"
+                         [class.invalid]="vacancyPageForm.get('technologies')?.invalid && (vacancyPageForm.get('technologies')?.dirty || vacancyPageForm.get('technologies')?.touched)">
                         <input class="form-control" type="text" formControlName="technologies" size="25">
+                        <span class="tooltip-content">
+                            {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('technologies')) }}
+                        </span>
                     </div>
                 </div>
 
@@ -48,8 +61,14 @@
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                         <label for="endDate">End Date:</label>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
+                         aria-haspopup="true"
+                         role="tooltip"
+                         [class.invalid]="vacancyPageForm.get('endDate')?.invalid && (vacancyPageForm.get('endDate')?.dirty || vacancyPageForm.get('endDate')?.touched)">
                         <input class="form-control" type="date" formControlName="endDate" size="25">
+                        <span class="tooltip-content">
+                            {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('endDate')) }}
+                        </span>
                     </div>
                 </div>
 
@@ -73,8 +92,8 @@
 
                 <input type="hidden" formControlName="id">
 
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="saveVacancyClick($event)">Save</button>
+                    <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
             </section>
         </form>
     </div>

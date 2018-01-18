@@ -1,58 +1,94 @@
 ﻿import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { ValidationService } from "../../../../services/validation.service";
 
 @Component({
     templateUrl: './vacancy-page.component.html',
     styleUrls: ['./vacancy-page.component.scss']
 })
 export class VacancyPageComponent implements OnInit, OnDestroy {
-
-    public ckeditorContent;
-
     private id;
     private subscription: Subscription;
 
     public vacancyPageForm: FormGroup = new FormGroup({
-        id: new FormControl(),
-        title: new FormControl(),
-        createDate: new FormControl(),
-        endDate: new FormControl(),
-        technologies: new FormControl(),
-        experienceId: new FormControl(),
-        vacancyDescription: new FormControl(),
-        jobDescription: new FormControl()
+        'id': new FormControl(''),
+        'title': new FormControl('', Validators.required),
+        'createDate': new FormControl(new Date()),
+        'endDate': new FormControl(new Date(), Validators.required),
+        'technologies': new FormControl('', Validators.required),
+        'experienceId': new FormControl('', Validators.required),
+        'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(40)]),
+        'jobDescription': new FormControl('', [Validators.required, Validators.minLength(40)])
     });
 
-    constructor(private http: VacanciesDataService,
-        private activeRoute: ActivatedRoute) {
+    constructor(private vacanciesDataService: VacanciesDataService,
+        private activeRoute: ActivatedRoute,
+        private router: Router,
+        public validationService: ValidationService) {
+        let that = this;
 
-        this.subscription = activeRoute.params.subscribe(params => this.id = params['id']);
+        that.subscription = activeRoute.params.subscribe(params => this.id = params['id']);
     }
 
     ngOnInit() {
-        this.http.getVacancy(this.id).subscribe(data => {
-            var endDate = new Date(data.endDate);
-            var createDate = new Date(data.createDate);
-            if (data) {
-                this.vacancyPageForm = new FormGroup({
-                    id: new FormControl(data.id),
-                    title: new FormControl(data.title, [Validators.required]),
-                    createDate: new FormControl(createDate.toDateString(), [Validators.required]), 
-                    endDate: new FormControl(endDate.getFullYear() + '-' + endDate.getMonth() + 1 + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate())
-                        , [Validators.required]),
-                    technologies: new FormControl(data.technologies, [Validators.required]),
-                    experienceId: new FormControl(data.experienceId, [Validators.required]),
-                    vacancyDescription: new FormControl(data.vacancyDescription, [Validators.required]),
-                    jobDescription: new FormControl(data.jobDescription, [Validators.required])
-                });
-            }
-        });
+        let that = this;
+
+        if (that.id) {
+            that.vacanciesDataService.getVacancy(that.id).subscribe(vacancy => {
+                if (vacancy) {
+                    that.setFormData(vacancy);
+                }
+            });
+        }
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    private setFormData(vacancy) {
+        var endDate = new Date(vacancy.endDate);
+        var createDate = new Date(vacancy.createDate);
+
+        this.vacancyPageForm.setValue({
+            'id': vacancy.id,
+            'title': vacancy.title,
+            'createDate': createDate.toLocaleDateString('en-EN'),
+            'endDate': endDate.getFullYear() + '-' + endDate.getMonth() + 1 + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate()),
+            'technologies': vacancy.technologies,
+            'experienceId': vacancy.experienceId,
+            'vacancyDescription': vacancy.vacancyDescription,
+            'jobDescription': vacancy.jobDescription
+        });
+    }
+
+    public saveVacancyClick(event) {
+        let that = this;
+
+        let formData = that.vacancyPageForm.value;
+        if (!that.id) {
+            formData['id'] = 0;
+
+            that.vacanciesDataService.createVacancy(formData).subscribe(
+                data => {
+                    that.router.navigate(['../vacancies']);
+                },
+                error => {
+                });
+        } else {
+            that.vacanciesDataService.updateVacancy(formData).subscribe(
+                data => {
+                    that.router.navigate(['../vacancies']);
+                },
+                error => {
+                });
+        }
+    }
+    public cancelClick(event) {
+        this.router.navigate(['../vacancies']);
     }
 }
