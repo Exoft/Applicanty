@@ -30,4 +30,8 @@ export class CandidatesDataService {
     public deleteCandidate(candidateId: any): Observable<any> {
         return this.http.delete('http://localhost:8000/candidate/' + candidateId, { headers: this.authService.getAuthenticationHeader() });
     }
+
+    public changeCandidateStatus(ids: number[], status: any): Observable<any> {
+        return this.http.post('http://localhost:8000/Candidate/ChangeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
+    }
 }

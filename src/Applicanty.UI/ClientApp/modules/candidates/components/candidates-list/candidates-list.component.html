@@ -26,6 +26,12 @@
             <clr-dg-column>UpdateOn</clr-dg-column>
 
             <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
+                <clr-dg-action-overflow>
+                    <button class="action-item" (click)="changeStatus($event, candidate, 0)">Activate</button>
+                    <button class="action-item" (click)="changeStatus($event, candidate, 1)">Archive</button>
+                    <button class="action-item" (click)="changeStatus($event, candidate, 2)">Delete</button>
+                </clr-dg-action-overflow>
+
                 <clr-dg-cell>{{candidate.id}}</clr-dg-cell>
                 <clr-dg-cell>
                     <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate.firstName}}</a>
