@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Applicanty.Core.Entities
 {
-    public class Vacancy : Statable, IEntity
+    public class Vacancy : Statable, IEntity, ITrackable
     {
         public int Id { get; set; }
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public int CreatedBy { get; set; }
         [ForeignKey("Experience")]
         public int ExperienceId { get; set; }
         public string Title { get; set; }
@@ -17,8 +17,9 @@ namespace Applicanty.Core.Entities
         public string ProjectDescription { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
+        public DateTime ModifiedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int ModifiedBy { get; set; }
         public DateTime EndDate { get; set; }
 
         public User User { get; set; }

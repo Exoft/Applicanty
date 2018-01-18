@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Applicanty.Core.Dto
 {
@@ -14,8 +13,13 @@ namespace Applicanty.Core.Dto
         public string ProjectDescription { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime UpdatedOn { get; set; }
         public DateTime EndDate { get; set; }
+        public int CreatedBy { get; set; }
+        public int ModifiedBy { get; set; }
+        public DateTime ModifiedAt { get; set; }
+
         public List<TechnologyDto> Technologies { get; set; }
     }
 }

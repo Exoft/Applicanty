@@ -11,7 +11,7 @@ namespace Applicanty.Core.Data.Repositories
         TEntity GetOne(Expression<Func<TEntity, bool>> predicate);
         ICollection<TEntity> GetAll();
         ICollection<TEntity> GetAll(Expression<System.Func<TEntity, bool>> predicate);
-        void Add(TEntity entity);
+        void Create(TEntity entity);
         TEntity Update(TEntity entity);
         int Count();
     }

@@ -2,7 +2,7 @@
 
 namespace Applicanty.Core.Dto
 {
-    public class CandidateDto
+    public class CandidateGridDto
     {
         public int Id { get; set; }
         public int ExperienceId { get; set; }

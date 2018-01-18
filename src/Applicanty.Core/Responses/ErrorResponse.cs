@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 
-namespace Applicanty.API.Models.Response
+namespace Applicanty.Core.Responses
 {
     public class ErrorResponse
     {

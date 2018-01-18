@@ -1,6 +1,6 @@
-﻿namespace Applicanty.API.Models
+﻿namespace Applicanty.Core.Responses
 {
-    internal class EnumItem
+    public class EnumItem
     {
         public int Value { get; set; }
         public string Name { get; set; }

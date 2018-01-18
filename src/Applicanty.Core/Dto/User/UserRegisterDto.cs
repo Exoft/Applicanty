@@ -1,9 +1,8 @@
-﻿namespace Applicanty.API.Models
+﻿namespace Applicanty.Core.Dto
 {
-    public class LoginModel
+    public class UserRegisterDto
     {
         public string Email { get; set; }
-
         public string Password { get; set; }
     }
 }

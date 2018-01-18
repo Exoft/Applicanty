@@ -59,7 +59,7 @@ namespace Applicanty.Services.Services
         {
             var entity = _mapper.Map<TDto, TEntity>(dto);
 
-            Repository.Add(entity);
+            Repository.Create(entity);
             _unitOfWork.Commit();
         }
 

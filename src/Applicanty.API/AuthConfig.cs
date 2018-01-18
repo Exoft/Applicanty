@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityModel;
+using IdentityServer4.Models;
 using System.Collections.Generic;
 
 namespace Applicanty.API
@@ -23,6 +24,11 @@ namespace Applicanty.API
                     ApiSecrets =
                     {
                         new Secret("secret".Sha256())
+                    },
+                    UserClaims =
+                    {
+                        JwtClaimTypes.Email,
+                        JwtClaimTypes.Name
                     }
                 }
             };
