@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CandidatesDataService } from '../../services/candidates-data.service';
+import { ValidationService } from "../../../../services/validation.service";
 
 @Component({
     templateUrl: './candidate-page.component.html',
@@ -27,6 +28,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
 
     constructor(private candidatesDataService: CandidatesDataService,
         private activeRoute: ActivatedRoute,
+        public validationService: ValidationService,
         private router: Router) {
         let that = this;
 
