@@ -14,16 +14,6 @@ namespace Applicanty.Data
             context.Database.EnsureCreated();
             var random = new Random();
 
-            if (!context.Experiences.Any())
-            {
-                context.Experiences.Add(new Experience { Name = "Senior" });
-                context.Experiences.Add(new Experience { Name = "Middle" });
-                context.Experiences.Add(new Experience { Name = "Junior" });
-                context.Experiences.Add(new Experience { Name = "Trainee" });
-
-                context.SaveChanges();
-            }
-
             if (!context.Statuses.Any())
             {
                 context.Add(new Status { Name = "To process",StatusId = StatusType.Archived});

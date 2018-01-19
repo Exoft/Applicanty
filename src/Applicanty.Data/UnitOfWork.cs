@@ -12,7 +12,6 @@ namespace Applicanty.Data.UnitOfWork.Services
 
         private ICandidateRepository _candidateRepository;
         private IVacancyRepository _vacancyRepository;
-        private IExperienceRepository _experienceRepository;
         private IStatusRepository _statusRepository;
         private ITechnologyRepository _technologyRepository;
 
@@ -35,17 +34,6 @@ namespace Applicanty.Data.UnitOfWork.Services
                     _candidateRepository = new CandidateRepository(_dbContext);
 
                 return _candidateRepository;
-            }
-        }
-
-        public IExperienceRepository ExperienceRepository
-        {
-            get
-            {
-                if (_experienceRepository == null)
-                    _experienceRepository = new ExperienceRepository(_dbContext);
-
-                return _experienceRepository;
             }
         }
 

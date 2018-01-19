@@ -14,7 +14,6 @@ namespace Applicanty.Core.Dto
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedOn { get; set; }
         public DateTime EndDate { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }

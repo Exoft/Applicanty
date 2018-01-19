@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Applicanty.Core.Enums
 {
     public enum StatusType
     {
-        [Description("Active")]
+        [Description("active")]
         Active,
-        [Description("Archived")]
+        [Description("archived")]
         Archived,
-        [Description("Deleted")]
+        [Description("deleted")]
         Deleted
     }
 }

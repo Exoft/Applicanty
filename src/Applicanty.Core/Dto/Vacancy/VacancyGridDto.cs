@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Applicanty.Core.Enums;
+using System;
 
 namespace Applicanty.Core.Dto
 {
@@ -8,6 +9,6 @@ namespace Applicanty.Core.Dto
         public string Title { get; set; }
         public int ExperienceId { get; set; }
         public DateTime EndDate { get; set; }
-        public bool IsArchived { get; set; }
+        public StatusType StatusId { get; set; }
     }
 }
