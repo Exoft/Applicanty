@@ -16,7 +16,7 @@ namespace Applicanty.Services.Services
             : base(unitOfWork, mapper)
         {}
 
-        public virtual void ChangeStatus(int[] arrayIds, StatusType status)
+        public virtual void ChangeStatus(int[] arrayIds, string status)
         {
             Repository.ChangeStatus(arrayIds, status);
             UnitOfWork.Commit();

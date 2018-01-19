@@ -2,7 +2,6 @@
 using Applicanty.Core.Entities.Abstract;
 using Applicanty.Core.Enums;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Applicanty.Data.Repositories
 {
@@ -14,19 +13,32 @@ namespace Applicanty.Data.Repositories
         {
         }
 
-        public virtual void ChangeStatus(int id, StatusType status)
+        private void ChangeStatus(int id, string status)
         {
             TEntity obj = _dbSet.Find(id);
-            obj.StatusId = status;
+
+            switch (status)
+            {
+                case "ACTIVE" :
+                    obj.StatusId = StatusType.Active;
+                    break;
+
+                case "ARCHIVED":
+                    obj.StatusId = StatusType.Archived;
+                    break;
+
+                case "DELETED":
+                    obj.StatusId = StatusType.Deleted;
+                    break;
+            }
+
             _entities.Entry(obj).State = EntityState.Modified;
         }
 
-        public virtual void ChangeStatus(int[] arrayIds, StatusType status)
+        public virtual void ChangeStatus(int[] arrayIds, string status)
         {
             for (int i = 0; i < arrayIds.Length; i++)
-            {
                 ChangeStatus(arrayIds[i], status);
-            }
         }
     }
 }

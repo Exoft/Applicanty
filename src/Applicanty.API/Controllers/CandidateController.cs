@@ -50,12 +50,10 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]int? skip, [FromQuery]int? take, [FromQuery]string property, [FromQuery]string sortBy)
+        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take, [FromQuery]string property, [FromQuery]string sortBy)
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
                 var candidates = _candidateService.GetAll<CandidateGridDto>();
                 var candidatesCount = candidates.Count();
 
