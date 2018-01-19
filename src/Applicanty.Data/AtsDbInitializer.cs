@@ -89,7 +89,7 @@ namespace Applicanty.Data
                     context.Vacancies.Add(new Vacancy
                     {
                         CreatedAt = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
-                        ExperienceId = i % 3 + 1,
+                        ExperienceId = Experience.Junior,
                         CreatedBy = i % 3 + 1,
                         StatusId = StatusType.Archived,
                         MaxSalary = 300 + random.Next(50, 200),
@@ -116,7 +116,7 @@ namespace Applicanty.Data
                         FirstName = Names[random.Next(0, 5)],
                         Email = Names[random.Next(0, 5)] + "@gmail.com",
                         LastName = SurNames[random.Next(0, 5)],
-                        ExperienceId = random.Next(1,4),
+                        ExperienceId = Experience.Junior,
                         StatusId = StatusType.Archived,
                         Phone = "0634534599" + i,
                         Birthday = DateTime.Now.AddYears(random.Next(-30,-20)),
