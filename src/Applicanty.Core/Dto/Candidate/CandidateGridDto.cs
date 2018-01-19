@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Applicanty.Core.Enums;
+using System;
 
 namespace Applicanty.Core.Dto
 {
@@ -14,5 +15,6 @@ namespace Applicanty.Core.Dto
         public string Phone { get; set; }
         public string CVPath { get; set; }
         public DateTime Birthday { get; set; }
+        public StatusType StatusId { get; set; }
     }
 }

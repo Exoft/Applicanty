@@ -50,14 +50,6 @@ namespace Applicanty.Core
             CreateMap<VacancyUpdateDto, Vacancy>();
             #endregion
 
-            #region ExperienceMap
-            CreateMap<Experience, ExperienceDto>();
-            CreateMap<ExperienceDto, Experience>();
-
-            CreateMap<Experience, ExperienceCreateOrUpdateDto>();
-            CreateMap<ExperienceCreateOrUpdateDto, Experience>();
-            #endregion
-
             #region TechnologyMap
             CreateMap<Technology, TechnologyDto>();
             CreateMap<TechnologyDto, Technology>();

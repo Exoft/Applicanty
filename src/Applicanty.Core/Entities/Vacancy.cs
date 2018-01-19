@@ -1,4 +1,5 @@
 ﻿using Applicanty.Core.Entities.Abstract;
+using Applicanty.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,8 +11,7 @@ namespace Applicanty.Core.Entities
         public int Id { get; set; }
         [ForeignKey("User")]
         public int CreatedBy { get; set; }
-        [ForeignKey("Experience")]
-        public int ExperienceId { get; set; }
+        public Experience ExperienceId { get; set; }
         public string Title { get; set; }
         public string JobDescription { get; set; }
         public string ProjectDescription { get; set; }
@@ -23,7 +23,6 @@ namespace Applicanty.Core.Entities
         public DateTime EndDate { get; set; }
 
         public User User { get; set; }
-        public Experience Experience { get; set; }
         public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
         public ICollection<VacancyTechnology> VacancyTechnologies { get; set; }
     }
