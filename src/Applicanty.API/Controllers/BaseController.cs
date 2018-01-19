@@ -18,13 +18,13 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPost("ChangeStatus")]
-        public IActionResult ChangeStatus([FromBody]int[] ids, [FromQuery]StatusType status)
+        public IActionResult ChangeStatus([FromBody]int[] ids, [FromQuery]string status)
         {
             try
             {
                 _stateableService.ChangeStatus(ids, status);
 
-                return Ok();
+                return Ok(true);
             }
             catch (Exception ex)
             {
