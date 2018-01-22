@@ -76,7 +76,12 @@ namespace Applicanty.API.Controllers
                     string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
                     string confirmationLink = $"{Request.Headers["Origin"].ToString()}/confirmEmail?email{user.Email}&token={confirmationToken}";
 
-                    await _emailSender.SendEmailAsync(user.Email, "ConfirmEmail", confirmationLink);
+                    var message = "<div style=\"width: 640px\"><table><tr><td>Please confirm your email address by clicking the link below:</td></tr>"
+                 + $"<td><a href=\"{confirmationLink}\">Click here  </a></td><tr><td></td></tr>"
+                 + "<tr> <td>Or you can copy and paste this link into your browser: </td></tr>"
+                 + $"<tr><td style=\"padding:15px;background-color:#e2e2e2e2;font-style: italic;\"><p style=\"width:640px;\"><a style=\"color:black;cursor:auto;\" href=\"#\">{confirmationLink}</a></p></tr></table></div>";
+
+                    await _emailSender.SendEmailAsync(user.Email, "ConfirmEmail", message);
 
                     return Ok(true);
                 }
