@@ -14,6 +14,9 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     private id;
     private subscription: Subscription;
 
+    public technologies: any[] = [];
+    public experiences: any[] = [];
+
     public vacancyPageForm: FormGroup = new FormGroup({
         'id': new FormControl(''),
         'title': new FormControl('', Validators.required),
@@ -44,6 +47,15 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 }
             });
         }
+
+        that.vacanciesDataService.getTechnologies().subscribe(data => {
+            that.technologies = data;
+        });
+
+        that.vacanciesDataService.getExperiences().subscribe(data => {
+            that.experiences = data.result;
+        });
+
     }
 
     ngOnDestroy() {
@@ -88,7 +100,32 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 });
         }
     }
+
     public cancelClick(event) {
         this.router.navigate(['../vacancies']);
+    }
+
+    public vacancyTechnologiesChange(event) {
+        let id = event.target.value;
+
+        let selectedTechnologies = this.vacancyPageForm.get('technologies')!.value;
+
+        if (event.target.checked) {
+            if (selectedTechnologies.indexOf(id) < 0) {
+                selectedTechnologies.push(id);
+            }
+        }
+        else {
+            if (selectedTechnologies.indexOf(id) >= 0) {
+                selectedTechnologies.splice(selectedTechnologies.indexOf(id), 1);
+            }
+        }
+
+        this.vacancyPageForm.get('technologies')!.setValue(selectedTechnologies);
+
+        this.vacancyPageForm.get('technologies')!.markAsDirty();
+        this.vacancyPageForm.get('technologies')!.markAsTouched();
+
+        this.vacancyPageForm.updateValueAndValidity();
     }
 }

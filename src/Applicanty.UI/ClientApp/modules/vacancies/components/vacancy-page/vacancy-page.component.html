@@ -32,11 +32,8 @@
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                         <div class="select">
-                            <select id="experienceId" formControlName="experienceId">
-                                <option value="1">year 1</option>
-                                <option value="2">year 2</option>
-                                <option value="3">year 3</option>
-                                <option value="4">year 4</option>
+                            <select formControlName="experienceId">
+                                <option value="{{experience.value}}" *ngFor="let experience of experiences">{{experience.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -46,14 +43,15 @@
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                         <label for="technologies">Technologies:</label>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                         aria-haspopup="true"
-                         role="tooltip"
-                         [class.invalid]="vacancyPageForm.get('technologies')?.invalid && (vacancyPageForm.get('technologies')?.dirty || vacancyPageForm.get('technologies')?.touched)">
-                        <input class="form-control" type="text" formControlName="technologies" size="25">
-                        <span class="tooltip-content">
-                            {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('technologies')) }}
-                        </span>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 checkboxlist-scroll">
+                        <div *ngFor="let technology of technologies" class="checkbox">
+                            <input type="checkbox" id="{{technology?.id}}" value="technology?.id" 
+                                   [checked]="vacancyPageForm?.get('technologies')?.value?.indexOf(technology?.id)>=0" 
+                                   (change)="vacancyTechnologiesChange($event)">
+                            <label for="{{technology?.id}}">
+                                {{technology.name}}
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -92,8 +90,8 @@
 
                 <input type="hidden" formControlName="id">
 
-                    <button type="button" class="btn btn-primary" (click)="saveVacancyClick($event)">Save</button>
-                    <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="saveVacancyClick($event)">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
             </section>
         </form>
     </div>
