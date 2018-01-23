@@ -1,11 +1,10 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ClarityIcons } from 'clarity-icons';
 
 import { AuthService } from '../../../../services/auth.service';
 import { NotificationService } from "../../../../services/notification.service";
 
 import { NotificationComponent } from "../../../auth/components/notification/notification.component";
-import { NotificationType } from "../../../../enums/notification-type";
 
 @Component({
     selector: 'app',

@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
-    <None Remove="ClientApp\constanta\consts.component.ts" />
     <None Remove="ClientApp\modules\app\components\app\http.service.ts" />
     <None Remove="ClientApp\modules\auth\components\user-profile-page\user-page.guard.ts" />
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
@@ -35,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\constanta\consts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\constanta\statusCommands.ts" />
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />

@@ -3,7 +3,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CandidatesDataService } from '../../services/candidates-data.service';
-import { ValidationService } from "../../../../services/validation.service";
+import { ValidationService } from '../../../../services/validation.service';
+import { NotificationService } from '../../../../services/notification.service';
+import { NotificationType } from "../../../../enums/notification-type";
 
 @Component({
     templateUrl: './candidate-page.component.html',
@@ -13,7 +15,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     private id: number;
     private subscription: Subscription;
 
-    public experienses: any[] = [];
+    public experienсes: any[] = [];
 
     public candidatePageFrom: FormGroup = new FormGroup({
         'id': new FormControl(''),
@@ -31,7 +33,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     constructor(private candidatesDataService: CandidatesDataService,
         private activeRoute: ActivatedRoute,
         public validationService: ValidationService,
-        private router: Router) {
+        private router: Router,
+        private notificationService: NotificationService) {
         let that = this;
 
         that.subscription = activeRoute.params.subscribe(params => that.id = params['id']);
@@ -48,8 +51,12 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             });
 
             that.candidatesDataService.getExperiences().subscribe(data => {
-                that.experienses = data.result;
-            });
+                that.experienсes = data.result;
+            },
+                error => {
+                    console.log(error);
+                    that.notificationService.notify(NotificationType.Error, 'error');
+                });
         }
     }
 

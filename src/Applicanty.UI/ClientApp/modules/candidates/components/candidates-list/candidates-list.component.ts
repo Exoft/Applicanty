@@ -1,10 +1,9 @@
 ﻿import { Component, Input } from '@angular/core';
 import { CandidatesDataService } from '../../services/candidates-data.service';
-import { NotificationComponent } from '../../../auth/components/notification/notification.component';
 import { NotificationService } from "../../../../services/notification.service";
 
-import { NotificationType } from "../../../../enums/notification-type";
-import { ConstantaComponent } from '../../../../constanta/consts.component';
+import { NotificationType } from '../../../../enums/notification-type';
+import { StatusCommands } from '../../../../constanta/statuscommands';
 import { State } from "clarity-angular";
 import { Router } from "@angular/router";
 
@@ -13,14 +12,13 @@ import { Router } from "@angular/router";
     styleUrls: ['./candidates-list.component.scss']
 })
 export class CandidatesListComponent {
-    closeMessage: string = "";
     public candidates = [];
     public total: number;
     public loading: boolean = true;
     public selectedCandidates: any[] = [];
-    public deleted = ConstantaComponent.DELETED;
-    public archived = ConstantaComponent.ARCHIVED;
-    public active = ConstantaComponent.ACTIVE;
+    public deleted = StatusCommands.DELETED;
+    public archived = StatusCommands.ARCHIVED;
+    public active = StatusCommands.ACTIVE;
 
     private totalCount: number;
     private curentPage;
@@ -34,9 +32,12 @@ export class CandidatesListComponent {
 
         that.candidatesDataService.changeCandidateStatus([candidate.id], status).subscribe(data => {
             if (data) {
-                that.notificationService.notify(NotificationType.Success, 'Удача');
+                that.notificationService.notify(NotificationType.Success, 'Success');
             }
-        });
+        },
+            error => {
+                that.notificationService.notify(NotificationType.Error, 'Error');
+            });
     }
 
 
@@ -63,7 +64,5 @@ export class CandidatesListComponent {
             error => {
                 that.loading = false;
             });
-    }
-
-    
+      }  
 }
