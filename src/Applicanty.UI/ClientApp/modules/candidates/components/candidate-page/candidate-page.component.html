@@ -39,11 +39,10 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="select">
-                            <select id="experienceId" formControlName="experienceId">
-                                <option value="1">year 1</option>
-                                <option value="2">year 2</option>
-                                <option value="3">year 3</option>
-                                <option value="4">year 4</option>
+                            <select formControlName="experienceId">
+                                <option value="{{experiences.value}}" *ngFor="let experience of experiences"> 
+                                {{experiences.name}} 
+                                </option>
                             </select>
                         </div>
                     </div>

@@ -1,5 +1,9 @@
 ﻿import { Component, Input } from '@angular/core';
 import { CandidatesDataService } from '../../services/candidates-data.service';
+import { NotificationService } from "../../../../services/notification.service";
+
+import { NotificationType } from '../../../../enums/notification-type';
+import { StatusCommands } from '../../../../constanta/statuscommands';
 import { State } from "clarity-angular";
 import { Router } from "@angular/router";
 
@@ -12,19 +16,30 @@ export class CandidatesListComponent {
     public total: number;
     public loading: boolean = true;
     public selectedCandidates: any[] = [];
+    public deleted = StatusCommands.DELETED;
+    public archived = StatusCommands.ARCHIVED;
+    public active = StatusCommands.ACTIVE;
 
     private totalCount: number;
     private curentPage;
     
-    constructor(private candidatesDataService: CandidatesDataService) {
+    constructor(private candidatesDataService: CandidatesDataService,
+                private notificationService: NotificationService) {
     }
 
     public changeStatus($event, candidate, status) {
         let that = this;
 
         that.candidatesDataService.changeCandidateStatus([candidate.id], status).subscribe(data => {
-        });
+            if (data) {
+                that.notificationService.notify(NotificationType.Success, 'Success');
+            }
+        },
+            error => {
+                that.notificationService.notify(NotificationType.Error, 'Error');
+            });
     }
+
 
     public refresh(state: State) {
         let that = this;
@@ -49,5 +64,5 @@ export class CandidatesListComponent {
             error => {
                 that.loading = false;
             });
-    }
+      }  
 }

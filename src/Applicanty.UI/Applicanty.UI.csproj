@@ -30,9 +30,12 @@
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
     <None Remove="ClientApp\modules\candidates\components\candidate.component.ts" />
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
+    <None Remove="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\constanta\statusCommands.ts" />
+    <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\components\dashboard.component.ts" />
@@ -42,6 +45,7 @@
     <TypeScriptCompile Include="ClientApp\services\authguard.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\services\vacancies-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
