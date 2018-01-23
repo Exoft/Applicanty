@@ -1,5 +1,10 @@
 ﻿import { Component, Input } from '@angular/core';
 import { CandidatesDataService } from '../../services/candidates-data.service';
+import { NotificationComponent } from '../../../auth/components/notification/notification.component';
+import { NotificationService } from "../../../../services/notification.service";
+
+import { NotificationType } from "../../../../enums/notification-type";
+import { ConstantaComponent } from '../../../../constanta/consts.component';
 import { State } from "clarity-angular";
 import { Router } from "@angular/router";
 
@@ -8,23 +13,32 @@ import { Router } from "@angular/router";
     styleUrls: ['./candidates-list.component.scss']
 })
 export class CandidatesListComponent {
+    closeMessage: string = "";
     public candidates = [];
     public total: number;
     public loading: boolean = true;
     public selectedCandidates: any[] = [];
+    public deleted = ConstantaComponent.DELETED;
+    public archived = ConstantaComponent.ARCHIVED;
+    public active = ConstantaComponent.ACTIVE;
 
     private totalCount: number;
     private curentPage;
     
-    constructor(private candidatesDataService: CandidatesDataService) {
+    constructor(private candidatesDataService: CandidatesDataService,
+                private notificationService: NotificationService) {
     }
 
     public changeStatus($event, candidate, status) {
         let that = this;
 
         that.candidatesDataService.changeCandidateStatus([candidate.id], status).subscribe(data => {
+            if (data) {
+                that.notificationService.notify(NotificationType.Success, 'Удача');
+            }
         });
     }
+
 
     public refresh(state: State) {
         let that = this;
@@ -50,4 +64,6 @@ export class CandidatesListComponent {
                 that.loading = false;
             });
     }
+
+    
 }

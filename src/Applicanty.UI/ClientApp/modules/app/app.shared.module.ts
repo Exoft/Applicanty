@@ -14,18 +14,23 @@ import { VacanciesModule, vacanciesRoutes } from '../vacancies/vacancies.module'
 import { CandidatesModule, candidateRoutes } from '../candidates/candidates.module';
 import { DashboardModule, dashboardRoutes } from '../dashboard/dashboard.module';
 
+import { NotificationComponent } from '../auth/components/notification/notification.component';
+
 import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../services/authguard.service';
+import { NotificationService } from '../../services/notification.service';
 
 import 'clarity-icons';
 import 'clarity-icons/shapes/all-shapes';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        NotificationComponent
     ],
     providers: [
         AuthService,
+        NotificationService,
         AuthGuard
     ],
     imports: [

@@ -27,9 +27,9 @@
 
             <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
                 <clr-dg-action-overflow>
-                    <button class="action-item" (click)="changeStatus($event, candidate, 0)">Activate</button>
-                    <button class="action-item" (click)="changeStatus($event, candidate, 1)">Archive</button>
-                    <button class="action-item" (click)="changeStatus($event, candidate, 2)">Delete</button>
+                    <button class="action-item" (click)="changeStatus($event, candidate, deleted)">Activate</button>
+                    <button class="action-item" (click)="changeStatus($event, candidate, archived)">Archive</button>
+                    <button class="action-item" (click)="changeStatus($event, candidate, active)">Delete</button>
                 </clr-dg-action-overflow>
 
                 <clr-dg-cell>{{candidate.id}}</clr-dg-cell>

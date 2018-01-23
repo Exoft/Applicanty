@@ -13,6 +13,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     private id: number;
     private subscription: Subscription;
 
+    public experienses: any[] = [];
+
     public candidatePageFrom: FormGroup = new FormGroup({
         'id': new FormControl(''),
         'experienceId': new FormControl(0, Validators.required),
@@ -43,6 +45,10 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 if (candidate) {
                     that.setFormData(candidate);
                 }
+            });
+
+            that.candidatesDataService.getExperiences().subscribe(data => {
+                that.experienses = data.result;
             });
         }
     }

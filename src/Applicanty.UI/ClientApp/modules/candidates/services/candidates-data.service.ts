@@ -34,4 +34,8 @@ export class CandidatesDataService {
     public changeCandidateStatus(ids: number[], status: any): Observable<any> {
         return this.http.post('http://localhost:8000/Candidate/ChangeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
     }
+
+    public getExperiences(): Observable<any> {
+        return this.http.get('http://localhost:8000/enum/Experience');
+    }
 }

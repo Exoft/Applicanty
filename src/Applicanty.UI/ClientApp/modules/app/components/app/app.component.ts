@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ClarityIcons } from 'clarity-icons';
 
 import { AuthService } from '../../../../services/auth.service';
+import { NotificationService } from "../../../../services/notification.service";
+
+import { NotificationComponent } from "../../../auth/components/notification/notification.component";
+import { NotificationType } from "../../../../enums/notification-type";
 
 @Component({
     selector: 'app',
@@ -9,11 +13,17 @@ import { AuthService } from '../../../../services/auth.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-    constructor(public authService: AuthService) {
+    @ViewChild(NotificationComponent) set notificationComponent(notificationComponent: NotificationComponent) {
+        if (notificationComponent) {
+            this.notificationService.initialize(notificationComponent);
+        }
     }
 
-    logoutClick(e) {
+    constructor(public authService: AuthService,
+        private notificationService: NotificationService) {
+    }
+    
+    public logoutClick(e) {
         e.preventDefault();
 
         this.authService.signOut();
