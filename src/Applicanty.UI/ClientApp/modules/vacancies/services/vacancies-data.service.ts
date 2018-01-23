@@ -30,4 +30,12 @@ export class VacanciesDataService {
     public deleteVacancies(vacancies: number[]): Observable<any> {
         return this.http.delete('http://localhost:8000/vacancy/' + vacancies, { headers: this.authService.getAuthenticationHeader() });
     }
+
+    public getTechnologies(): Observable<any> {
+        return this.http.get('http://localhost:8000/technology');
+    }
+
+    public getExperiences(): Observable<any> {
+        return this.http.get('http://localhost:8000/enum/Experience');
+    }
 }
