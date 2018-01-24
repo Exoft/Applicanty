@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Net;
 using Applicanty.Core.Entities.Abstract;
-using Applicanty.Core.Enums;
 using Applicanty.Core.Responses;
-using Applicanty.Services.Abstract;
+using Applicanty.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Applicanty.API.Controllers

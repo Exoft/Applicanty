@@ -1,12 +1,12 @@
 ﻿using Applicanty.Core.Data;
 using Applicanty.Core.Data.Repositories;
 using Applicanty.Core.Entities;
-using Applicanty.Services.Abstract;
+using Applicanty.Core.Services;
 using AutoMapper;
 
 namespace Applicanty.Services.Services
 {
-    public class CandidateService : StateableService<Candidate, ICandidateRepository>, ICandidateService
+    public class CandidateService : TrackableService<Candidate, ICandidateRepository>, ICandidateService
     {
         public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
             : base(unitOfWork, mapper)

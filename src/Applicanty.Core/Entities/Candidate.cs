@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Applicanty.Core.Entities
 {
-    public class Candidate : Statable, IEntity
+    public class Candidate : Statable, IEntity, ITrackable
     {
         public int Id { get; set; }
         public Experience ExperienceId { get; set; }
@@ -18,7 +18,7 @@ namespace Applicanty.Core.Entities
         public string Phone { get; set; }
         public string CVPath { get; set; }
         public DateTime Birthday { get; set; }
-        public DateTime CtreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
         [ForeignKey("User")]
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }

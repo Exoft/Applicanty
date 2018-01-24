@@ -2,6 +2,7 @@
 using Applicanty.API.Helpers;
 using Applicanty.Core.Data;
 using Applicanty.Core.Entities;
+using Applicanty.Core.Services;
 using Applicanty.Data;
 using Applicanty.Data.UnitOfWork.Services;
 using Applicanty.Services.Abstract;
@@ -11,12 +12,14 @@ using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Security.Principal;
 
 namespace Applicant.API
 {
@@ -39,6 +42,10 @@ namespace Applicant.API
         {
             services.AddCors();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IPrincipal>(
+                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+
             services.AddDbContext<AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IEmailSender, EmailSender>();
@@ -47,6 +54,7 @@ namespace Applicant.API
             services.AddScoped<ICandidateService, CandidateService>();
             services.AddScoped<ITechnologyService, TechnologyService>();
             services.AddScoped<IVacancyService, VacancyService>();
+            services.AddScoped<IVacancyCandidateService, VacancyCandidateService>();
             services.AddScoped<IStatusService, StatusService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

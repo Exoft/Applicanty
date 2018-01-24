@@ -28,7 +28,8 @@ namespace Applicanty.API
                     UserClaims =
                     {
                         JwtClaimTypes.Email,
-                        JwtClaimTypes.Name
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.Id
                     }
                 }
             };

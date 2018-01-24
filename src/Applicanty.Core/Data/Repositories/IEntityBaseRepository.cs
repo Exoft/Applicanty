@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Applicanty.Core.Data.Repositories
 {
-    public interface IEntityBaseRepository<TEntity> where TEntity : class, IEntity
+    public interface IEntityBaseRepository<TEntity> where TEntity : class
     {
         TEntity GetOne(int id);
         TEntity GetOne(Expression<Func<TEntity, bool>> predicate);

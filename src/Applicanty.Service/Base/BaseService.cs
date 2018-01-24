@@ -1,7 +1,6 @@
 ﻿using Applicanty.Core.Data;
 using Applicanty.Core.Data.Repositories;
-using Applicanty.Core.Entities.Abstract;
-using Applicanty.Services.Abstract;
+using Applicanty.Core.Services;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Linq.Expressions;
 namespace Applicanty.Services.Services
 {
     public abstract class BaseService<TEntity, TRepository> : IService<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
         where TRepository : IEntityBaseRepository<TEntity>
     {
 

@@ -1,7 +1,6 @@
 ﻿using Applicanty.Core.Entities.Abstract;
-using Applicanty.Core.Enums;
 
-namespace Applicanty.Services.Abstract
+namespace Applicanty.Core.Services
 {
     public interface IStateableService<TEntity> : IService<TEntity>
         where TEntity : class, IEntity, IStateable

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Applicanty.Services.Abstract
+namespace Applicanty.Core.Services
 {
-    public interface IService<TEntity> where TEntity : class, IEntity
+    public interface IService<TEntity> where TEntity : class
     {
         TDto GetOne<TDto>(int id);
         void Create<TDto>(TDto entity);
