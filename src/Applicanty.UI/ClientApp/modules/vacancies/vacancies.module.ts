@@ -15,6 +15,7 @@ import { AuthGuard } from '../../services/authguard.service';
 import { VacancyPageComponent } from '../vacancies/components/vacancy-page/vacancy-page.component';
 
 import { VacanciesDataService } from './services/vacancies-data.service';
+import { EnumDataService } from '../../services/enum.data.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -32,10 +33,12 @@ export const vacanciesRoutes = [
         VacancyPageComponent
     ],
     providers: [
-        VacanciesDataService
+        VacanciesDataService,
+        EnumDataService
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         CommonModule,
         HttpModule,
         FormsModule,

@@ -12,6 +12,8 @@
     overflow: hidden;
     width: 0px;
     visibility: hidden;
+    background-color: white;
+    z-index: 1;
 
     &.visible {
         display: -webkit-inline-box;

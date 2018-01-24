@@ -2,9 +2,13 @@
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
+import { EnumDataService } from '../../../../services/enum.data.service';
+import { EnumNames } from '../../../../constanta/enumnames';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { ValidationService } from "../../../../services/validation.service";
+import { NotificationService } from "../../../../services/notification.service";
+import { NotificationType } from "../../../../enums/notification-type";
 
 @Component({
     templateUrl: './vacancy-page.component.html',
@@ -16,6 +20,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public technologies: any[] = [];
     public experiences: any[] = [];
+    public vacancyStages: any[] = [];
+
+    private experienceEnum = EnumNames.EXPERIENCE;
+    private stageEnum = EnumNames.VACANCYSTAGE;
 
     public vacancyPageForm: FormGroup = new FormGroup({
         'id': new FormControl(''),
@@ -29,9 +37,11 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     });
 
     constructor(private vacanciesDataService: VacanciesDataService,
+        private enumService: EnumDataService,
         private activeRoute: ActivatedRoute,
         private router: Router,
-        public validationService: ValidationService) {
+        public validationService: ValidationService,
+        private notificationService: NotificationService) {
         let that = this;
 
         that.subscription = activeRoute.params.subscribe(params => that.id = params['id']);
@@ -45,17 +55,28 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 if (vacancy) {
                     that.setFormData(vacancy);
                 }
+            }, error => {
+                that.notificationService.notify(NotificationType.Error, 'Vacancy details not loaded.');
             });
         }
 
         that.vacanciesDataService.getTechnologies().subscribe(data => {
             that.technologies = data;
+        }, error => {
+            that.notificationService.notify(NotificationType.Error, 'Technology list not loaded.');
         });
 
-        that.vacanciesDataService.getExperiences().subscribe(data => {
+        that.enumService.getEnums(that.experienceEnum).subscribe(data => {
             that.experiences = data.result;
+        }, error => {
+            that.notificationService.notify(NotificationType.Error, 'Experience list not loaded.');
         });
 
+        that.enumService.getEnums(that.stageEnum).subscribe(data => {
+            that.vacancyStages = data.result;
+        }, error => {
+            that.notificationService.notify(NotificationType.Error, 'Vacancy stages not loaded.');
+        });
     }
 
     ngOnDestroy() {
@@ -97,6 +118,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../vacancies']);
                 },
                 error => {
+                    that.notificationService.notify(NotificationType.Error, 'Change vacancy not saved.');
                 });
         }
     }

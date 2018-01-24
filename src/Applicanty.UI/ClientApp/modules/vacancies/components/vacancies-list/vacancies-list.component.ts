@@ -1,7 +1,10 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, ViewContainerRef } from '@angular/core';
 import { State } from 'clarity-angular';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { Router } from '@angular/router';
+import { NotificationService } from "../../../../services/notification.service";
+import { StatusCommands } from "../../../../constanta/statuscommands";
+import { NotificationType } from "../../../../enums/notification-type";
 
 @Component({
     templateUrl: './vacancies-list.component.html',
@@ -12,20 +15,23 @@ export class VacanciesListComponent {
 
     public selectedItems: any[] = [];
 
-    private curentPage;
-    public totalCount: number = 0;
     public loading: boolean = true;
-    public loadingError: boolean = false;
-
     public showModal: boolean = false;
 
     public vacanciesList: any[];
 
+    public deleted = StatusCommands.DELETED;
+    public archived = StatusCommands.ARCHIVED;
+    public active = StatusCommands.ACTIVE;
+
+    public totalCount: number = 0;
+    private curentPage;
+
     constructor(private vacanciesDataService: VacanciesDataService,
-        private router: Router) {
+        private notificationService: NotificationService) {
     }
 
-    refresh(state: State) {
+    public refresh(state: State) {
         let that = this;
         that.loading = true;
         that.curentPage = state.page;
@@ -34,19 +40,30 @@ export class VacanciesListComponent {
                 that.vacanciesList = data.result;
                 that.totalCount = data.totalCount;
                 that.loading = false;
-                that.loadingError = false;
+                that.notificationService.notify(NotificationType.Success, 'Data for vacacies datagrid loading successfully.');
             },
             error => {
                 that.loading = false;
-                that.loadingError = true;
+                that.notificationService.notify(NotificationType.Error, 'Data for vacacies datagrid don\'t loading.');
             }
         );
     }
 
-    deleteVacancies(event) {
-        if (this.selectedItems.length !== 0) {
-            this.vacanciesDataService.deleteVacancies(this.selectedItems.map(arr => arr.id)).subscribe();
-        }
+    public changeStatus($event, vacancies: any[], status) {
+        let that = this;
+        let message = vacancies.length === 1 ? 'Vacancy ' : 'Vacancies ';
+
+        that.vacanciesDataService.changeVacanciesStatus(vacancies.map(arr => arr.id), status).subscribe(data => {
+            if (data) {
+                that.notificationService.notify(NotificationType.Success,
+                    message + 'status changed successfully');
+            }
+        },
+            error => {
+                that.notificationService.notify(NotificationType.Error,
+                    message + 'status not changed');
+            });
+
         this.showModal = false;
     }
 }

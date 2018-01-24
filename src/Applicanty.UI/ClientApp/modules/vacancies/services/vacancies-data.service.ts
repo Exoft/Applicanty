@@ -27,15 +27,11 @@ export class VacanciesDataService {
         return this.http.put('http://localhost:8000/vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public deleteVacancies(vacancies: number[]): Observable<any> {
-        return this.http.delete('http://localhost:8000/vacancy/' + vacancies, { headers: this.authService.getAuthenticationHeader() });
+    public changeVacanciesStatus(ids: number[], status: any): Observable<any> {
+        return this.http.post('http://localhost:8000/vacancy/ChangeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getTechnologies(): Observable<any> {
-        return this.http.get('http://localhost:8000/technology');
-    }
-
-    public getExperiences(): Observable<any> {
-        return this.http.get('http://localhost:8000/enum/Experience');
+        return this.http.get('http://localhost:8000/technology', { headers: this.authService.getAuthenticationHeader() });
     }
 }

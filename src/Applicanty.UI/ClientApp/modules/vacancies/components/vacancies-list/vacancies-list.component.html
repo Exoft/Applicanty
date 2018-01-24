@@ -1,26 +1,16 @@
 ﻿<div class="content-container">
     <div class="content-area">
-
-        <clr-alert *ngIf="loadingError && !loading" [clrAlertType]="'alert-danger'" [clrAlertClosable]="true">
-            <div clr-alert-item class="alert-item">
-                <span class="alert-text">
-                    Data don't loading.
-                </span>
-            </div>
-        </clr-alert>
-
         <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItems">
             <clr-dg-action-bar>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-success-outline" [routerLink]="['newvacancy']">
+                <clr-button-group class="btn-sm">
+                    <clr-button class="btn-success-outline" [routerLink]="['newvacancy']">
                         <clr-icon shape="plus"></clr-icon>
                         Add
-                    </button>
-                    <button type="button" class="btn btn-sm btn-danger-outline" [disabled]="selectedItems.length===0" (click)="showModal=true">
-                        <clr-icon shape="close"></clr-icon>
-                        Delete
-                    </button>
-                </div>
+                    </clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">Activate</clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">Archive</clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">Delete</clr-button>
+                </clr-button-group>
             </clr-dg-action-bar>
 
             <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
@@ -29,6 +19,12 @@
             <clr-dg-column>     </clr-dg-column>
 
             <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
+                <clr-dg-action-overflow>
+                    <button class="action-item" (click)="changeStatus($event, [item], active)">Activate</button>
+                    <button class="action-item" (click)="changeStatus($event, [item], archived)">Archive</button>
+                    <button class="action-item" (click)="changeStatus($event, [item], deleted)">Delete</button>
+                </clr-dg-action-overflow>
+
                 <clr-dg-cell>
                     <a [routerLink]="['../','vacancies', 'details', item?.id]" routerLinkActive="active">
                         {{item?.title}}

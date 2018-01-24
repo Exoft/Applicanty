@@ -25,15 +25,18 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="ClientApp\constanta\enumNames.ts" />
     <None Remove="ClientApp\modules\app\components\app\http.service.ts" />
     <None Remove="ClientApp\modules\auth\components\user-profile-page\user-page.guard.ts" />
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
     <None Remove="ClientApp\modules\candidates\components\candidate.component.ts" />
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
+    <None Remove="ClientApp\services\enum.data.service.ts" />
     <None Remove="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\constanta\enumNames.ts" />
     <TypeScriptCompile Include="ClientApp\constanta\statusCommands.ts" />
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
@@ -45,6 +48,7 @@
     <TypeScriptCompile Include="ClientApp\services\authguard.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\services\vacancies-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\services\enum.data.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
