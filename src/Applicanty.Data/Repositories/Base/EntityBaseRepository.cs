@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 namespace Applicanty.Data.Repositories
 {
     internal class EntityBaseRepository<TEntity> : IEntityBaseRepository<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
     {
         protected AtsDbContext _entities;
         protected readonly DbSet<TEntity> _dbSet;

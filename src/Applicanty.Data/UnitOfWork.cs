@@ -2,7 +2,7 @@
 using Applicanty.Data.Repositories;
 using Applicanty.Core.Data.Repositories;
 using Applicanty.Core.Data;
-
+using System.Security.Principal;
 
 namespace Applicanty.Data.UnitOfWork.Services
 {
@@ -14,15 +14,29 @@ namespace Applicanty.Data.UnitOfWork.Services
         private IVacancyRepository _vacancyRepository;
         private IStatusRepository _statusRepository;
         private ITechnologyRepository _technologyRepository;
+        private IVacancyCandidateRepository _vacancyCandidateRepository;
+
+        private IPrincipal _principal;
 
         public IVacancyRepository VacancyRepository
         {
             get
             {
                 if (_vacancyRepository == null)
-                    _vacancyRepository = new VacancyRepository(_dbContext);
+                    _vacancyRepository = new VacancyRepository(_dbContext, _principal);
 
                 return _vacancyRepository;
+            }
+        }
+
+        public IVacancyCandidateRepository VacancyCandidateRepository
+        {
+            get
+            {
+                if (_vacancyCandidateRepository == null)
+                    _vacancyCandidateRepository = new VacancyCandidateRepository(_dbContext);
+
+                return _vacancyCandidateRepository;
             }
         }
 
@@ -59,9 +73,10 @@ namespace Applicanty.Data.UnitOfWork.Services
             }
         }
 
-        public UnitOfWork()
+        public UnitOfWork(IPrincipal principal)
         {
             _dbContext = new AtsDbContext();
+            _principal = principal;
         }
 
         public void Dispose()

@@ -1,6 +1,6 @@
 ﻿using Applicanty.Core.Entities;
 
-namespace Applicanty.Services.Abstract
+namespace Applicanty.Core.Services
 {
     public interface ITechnologyService: IService<Technology>
     {

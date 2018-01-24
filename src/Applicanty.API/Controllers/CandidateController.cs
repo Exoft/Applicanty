@@ -1,6 +1,5 @@
 ﻿using Applicanty.Core.Entities;
 using Applicanty.Core.Dto;
-using Applicanty.Services.Abstract;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +10,7 @@ using Applicanty.Core.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Applicanty.Core.Services;
 
 namespace Applicanty.API.Controllers
 {
@@ -83,12 +83,6 @@ namespace Applicanty.API.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name); ;
 
-                model.CreatedBy = user.Id;
-                model.ModifiedBy = user.Id;
-
-                model.CtreatedAt = DateTime.Now;
-                model.ModifiedAt = DateTime.Now;
-
                 _candidateService.Create(model);
 
                 return Ok(true);
@@ -105,9 +99,6 @@ namespace Applicanty.API.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-                model.ModifiedBy = user.Id;
-                model.ModifiedAt = DateTime.Now;
 
                 var updatedModel = _candidateService.Update(model);
 

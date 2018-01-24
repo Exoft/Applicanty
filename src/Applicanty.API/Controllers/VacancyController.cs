@@ -10,6 +10,7 @@ using Applicanty.API.Helpers;
 using Applicanty.Core.Responses;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Applicanty.Core.Services;
 
 namespace Applicanty.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace Applicanty.API.Controllers
     {
         private readonly IVacancyService _vacancyService;
         private readonly UserManager<User> _userManager;
-
+        private readonly IVacancyCandidateService _vacancyCandidateService;
 
         public VacancyController(IVacancyService vacancyService,
             UserManager<User> userManager) :base(vacancyService)
@@ -78,12 +79,6 @@ namespace Applicanty.API.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                model.CreatedBy = user.Id;
-                model.ModifiedBy = user.Id;
-
-                model.CreatedAt = DateTime.Now;
-                model.ModifiedAt = DateTime.Now;
-
                 _vacancyService.Create(model);
 
                 return Ok();
@@ -101,12 +96,24 @@ namespace Applicanty.API.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                model.ModifiedAt = DateTime.Now;
-                model.ModifiedBy = user.Id;
-
                 var updatedModel = _vacancyService.Update(model);
 
                 return Ok(updatedModel);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
+        [HttpGet("CountVacancyStageCandidates")]
+        public IActionResult CountVacancyStageCandidates(int id)
+        {
+            try
+            {
+                var stageCandidates = _vacancyService.CountVacancyStageCandidates(id);
+
+                return Json(stageCandidates);
             }
             catch (Exception ex)
             {

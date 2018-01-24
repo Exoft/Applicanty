@@ -1,13 +1,13 @@
 ﻿using Applicanty.Core.Entities;
 using Applicanty.Core.Data.Repositories;
+using System.Security.Principal;
 
 namespace Applicanty.Data.Repositories
 {
-    internal class VacancyRepository: StateableRepository<Vacancy>, IVacancyRepository
+    internal class VacancyRepository: TrackableRepository<Vacancy>, IVacancyRepository
     {
-        public VacancyRepository(AtsDbContext context) 
-            : base(context)
-        {
-        }
+        public VacancyRepository(AtsDbContext context, IPrincipal principal) 
+            : base(context, principal)
+        {}
     }
 }

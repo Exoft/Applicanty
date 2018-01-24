@@ -2,8 +2,7 @@
 
 namespace Applicanty.Core.Services
 {
-    public interface ICandidateService : IStateableService<Candidate>
+     public interface IVacancyCandidateService : IService<VacancyCandidate>
     {
-        
     }
 }
