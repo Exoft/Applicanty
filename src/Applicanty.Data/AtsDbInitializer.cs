@@ -96,7 +96,7 @@ namespace Applicanty.Data
                         MinSalary = 100 + random.Next(50, 200),
                         Title = "Lorem ipsum" + i,
                         ModifiedAt = DateTime.Now,
-                        ProjectDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
+                        VacancyDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
                         JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
                         EndDate = DateTime.Now.AddDays(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())
                     });

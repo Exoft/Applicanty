@@ -1,16 +1,15 @@
 ﻿using Applicanty.Core.Entities;
 using Applicanty.Core.Dto;
-using Applicanty.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
-using Applicanty.API.Helpers;
 using Applicanty.Core.Responses;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Applicanty.Core.Services;
+using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
 {
@@ -19,7 +18,6 @@ namespace Applicanty.API.Controllers
     {
         private readonly IVacancyService _vacancyService;
         private readonly UserManager<User> _userManager;
-        private readonly IVacancyCandidateService _vacancyCandidateService;
 
         public VacancyController(IVacancyService vacancyService,
             UserManager<User> userManager) :base(vacancyService)
@@ -44,24 +42,16 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take, [FromQuery]string property, [FromQuery]string sortBy)
+        public IActionResult GetAll([FromQuery]ClarityGridRequest request)
         {
             try
             {
-                var vacanciesCount = _vacancyService.GetAll<VacancyGridDto>().Count();
-                var vacancies = _vacancyService.GetAll<VacancyGridDto>();
-
-                if (skip != null && take != null)
-                {
-                    vacancies = _vacancyService.GetAll<VacancyGridDto>().Skip((int)skip).Take((int)take);
-                }
-
-                vacancies = ListHelper<VacancyGridDto>.SortBy(vacancies, property, sortBy);
+                var vacancies = _vacancyService.GetAll<VacancyGridDto>().AsQueryable();
 
                 var response = new Response<VacancyGridDto>
                 {
-                    Result = vacancies,
-                    TotalCount = vacanciesCount
+                    Result = request.Sort(vacancies),
+                    TotalCount = vacancies.Count()
                 };
 
                 return Json(response);

@@ -14,7 +14,7 @@ namespace Applicanty.Core.Entities
         public Experience ExperienceId { get; set; }
         public string Title { get; set; }
         public string JobDescription { get; set; }
-        public string ProjectDescription { get; set; }
+        public string VacancyDescription { get; set; }
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
         public DateTime ModifiedAt { get; set; }

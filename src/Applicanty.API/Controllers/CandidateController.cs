@@ -50,22 +50,16 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? skip, [FromQuery]int? take, [FromQuery]string property, [FromQuery]string sortBy)
+        public IActionResult GetAll([FromQuery]ClarityGridRequest request)
         {
             try
             {
-                var candidates = _candidateService.GetAll<CandidateGridDto>();
-                var candidatesCount = candidates.Count();
-
-                if (skip != null && take != null)
-                    candidates = candidates.Skip((int)skip).Take((int)take);
-
-                candidates = ListHelper<CandidateGridDto>.SortBy(candidates, property, sortBy);
-
+                var candidates = _candidateService.GetAll<CandidateGridDto>().AsQueryable();
+                
                 var response = new Response<CandidateGridDto>
                 {
-                    Result = candidates,
-                    TotalCount = candidatesCount
+                    Result = request.Sort(candidates),
+                    TotalCount = candidates.Count()
                 };
 
                 return Json(response);
