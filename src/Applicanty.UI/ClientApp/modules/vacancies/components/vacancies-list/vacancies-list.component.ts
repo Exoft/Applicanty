@@ -3,7 +3,7 @@ import { State } from 'clarity-angular';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { Router } from '@angular/router';
 import { NotificationService } from "../../../../services/notification.service";
-import { StatusCommands } from "../../../../constanta/statuscommands";
+import { StatusCommands } from "../../../../constants/status-commands";
 import { NotificationType } from "../../../../enums/notification-type";
 
 @Component({
@@ -40,11 +40,10 @@ export class VacanciesListComponent {
                 that.vacanciesList = data.result;
                 that.totalCount = data.totalCount;
                 that.loading = false;
-                that.notificationService.notify(NotificationType.Success, 'Data for vacacies datagrid loading successfully.');
             },
             error => {
                 that.loading = false;
-                that.notificationService.notify(NotificationType.Error, 'Data for vacacies datagrid don\'t loading.');
+                that.notificationService.notify(NotificationType.Error, 'Error occurred during loading vacancy data');
             }
         );
     }
@@ -61,7 +60,7 @@ export class VacanciesListComponent {
         },
             error => {
                 that.notificationService.notify(NotificationType.Error,
-                    message + 'status not changed');
+                    'Error occurred during status change');
             });
 
         this.showModal = false;

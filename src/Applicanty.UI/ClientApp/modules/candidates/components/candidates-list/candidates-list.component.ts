@@ -3,7 +3,7 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
 import { NotificationService } from "../../../../services/notification.service";
 
 import { NotificationType } from '../../../../enums/notification-type';
-import { StatusCommands } from '../../../../constanta/statuscommands';
+import { StatusCommands } from '../../../../constants/status-commands';
 import { State } from "clarity-angular";
 import { Router } from "@angular/router";
 

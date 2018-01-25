@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { EnumDataService } from '../../../../services/enum.data.service';
-import { EnumNames } from '../../../../constanta/enumnames';
+import { EnumNames } from '../../../../constants/enum-names';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { ValidationService } from "../../../../services/validation.service";
@@ -118,7 +118,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../vacancies']);
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, 'Change vacancy not saved.');
+                    that.notificationService.notify(NotificationType.Error, 'Error occurred during saving vacancy changes.');
                 });
         }
     }

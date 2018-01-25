@@ -17,15 +17,17 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\constants\**" />
     <Compile Remove="ClientApp\modules\app\components\userPage\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\constants\**" />
     <EmbeddedResource Remove="ClientApp\modules\app\components\userPage\**" />
+    <None Remove="ClientApp\constants\**" />
     <None Remove="ClientApp\modules\app\components\userPage\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove=".gitignore" />
-    <None Remove="ClientApp\constanta\enumNames.ts" />
     <None Remove="ClientApp\modules\app\components\app\http.service.ts" />
     <None Remove="ClientApp\modules\auth\components\user-profile-page\user-page.guard.ts" />
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
@@ -36,8 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\constanta\enumNames.ts" />
-    <TypeScriptCompile Include="ClientApp\constanta\statusCommands.ts" />
+    <TypeScriptCompile Include="ClientApp\constants\enum-names.ts" />
+    <TypeScriptCompile Include="ClientApp\constants\status-commands.ts" />
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />

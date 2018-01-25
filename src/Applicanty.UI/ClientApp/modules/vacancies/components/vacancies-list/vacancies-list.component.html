@@ -53,17 +53,6 @@
 
     </div>
 
-    <clr-modal [(clrModalOpen)]="showModal">
-        <h3 class="modal-title">Delete items</h3>
-        <div class="modal-body">
-            <p>You realy want to delete selected items?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="deleteVacancies($event)">Ok</button>
-        </div>
-    </clr-modal>
-
     <nav class="sidenav">
         <section class="sidenav-content">
             <table border="1" width="100%">
