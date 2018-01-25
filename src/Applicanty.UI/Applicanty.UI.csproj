@@ -17,9 +17,12 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\constants\**" />
     <Compile Remove="ClientApp\modules\app\components\userPage\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\constants\**" />
     <EmbeddedResource Remove="ClientApp\modules\app\components\userPage\**" />
+    <None Remove="ClientApp\constants\**" />
     <None Remove="ClientApp\modules\app\components\userPage\**" />
   </ItemGroup>
 
@@ -30,11 +33,13 @@
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
     <None Remove="ClientApp\modules\candidates\components\candidate.component.ts" />
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
+    <None Remove="ClientApp\services\enum.data.service.ts" />
     <None Remove="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\constanta\statusCommands.ts" />
+    <TypeScriptCompile Include="ClientApp\constants\enum-names.ts" />
+    <TypeScriptCompile Include="ClientApp\constants\status-commands.ts" />
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />
@@ -45,6 +50,7 @@
     <TypeScriptCompile Include="ClientApp\services\authguard.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\services\vacancies-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\services\enum.data.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
