@@ -3,7 +3,7 @@ using System.Linq.Dynamic.Core;
 
 namespace Applicanty.API.Helpers
 {
-    public class ClarityGridRequest
+    public class GridRequest
     {
         public int? Take { get; set; }
         public int? Skip { get; set; }

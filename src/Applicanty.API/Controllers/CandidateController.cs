@@ -50,7 +50,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]ClarityGridRequest request)
+        public IActionResult GetAll([FromQuery]GridRequest request)
         {
             try
             {
