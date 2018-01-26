@@ -12,10 +12,8 @@ namespace Applicanty.API.Helpers
 
         public IQueryable<TEntity> Sort<TEntity>(IQueryable<TEntity> collection)
         {
-            if (SortDir != null)
-               collection = collection.OrderBy($"{SortField} {SortDir}");
-            else
-               collection = collection.OrderBy(SortField);
+            if (SortField != null)
+               collection = collection.OrderBy($"{SortField } {SortDir}");
 
             if (Take != null && Skip != null)
                 collection = collection.Skip(Skip.Value).Take(Take.Value);
