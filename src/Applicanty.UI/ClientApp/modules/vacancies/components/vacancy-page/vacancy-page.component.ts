@@ -21,6 +21,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public technologies: any[] = [];
     public experiences: any[] = [];
     public vacancyStages: any[] = [];
+    public vacancyStageCount: { [value: number]: any } = {};
 
     private experienceEnum = EnumNames.EXPERIENCE;
     private stageEnum = EnumNames.VACANCYSTAGE;
@@ -76,6 +77,15 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             that.vacancyStages = data.result;
         }, error => {
             that.notificationService.notify(NotificationType.Error, 'Vacancy stages not loaded.');
+            });
+
+        that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(data => {
+            if (data) {
+                for (let statusCount of data) {
+                    let { stage, count } = <{ stage: number, count: any }>statusCount;
+                    that.vacancyStageCount[stage] = count;
+                }
+            }
         });
     }
 
@@ -149,5 +159,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         this.vacancyPageForm.get('technologies')!.markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
+    }
+
+    public vacancyStageLabelClick(event: Event, idStage: number) {
+        event.preventDefault();
+
     }
 }

@@ -1,10 +1,10 @@
 ﻿<div class="content-container">
     <div class="content-area">
         <section class="btn-block">
-                <button class="btn btn-info-outline btn-notification" *ngFor="let vacancyStage of vacancyStages">
-                    {{vacancyStage.name}}
-                    <div class="notification">{{vacancyStage.value}}</div>
-                </button>
+            <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)" *ngFor="let vacancyStage of vacancyStages">
+                {{vacancyStage.name}}
+                <span class="badge">{{vacancyStageCount[vacancyStage.value]}}</span>
+            </a>
         </section>
 
         <form [formGroup]="vacancyPageForm">
@@ -96,7 +96,7 @@
                 </div>
 
                 <input type="hidden" formControlName="id">
-                
+
                 <button type="button" class="btn btn-primary" (click)="saveVacancyClick($event)">Save</button>
                 <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
             </section>
