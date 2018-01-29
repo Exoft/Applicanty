@@ -13,10 +13,10 @@
                 </clr-button-group>
             </clr-dg-action-bar>
 
-            <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
-            <clr-dg-column [clrDgField]="'experienceLevels'">Experience Levels</clr-dg-column>
+            <clr-dg-column [clrDgSortBy]="'title'" [clrDgField]="'title'">Title</clr-dg-column>
+            <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
             <clr-dg-column [clrDgField]="'endDate'">End Date</clr-dg-column>
-            <clr-dg-column>     </clr-dg-column>
+            <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
 
             <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
                 <clr-dg-action-overflow>
@@ -30,9 +30,9 @@
                         {{item?.title}}
                     </a>
                 </clr-dg-cell>
-                <clr-dg-cell>{{item?.experienceId}}</clr-dg-cell>
+                <clr-dg-cell>{{experiences[item?.experienceId]}}</clr-dg-cell>
                 <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
-                <clr-dg-cell>edit | delete</clr-dg-cell>
+                <clr-dg-cell>{{statuses[item?.statusId]}}</clr-dg-cell>
             </clr-dg-row>
 
             <clr-dg-footer>

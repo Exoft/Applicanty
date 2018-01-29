@@ -11,8 +11,9 @@ export class VacanciesDataService {
         private authService: AuthService) {
     }
 
-    public getVacancies(skip: number = 0, take: number = 10): Observable<any> {
-        return this.http.get(`http://localhost:8000/vacancy?skip=${skip}&take=${take}`, { headers: this.authService.getAuthenticationHeader() });
+    public getVacancies(skip: number = 0, take: number = 10,
+        sortBy: string | undefined, sortDir: string | undefined): Observable<any> {
+        return this.http.get(`http://localhost:8000/vacancy?skip=${skip}&take=${take}&sortField=${sortBy}&sortDir=${sortDir}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getVacancy(vacancyId: any): Observable<any> {
@@ -28,10 +29,14 @@ export class VacanciesDataService {
     }
 
     public changeVacanciesStatus(ids: number[], status: any): Observable<any> {
-        return this.http.post('http://localhost:8000/vacancy/ChangeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.post('http://localhost:8000/vacancy/changeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getTechnologies(): Observable<any> {
         return this.http.get('http://localhost:8000/technology', { headers: this.authService.getAuthenticationHeader() });
+    }
+
+    public getVacancyStagesCount(id: number): Observable<any> {
+        return this.http.get(`http://localhost:8000/vacancy/countVacancyStageCandidates?id=${id}`, { headers: this.authService.getAuthenticationHeader() })
     }
 }
