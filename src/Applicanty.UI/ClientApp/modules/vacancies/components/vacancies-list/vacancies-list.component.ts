@@ -1,4 +1,4 @@
-﻿import { Component, Input,  OnInit } from '@angular/core';
+﻿import { Component, Input, OnInit } from '@angular/core';
 import { State } from 'clarity-angular';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { EnumNames } from "../../../../constants/enum-names";
 import { NotificationType } from "../../../../enums/notification-type";
 import { Comparator } from "clarity-angular";
 import { EnumDataService } from "../../../../services/enum.data.service";
+import { NotificationMassage } from "../../../../constants/notification-message";
 
 @Component({
     templateUrl: './vacancies-list.component.html',
@@ -42,27 +43,29 @@ export class VacanciesListComponent implements OnInit {
     ngOnInit() {
         let that = this;
 
-        that.enumService.getEnums(EnumNames.EXPERIENCE).subscribe(data => {
-            if (data) {
-                for (let experience of data.result) {
-                    let { value, name } = <{ value: number, name: string }>experience;
-                    that.experiences[value] = name;
+        that.enumService.getEnums(EnumNames.EXPERIENCE).subscribe(
+            data => {
+                if (data) {
+                    for (let experience of data.result) {
+                        let { value, name } = <{ value: number, name: string }>experience;
+                        that.experiences[value] = name;
+                    }
                 }
-            }
-        }, error => {
-            that.notificationService.notify(NotificationType.Error, 'Experience list not loaded.');
+            }, error => {
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
             });
 
-        that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(data => {
-            if (data) {
-                for (let status of data.result) {
-                    let { value, name } = <{ value: number, name: string }>status;
-                    that.statuses[value] = name;
+        that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
+            data => {
+                if (data) {
+                    for (let status of data.result) {
+                        let { value, name } = <{ value: number, name: string }>status;
+                        that.statuses[value] = name;
+                    }
                 }
-            }
-        }, error => {
-            that.notificationService.notify(NotificationType.Error, 'Status list not loaded.');
-        });
+            }, error => {
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.STATUSLOADERROR);
+            });
     }
 
     public refresh(state: State) {
@@ -82,24 +85,25 @@ export class VacanciesListComponent implements OnInit {
             },
             error => {
                 that.loading = false;
-                that.notificationService.notify(NotificationType.Error, 'Error occurred during loading vacancy data');
-            }
-            );
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCIESLISTLOADERROR);
+            });
+        that.selectedItems = [];
     }
 
     public changeStatus($event, vacancies: any[], status) {
         let that = this;
         let message = vacancies.length === 1 ? 'Vacancy ' : 'Vacancies ';
 
-        that.vacanciesDataService.changeVacanciesStatus(vacancies.map(arr => arr.id), status).subscribe(data => {
-            if (data) {
-                that.notificationService.notify(NotificationType.Success,
-                    message + 'status changed successfully');
-            }
-        },
+        that.vacanciesDataService.changeVacanciesStatus(vacancies.map(arr => arr.id), status).subscribe(
+            data => {
+                if (data) {
+                    that.notificationService.notify(NotificationType.Success,
+                        vacancies.length === 1 ? NotificationMassage.VACANCYCHANGESTATUSSUCCES : NotificationMassage.VACANCIESCHANGESTATUSSUCCES);
+                }
+            },
             error => {
                 that.notificationService.notify(NotificationType.Error,
-                    'Error occurred during status change');
+                    NotificationMassage.VACANCYCHANGESTATUSERROR);
             });
 
         this.showModal = false;

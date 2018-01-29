@@ -1,10 +1,11 @@
 ﻿import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { EnumDataService } from '../../../../services/enum.data.service';
 import { EnumNames } from '../../../../constants/enum-names';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificationMassage } from '../../../../constants/notification-message';
 
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationService } from "../../../../services/notification.service";
@@ -52,41 +53,46 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         let that = this;
 
         if (that.id) {
-            that.vacanciesDataService.getVacancy(that.id).subscribe(vacancy => {
-                if (vacancy) {
-                    that.setFormData(vacancy);
-                }
-            }, error => {
-                that.notificationService.notify(NotificationType.Error, 'Vacancy details not loaded.');
-            });
+            that.vacanciesDataService.getVacancy(that.id).subscribe(
+                vacancy => {
+                    if (vacancy) {
+                        that.setFormData(vacancy);
+                    }
+                }, error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYDETAILSLOADERROR);
+                });
         }
 
-        that.vacanciesDataService.getTechnologies().subscribe(data => {
-            that.technologies = data;
-        }, error => {
-            that.notificationService.notify(NotificationType.Error, 'Technology list not loaded.');
-        });
-
-        that.enumService.getEnums(that.experienceEnum).subscribe(data => {
-            that.experiences = data.result;
-        }, error => {
-            that.notificationService.notify(NotificationType.Error, 'Experience list not loaded.');
-        });
-
-        that.enumService.getEnums(that.stageEnum).subscribe(data => {
-            that.vacancyStages = data.result;
-        }, error => {
-            that.notificationService.notify(NotificationType.Error, 'Vacancy stages not loaded.');
+        that.vacanciesDataService.getTechnologies().subscribe(
+            data => {
+                that.technologies = data;
+            }, error => {
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
             });
 
-        that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(data => {
-            if (data) {
-                for (let statusCount of data) {
-                    let { stage, count } = <{ stage: number, count: any }>statusCount;
-                    that.vacancyStageCount[stage] = count;
+        that.enumService.getEnums(that.experienceEnum).subscribe(
+            data => {
+                that.experiences = data.result;
+            }, error => {
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
+            });
+
+        that.enumService.getEnums(that.stageEnum).subscribe(
+            data => {
+                that.vacancyStages = data.result;
+            }, error => {
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGELOADERROR);
+            });
+
+        that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
+            data => {
+                if (data) {
+                    for (let statusCount of data) {
+                        let { stage, count } = <{ stage: number, count: any }>statusCount;
+                        that.vacancyStageCount[stage] = count;
+                    }
                 }
-            }
-        });
+            });
     }
 
     ngOnDestroy() {
@@ -121,6 +127,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../vacancies']);
                 },
                 error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATEVACANCYERROR);
                 });
         } else {
             that.vacanciesDataService.updateVacancy(formData).subscribe(
@@ -128,7 +135,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../vacancies']);
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, 'Error occurred during saving vacancy changes.');
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.UPDATEVACANCYERROR);
                 });
         }
     }
@@ -164,5 +171,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public vacancyStageLabelClick(event: Event, idStage: number) {
         event.preventDefault();
 
+        if (this.vacancyStageCount[idStage] !== 0) {
+            this.router.navigate(['../', 'candidates', 'vacancy', this.id, 'stage', idStage]);
+        }
     }
 }

@@ -107,7 +107,15 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                return Json(_candidateService.GetCandidatesByVacancyStage(idVacancy, idStage));
+                var candidates = _candidateService.GetCandidatesByVacancyStage(vacancyId, stageId);
+
+                var response = new Response<CandidateGridDto>
+                {
+                    Result = candidates,
+                    TotalCount = candidates.Count()
+                };
+
+                return Json(response);
             }
             catch (Exception ex)
             {

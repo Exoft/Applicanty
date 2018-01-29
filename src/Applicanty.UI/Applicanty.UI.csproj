@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\constants\enum-names.ts" />
+    <TypeScriptCompile Include="ClientApp\constants\notification-message.ts" />
     <TypeScriptCompile Include="ClientApp\constants\status-commands.ts" />
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />

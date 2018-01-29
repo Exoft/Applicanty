@@ -6,6 +6,8 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
 import { ValidationService } from '../../../../services/validation.service';
 import { NotificationService } from '../../../../services/notification.service';
 import { NotificationType } from "../../../../enums/notification-type";
+import { EnumDataService } from '../../../../services/enum.data.service';
+import { EnumNames } from '../../../../constants/enum-names';
 
 @Component({
     templateUrl: './candidate-page.component.html',
@@ -14,6 +16,9 @@ import { NotificationType } from "../../../../enums/notification-type";
 export class CandidatePageComponent implements OnInit, OnDestroy {
     private id: number;
     private subscription: Subscription;
+
+    private experienceEnum = EnumNames.EXPERIENCE;
+    private stageEnum = EnumNames.VACANCYSTAGE;
 
     public experienсes: any[] = [];
 
@@ -31,6 +36,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     });
 
     constructor(private candidatesDataService: CandidatesDataService,
+        private enumService: EnumDataService,
         private activeRoute: ActivatedRoute,
         public validationService: ValidationService,
         private router: Router,
@@ -50,11 +56,10 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 }
             });
 
-            that.candidatesDataService.getExperiences().subscribe(data => {
+            that.enumService.getEnums(that.experienceEnum).subscribe(data => {
                 that.experienсes = data.result;
             },
                 error => {
-                    console.log(error);
                     that.notificationService.notify(NotificationType.Error, 'error');
                 });
         }
