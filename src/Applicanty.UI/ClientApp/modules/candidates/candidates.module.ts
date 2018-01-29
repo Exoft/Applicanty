@@ -13,13 +13,15 @@ import { CandidatePageComponent } from '../candidates/components/candidate-page/
 import { AuthGuard } from '../../services/authguard.service';
 
 import { CandidatesDataService } from './services/candidates-data.service';
+import { EnumDataService } from '../../services/enum.data.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
 export const candidateRoutes = [
     { path: 'candidates', component: CandidatesListComponent, canActivate: [AuthGuard] },
     { path: 'candidates/details/:id', component: CandidatePageComponent, canActivate: [AuthGuard] },
-    { path: 'candidates/newcandidate', component: CandidatePageComponent, canActivate: [AuthGuard] }
+    { path: 'candidates/newcandidate', component: CandidatePageComponent, canActivate: [AuthGuard] },
+    { path: 'candidates/vacancy/:vacancyId/stage/:stageId', component: CandidatesListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -28,7 +30,8 @@ export const candidateRoutes = [
         CandidatePageComponent
     ],
     providers: [
-        CandidatesDataService
+        CandidatesDataService,
+        EnumDataService
     ],
     imports: [
         BrowserModule,

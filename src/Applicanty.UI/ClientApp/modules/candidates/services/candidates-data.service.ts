@@ -10,7 +10,7 @@ export class CandidatesDataService {
     constructor(private http: HttpClient,
         private authService: AuthService) {
     }
-    
+
     public getCandidates(skip: number = 0, take: number = 10): Observable<any> {
         return this.http.get(`http://localhost:8000/candidate?skip=${skip}&take=${take}`, { headers: this.authService.getAuthenticationHeader() });
     }
@@ -23,7 +23,7 @@ export class CandidatesDataService {
         return this.http.post('http://localhost:8000/candidate', candidate, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public updateCandidate(candidate : any): Observable<any> {
+    public updateCandidate(candidate: any): Observable<any> {
         return this.http.put('http://localhost:8000/candidate', candidate, { headers: this.authService.getAuthenticationHeader() });
     }
 
@@ -35,7 +35,7 @@ export class CandidatesDataService {
         return this.http.post('http://localhost:8000/Candidate/ChangeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public getExperiences(): Observable<any> {
-        return this.http.get('http://localhost:8000/enum/Experience');
+    public getCandidateByVacancyStage(vacancyId: number, stageId: number): Observable<any> {
+        return this.http.get(`http://localhost:8000/candidate/getByVacancy?vacancyId=${vacancyId}&stageId=${stageId}`, { headers: this.authService.getAuthenticationHeader() })
     }
 }
