@@ -24,10 +24,10 @@ namespace Applicanty.Services.Services
         protected override ICandidateRepository InitRepository() =>
             UnitOfWork.CandidateRepository;
 
-        public IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int idVacancy, int idStage)
+        public IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int vacancyId, int stageId)
         {
             var candidatsIdArray = _vacancyCandidateService
-                .GetAll<VacancyCandidateDto>(f => f.VacancyId == idVacancy && (int)f.VacancyStage == idStage)
+                .GetAll<VacancyCandidateDto>(f => f.VacancyId == vacancyId && (int)f.VacancyStage == stageId)
                 .Select(f=>f.CandidateId).ToArray();
 
             return GetAll<CandidateGridDto>(f=>candidatsIdArray.Contains(f.Id));

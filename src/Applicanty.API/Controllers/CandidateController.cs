@@ -102,8 +102,8 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpGet("GetByVacansy")]
-        public IActionResult GetByVacansy([FromQuery]int idVacancy, [FromQuery]int idStage)
+        [HttpGet("GetByVacancy")]
+        public IActionResult GetByVacancy([FromQuery]int vacancyId, [FromQuery]int stageId)
         {
             try
             {

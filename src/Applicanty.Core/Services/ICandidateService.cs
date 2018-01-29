@@ -6,6 +6,6 @@ namespace Applicanty.Core.Services
 {
     public interface ICandidateService : IStateableService<Candidate>
     {
-        IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int idVacancy, int idStage);
+        IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int vacancyId, int stageId);
     }
 }
