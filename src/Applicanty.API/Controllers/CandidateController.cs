@@ -55,7 +55,7 @@ namespace Applicanty.API.Controllers
             try
             {
                 var candidates = _candidateService.GetAll<CandidateGridDto>().AsQueryable();
-                
+
                 var response = new Response<CandidateGridDto>
                 {
                     Result = request.Sort(candidates),
@@ -75,8 +75,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name); ;
-
                 _candidateService.Create(model);
 
                 return Ok(true);
@@ -97,6 +95,19 @@ namespace Applicanty.API.Controllers
                 var updatedModel = _candidateService.Update(model);
 
                 return Ok(updatedModel);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
+        [HttpGet("GetByVacancy")]
+        public IActionResult GetByVacancy([FromQuery]int vacancyId, [FromQuery]int stageId)
+        {
+            try
+            {
+                return Json(_candidateService.GetCandidatesByVacancyStage(idVacancy, idStage));
             }
             catch (Exception ex)
             {

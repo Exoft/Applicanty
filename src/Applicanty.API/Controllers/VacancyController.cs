@@ -67,8 +67,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
                 _vacancyService.Create(model);
 
                 return Ok();
@@ -84,8 +82,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
                 var updatedModel = _vacancyService.Update(model);
 
                 return Ok(updatedModel);
