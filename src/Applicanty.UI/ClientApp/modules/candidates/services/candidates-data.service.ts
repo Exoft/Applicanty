@@ -11,8 +11,9 @@ export class CandidatesDataService {
         private authService: AuthService) {
     }
 
-    public getCandidates(skip: number = 0, take: number = 10): Observable<any> {
-        return this.http.get(`http://localhost:8000/candidate?skip=${skip}&take=${take}`, { headers: this.authService.getAuthenticationHeader() });
+    public getCandidates(skip: number = 0, take: number = 10,
+        sortBy: string, sortDir: string): Observable<any> {
+        return this.http.get(`http://localhost:8000/candidate?skip=${skip}&take=${take}&sortField=${sortBy}&sortDir=${sortDir}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getCandidate(candidateId: any): Observable<any> {
@@ -35,7 +36,11 @@ export class CandidatesDataService {
         return this.http.post('http://localhost:8000/Candidate/ChangeStatus?status=' + status, ids, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public getCandidateByVacancyStage(vacancyId: number, stageId: number): Observable<any> {
-        return this.http.get(`http://localhost:8000/candidate/getByVacancy?vacancyId=${vacancyId}&stageId=${stageId}`, { headers: this.authService.getAuthenticationHeader() })
+    public getTechnologies(): Observable<any> {
+        return this.http.get('http://localhost:8000/technology', { headers: this.authService.getAuthenticationHeader() });
+    }
+
+    public getExperiences(): Observable<any> {
+        return this.http.get('http://localhost:8000/enum/Experience');
     }
 }

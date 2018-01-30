@@ -12,7 +12,7 @@ export class VacanciesDataService {
     }
 
     public getVacancies(skip: number = 0, take: number = 10,
-        sortBy: string | undefined, sortDir: string | undefined): Observable<any> {
+        sortBy: string, sortDir: string): Observable<any> {
         return this.http.get(`http://localhost:8000/vacancy?skip=${skip}&take=${take}&sortField=${sortBy}&sortDir=${sortDir}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
