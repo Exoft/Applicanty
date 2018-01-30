@@ -2,34 +2,33 @@
     <div class="content-area">
         <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedCandidates">
             <clr-dg-action-bar>
-                <div class="btn-group">
-                    <a class="btn btn-sm btn-success-outline" [routerLink]="['newcandidate']">
+                <clr-button-group class="btn-sm">
+                    <clr-button class="btn-success-outline" [routerLink]="['newcandidate']">
                         <clr-icon shape="plus"></clr-icon>
                         Add
-                    </a>
-                    <button type="button" class="btn btn-sm btn-danger-outline">
-                        <clr-icon shape="close"></clr-icon>
-                        Delete
-                    </button>
-                </div>
+                    </clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, active)">Activate</clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, archived)">Archive</clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, deleted)">Delete</clr-button>
+                </clr-button-group>
             </clr-dg-action-bar>
-
-            <clr-dg-column>Id</clr-dg-column>
-            <clr-dg-column>FirstName</clr-dg-column>
-            <clr-dg-column>LastName</clr-dg-column>
-            <clr-dg-column>ExperienceId</clr-dg-column>
-            <clr-dg-column>Email</clr-dg-column>
-            <clr-dg-column>LinkedIn</clr-dg-column>
-            <clr-dg-column>Skype</clr-dg-column>
-            <clr-dg-column>PhoneNumber</clr-dg-column>
-            <clr-dg-column>CvPath</clr-dg-column>
-            <clr-dg-column>UpdateOn</clr-dg-column>
+               
+            <clr-dg-column [clrDgField]="'id'">Id</clr-dg-column>
+            <clr-dg-column [clrDgField]="'firstName'">FirstName</clr-dg-column>
+            <clr-dg-column [clrDgField]="'lastName'">LastName</clr-dg-column>
+            <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
+            <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
+            <clr-dg-column [clrDgField]="'linkedIn'">LinkedIn</clr-dg-column>
+            <clr-dg-column [clrDgField]="'skype'">Skype</clr-dg-column>
+            <clr-dg-column [clrDgField]="'phoneNumber'">PhoneNumber</clr-dg-column>
+            <clr-dg-column [clrDgField]="'cvPath'">CvPath</clr-dg-column>
+            <clr-dg-column [clrDgField]="'updateOn'">UpdateOn</clr-dg-column>
 
             <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
                 <clr-dg-action-overflow>
-                    <button class="action-item" (click)="changeStatus($event, candidate, active)">Activate</button>
-                    <button class="action-item" (click)="changeStatus($event, candidate, archived)">Archive</button>
-                    <button class="action-item" (click)="changeStatus($event, candidate, deleted)">Delete</button>
+                    <button class="action-item" (click)="changeStatus($event, [candidate], deleted)">Activate</button>
+                    <button class="action-item" (click)="changeStatus($event, [candidate], archived)">Archive</button>
+                    <button class="action-item" (click)="changeStatus($event, [candidate], active)">Delete</button>
                 </clr-dg-action-overflow>
 
                 <clr-dg-cell>{{candidate.id}}</clr-dg-cell>

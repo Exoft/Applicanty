@@ -3,6 +3,7 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
 import { NotificationService } from "../../../../services/notification.service";
 
 import { NotificationType } from '../../../../enums/notification-type';
+import { Comparator } from "clarity-angular";
 import { StatusCommands } from '../../../../constants/status-commands';
 import { State } from "clarity-angular";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -12,7 +13,8 @@ import { Subscription } from "rxjs/Subscription";
     templateUrl: './candidates-list.component.html',
     styleUrls: ['./candidates-list.component.scss']
 })
-export class CandidatesListComponent implements OnInit, OnDestroy {
+export class CandidatesListComponent {
+    public sortCandidates = [];
     public candidates = [];
     public total: number;
     public loading: boolean = true;
@@ -27,6 +29,7 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
 
     private totalCount: number;
     private curentPage;
+    private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'lastName', reverse: false };
 
     constructor(private candidatesDataService: CandidatesDataService,
         private activeRoute: ActivatedRoute,
@@ -46,56 +49,40 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
 
     public changeStatus($event, candidate, status) {
         let that = this;
+        let message = candidates.length === 1 ? 'Candidate ' : 'Candidates ';
 
-        that.candidatesDataService.changeCandidateStatus([candidate.id], status).subscribe(data => {
-            if (data) {
-                that.notificationService.notify(NotificationType.Success, 'Success');
-            }
-        },
+        that.candidatesDataService.changeCandidateStatus(candidates.map(arr => arr.id), status).subscribe(
+            data => {
+                if (data) {
+                    that.notificationService.notify(NotificationType.Success,
+                        message + 'status changed successfully');
+                }
+            },
             error => {
-                that.notificationService.notify(NotificationType.Error, 'Error');
+                that.notificationService.notify(NotificationType.Error,
+                    message + 'status not changed');
             });
-    }
-
+    };
 
     public refresh(state: State) {
         let that = this;
-
         that.loading = true;
-        let filters: { [prop: string]: any[] } = {};
-
-        if (state.filters) {
-            for (let filter of state.filters) {
-                let { property, value } = <{ property: string, value: string }>filter;
-                filters[property] = [value];
-            }
-        }
 
         that.curentPage = state.page;
-        if (!that.vacancyId && !that.stageId) {
-            that.candidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size).subscribe(
-                data => {
-                    that.candidates = data.result;
-                    that.totalCount = data.totalCount;
-                    that.loading = false;
-                },
-                error => {
-                    that.loading = false;
-                });
-        } else {
-            that.candidatesDataService.getCandidateByVacancyStage(that.vacancyId, that.stageId).subscribe(
-                data => {
-                    that.candidates = data.result;
-                    that.totalCount = data.totalCount;
-                    that.loading = false;
-                }),
-                error => {
-                    that.loading = false;
-                }
-        }
-    }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (state.sort)
+            that.sortField = state.sort;
+
+        that.candidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size,
+            that.sortField.by.toString(), that.sortField.reverse === true ? 'desc' : 'asc').subscribe(
+            data => {
+                that.candidates = data.result;
+                that.totalCount = data.totalCount;
+                that.loading = false;
+            },
+            error => {
+                that.loading = false;
+                that.notificationService.notify(NotificationType.Error, 'Error occurred during loading candidate data');
+            });
     }
 }

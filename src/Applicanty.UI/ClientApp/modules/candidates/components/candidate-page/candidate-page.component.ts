@@ -21,6 +21,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     private stageEnum = EnumNames.VACANCYSTAGE;
 
     public experienсes: any[] = [];
+    public technologies: any[] = [];
 
     public candidatePageFrom: FormGroup = new FormGroup({
         'id': new FormControl(''),
@@ -62,7 +63,13 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 error => {
                     that.notificationService.notify(NotificationType.Error, 'error');
                 });
-        }
+        };
+
+        that.candidatesDataService.getTechnologies().subscribe(data => {
+            that.technologies = data;
+        }, error => {
+            that.notificationService.notify(NotificationType.Error, 'Technology list not loaded.');
+        });
     }
 
     ngOnDestroy() {
