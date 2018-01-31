@@ -1,5 +1,4 @@
 ﻿using Applicanty.Core.Data.Repositories;
-using Applicanty.Core.Entities.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,9 +39,10 @@ namespace Applicanty.Data.Repositories
             return _dbSet.AsNoTracking().AsEnumerable().Where(predicate.Compile()).ToList();
         }
 
-        public virtual void Create(TEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
             _dbSet.Add(entity);
+            return entity;
         }
 
         public virtual void AddAll(IEnumerable<TEntity> entityList)

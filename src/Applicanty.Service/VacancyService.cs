@@ -1,6 +1,5 @@
 ﻿using Applicanty.Core.Data;
 using Applicanty.Core.Data.Repositories;
-using Applicanty.Core.Dto;
 using Applicanty.Core.Dto.VacancyCandidate;
 using Applicanty.Core.Entities;
 using Applicanty.Core.Services;
@@ -14,7 +13,9 @@ namespace Applicanty.Services.Services
     {
         private IVacancyCandidateService _vacancyCandidateService;
 
-        public VacancyService(IUnitOfWork unitOfWork, IMapper mapper, IVacancyCandidateService vacancyCandidateService)
+        public VacancyService(IUnitOfWork unitOfWork,
+            IMapper mapper,
+            IVacancyCandidateService vacancyCandidateService)
             : base(unitOfWork, mapper)
         {
             _vacancyCandidateService = vacancyCandidateService;
@@ -25,11 +26,12 @@ namespace Applicanty.Services.Services
 
         public List<StageCandidatesCountDto> CountVacancyStageCandidates(int id)
         {
-            var vacancyCandidates = _vacancyCandidateService.GetAll<VacancyCandidateDto>(f => f.VacancyId == id);
+            var vacancyCandidates = _vacancyCandidateService.GetByVacancy(id);
 
             return vacancyCandidates
-                .GroupBy(item => item.VacancyStage)
-                .Select(item => new StageCandidatesCountDto { Stage = item.Key, Count = item.Count() }).ToList();
-            }
+                    .GroupBy(item => item.VacancyStage)
+                    .Select(item => new StageCandidatesCountDto { Stage = item.Key, Count = item.Count() }).ToList();
+
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Applicanty.Data.Repositories
             _principal = principal as ClaimsPrincipal;
         }
 
-        public override void Create(TEntity entity)
+        public override TEntity Create(TEntity entity)
         {
             entity.CreatedAt = DateTime.Now;
             entity.CreatedBy = GetUserId();
@@ -27,7 +27,7 @@ namespace Applicanty.Data.Repositories
             entity.ModifiedAt = DateTime.Now;
             entity.ModifiedBy = GetUserId();
 
-            base.Create(entity);
+            return base.Create(entity);
         }
 
         public override TEntity Update(TEntity entity)
@@ -40,7 +40,10 @@ namespace Applicanty.Data.Repositories
 
         protected int GetUserId()
         {
-            var val = _principal.Claims.First(f=>f.Type == "sub").Value;
+            if (!_principal.Identity.IsAuthenticated)
+                throw new UnauthorizedAccessException();
+
+            var val = _principal.Claims.First(f => f.Type == "sub").Value;
 
             return Int32.Parse(val);
         }

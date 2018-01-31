@@ -8,7 +8,7 @@ namespace Applicanty.Core.Services
     public interface IService<TEntity> where TEntity : class
     {
         TDto GetOne<TDto>(int id);
-        void Create<TDto>(TDto entity);
+        TDto Create<TDto>(TDto entity);
         IEnumerable<TDto> GetAll<TDto>();
         TDto Update<TDto>(TDto entity);
         TDto GetOne<TDto>(Expression<Func<TEntity, bool>> predicate);

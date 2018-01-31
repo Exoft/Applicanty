@@ -65,6 +65,9 @@ namespace Applicanty.Core
             CreateMap<Status, StatusCreateOrUpdateDto>();
             CreateMap<StatusCreateOrUpdateDto, Status>();
             #endregion
+
+            CreateMap<VacancyTechnologyDto, VacancyTechnology>();
+            CreateMap<VacancyTechnology, VacancyTechnologyDto>();
         }
     }
 }

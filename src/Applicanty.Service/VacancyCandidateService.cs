@@ -3,6 +3,8 @@ using Applicanty.Core.Data.Repositories;
 using Applicanty.Core.Entities;
 using Applicanty.Core.Services;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Applicanty.Services.Services
 {
@@ -15,5 +17,14 @@ namespace Applicanty.Services.Services
         protected override IVacancyCandidateRepository InitRepository()=>
             UnitOfWork.VacancyCandidateRepository;
 
+        public IEnumerable<VacancyCandidate> GetByVacancy(int vacancyId)
+        {
+            return Repository.GetAll(item => item.VacancyId == vacancyId);
+        }
+
+        public IEnumerable<VacancyCandidate> GetByVacancyAndStage(int vacancyId, int stageId)
+        {
+            return GetByVacancy(vacancyId).Where(item => (int)item.VacancyStage == stageId);
+        }
     }
 }

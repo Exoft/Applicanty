@@ -54,12 +54,14 @@ namespace Applicanty.Services.Services
             return _mapper.Map<TEntity, TDto>(entity);
         }
 
-        public virtual void Create<TDto>(TDto dto)
+        public virtual TDto Create<TDto>(TDto dto)
         {
             var entity = _mapper.Map<TDto, TEntity>(dto);
 
-            Repository.Create(entity);
+            var createdEntity = Repository.Create(entity);
             _unitOfWork.Commit();
+
+            return _mapper.Map<TEntity, TDto>(createdEntity);
         }
 
         public TDto Update<TDto>(TDto dto)
