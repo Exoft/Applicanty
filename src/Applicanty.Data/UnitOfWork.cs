@@ -15,6 +15,7 @@ namespace Applicanty.Data.UnitOfWork.Services
         private IStatusRepository _statusRepository;
         private ITechnologyRepository _technologyRepository;
         private IVacancyCandidateRepository _vacancyCandidateRepository;
+        private IVacancyTechnologyRepositort _vacancyTechnologyRepositort;
 
         private IPrincipal _principal;
 
@@ -70,6 +71,17 @@ namespace Applicanty.Data.UnitOfWork.Services
                     _technologyRepository = new TechnologyRepository(_dbContext);
 
                 return _technologyRepository;
+            }
+        }
+
+        public IVacancyTechnologyRepositort VacancyTechnologyRepositort
+        {
+            get
+            {
+                if (_vacancyTechnologyRepositort == null)
+                    _vacancyTechnologyRepositort = new VacancyTechnologyRepositort(_dbContext);
+
+                return _vacancyTechnologyRepositort;
             }
         }
 

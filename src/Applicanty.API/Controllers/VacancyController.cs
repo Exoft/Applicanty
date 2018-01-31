@@ -7,23 +7,26 @@ using System.Linq;
 using System.Net;
 using Applicanty.Core.Responses;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 using Applicanty.Core.Services;
 using Applicanty.API.Helpers;
 
 namespace Applicanty.API.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     public class VacancyController : BaseController<Vacancy>
     {
         private readonly IVacancyService _vacancyService;
         private readonly UserManager<User> _userManager;
+        private readonly IVacancyTechnologyService _vacancyTechnologyService;
 
         public VacancyController(IVacancyService vacancyService,
-            UserManager<User> userManager) :base(vacancyService)
+            UserManager<User> userManager,
+            IVacancyTechnologyService vacancyTechnologyService) :base(vacancyService)
         {
             _vacancyService = vacancyService;
             _userManager = userManager;
+            _vacancyTechnologyService = vacancyTechnologyService;
         }
 
         [HttpGet("{id}")]
@@ -63,13 +66,16 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]VacancyCreateDto model)
+        public IActionResult Create([FromBody]VacancyCreateDto model)
         {
             try
             {
-                _vacancyService.Create(model);
+                var createdVacancy = _vacancyService.Create(model);
 
-                return Ok();
+                foreach (var item in model.TechnologiesId)
+                    _vacancyTechnologyService.Create(new VacancyTechnologyDto { VacancyId = createdVacancy.Id, TechnologyId = item });
+
+                return Ok(true);
             }
             catch (Exception ex)
             {
@@ -78,7 +84,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit([FromBody]VacancyUpdateDto model)
+        public IActionResult Edit([FromBody]VacancyUpdateDto model)
         {
             try
             {

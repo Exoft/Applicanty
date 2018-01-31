@@ -27,7 +27,7 @@ namespace Applicanty.Services.Services
         public IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int vacancyId, int stageId)
         {
             var candidatsIdArray = _vacancyCandidateService
-                .GetAll<VacancyCandidateDto>(f => f.VacancyId == vacancyId && (int)f.VacancyStage == stageId)
+                .GetByVacancyAndStage(vacancyId, stageId)
                 .Select(f=>f.CandidateId).ToArray();
 
             return GetAll<CandidateGridDto>(f=>candidatsIdArray.Contains(f.Id));
