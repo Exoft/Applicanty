@@ -47,7 +47,7 @@ export class CandidatesListComponent {
             });
     }
 
-    public changeStatus($event, candidate, status) {
+    public changeStatus($event, candidates, status) {
         let that = this;
         let message = candidates.length === 1 ? 'Candidate ' : 'Candidates ';
 

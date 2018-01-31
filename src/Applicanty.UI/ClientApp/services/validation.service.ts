@@ -6,7 +6,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 @Injectable()
 export class ValidationService {
     private config = {};
-    
+
     private static http: any;
 
     private static emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
@@ -17,7 +17,9 @@ export class ValidationService {
         this.config = {
             'required': 'This field is required',
             'invalidEmail': 'Entered value is not valid email address',
-            'passwordsDoNotMatch': 'Password do not match'
+            'passwordsDoNotMatch': 'Password do not match',
+            'invalidEndDate': 'End date can not be later than today',
+            'invalidTechnologiesCount': 'Number of technologies can not be less two'
         };
     }
 
@@ -32,7 +34,7 @@ export class ValidationService {
 
         return null;
     }
-    
+
     public emailValidator(control) {
         if (!control.value || control.value === null)
             return null;
@@ -53,6 +55,29 @@ export class ValidationService {
             return null;
         } else {
             return { 'passwordsDoNotMatch': true };
+        }
+    }
+
+    public endDateValidator(control) {
+        if (!control.value || control.value === null)
+            return null;
+
+        let endDate = new Date(control.value);
+        if (new Date() < endDate) {
+            return null;
+        } else {
+            return { 'invalidEndDate': true }
+        }
+    }
+
+    public technologiesValidator(control) {
+        if (!control.value || control.value === null)
+            return null;
+
+        if (control.value.length > 2) {
+            return null;
+        } else {
+            return { 'invalidTechnologiesCount': true };
         }
     }
 }

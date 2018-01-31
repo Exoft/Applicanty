@@ -48,12 +48,12 @@
 
                 <div class="form-group">
                     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="technologies">Technologies:</label>
+                        <label for="technologiesId">Technologies:</label>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 checkboxlist-scroll">
                         <div *ngFor="let technology of technologies" class="checkbox">
-                            <input type="checkbox" id="{{technology?.id}}" value="technology?.id"
-                                   [checked]="vacancyPageForm?.get('technologies')?.value?.indexOf(technology?.id)>=0"
+                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}"
+                                   [checked]="vacancyPageForm?.get('technologiesId')?.value?.indexOf(technology?.id)>=0"
                                    (change)="vacancyTechnologiesChange($event)">
                             <label for="{{technology?.id}}">
                                 {{technology.name}}

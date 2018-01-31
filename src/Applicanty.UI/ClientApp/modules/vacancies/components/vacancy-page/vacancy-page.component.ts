@@ -30,12 +30,12 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public vacancyPageForm: FormGroup = new FormGroup({
         'id': new FormControl(''),
         'title': new FormControl('', Validators.required),
-        'createDate': new FormControl(new Date()),
-        'endDate': new FormControl(new Date(), Validators.required),
-        'technologies': new FormControl('', Validators.required),
-        'experienceId': new FormControl('', Validators.required),
-        'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(40)]),
-        'jobDescription': new FormControl('', [Validators.required, Validators.minLength(40)])
+        'createDate': new FormControl(new Date().toLocaleDateString()),
+        'endDate': new FormControl(new Date(), [Validators.required, this.validationService.endDateValidator]),
+        'technologiesId': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
+        'experienceId': new FormControl(0, Validators.required),
+        'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
+        'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)])
     });
 
     constructor(private vacanciesDataService: VacanciesDataService,
@@ -61,6 +61,25 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 }, error => {
                     that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYDETAILSLOADERROR);
                 });
+
+            that.enumService.getEnums(that.stageEnum).subscribe(
+                data => {
+                    that.vacancyStages = data.result;
+                }, error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGELOADERROR);
+                });
+
+            that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
+                data => {
+                    if (data) {
+                        for (let statusCount of data) {
+                            let { stage, count } = <{ stage: number, count: any }>statusCount;
+                            that.vacancyStageCount[stage] = count;
+                        }
+                    }
+                }, error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGESCOUNTLOADERROR);
+                });
         }
 
         that.vacanciesDataService.getTechnologies().subscribe(
@@ -76,23 +95,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             }, error => {
                 that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
             });
-
-        that.enumService.getEnums(that.stageEnum).subscribe(
-            data => {
-                that.vacancyStages = data.result;
-            }, error => {
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGELOADERROR);
-            });
-
-        that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
-            data => {
-                if (data) {
-                    for (let statusCount of data) {
-                        let { stage, count } = <{ stage: number, count: any }>statusCount;
-                        that.vacancyStageCount[stage] = count;
-                    }
-                }
-            });
+        
     }
 
     ngOnDestroy() {
@@ -106,9 +109,9 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         this.vacancyPageForm.setValue({
             'id': vacancy.id,
             'title': vacancy.title,
-            'createDate': createDate.toLocaleDateString('en-EN'),
+            'createDate': createDate.toLocaleDateString(),
             'endDate': endDate.getFullYear() + '-' + endDate.getMonth() + 1 + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate()),
-            'technologies': vacancy.technologies,
+            'technologiesId': vacancy.technologies,
             'experienceId': vacancy.experienceId,
             'vacancyDescription': vacancy.vacancyDescription,
             'jobDescription': vacancy.jobDescription
@@ -145,9 +148,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     }
 
     public vacancyTechnologiesChange(event) {
-        let id = event.target.value;
+        let id = Number(event.target.value);
 
-        let selectedTechnologies = this.vacancyPageForm.get('technologies')!.value;
+
+        let selectedTechnologies = this.vacancyPageForm.get('technologiesId')!.value;
 
         if (event.target.checked) {
             if (selectedTechnologies.indexOf(id) < 0) {
@@ -160,12 +164,13 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.vacancyPageForm.get('technologies')!.setValue(selectedTechnologies);
+        this.vacancyPageForm.get('technologiesId')!.setValue(selectedTechnologies);
 
-        this.vacancyPageForm.get('technologies')!.markAsDirty();
-        this.vacancyPageForm.get('technologies')!.markAsTouched();
+        this.vacancyPageForm.get('technologiesId')!.markAsDirty();
+        this.vacancyPageForm.get('technologiesId')!.markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
+
     }
 
     public vacancyStageLabelClick(event: Event, idStage: number) {

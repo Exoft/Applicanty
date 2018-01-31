@@ -22,7 +22,8 @@ table {
 }
 
 .checkboxlist-scroll{
-    max-height:150px;
+    min-height:150px;
+    max-height:200px;
     overflow-y: scroll;
 }
 
