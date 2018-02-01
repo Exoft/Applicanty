@@ -10,5 +10,6 @@
     static VACANCYSTAGELOADERROR: string = 'Vacancy stages not loaded.';
     static CREATEVACANCYERROR: string = 'Error occurred during create new vacancy.';
     static UPDATEVACANCYERROR: string = 'Error occurred during saving vacancy changes.';
+    static VACANCYSTAGESCOUNTLOADERROR: string = 'Error occurred during load vacancy stages count';
 
 }
