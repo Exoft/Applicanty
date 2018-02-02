@@ -35,6 +35,6 @@ To create test users you have to run a Applicanty.API project in debugging mode
 To set up sending emails you need specify, the email from which the letters will be sent and password from it, in `appsettings.json`.
 Also you neet specify Smtp Server and Smtp Port postal service you use. Now Smtp Server and Smtp Port setted for gmail.
 
-`UsernameEmail` - email from which the letters will  <br/>
+`UsernameEmail` - email from which the letters will be sent  <br/>
 `UsernamePassword` - password for this email  <br/>
 `PrimaryPort` - The port, which the server will use to send SMTP transactions (emails)  <br/>

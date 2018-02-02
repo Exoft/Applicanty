@@ -64,7 +64,7 @@ namespace Applicanty.Services.Services
             return _mapper.Map<TEntity, TDto>(createdEntity);
         }
 
-        public TDto Update<TDto>(TDto dto)
+        public virtual TDto Update<TDto>(TDto dto)
         {
             var entity = _mapper.Map<TDto, TEntity>(dto);
 
