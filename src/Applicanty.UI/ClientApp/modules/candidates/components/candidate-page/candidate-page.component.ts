@@ -89,35 +89,35 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             'linkedIn': candidate.linkedIn,
             'phone': candidate.phone,
             'cvPath': candidate.cvPath,
-            'birthday': birthdayDate.getFullYear() + '-' + birthdayDate.getMonth() + 1 + '-' + (birthdayDate.getDate().toString().length === 1 ? '0' + birthdayDate.getDate().toString() : birthdayDate.getDate())
-        });
-    }
+            'birthday': birthdayDate.getFullYear() + '-' + ((birthdayDate.getMonth() + 1).toString().length === 1 ? '0' + (birthdayDate.getMonth() + 1).toString() : (birthdayDate.getMonth() + 1).toString()) + '-' + (birthdayDate.getDate().toString().length === 1 ? '0' + birthdayDate.getDate().toString() : birthdayDate.getDate())
+    });
+}
 
     public saveCandidateClick(event) {
-        let that = this;
+    let that = this;
 
-        let formData = that.candidatePageFrom.value;
+    let formData = that.candidatePageFrom.value;
 
-        if (!that.id) {
-            formData['id'] = 0;
+    if (!that.id) {
+        formData['id'] = 0;
 
-            that.candidatesDataService.createCandidate(formData).subscribe(
-                data => {
-                    that.router.navigate(['../candidates']);
-                },
-                error => {
-                });
-        } else {
-            that.candidatesDataService.updateCandidate(formData).subscribe(
-                data => {
-                    that.router.navigate(['../candidates']);
-                },
-                error => {
-                });
-        }
+        that.candidatesDataService.createCandidate(formData).subscribe(
+            data => {
+                that.router.navigate(['../candidates']);
+            },
+            error => {
+            });
+    } else {
+        that.candidatesDataService.updateCandidate(formData).subscribe(
+            data => {
+                that.router.navigate(['../candidates']);
+            },
+            error => {
+            });
     }
+}
 
     public cancelClick(event) {
-        this.router.navigate(['../candidates']);
-    }
+    this.router.navigate(['../candidates']);
+}
 }

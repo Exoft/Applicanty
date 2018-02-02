@@ -20,7 +20,6 @@ export class VacanciesListComponent implements OnInit {
     public selectedItems: any[] = [];
 
     public loading: boolean = true;
-    public showModal: boolean = false;
 
     public vacanciesList: any[];
 
@@ -29,8 +28,9 @@ export class VacanciesListComponent implements OnInit {
     public active = StatusCommands.ACTIVE;
 
     public totalCount: number = 0;
-    private curentPage;
+    private currentPage;
     private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'title', reverse: false };
+    private currentState;
 
     private experiences: { [value: number]: any } = {};
     private statuses: { [value: number]: any } = {};
@@ -70,13 +70,14 @@ export class VacanciesListComponent implements OnInit {
 
     public refresh(state: State) {
         let that = this;
+        that.currentState = state;
         that.loading = true;
-        that.curentPage = state.page;
+        that.currentPage = that.currentState.page;
         if (state.sort) {
-            that.sortField = state.sort;
+            that.sortField = that.currentState.sort;
         }
 
-        that.vacanciesDataService.getVacancies(that.curentPage.from, that.curentPage.size,
+        that.vacanciesDataService.getVacancies(that.currentPage.from, that.currentPage.size,
             that.sortField.by.toString(), that.sortField.reverse == true ? 'desc' : 'asc').subscribe(
             data => {
                 that.vacanciesList = data.result;
@@ -92,13 +93,13 @@ export class VacanciesListComponent implements OnInit {
 
     public changeStatus($event, vacancies: any[], status) {
         let that = this;
-        let message = vacancies.length === 1 ? 'Vacancy ' : 'Vacancies ';
 
         that.vacanciesDataService.changeVacanciesStatus(vacancies.map(arr => arr.id), status).subscribe(
             data => {
                 if (data) {
                     that.notificationService.notify(NotificationType.Success,
                         vacancies.length === 1 ? NotificationMassage.VACANCYCHANGESTATUSSUCCES : NotificationMassage.VACANCIESCHANGESTATUSSUCCES);
+                    that.refresh(that.currentState);
                 }
             },
             error => {
@@ -106,6 +107,5 @@ export class VacanciesListComponent implements OnInit {
                     NotificationMassage.VACANCYCHANGESTATUSERROR);
             });
 
-        this.showModal = false;
     }
 }

@@ -30,7 +30,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public vacancyPageForm: FormGroup = new FormGroup({
         'id': new FormControl(''),
         'title': new FormControl('', Validators.required),
-        'createDate': new FormControl(new Date().toLocaleDateString()),
+        'createdBy': new FormControl(1),
+        'createdAt': new FormControl(new Date().toLocaleDateString()),
         'endDate': new FormControl(new Date(), [Validators.required, this.validationService.endDateValidator]),
         'technologiesId': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
         'experienceId': new FormControl(0, Validators.required),
@@ -95,7 +96,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             }, error => {
                 that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
             });
-        
+
     }
 
     ngOnDestroy() {
@@ -104,14 +105,14 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     private setFormData(vacancy) {
         var endDate = new Date(vacancy.endDate);
-        var createDate = new Date(vacancy.createDate);
-
+        var createDate = new Date(vacancy.createdAt);
         this.vacancyPageForm.setValue({
             'id': vacancy.id,
             'title': vacancy.title,
-            'createDate': createDate.toLocaleDateString(),
-            'endDate': endDate.getFullYear() + '-' + endDate.getMonth() + 1 + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate()),
-            'technologiesId': vacancy.technologies,
+            'createdBy': Number(vacancy.createdBy),
+            'createdAt': createDate.toLocaleDateString(),
+            'endDate': endDate.getFullYear() + '-' + ((endDate.getMonth() + 1).toString().length === 1 ? '0' + (endDate.getMonth() + 1).toString() : (endDate.getMonth() + 1).toString()) + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate()),
+            'technologiesId': vacancy.technologiesId,
             'experienceId': vacancy.experienceId,
             'vacancyDescription': vacancy.vacancyDescription,
             'jobDescription': vacancy.jobDescription
@@ -120,7 +121,6 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public saveVacancyClick(event) {
         let that = this;
-
         let formData = that.vacancyPageForm.value;
         if (!that.id) {
             formData['id'] = 0;
