@@ -13,6 +13,7 @@ namespace Applicanty.Core.Data.Repositories
         ICollection<TEntity> GetAll(Expression<System.Func<TEntity, bool>> predicate);
         TEntity Create(TEntity entity);
         TEntity Update(TEntity entity);
+        void Delete(Expression<Func<TEntity, bool>> predicate);
         int Count();
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Applicanty.Core.Dto;
 using Applicanty.Core.Entities;
 using AutoMapper;
+using System.Linq;
 
 namespace Applicanty.Core
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {

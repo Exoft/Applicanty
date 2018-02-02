@@ -57,6 +57,11 @@ namespace Applicanty.Data.Repositories
             return entity;
         }
 
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
+        {
+            _entities.RemoveRange(GetAll(predicate));
+        }
+
         public virtual int Count()
         {
             return _dbSet.Count();
