@@ -13,6 +13,7 @@ import { AuthModule, authRoutes } from '../auth/auth.module';
 import { VacanciesModule, vacanciesRoutes } from '../vacancies/vacancies.module';
 import { CandidatesModule, candidateRoutes } from '../candidates/candidates.module';
 import { DashboardModule, dashboardRoutes } from '../dashboard/dashboard.module';
+import { NotFoundModule, notfoundRoutes } from "../notfound/notfound.module";
 
 import { NotificationComponent } from '../auth/components/notification/notification.component';
 
@@ -22,6 +23,8 @@ import { NotificationService } from '../../services/notification.service';
 
 import 'clarity-icons';
 import 'clarity-icons/shapes/all-shapes';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthenticationInterceptor } from "../../services/http-interceptor";
 
 @NgModule({
     declarations: [
@@ -31,13 +34,15 @@ import 'clarity-icons/shapes/all-shapes';
     providers: [
         AuthService,
         NotificationService,
-        AuthGuard
+        AuthGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }
     ],
     imports: [
         AuthModule,
         VacanciesModule,
         CandidatesModule,
         DashboardModule,
+        NotFoundModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -53,6 +58,8 @@ import 'clarity-icons/shapes/all-shapes';
             ...candidateRoutes,
 
             ...dashboardRoutes,
+
+            ...notfoundRoutes,
             
             { path: '**', redirectTo: 'notfound' }
         ])

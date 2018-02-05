@@ -52,7 +52,8 @@ export class VacanciesListComponent implements OnInit {
                     }
                 }
             }, error => {
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
             });
 
         that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
@@ -64,7 +65,8 @@ export class VacanciesListComponent implements OnInit {
                     }
                 }
             }, error => {
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.STATUSLOADERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.STATUSLOADERROR);
             });
     }
 
@@ -86,7 +88,8 @@ export class VacanciesListComponent implements OnInit {
             },
             error => {
                 that.loading = false;
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCIESLISTLOADERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCIESLISTLOADERROR);
             });
         that.selectedItems = [];
     }
@@ -103,8 +106,9 @@ export class VacanciesListComponent implements OnInit {
                 }
             },
             error => {
-                that.notificationService.notify(NotificationType.Error,
-                    NotificationMassage.VACANCYCHANGESTATUSERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error,
+                        NotificationMassage.VACANCYCHANGESTATUSERROR);
             });
 
     }

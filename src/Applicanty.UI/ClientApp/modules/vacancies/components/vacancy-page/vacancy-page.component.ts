@@ -33,7 +33,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         'createdBy': new FormControl(1),
         'createdAt': new FormControl(new Date().toLocaleDateString()),
         'endDate': new FormControl(new Date(), [Validators.required, this.validationService.endDateValidator]),
-        'technologiesId': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
+        'technologyIds': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
         'experienceId': new FormControl(0, Validators.required),
         'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
         'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)])
@@ -60,14 +60,16 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                         that.setFormData(vacancy);
                     }
                 }, error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYDETAILSLOADERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYDETAILSLOADERROR);
                 });
 
             that.enumService.getEnums(that.stageEnum).subscribe(
                 data => {
                     that.vacancyStages = data.result;
                 }, error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGELOADERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGELOADERROR);
                 });
 
             that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
@@ -79,7 +81,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                         }
                     }
                 }, error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGESCOUNTLOADERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGESCOUNTLOADERROR);
                 });
         }
 
@@ -87,14 +90,16 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             data => {
                 that.technologies = data;
             }, error => {
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
             });
 
         that.enumService.getEnums(that.experienceEnum).subscribe(
             data => {
                 that.experiences = data.result;
             }, error => {
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
             });
 
     }
@@ -110,9 +115,9 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             'id': vacancy.id,
             'title': vacancy.title,
             'createdBy': Number(vacancy.createdBy),
-            'createdAt': createDate.toLocaleDateString(),
+            'createdAt': createDate.getFullYear() + '-' + ((createDate.getMonth() + 1).toString().length === 1 ? '0' + (createDate.getMonth() + 1).toString() : (createDate.getMonth() + 1).toString()) + '-' + (createDate.getDate().toString().length === 1 ? '0' + createDate.getDate().toString() : createDate.getDate()),
             'endDate': endDate.getFullYear() + '-' + ((endDate.getMonth() + 1).toString().length === 1 ? '0' + (endDate.getMonth() + 1).toString() : (endDate.getMonth() + 1).toString()) + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate()),
-            'technologiesId': vacancy.technologiesId,
+            'technologyIds': vacancy.technologyIds,
             'experienceId': vacancy.experienceId,
             'vacancyDescription': vacancy.vacancyDescription,
             'jobDescription': vacancy.jobDescription
@@ -130,7 +135,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../vacancies']);
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATEVACANCYERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATEVACANCYERROR);
                 });
         } else {
             that.vacanciesDataService.updateVacancy(formData).subscribe(
@@ -138,7 +144,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../vacancies']);
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.UPDATEVACANCYERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.UPDATEVACANCYERROR);
                 });
         }
     }
@@ -151,7 +158,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         let id = Number(event.target.value);
 
 
-        let selectedTechnologies = this.vacancyPageForm.get('technologiesId')!.value;
+        let selectedTechnologies = this.vacancyPageForm.get('technologyIds')!.value;
 
         if (event.target.checked) {
             if (selectedTechnologies.indexOf(id) < 0) {
@@ -164,10 +171,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.vacancyPageForm.get('technologiesId')!.setValue(selectedTechnologies);
+        this.vacancyPageForm.get('technologyIds')!.setValue(selectedTechnologies);
 
-        this.vacancyPageForm.get('technologiesId')!.markAsDirty();
-        this.vacancyPageForm.get('technologiesId')!.markAsTouched();
+        this.vacancyPageForm.get('technologyIds')!.markAsDirty();
+        this.vacancyPageForm.get('technologyIds')!.markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
 
