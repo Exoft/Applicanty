@@ -124,7 +124,7 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPost("AttachCandidat")]
+        [HttpPost("AttachCandidate")]
         public IActionResult AttachCandidate([FromBody]VacancyCandidateDto model)
         {
             try
@@ -139,7 +139,7 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPost("ChangeCandidatStage")]
+        [HttpPost("ChangeCandidateStage")]
         public IActionResult ChangeCandidateStage([FromBody]VacancyCandidateDto model)
         {
             try
