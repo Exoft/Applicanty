@@ -12,6 +12,6 @@ namespace Applicanty.Core.Dto
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
         public DateTime EndDate { get; set; }
-        public int[] TechnologiesId { get; set; }
+        public int[] TechnologyIds { get; set; }
     }
 }

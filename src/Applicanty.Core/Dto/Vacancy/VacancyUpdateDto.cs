@@ -15,6 +15,6 @@ namespace Applicanty.Core.Dto
         public DateTime CreatedAt { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int[] TechnologiesId { get; set; }
+        public int[] TechnologyIds { get; set; }
     }
 }

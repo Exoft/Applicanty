@@ -38,7 +38,7 @@ namespace Applicanty.API.Controllers
             try
             {
                 var vacancy = _vacancyService.GetOne<VacancyUpdateDto>(id);
-                vacancy.TechnologiesId = _vacancyTechnologyService
+                vacancy.TechnologyIds = _vacancyTechnologyService
                     .GetByVacancyId(id)
                     .Select(item => item.TechnologyId).ToArray();
 
@@ -78,7 +78,7 @@ namespace Applicanty.API.Controllers
             {
                 var createdVacancy = _vacancyService.Create(model);
 
-                foreach (var item in model.TechnologiesId)
+                foreach (var item in model.TechnologyIds)
                     _vacancyTechnologyService.Create(new VacancyTechnologyDto { VacancyId = createdVacancy.Id, TechnologyId = item });
 
                 return Ok(true);
@@ -96,9 +96,9 @@ namespace Applicanty.API.Controllers
             {
                 var updatedModel = _vacancyService.Update(model);
 
-               _vacancyTechnologyService.Delete(item => item.VacancyId == model.Id);
+                _vacancyTechnologyService.Delete(item => item.VacancyId == model.Id);
 
-                foreach (var item in model.TechnologiesId)
+                foreach (var item in model.TechnologyIds)
                     _vacancyTechnologyService.Create(new VacancyTechnologyDto { VacancyId = model.Id, TechnologyId = item });
 
                 return Ok(updatedModel);
@@ -117,6 +117,36 @@ namespace Applicanty.API.Controllers
                 var stageCandidates = _vacancyService.CountVacancyStageCandidates(id);
 
                 return Json(stageCandidates);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
+        [HttpPost("AttachCandidate")]
+        public IActionResult AttachCandidate([FromBody]VacancyCandidateDto model)
+        {
+            try
+            {
+                _vacancyService.AttachCandidate(model);
+
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
+        [HttpPost("ChangeCandidateStage")]
+        public IActionResult ChangeCandidateStage([FromBody]VacancyCandidateDto model)
+        {
+            try
+            {
+                _vacancyService.ChangeCandidateStage(model);
+
+                return Ok(true);
             }
             catch (Exception ex)
             {
