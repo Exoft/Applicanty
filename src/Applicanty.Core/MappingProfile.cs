@@ -41,9 +41,6 @@ namespace Applicanty.Core
             CreateMap<Vacancy, VacancyGridDto>();
             CreateMap<VacancyGridDto, Vacancy>();
 
-            CreateMap<Vacancy, VacancyDetailsDto>();
-            CreateMap<VacancyDetailsDto, Vacancy>();
-
             CreateMap<Vacancy, VacancyCreateDto>();
             CreateMap<VacancyCreateDto, Vacancy>();
 
@@ -67,8 +64,15 @@ namespace Applicanty.Core
             CreateMap<StatusCreateOrUpdateDto, Status>();
             #endregion
 
+            #region VacancyTechnology
             CreateMap<VacancyTechnologyDto, VacancyTechnology>();
             CreateMap<VacancyTechnology, VacancyTechnologyDto>();
+            #endregion
+
+            #region VacancyCandidate
+            CreateMap<VacancyCandidate, VacancyCandidateDto>();
+            CreateMap<VacancyCandidateDto, VacancyCandidate>();
+            #endregion
         }
     }
 }
