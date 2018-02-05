@@ -33,7 +33,9 @@
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
     <None Remove="ClientApp\modules\candidates\components\candidate.component.ts" />
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
+    <None Remove="ClientApp\modules\notfound\components\notfound.component.ts" />
     <None Remove="ClientApp\services\enum.data.service.ts" />
+    <None Remove="ClientApp\services\http-interceptor.ts" />
     <None Remove="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
@@ -44,6 +46,8 @@
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\notfound\components\notfound.component.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\notfound\notfound.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\components\dashboard.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\dashboard.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\components\vacancies-list\vacancies-list.component.ts" />
@@ -52,6 +56,7 @@
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\services\vacancies-data.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\enum.data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\services\http-interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
