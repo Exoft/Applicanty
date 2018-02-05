@@ -38,6 +38,7 @@ export const authRoutes = [
         CommonModule,
         HttpModule,
         FormsModule,
+        ClarityModule.forRoot(),
         ReactiveFormsModule,
         HttpClientModule
     ]

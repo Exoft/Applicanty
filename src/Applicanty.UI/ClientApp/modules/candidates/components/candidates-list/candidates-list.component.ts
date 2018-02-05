@@ -3,6 +3,7 @@ import { CandidatesDataService } from '../../services/candidates-data.service';
 import { NotificationService } from "../../../../services/notification.service";
 
 import { NotificationType } from '../../../../enums/notification-type';
+import { NotificationMassage } from "../../../../constants/notification-message";
 import { Comparator } from "clarity-angular";
 import { StatusCommands } from '../../../../constants/status-commands';
 import { State } from "clarity-angular";
@@ -55,12 +56,12 @@ export class CandidatesListComponent {
             data => {
                 if (data) {
                     that.notificationService.notify(NotificationType.Success,
-                        message + 'status changed successfully');
+                        candidates.length === 1 ? NotificationMassage.CANDIDATECHANGESTATUSSUCCES : NotificationMassage.CANDIDATESCHANGESTATUSSUCCES);
                 }
             },
             error => {
                 that.notificationService.notify(NotificationType.Error,
-                    message + 'status not changed');
+                    candidates.length === 1 ? NotificationMassage.CANDIDATECHANGESTATUSERROR : NotificationMassage.CANDIDATESCHANGESTATUSERROR);
             });
     };
 
@@ -82,7 +83,7 @@ export class CandidatesListComponent {
             },
             error => {
                 that.loading = false;
-                that.notificationService.notify(NotificationType.Error, 'Error occurred during loading candidate data');
+                that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESLISTLOADERROR);
             });
     }
 }

@@ -10,6 +10,7 @@ import { ValidationService } from "../../../../services/validation.service";
     styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
+    public validateSigIn: boolean = false;
 
     constructor(private authService: AuthService,
         private router: Router,
@@ -23,6 +24,7 @@ export class SignInComponent {
 
     signIn(event) {
         if (this.authorizationFrom.valid) {
+            this.validateSigIn = true;
             this.authService.signIn(this.authorizationFrom.value);
         }
     }
