@@ -9,7 +9,7 @@ namespace Applicanty.Core.Services
     public interface IVacancyService : IStateableService<Vacancy>
     {
         List<StageCandidatesCountDto> CountVacancyStageCandidates(int id);
-        void AttachCandidat(VacancyCandidateDto model);
-        void ChangeCandidatStage(VacancyCandidateDto model);
+        void AttachCandidate(VacancyCandidateDto model);
+        void ChangeCandidateStage(VacancyCandidateDto model);
     }
 }

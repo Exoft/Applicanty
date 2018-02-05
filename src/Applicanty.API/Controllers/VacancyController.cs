@@ -129,7 +129,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                _vacancyService.AttachCandidat(model);
+                _vacancyService.AttachCandidate(model);
 
                 return Ok(true);
             }
@@ -144,7 +144,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                _vacancyService.ChangeCandidatStage(model);
+                _vacancyService.ChangeCandidateStage(model);
 
                 return Ok(true);
             }
