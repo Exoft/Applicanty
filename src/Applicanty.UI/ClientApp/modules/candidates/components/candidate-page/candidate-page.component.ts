@@ -8,6 +8,7 @@ import { NotificationService } from '../../../../services/notification.service';
 import { NotificationType } from "../../../../enums/notification-type";
 import { EnumDataService } from '../../../../services/enum.data.service';
 import { EnumNames } from '../../../../constants/enum-names';
+import { NotificationMassage } from "../../../../constants/notification-message";
 
 @Component({
     templateUrl: './candidate-page.component.html',
@@ -55,20 +56,23 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 if (candidate) {
                     that.setFormData(candidate);
                 }
-            });
+            },
+                error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATEDETAILSLOADERROR);
+                });
 
             that.enumService.getEnums(that.experienceEnum).subscribe(data => {
                 that.experienсes = data.result;
             },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, 'error');
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESSTAGELOADERROR);
                 });
         };
 
         that.candidatesDataService.getTechnologies().subscribe(data => {
             that.technologies = data;
         }, error => {
-            that.notificationService.notify(NotificationType.Error, 'Technology list not loaded.');
+            that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
         });
     }
 
@@ -90,34 +94,36 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             'phone': candidate.phone,
             'cvPath': candidate.cvPath,
             'birthday': birthdayDate.getFullYear() + '-' + ((birthdayDate.getMonth() + 1).toString().length === 1 ? '0' + (birthdayDate.getMonth() + 1).toString() : (birthdayDate.getMonth() + 1).toString()) + '-' + (birthdayDate.getDate().toString().length === 1 ? '0' + birthdayDate.getDate().toString() : birthdayDate.getDate())
-    });
-}
+        });
+    }
 
     public saveCandidateClick(event) {
-    let that = this;
+        let that = this;
 
-    let formData = that.candidatePageFrom.value;
+        let formData = that.candidatePageFrom.value;
 
-    if (!that.id) {
-        formData['id'] = 0;
+        if (!that.id) {
+            formData['id'] = 0;
 
-        that.candidatesDataService.createCandidate(formData).subscribe(
-            data => {
-                that.router.navigate(['../candidates']);
-            },
-            error => {
-            });
-    } else {
-        that.candidatesDataService.updateCandidate(formData).subscribe(
-            data => {
-                that.router.navigate(['../candidates']);
-            },
-            error => {
-            });
+            that.candidatesDataService.createCandidate(formData).subscribe(
+                data => {
+                    that.router.navigate(['../candidates']);
+                },
+                error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATECANDIDATEERROR);
+                });
+        } else {
+            that.candidatesDataService.updateCandidate(formData).subscribe(
+                data => {
+                    that.router.navigate(['../candidates']);
+                },
+                error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATECHANGESTATUSERROR);
+                });
+        }
     }
-}
 
     public cancelClick(event) {
-    this.router.navigate(['../candidates']);
-}
+        this.router.navigate(['../candidates']);
+    }
 }
