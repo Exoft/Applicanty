@@ -52,28 +52,34 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
         let that = this;
 
         if (that.id) {
-            that.candidatesDataService.getCandidate(that.id).subscribe(candidate => {
-                if (candidate) {
-                    that.setFormData(candidate);
-                }
-            },
+            that.candidatesDataService.getCandidate(that.id).subscribe(
+                candidate => {
+                    if (candidate) {
+                        that.setFormData(candidate);
+                    }
+                },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATEDETAILSLOADERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATEDETAILSLOADERROR);
                 });
 
-            that.enumService.getEnums(that.experienceEnum).subscribe(data => {
-                that.experienсes = data.result;
-            },
+            that.enumService.getEnums(that.experienceEnum).subscribe(
+                data => {
+                    that.experienсes = data.result;
+                },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESSTAGELOADERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESSTAGELOADERROR);
                 });
         };
 
-        that.candidatesDataService.getTechnologies().subscribe(data => {
-            that.technologies = data;
-        }, error => {
-            that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
-        });
+        that.candidatesDataService.getTechnologies().subscribe(
+            data => {
+                that.technologies = data;
+            }, error => {
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
+            });
     }
 
     ngOnDestroy() {
@@ -110,7 +116,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../candidates']);
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATECANDIDATEERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATECANDIDATEERROR);
                 });
         } else {
             that.candidatesDataService.updateCandidate(formData).subscribe(
@@ -118,7 +125,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                     that.router.navigate(['../candidates']);
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATECHANGESTATUSERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATECHANGESTATUSERROR);
                 });
         }
     }

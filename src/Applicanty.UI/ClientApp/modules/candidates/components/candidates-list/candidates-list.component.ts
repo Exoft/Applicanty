@@ -44,7 +44,6 @@ export class CandidatesListComponent {
             params => {
                 that.vacancyId = params['vacancyId'];
                 that.stageId = params['stageId'];
-                console.log(that.vacancyId + that.stageId);
             });
     }
 
@@ -60,8 +59,9 @@ export class CandidatesListComponent {
                 }
             },
             error => {
-                that.notificationService.notify(NotificationType.Error,
-                    candidates.length === 1 ? NotificationMassage.CANDIDATECHANGESTATUSERROR : NotificationMassage.CANDIDATESCHANGESTATUSERROR);
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error,
+                        candidates.length === 1 ? NotificationMassage.CANDIDATECHANGESTATUSERROR : NotificationMassage.CANDIDATESCHANGESTATUSERROR);
             });
     };
 
@@ -74,16 +74,36 @@ export class CandidatesListComponent {
         if (state.sort)
             that.sortField = state.sort;
 
-        that.candidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size,
-            that.sortField.by.toString(), that.sortField.reverse === true ? 'desc' : 'asc').subscribe(
-            data => {
-                that.candidates = data.result;
-                that.totalCount = data.totalCount;
-                that.loading = false;
-            },
-            error => {
-                that.loading = false;
-                that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESLISTLOADERROR);
-            });
+        if (!that.vacancyId && !that.stageId) {
+            that.candidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size,
+                that.sortField.by.toString(), that.sortField.reverse === true ? 'desc' : 'asc').subscribe(
+                data => {
+                    that.candidates = data.result;
+                    that.totalCount = data.totalCount;
+                    that.loading = false;
+                },
+                error => {
+                    that.loading = false;
+                    if (error.status === 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESLISTLOADERROR);
+
+                });
+        } else {
+            that.candidatesDataService.getCandidateByVacancyStage(that.vacancyId, that.stageId).subscribe(
+                data => {
+                    that.candidates = data.result;
+                    that.totalCount = data.totalCount;
+                    that.loading = false;
+                }),
+                error => {
+                    that.loading = false;
+                    if (error.status === 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESLISTLOADERROR);
+                }
+        }
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

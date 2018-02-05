@@ -43,4 +43,8 @@ export class CandidatesDataService {
     public getExperiences(): Observable<any> {
         return this.http.get('http://localhost:8000/enum/Experience');
     }
+
+    public getCandidateByVacancyStage(vacancyId: number, stageId: number): Observable<any> {
+        return this.http.get(`http://localhost:8000/candidate/getByVacancy?vacancyId=${vacancyId}&stageId=${stageId}`, { headers: this.authService.getAuthenticationHeader() })
+    }
 }
