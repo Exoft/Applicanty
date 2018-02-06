@@ -11,26 +11,19 @@ namespace Applicanty.Services.Services
 {
     public class CandidateService : TrackableService<Candidate, ICandidateRepository>, ICandidateService
     {
-        private IVacancyCandidateService _vacancyCandidateService;
-
-        public CandidateService(IUnitOfWork unitOfWork, 
-            IMapper mapper, 
-            IVacancyCandidateService vacancyCandidateService)
+        public CandidateService(IUnitOfWork unitOfWork, IMapper mapper)
             : base(unitOfWork, mapper)
-        {
-            _vacancyCandidateService = vacancyCandidateService;
-        }
+        {}
 
         protected override ICandidateRepository InitRepository() =>
             UnitOfWork.CandidateRepository;
 
         public IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int vacancyId, int stageId)
         {
-            var candidatsIdArray = _vacancyCandidateService
-                .GetByVacancyAndStage(vacancyId, stageId)
-                .Select(f=>f.CandidateId).ToArray();
+           var candidates = Repository.GetWithInclude(include => include.VacancyCandidates)
+                .Where(item=>item.VacancyCandidates.Any(vc => vc.VacancyId == vacancyId && (int)vc.VacancyStage == stageId));
 
-            return GetAll<CandidateGridDto>(f=>candidatsIdArray.Contains(f.Id));
+            return Mapper.Map<IEnumerable<Candidate>, IEnumerable<CandidateGridDto>>(candidates);
         }
     }
 }

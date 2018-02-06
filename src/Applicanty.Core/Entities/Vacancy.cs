@@ -8,6 +8,12 @@ namespace Applicanty.Core.Entities
 {
     public class Vacancy : Statable, IEntity, ITrackable
     {
+        public Vacancy()
+        {
+            VacancyCandidates = new HashSet<VacancyCandidate>();
+            VacancyTechnologies = new HashSet<VacancyTechnology>();
+        }
+
         public int Id { get; set; }
         [ForeignKey("User")]
         public int CreatedBy { get; set; }

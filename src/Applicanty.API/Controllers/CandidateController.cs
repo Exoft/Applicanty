@@ -71,7 +71,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CandidateCreateUpdateDto model)
+        public IActionResult Create([FromBody]CandidateCreateUpdateDto model)
         {
             try
             {
@@ -86,12 +86,10 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit([FromBody]CandidateCreateUpdateDto model)
+        public IActionResult Edit([FromBody]CandidateCreateUpdateDto model)
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
                 var updatedModel = _candidateService.Update(model);
 
                 return Ok(updatedModel);

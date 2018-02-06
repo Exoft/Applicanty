@@ -18,17 +18,14 @@ namespace Applicanty.API.Controllers
     {
         private readonly IVacancyService _vacancyService;
         private readonly UserManager<User> _userManager;
-        private readonly IVacancyTechnologyService _vacancyTechnologyService;
         private readonly ITechnologyService _technologyService;
 
         public VacancyController(IVacancyService vacancyService,
             UserManager<User> userManager,
-            IVacancyTechnologyService vacancyTechnologyService,
             ITechnologyService technologyService) : base(vacancyService)
         {
             _vacancyService = vacancyService;
             _userManager = userManager;
-            _vacancyTechnologyService = vacancyTechnologyService;
             _technologyService = technologyService;
         }
 
@@ -37,11 +34,8 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetOne<VacancyUpdateDto>(id);
-                vacancy.TechnologyIds = _vacancyTechnologyService
-                    .GetByVacancyId(id)
-                    .Select(item => item.TechnologyId).ToArray();
-
+                var vacancy = _vacancyService.GetWithInclude<VacancyUpdateDto>(id, include=> include.VacancyTechnologies);
+                
                 return Json(vacancy);
             }
             catch (Exception ex)
@@ -78,9 +72,6 @@ namespace Applicanty.API.Controllers
             {
                 var createdVacancy = _vacancyService.Create(model);
 
-                foreach (var item in model.TechnologyIds)
-                    _vacancyTechnologyService.Create(new VacancyTechnologyDto { VacancyId = createdVacancy.Id, TechnologyId = item });
-
                 return Ok(true);
             }
             catch (Exception ex)
@@ -95,11 +86,6 @@ namespace Applicanty.API.Controllers
             try
             {
                 var updatedModel = _vacancyService.Update(model);
-
-                _vacancyTechnologyService.Delete(item => item.VacancyId == model.Id);
-
-                foreach (var item in model.TechnologyIds)
-                    _vacancyTechnologyService.Create(new VacancyTechnologyDto { VacancyId = model.Id, TechnologyId = item });
 
                 return Ok(updatedModel);
             }

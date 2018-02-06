@@ -1,5 +1,6 @@
 ﻿using Applicanty.Core.Data;
 using Applicanty.Core.Data.Repositories;
+using Applicanty.Core.Entities.Abstract;
 using Applicanty.Core.Services;
 using AutoMapper;
 using System;
@@ -9,7 +10,7 @@ using System.Linq.Expressions;
 namespace Applicanty.Services.Services
 {
     public abstract class BaseService<TEntity, TRepository> : IService<TEntity>
-        where TEntity : class
+        where TEntity : class, IEntity
         where TRepository : IEntityBaseRepository<TEntity>
     {
 
@@ -54,7 +55,20 @@ namespace Applicanty.Services.Services
             return _mapper.Map<TEntity, TDto>(entity);
         }
 
-        public virtual TDto Create<TDto>(TDto dto)
+        public IEnumerable<TDto> GetWithInclude<TDto>(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var entities = Repository.GetWithInclude(includeProperties);
+
+            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+        }
+
+        public TDto GetWithInclude<TDto>(int id, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var entity = Repository.GetWithInclude(id, includeProperties);
+            return _mapper.Map<TEntity, TDto>(entity);
+        }
+
+        public virtual TDto Create<TDto>(TDto dto) where TDto : class
         {
             var entity = _mapper.Map<TDto, TEntity>(dto);
 
@@ -68,7 +82,7 @@ namespace Applicanty.Services.Services
         {
             var entity = _mapper.Map<TDto, TEntity>(dto);
 
-            var updatedEntity =  Repository.Update(entity);
+            var updatedEntity = Repository.Update(entity);
             _unitOfWork.Commit();
 
             return _mapper.Map<TEntity, TDto>(updatedEntity);
