@@ -9,8 +9,8 @@ using Applicanty.API.Helpers;
 using Applicanty.Core.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 using Applicanty.Core.Services;
+using Applicanty.Core.Enums;
 
 namespace Applicanty.API.Controllers
 {
@@ -50,11 +50,11 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]GridRequest request)
+        public IActionResult GetAll([FromQuery]GridRequest request, StatusType statusType)
         {
             try
             {
-                var candidates = _candidateService.GetAll<CandidateGridDto>().AsQueryable();
+                var candidates = _candidateService.GetAll<CandidateGridDto>(item => item.StatusId == statusType).AsQueryable();
 
                 var response = new Response<CandidateGridDto>
                 {
