@@ -15,8 +15,6 @@ import { NotificationMassage } from "../../../../constants/notification-message"
     styleUrls: ['./vacancies-list.component.scss'],
 })
 export class VacanciesListComponent implements OnInit {
-    @Input() salary: number = 150;
-
     public selectedItems: any[] = [];
 
     public loading: boolean = true;
@@ -29,7 +27,7 @@ export class VacanciesListComponent implements OnInit {
 
     public totalCount: number = 0;
     private currentPage;
-    private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'title', reverse: false };
+    private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'endDate', reverse: true };
     private currentState;
 
     private experiences: { [value: number]: any } = {};
