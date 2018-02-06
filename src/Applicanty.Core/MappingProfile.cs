@@ -44,7 +44,10 @@ namespace Applicanty.Core
             CreateMap<Vacancy, VacancyCreateDto>();
             CreateMap<VacancyCreateDto, Vacancy>();
 
-            CreateMap<Vacancy, VacancyUpdateDto>();
+            CreateMap<Vacancy, VacancyUpdateDto>()
+                .ForMember(dest => dest.TechnologyIds,
+                    opts => opts.MapFrom(src => src.VacancyTechnologies.Select(f => f.TechnologyId)));
+
             CreateMap<VacancyUpdateDto, Vacancy>();
             #endregion
 

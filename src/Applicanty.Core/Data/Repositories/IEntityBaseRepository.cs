@@ -14,6 +14,8 @@ namespace Applicanty.Core.Data.Repositories
         TEntity Create(TEntity entity);
         TEntity Update(TEntity entity);
         void Delete(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
+        TEntity GetWithInclude(int id, params Expression<Func<TEntity, object>>[] includeProperties);
         int Count();
     }
 }
