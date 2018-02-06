@@ -9,6 +9,7 @@ using Applicanty.Core.Responses;
 using Microsoft.AspNetCore.Identity;
 using Applicanty.Core.Services;
 using Applicanty.API.Helpers;
+using Applicanty.Core.Enums;
 
 namespace Applicanty.API.Controllers
 {
@@ -45,11 +46,11 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]GridRequest request)
+        public IActionResult GetAll([FromQuery]GridRequest request, StatusType statusType)
         {
             try
             {
-                var vacancies = _vacancyService.GetAll<VacancyGridDto>().AsQueryable();
+                var vacancies = _vacancyService.GetAll<VacancyGridDto>(item => item.StatusId == statusType).AsQueryable();
 
                 var response = new Response<VacancyGridDto>
                 {
