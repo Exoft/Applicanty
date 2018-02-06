@@ -7,11 +7,17 @@
                         <clr-icon shape="plus"></clr-icon>
                         Add
                     </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">Activate</clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">Archive</clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">Delete</clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, item?.name)" *ngFor="let item of statuses">
+                        Set {{item?.name}}
+                    </clr-button>
+                </clr-button-group>
+                <clr-button-group class="btn-sm align-left-button-group">
+                    <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
+                        Show {{item?.name}}
+                    </clr-button>
                 </clr-button-group>
             </clr-dg-action-bar>
+
 
             <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
             <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
@@ -32,7 +38,7 @@
                 </clr-dg-cell>
                 <clr-dg-cell>{{experiences[item?.experienceId]}}</clr-dg-cell>
                 <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
-                <clr-dg-cell>{{statuses[item?.statusId]}}</clr-dg-cell>
+                <clr-dg-cell>{{statuses[item?.statusId].name}}</clr-dg-cell>
             </clr-dg-row>
 
             <clr-dg-footer>
