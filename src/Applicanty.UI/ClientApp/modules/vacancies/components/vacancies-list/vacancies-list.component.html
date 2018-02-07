@@ -8,13 +8,13 @@
                         Add
                     </clr-button>
                     <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
-                        Set activate
+                        Set active
                     </clr-button>
                     <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
-                        Set archive
+                        Set archived
                     </clr-button>
                     <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
-                        Set delete
+                        Set deleted
                     </clr-button>
                 </clr-button-group>
                 <clr-button-group class="btn-sm align-left-button-group">
