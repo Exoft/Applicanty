@@ -10,6 +10,7 @@ import { ClarityModule } from 'clarity-angular';
 
 import { CandidatesListComponent } from '../candidates/components/candidates-list/candidates-list.component';
 import { CandidatePageComponent } from '../candidates/components/candidate-page/candidate-page.component';
+import { TransformBirthDateToAgePipe } from "./components/candidates-list/transform-birthdate-to-age.pipe";
 import { AuthGuard } from '../../services/authguard.service';
 
 import { CandidatesDataService } from './services/candidates-data.service';
@@ -27,7 +28,8 @@ export const candidateRoutes = [
 @NgModule({
     declarations: [
         CandidatesListComponent,
-        CandidatePageComponent
+        CandidatePageComponent,
+        TransformBirthDateToAgePipe
     ],
     providers: [
         CandidatesDataService,

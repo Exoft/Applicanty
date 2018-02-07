@@ -7,42 +7,45 @@
                         <clr-icon shape="plus"></clr-icon>
                         Add
                     </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, active)">Activate</clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, archived)">Archive</clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, deleted)">Delete</clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, active)">
+                        Set activate
+                    </clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, archived)">
+                        Set archive
+                    </clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, deleted)">
+                        Set delete
+                    </clr-button>
+                </clr-button-group>
+                <clr-button-group class="btn-sm align-left-button-group">
+                    <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
+                        Show {{item?.name}}
+                    </clr-button>
                 </clr-button-group>
             </clr-dg-action-bar>
-               
-            <clr-dg-column [clrDgField]="'id'">Id</clr-dg-column>
+
             <clr-dg-column [clrDgField]="'firstName'">FirstName</clr-dg-column>
             <clr-dg-column [clrDgField]="'lastName'">LastName</clr-dg-column>
             <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
             <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
-            <clr-dg-column [clrDgField]="'linkedIn'">LinkedIn</clr-dg-column>
-            <clr-dg-column [clrDgField]="'skype'">Skype</clr-dg-column>
-            <clr-dg-column [clrDgField]="'phoneNumber'">PhoneNumber</clr-dg-column>
-            <clr-dg-column [clrDgField]="'cvPath'">CvPath</clr-dg-column>
-            <clr-dg-column [clrDgField]="'updateOn'">UpdateOn</clr-dg-column>
+            <clr-dg-column [clrDgField]="'birthday'">Age</clr-dg-column>
+            <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
 
             <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
                 <clr-dg-action-overflow>
-                    <button class="action-item" (click)="changeStatus($event, [candidate], deleted)">Activate</button>
+                    <button class="action-item" (click)="changeStatus($event, [candidate], active)">Activate</button>
                     <button class="action-item" (click)="changeStatus($event, [candidate], archived)">Archive</button>
-                    <button class="action-item" (click)="changeStatus($event, [candidate], active)">Delete</button>
+                    <button class="action-item" (click)="changeStatus($event, [candidate], deleted)">Delete</button>
                 </clr-dg-action-overflow>
 
-                <clr-dg-cell>{{candidate.id}}</clr-dg-cell>
                 <clr-dg-cell>
-                    <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate.firstName}}</a>
+                    <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.firstName}}</a>
                 </clr-dg-cell>
-                <clr-dg-cell><a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate.lastName}}</a></clr-dg-cell>
-                <clr-dg-cell>{{candidate.experienceId}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate.email}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate.linkedIn}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate.skype}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate.phoneNumber}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate.cvPath}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate.updateOn}}</clr-dg-cell>
+                <clr-dg-cell><a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.lastName}}</a></clr-dg-cell>
+                <clr-dg-cell>{{experiences[candidate?.experienceId]}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate?.email}}</clr-dg-cell>
+                <clr-dg-cell>{{candidate?.birthday | transformBirthDateToAge}}</clr-dg-cell>
+                <clr-dg-cell>{{statuses[candidate?.statusId].name}}</clr-dg-cell>
             </clr-dg-row>
 
             <clr-dg-footer>
