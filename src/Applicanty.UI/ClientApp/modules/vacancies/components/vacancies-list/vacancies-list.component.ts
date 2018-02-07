@@ -67,7 +67,6 @@ export class VacanciesListComponent implements OnInit {
     }
 
     public getVacanciesByStatusType(event, status: number) {
-        debugger;
         this.currentStatus = status;
         this.refresh(this.currentState);
     }
@@ -84,7 +83,6 @@ export class VacanciesListComponent implements OnInit {
         that.vacanciesDataService.getVacancies(that.currentPage.from, that.currentPage.size,
             that.sortField.by.toString(), that.sortField.reverse == true ? 'desc' : 'asc', that.currentStatus).subscribe(
             data => {
-                debugger;
                 that.vacanciesList = data.result;
                 that.totalCount = data.totalCount;
                 that.loading = false;

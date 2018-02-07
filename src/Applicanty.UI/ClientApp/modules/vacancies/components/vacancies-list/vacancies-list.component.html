@@ -7,8 +7,14 @@
                         <clr-icon shape="plus"></clr-icon>
                         Add
                     </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, item?.name)" *ngFor="let item of statuses">
-                        Set {{item?.name}}
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
+                        Set activate
+                    </clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
+                        Set archive
+                    </clr-button>
+                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
+                        Set delete
                     </clr-button>
                 </clr-button-group>
                 <clr-button-group class="btn-sm align-left-button-group">
