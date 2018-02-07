@@ -25,13 +25,14 @@ export class VacanciesListComponent implements OnInit {
     public archived = StatusCommands.ARCHIVED;
     public active = StatusCommands.ACTIVE;
 
-    public totalCount: number = 0;
+    public totalCount: number;
     private currentPage;
     private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'endDate', reverse: true };
     private currentState;
+    private currentStatus: number = 0;
 
     private experiences: { [value: number]: any } = {};
-    private statuses: { [value: number]: any } = {};
+    private statuses;
 
     constructor(private vacanciesDataService: VacanciesDataService,
         private notificationService: NotificationService,
@@ -57,15 +58,17 @@ export class VacanciesListComponent implements OnInit {
         that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
             data => {
                 if (data) {
-                    for (let status of data.result) {
-                        let { value, name } = <{ value: number, name: string }>status;
-                        that.statuses[value] = name;
-                    }
+                    that.statuses = data.result;
                 }
             }, error => {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, NotificationMassage.STATUSLOADERROR);
             });
+    }
+
+    public getVacanciesByStatusType(event, status: number) {
+        this.currentStatus = status;
+        this.refresh(this.currentState);
     }
 
     public refresh(state: State) {
@@ -78,7 +81,7 @@ export class VacanciesListComponent implements OnInit {
         }
 
         that.vacanciesDataService.getVacancies(that.currentPage.from, that.currentPage.size,
-            that.sortField.by.toString(), that.sortField.reverse == true ? 'desc' : 'asc').subscribe(
+            that.sortField.by.toString(), that.sortField.reverse == true ? 'desc' : 'asc', that.currentStatus).subscribe(
             data => {
                 that.vacanciesList = data.result;
                 that.totalCount = data.totalCount;
