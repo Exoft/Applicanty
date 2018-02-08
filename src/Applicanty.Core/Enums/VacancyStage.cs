@@ -8,9 +8,9 @@ namespace Applicanty.Core.Enums
         CV,
         [Description("interview")]
         Interview,
-        [Description("customer interview")]
+        [Description("customerInterview")]
         CustomerInterview,
-        [Description("technical interview")]
+        [Description("technicalInterview")]
         TechnicalInterview,
         [Description("offer")]
         Offer,

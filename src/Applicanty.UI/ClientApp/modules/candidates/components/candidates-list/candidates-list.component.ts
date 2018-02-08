@@ -2,7 +2,7 @@
 import { CandidatesDataService } from '../../services/candidates-data.service';
 import { NotificationService } from "../../../../services/notification.service";
 import { NotificationType } from '../../../../enums/notification-type';
-import { NotificationMassage } from "../../../../constants/notification-message";
+import { NotificationMessage } from "../../../../constants/notification-message";
 import { Comparator } from "clarity-angular";
 import { StatusCommands } from '../../../../constants/status-commands';
 import { State } from "clarity-angular";
@@ -63,7 +63,7 @@ export class CandidatesListComponent {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
             });
 
         that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
@@ -73,7 +73,7 @@ export class CandidatesListComponent {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.STATUSLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.STATUSLOADERROR);
             });
     }
 
@@ -88,14 +88,15 @@ export class CandidatesListComponent {
             data => {
                 if (data) {
                     that.notificationService.notify(NotificationType.Success,
-                        candidates.length === 1 ? NotificationMassage.CANDIDATECHANGESTATUSSUCCES : NotificationMassage.CANDIDATESCHANGESTATUSSUCCES);
+                        candidates.length === 1 ? NotificationMessage.CANDIDATECHANGESTATUSSUCCES : NotificationMessage.CANDIDATESCHANGESTATUSSUCCES);
+
                     that.refresh(that.currentState);
                 }
             },
             error => {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error,
-                        candidates.length === 1 ? NotificationMassage.CANDIDATECHANGESTATUSERROR : NotificationMassage.CANDIDATESCHANGESTATUSERROR);
+                        candidates.length === 1 ? NotificationMessage.CANDIDATECHANGESTATUSERROR : NotificationMessage.CANDIDATESCHANGESTATUSERROR);
             });
     };
 
@@ -117,7 +118,7 @@ export class CandidatesListComponent {
                 error => {
                     that.loading = false;
                     if (error.status === 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESLISTLOADERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
 
                 });
         } else {
@@ -130,7 +131,7 @@ export class CandidatesListComponent {
                 error => {
                     that.loading = false;
                     if (error.status === 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CANDIDATESLISTLOADERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
                 }
         }
         that.selectedCandidates = [];

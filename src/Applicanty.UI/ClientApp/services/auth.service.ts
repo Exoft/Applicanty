@@ -1,11 +1,15 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { NotificationService } from "../services/notification.service";
+import { NotificationType } from "../enums/notification-type";
+import { NotificationMessage } from "../constants/notification-message";
 
 @Injectable()
 export class AuthService {
     constructor(private http: HttpClient,
-        private router: Router) { }
+        private router: Router,
+        private notificationService: NotificationService) { }
 
     public isAuthenticated() {
         let accessToken = localStorage.getItem('accessToken');
@@ -15,11 +19,18 @@ export class AuthService {
 
     public signIn(loginData: any) {
         let that = this;
-        that.http.post('http://localhost:8000/user/login', loginData).subscribe(data => {
-            localStorage.setItem('accessToken', data['access_token']);
 
-            that.router.navigate(['dashboard']);
-        });
+        that.http.post('http://localhost:8000/user/login', loginData).subscribe(
+            data => {
+                localStorage.setItem('accessToken', data['access_token']);
+
+                that.router.navigate(['dashboard']);
+            },
+            error => {
+                if (error.status == 403) {
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYDETAILSLOADERROR);
+                }
+            });
     }
 
     public signOut() {

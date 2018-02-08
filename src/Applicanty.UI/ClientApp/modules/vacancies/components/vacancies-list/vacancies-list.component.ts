@@ -8,7 +8,7 @@ import { EnumNames } from "../../../../constants/enum-names";
 import { NotificationType } from "../../../../enums/notification-type";
 import { Comparator } from "clarity-angular";
 import { EnumDataService } from "../../../../services/enum.data.service";
-import { NotificationMassage } from "../../../../constants/notification-message";
+import { NotificationMessage } from "../../../../constants/notification-message";
 
 @Component({
     templateUrl: './vacancies-list.component.html',
@@ -52,7 +52,7 @@ export class VacanciesListComponent implements OnInit {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
             });
 
         that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
@@ -62,7 +62,7 @@ export class VacanciesListComponent implements OnInit {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.STATUSLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.STATUSLOADERROR);
             });
     }
 
@@ -90,7 +90,7 @@ export class VacanciesListComponent implements OnInit {
             error => {
                 that.loading = false;
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCIESLISTLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCIESLISTLOADERROR);
             });
         that.selectedItems = [];
     }
@@ -102,14 +102,14 @@ export class VacanciesListComponent implements OnInit {
             data => {
                 if (data) {
                     that.notificationService.notify(NotificationType.Success,
-                        vacancies.length === 1 ? NotificationMassage.VACANCYCHANGESTATUSSUCCES : NotificationMassage.VACANCIESCHANGESTATUSSUCCES);
+                        vacancies.length === 1 ? NotificationMessage.VACANCYCHANGESTATUSSUCCES : NotificationMessage.VACANCIESCHANGESTATUSSUCCES);
                     that.refresh(that.currentState);
                 }
             },
             error => {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error,
-                        NotificationMassage.VACANCYCHANGESTATUSERROR);
+                        NotificationMessage.VACANCYCHANGESTATUSERROR);
             });
 
     }

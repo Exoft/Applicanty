@@ -1,67 +1,52 @@
-﻿<div class="content-container">
-    <div class="content-area">
-        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItems">
-            <clr-dg-action-bar>
-                <clr-button-group class="btn-sm">
-                    <clr-button class="btn-success-outline" [routerLink]="['newvacancy']">
-                        <clr-icon shape="plus"></clr-icon>
-                        Add
-                    </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
-                        Set active
-                    </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
-                        Set archived
-                    </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
-                        Set deleted
-                    </clr-button>
-                </clr-button-group>
-                <clr-button-group class="btn-sm align-left-button-group">
-                    <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
-                        Show {{item?.name}}
-                    </clr-button>
-                </clr-button-group>
-            </clr-dg-action-bar>
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItems">
+    <clr-dg-action-bar>
+        <clr-button-group class="btn-sm">
+            <clr-button class="btn-success-outline" [routerLink]="['newvacancy']">
+                <clr-icon shape="plus"></clr-icon>
+                Add
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
+                Set active
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
+                Set archived
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
+                Set deleted
+            </clr-button>
+        </clr-button-group>
+        <clr-button-group class="btn-sm align-left-button-group">
+            <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
+                Show {{item?.name}}
+            </clr-button>
+        </clr-button-group>
+    </clr-dg-action-bar>
 
+    <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
+    <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
+    <clr-dg-column [clrDgField]="'endDate'">End Date</clr-dg-column>
+    <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
 
-            <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
-            <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
-            <clr-dg-column [clrDgField]="'endDate'">End Date</clr-dg-column>
-            <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
+    <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="changeStatus($event, [item], active)">Activate</button>
+            <button class="action-item" (click)="changeStatus($event, [item], archived)">Archive</button>
+            <button class="action-item" (click)="changeStatus($event, [item], deleted)">Delete</button>
+        </clr-dg-action-overflow>
 
-            <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
-                <clr-dg-action-overflow>
-                    <button class="action-item" (click)="changeStatus($event, [item], active)">Activate</button>
-                    <button class="action-item" (click)="changeStatus($event, [item], archived)">Archive</button>
-                    <button class="action-item" (click)="changeStatus($event, [item], deleted)">Delete</button>
-                </clr-dg-action-overflow>
+        <clr-dg-cell>
+            <a [routerLink]="['../','vacancies', 'details', item?.id]" routerLinkActive="active">
+                {{item?.title}}
+            </a>
+        </clr-dg-cell>
+        <clr-dg-cell>{{experiences[item?.experienceId]}}</clr-dg-cell>
+        <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
+        <clr-dg-cell>{{statuses[item?.statusId].name}}</clr-dg-cell>
+    </clr-dg-row>
 
-                <clr-dg-cell>
-                    <a [routerLink]="['../','vacancies', 'details', item?.id]" routerLinkActive="active">
-                        {{item?.title}}
-                    </a>
-                </clr-dg-cell>
-                <clr-dg-cell>{{experiences[item?.experienceId]}}</clr-dg-cell>
-                <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
-                <clr-dg-cell>{{statuses[item?.statusId].name}}</clr-dg-cell>
-            </clr-dg-row>
-
-            <clr-dg-footer>
-                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
-                of {{pagination.totalItems}} vacancies
-                <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
-            </clr-dg-footer>
-
-        </clr-datagrid>
-
-        <div class="card card-block">
-            <p class="card-text username-list">
-                Selected item(you can delete them):
-                <em *ngIf="selectedItems.length == 0">No item selected.</em>
-                <span class="username" *ngFor="let item of selectedItems">{{item?.title}}</span>
-            </p>
-        </div>
-
-    </div>
-</div>
+    <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} vacancies
+        <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>

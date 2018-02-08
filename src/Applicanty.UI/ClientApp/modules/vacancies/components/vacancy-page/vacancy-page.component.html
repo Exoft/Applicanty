@@ -1,105 +1,82 @@
-﻿<div class="content-container">
-    <div class="content-area">
-        <section class="btn-block">
-            <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)" *ngFor="let vacancyStage of vacancyStages">
-                {{vacancyStage.name}}
-                <span class="badge">{{vacancyStageCount[vacancyStage.value]}}</span>
-            </a>
-        </section>
+﻿<section class="btn-block">
+    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)" *ngFor="let vacancyStage of vacancyStages">
+        {{vacancyStage.name}}
+        <span *ngIf="vacancyStageCount[vacancyStage.value]" class="badge">{{vacancyStageCount[vacancyStage.value]}}</span>
+    </a>
+</section>
 
-        <form [formGroup]="vacancyPageForm">
-            <section class="form-block">
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="title">Title:</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                         aria-haspopup="true"
-                         role="tooltip"
-                         [class.invalid]="vacancyPageForm.get('title')?.invalid && (vacancyPageForm.get('title')?.dirty || vacancyPageForm.get('title')?.touched)">
-                        <input class="form-control" type="text" placeholder="Title" formControlName="title" size="25" />
-                        <span class="tooltip-content">
-                            {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('title')) }}
-                        </span>
-                    </div>
+<form [formGroup]="vacancyPageForm">
+    <section class="form-block">
+        <div class="form-group">
+            <label for="title">Title:</label>
+
+            <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                 [class.invalid]="vacancyPageForm.get('title')?.invalid && (vacancyPageForm.get('title')?.dirty || vacancyPageForm.get('title')?.touched)">
+                <input class="form-control" type="text" placeholder="Title" formControlName="title" size="25" />
+                <span class="tooltip-content">
+                    {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('title')) }}
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="createdAt">Created at:</label>
+
+            <input class="form-control" type="text" readonly formControlName="createdAt" />
+        </div>
+
+        <div class="form-group">
+            <label for="experienceId">Experience:</label>
+
+            <div class="select">
+                <select formControlName="experienceId">
+                    <option value="{{experience.value}}" *ngFor="let experience of experiences">{{experience.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="technologiesId">Technologies:</label>
+
+            <div class="checkboxlist-scroll">
+                <div *ngFor="let technology of technologies" class="checkbox">
+                    <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}"
+                           [checked]="vacancyPageForm?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
+                           (change)="vacancyTechnologiesChange($event)">
+                    <label for="{{technology?.id}}">
+                        {{technology.name}}
+                    </label>
                 </div>
+            </div>
+        </div>
 
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="createdAt">Create Date:</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                        <input type="text" readonly formControlName="createdAt" />
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="experienceId">Experience:</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                        <div class="select">
-                            <select formControlName="experienceId">
-                                <option value="{{experience.value}}" *ngFor="let experience of experiences">{{experience.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+        <div class="form-group">
+            <label for="endDate">End Date:</label>
 
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="technologiesId">Technologies:</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 checkboxlist-scroll">
-                        <div *ngFor="let technology of technologies" class="checkbox">
-                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}"
-                                   [checked]="vacancyPageForm?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
-                                   (change)="vacancyTechnologiesChange($event)">
-                            <label for="{{technology?.id}}">
-                                {{technology.name}}
-                            </label>
-                        </div>
-                    </div>
-                </div>
+            <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                 [class.invalid]="vacancyPageForm.get('endDate')?.invalid && (vacancyPageForm.get('endDate')?.dirty || vacancyPageForm.get('endDate')?.touched)">
+                <input class="form-control" type="date" formControlName="endDate" size="25">
+                <span class="tooltip-content">
+                    {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('endDate')) }}
+                </span>
+            </div>
+        </div>
 
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="endDate">End Date:</label>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                         aria-haspopup="true"
-                         role="tooltip"
-                         [class.invalid]="vacancyPageForm.get('endDate')?.invalid && (vacancyPageForm.get('endDate')?.dirty || vacancyPageForm.get('endDate')?.touched)">
-                        <input class="form-control" type="date" formControlName="endDate" size="25">
-                        <span class="tooltip-content">
-                            {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('endDate')) }}
-                        </span>
-                    </div>
-                </div>
+        <div class="form-group">
+            <label for="vacancyDescription">Vacancy Description:</label>
 
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="vacancyDescription">Vacancy Description:</label>
-                    </div>
-                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                        <div [froalaEditor]="froalaOptions"  formControlName="vacancyDescription"></div>
-                    </div>
-                </div>
+            <div [froalaEditor]="froalaOptions" formControlName="vacancyDescription"></div>
+        </div>
 
-                <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="jobDescription">Job Description:</label>
-                    </div>
-                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                        <div [froalaEditor]="froalaOptions" formControlName="jobDescription"></div>
-                    </div>
-                </div>
+        <div class="form-group">
+            <label for="jobDescription">Job Description:</label>
 
-                <input type="hidden" formControlName="id">
+            <div [froalaEditor]="froalaOptions" formControlName="jobDescription"></div>
+        </div>
 
-                <button type="button" class="btn btn-primary" (click)="saveVacancyClick($event)">Save</button>
-                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
-            </section>
-        </form>
-    </div>
-</div>
+        <input type="hidden" formControlName="id">
+
+        <button type="button" class="btn btn-primary" [disabled]="!vacancyPageForm.valid || vacancyPageForm.pristine" (click)="saveVacancyClick($event)">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
+    </section>
+</form>
