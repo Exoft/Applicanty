@@ -1,24 +1,7 @@
-﻿.class-decorator {
-    display: inline-block;
-    border: 1px solid black;
+﻿.checkboxlist-scroll {
+    min-height: 150px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-table {
-    margin-left: 10px;
-    padding-left: 30px;
-}
-.search {
-    width: 500px;
-    background-image: url(https://cdn3.iconfinder.com/data/icons/miniglyphs/500/014-20.png);
-    background-repeat: no-repeat;
-    background-position: right;
-    border-radius: 15px;
-}
-.range{
-    margin-top: 5px;
-}
-.salary {
-    width: 40px;
-    height: 25px;
-}
-
-

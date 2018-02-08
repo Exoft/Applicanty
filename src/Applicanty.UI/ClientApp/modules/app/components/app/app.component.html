@@ -1,21 +1,10 @@
 <router-outlet *ngIf="!authService.isAuthenticated()"></router-outlet>
-<div *ngIf="authService.isAuthenticated()" class="main-container">
-    <header class="header-4">
+<clr-main-container *ngIf="authService.isAuthenticated()">
+    <clr-header class="header-6">
         <div class="branding">
             <a href="/" class="nav-link">
                 <clr-icon shape="vm-bug"></clr-icon>
                 <span class="title">Applicanty</span>
-            </a>
-        </div>
-        <div class="header-nav">
-            <a class="nav-link" [routerLink]="['dashboard']" routerLinkActive="active">
-                <span class="nav-text">Dashboard</span>
-            </a>
-            <a class="nav-link" [routerLink]="['vacancies']" routerLinkActive="active">
-                <span class="nav-text">Vacancies</span>
-            </a>
-            <a class="nav-link" [routerLink]="['candidates']" routerLinkActive="active">
-                <span class="nav-text">Candidates</span>
             </a>
         </div>
         <div class="header-actions">
@@ -30,7 +19,16 @@
                 </clr-dropdown-menu>
             </clr-dropdown>
         </div>
-    </header>
+    </clr-header>
+    <div class="content-container">
+        <div class="content-area">
+            <router-outlet></router-outlet>
+        </div>
+        <clr-vertical-nav [clrVerticalNavCollapsible]="true">
+            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">Dashboard</a>
+            <a clrVerticalNavLink routerLink="./vacancies" routerLinkActive="active">Vacancies</a>
+            <a clrVerticalNavLink routerLink="./candidates" routerLinkActive="active">Candidates</a>
+        </clr-vertical-nav>
+    </div>
     <notification-message></notification-message>
-    <router-outlet></router-outlet>
-</div>
+</clr-main-container>

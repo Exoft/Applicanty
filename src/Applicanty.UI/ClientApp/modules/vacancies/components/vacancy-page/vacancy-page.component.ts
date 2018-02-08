@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { EnumDataService } from '../../../../services/enum.data.service';
 import { EnumNames } from '../../../../constants/enum-names';
-import { NotificationMassage } from '../../../../constants/notification-message';
+import { NotificationMessage } from '../../../../constants/notification-message';
 
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationService } from "../../../../services/notification.service";
@@ -38,7 +38,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public vacancyPageForm: FormGroup = new FormGroup({
         'id': new FormControl(''),
         'title': new FormControl('', Validators.required),
-        'createdBy': new FormControl(1),
+        'createdBy': new FormControl(''),
         'createdAt': new FormControl(new Date().toLocaleDateString()),
         'endDate': new FormControl(new Date(), [Validators.required, this.validationService.endDateValidator]),
         'technologyIds': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
@@ -69,7 +69,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     }
                 }, error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYDETAILSLOADERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYDETAILSLOADERROR);
                 });
 
             that.enumService.getEnums(that.stageEnum).subscribe(
@@ -77,7 +77,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.vacancyStages = data.result;
                 }, error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGELOADERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGELOADERROR);
                 });
 
             that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
@@ -90,7 +90,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     }
                 }, error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.VACANCYSTAGESCOUNTLOADERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGESCOUNTLOADERROR);
                 });
         }
 
@@ -99,7 +99,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 that.technologies = data;
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.TECHNOLOGIESLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.TECHNOLOGIESLOADERROR);
             });
 
         that.enumService.getEnums(that.experienceEnum).subscribe(
@@ -107,9 +107,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 that.experiences = data.result;
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMassage.EXPERIENCELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
             });
-
     }
 
     ngOnDestroy() {
@@ -144,7 +143,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.CREATEVACANCYERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CREATEVACANCYERROR);
                 });
         } else {
             that.vacanciesDataService.updateVacancy(formData).subscribe(
@@ -153,7 +152,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMassage.UPDATEVACANCYERROR);
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.UPDATEVACANCYERROR);
                 });
         }
     }
@@ -164,16 +163,14 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public vacancyTechnologiesChange(event) {
         let id = Number(event.target.value);
-
-
+        
         let selectedTechnologies = this.vacancyPageForm.get('technologyIds')!.value;
 
         if (event.target.checked) {
             if (selectedTechnologies.indexOf(id) < 0) {
                 selectedTechnologies.push(id);
             }
-        }
-        else {
+        } else {
             if (selectedTechnologies.indexOf(id) >= 0) {
                 selectedTechnologies.splice(selectedTechnologies.indexOf(id), 1);
             }
@@ -185,7 +182,6 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         this.vacancyPageForm.get('technologyIds')!.markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
-
     }
 
     public vacancyStageLabelClick(event: Event, idStage: number) {

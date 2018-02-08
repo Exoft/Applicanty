@@ -1,31 +1,24 @@
-﻿<div class="content-container">
-    <div class="content-area">
+﻿<div class="row">
+    <div class="col-md-7">
         <form [formGroup]="candidatePageFrom">
-            <section class="form-block"><br/>
-                
+            <section class="form-block">
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="firstName">First Name:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm" 
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('firstName')?.invalid && (candidatePageFrom.get('firstName')?.dirty || candidatePageFrom.get('firstName')?.touched)">
+                    <label for="firstName">First Name:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true"
+                         role="tooltip" [class.invalid]="candidatePageFrom.get('firstName')?.invalid && (candidatePageFrom.get('firstName')?.dirty || candidatePageFrom.get('firstName')?.touched)">
                         <input class="form-control" type="text" placeholder="First Name" formControlName="firstName" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('firstName')) }}
                         </span>
                     </div>
                 </div>
-              
+
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="lastName">Last Name:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('lastName')?.invalid && (candidatePageFrom.get('lastName')?.dirty || candidatePageFrom.get('v')?.touched)">
+                    <label for="lastName">Last Name:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('lastName')?.invalid && (candidatePageFrom.get('lastName')?.dirty || candidatePageFrom.get('v')?.touched)">
                         <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('lastName')) }}
@@ -34,28 +27,37 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="experienceId">Candidate Technologie:</label>
+                    <label for="experienceId">Experience:</label>
+
+                    <div class="select">
+                        <select formControlName="experienceId">
+                            <option value="{{experience.value}}" *ngFor="let experience of experiences">
+                                {{experience.name}}
+                            </option>
+                        </select>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="select">
-                            <select formControlName="experienceId">
-                                <option value="{{technologie.value}}" *ngFor="let technologie of technologies"> 
-                                {{technologie.name}} 
-                                </option>
-                            </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="technologiesId">Technologies:</label>
+
+                    <div class="checkboxlist-scroll">
+                        <div *ngFor="let technology of technologies" class="checkbox">
+                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}"
+                                   [checked]="candidatePageFrom?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
+                                   (change)="vacancyTechnologiesChange($event)">
+                            <label for="{{technology?.id}}">
+                                {{technology.name}}
+                            </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="email">Email:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('email')?.invalid && (candidatePageFrom.get('email')?.dirty || candidatePageFrom.get('email')?.touched)">
+                    <label for="email">Email:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('email')?.invalid && (candidatePageFrom.get('email')?.dirty || candidatePageFrom.get('email')?.touched)">
                         <input class="form-control" type="text" placeholder="Email" formControlName="email" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('email')) }}
@@ -64,13 +66,10 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="skype">Skype:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('skype')?.invalid && (candidatePageFrom.get('skype')?.dirty || candidatePageFrom.get('skype')?.touched)">
+                    <label for="skype">Skype:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('skype')?.invalid && (candidatePageFrom.get('skype')?.dirty || candidatePageFrom.get('skype')?.touched)">
                         <input class="form-control" type="text" placeholder="Skype" formControlName="skype" size="40" required>
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('skype')) }}
@@ -79,13 +78,10 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="linkedIn">LinkedIn:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('linkedIn')?.invalid && (candidatePageFrom.get('linkedIn')?.dirty || candidatePageFrom.get('linkedIn')?.touched)">
+                    <label for="linkedIn">LinkedIn:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('linkedIn')?.invalid && (candidatePageFrom.get('linkedIn')?.dirty || candidatePageFrom.get('linkedIn')?.touched)">
                         <input class="form-control" type="text" placeholder="LinkedIn" formControlName="linkedIn" size="40" required>
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('linkedIn')) }}
@@ -94,13 +90,10 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                       <label for="phone">Phone:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('phone')?.invalid && (candidatePageFrom.get('phone')?.dirty || candidatePageFrom.get('phone')?.touched)">
+                    <label for="phone">Phone:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('phone')?.invalid && (candidatePageFrom.get('phone')?.dirty || candidatePageFrom.get('phone')?.touched)">
                         <input class="form-control" type="text" placeholder="Phone" formControlName="phone" size="40" required>
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('phone')) }}
@@ -109,13 +102,10 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="cvPath">CV Path:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12  tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('cvPath')?.invalid && (candidatePageFrom.get('cvPath')?.dirty || candidatePageFrom.get('cvPath')?.touched)">
+                    <label for="cvPath">CV Path:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('cvPath')?.invalid && (candidatePageFrom.get('cvPath')?.dirty || candidatePageFrom.get('cvPath')?.touched)">
                         <input class="form-control" type="text" placeholder="CV Path" formControlName="cvPath" size="40" required>
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('cvPath')) }}
@@ -124,15 +114,13 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                        <label for="birthday">Birthday:</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12  tooltip tooltip-validation tooltip-sm"
-                           aria-haspopup="true"
-                           role="tooltip"
-                           [class.invalid]="candidatePageFrom.get('birthday')?.invalid && (candidatePageFrom.get('birthday')?.dirty || candidatePageFrom.get('birthday')?.touched)">
+                    <label for="birthday">Birthday:</label>
+
+                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+                         [class.invalid]="candidatePageFrom.get('birthday')?.invalid && (candidatePageFrom.get('birthday')?.dirty || candidatePageFrom.get('birthday')?.touched)">
                         <input class="form-control" type="date" formControlName="birthday" size="40" required>
                         <span class="tooltip-content">
+
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('birthday')) }}
                         </span>
                     </div>
@@ -140,9 +128,64 @@
 
                 <input type="hidden" formControlName="id">
 
-                <button type="button" class="btn btn-primary" (click)="saveCandidateClick($event)">Save</button>
+                <button type="button" class="btn btn-primary" [disabled]="!candidatePageFrom.valid || candidatePageFrom.pristine" (click)="saveCandidateClick($event)">Save</button>
                 <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
             </section>
         </form>
     </div>
+
+    <div class="col-md-5">
+        <clr-datagrid>
+            <clr-dg-action-bar>
+                <clr-button-group class="btn-outline btn-sm">
+                    <clr-button (click)="showModal($event)">Add</clr-button>
+                </clr-button-group>
+            </clr-dg-action-bar>
+
+            <clr-dg-column>Vacancy</clr-dg-column>
+            <clr-dg-column>Stage</clr-dg-column>
+
+            <!--<clr-dg-row *ngFor="let user of users">
+                <clr-dg-cell>{{user.id}}</clr-dg-cell>
+                <clr-dg-cell>{{user.name}}</clr-dg-cell>
+            </clr-dg-row>-->
+
+            <clr-dg-footer>
+
+            </clr-dg-footer>
+        </clr-datagrid>
+    </div>
 </div>
+
+<clr-modal *ngIf="candidateAttachVacancyForm" [(clrModalOpen)]="setStageModalVisible">
+    <h3 class="modal-title">Attach candidate to vacancy</h3>
+    <div class="modal-body">
+        <form [formGroup]="candidateAttachVacancyForm">
+            <section class="form-block">
+                <div class="form-group">
+                    <label for="vacancyId" class="required">Vacancy</label>
+
+                    <div class="select">
+                        <select formControlName="vacancyId">
+                            <option *ngFor="let vacancy of vacancies" [value]="vacancy.id">{{vacancy.title}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="vacancyStage" class="required">Stage</label>
+
+                    <div class="select">
+                        <select formControlName="vacancyStage">
+                            <option *ngFor="let vacancyStage of vacancyStages" [value]="vacancyStage.value">{{vacancyStage.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine" (click)="attachToVacancyClick($event)">Save</button>
+        <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">Cancel</button>
+    </div>
+</clr-modal>

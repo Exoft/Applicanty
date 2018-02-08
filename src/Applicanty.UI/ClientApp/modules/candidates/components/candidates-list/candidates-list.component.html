@@ -1,57 +1,53 @@
-﻿<div class="content-container">
-    <div class="content-area">
-        <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedCandidates">
-            <clr-dg-action-bar>
-                <clr-button-group class="btn-sm">
-                    <clr-button class="btn-success-outline" [routerLink]="['newcandidate']">
-                        <clr-icon shape="plus"></clr-icon>
-                        Add
-                    </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, active)">
-                        Set activate
-                    </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, archived)">
-                        Set archive
-                    </clr-button>
-                    <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, deleted)">
-                        Set delete
-                    </clr-button>
-                </clr-button-group>
-                <clr-button-group class="btn-sm align-left-button-group">
-                    <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
-                        Show {{item?.name}}
-                    </clr-button>
-                </clr-button-group>
-            </clr-dg-action-bar>
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedCandidates">
+    <clr-dg-action-bar>
+        <clr-button-group class="btn-sm">
+            <clr-button class="btn-success-outline" [routerLink]="['newcandidate']">
+                <clr-icon shape="plus"></clr-icon>
+                Add
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, active)">
+                Set activate
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, archived)">
+                Set archive
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedCandidates.length===0" (click)="changeStatus($event, selectedCandidates, deleted)">
+                Set delete
+            </clr-button>
+        </clr-button-group>
+        <clr-button-group class="btn-sm align-left-button-group">
+            <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
+                Show {{item?.name}}
+            </clr-button>
+        </clr-button-group>
+    </clr-dg-action-bar>
 
-            <clr-dg-column [clrDgField]="'firstName'">FirstName</clr-dg-column>
-            <clr-dg-column [clrDgField]="'lastName'">LastName</clr-dg-column>
-            <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
-            <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
-            <clr-dg-column [clrDgField]="'birthday'">Age</clr-dg-column>
-            <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
+    <clr-dg-column [clrDgField]="'firstName'">FirstName</clr-dg-column>
+    <clr-dg-column [clrDgField]="'lastName'">LastName</clr-dg-column>
+    <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
+    <clr-dg-column [clrDgField]="'email'">Email</clr-dg-column>
+    <clr-dg-column [clrDgField]="'birthday'">Age</clr-dg-column>
+    <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
 
-            <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
-                <clr-dg-action-overflow>
-                    <button class="action-item" (click)="changeStatus($event, [candidate], active)">Activate</button>
-                    <button class="action-item" (click)="changeStatus($event, [candidate], archived)">Archive</button>
-                    <button class="action-item" (click)="changeStatus($event, [candidate], deleted)">Delete</button>
-                </clr-dg-action-overflow>
+    <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="changeStatus($event, [candidate], active)">Activate</button>
+            <button class="action-item" (click)="changeStatus($event, [candidate], archived)">Archive</button>
+            <button class="action-item" (click)="changeStatus($event, [candidate], deleted)">Delete</button>
+        </clr-dg-action-overflow>
 
-                <clr-dg-cell>
-                    <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.firstName}}</a>
-                </clr-dg-cell>
-                <clr-dg-cell><a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.lastName}}</a></clr-dg-cell>
-                <clr-dg-cell>{{experiences[candidate?.experienceId]}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate?.email}}</clr-dg-cell>
-                <clr-dg-cell>{{candidate?.birthday | transformBirthDateToAge}}</clr-dg-cell>
-                <clr-dg-cell>{{statuses[candidate?.statusId].name}}</clr-dg-cell>
-            </clr-dg-row>
+        <clr-dg-cell>
+            <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.firstName}}</a>
+        </clr-dg-cell>
+        <clr-dg-cell><a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.lastName}}</a></clr-dg-cell>
+        <clr-dg-cell>{{experiences[candidate?.experienceId]}}</clr-dg-cell>
+        <clr-dg-cell>{{candidate?.email}}</clr-dg-cell>
+        <clr-dg-cell>{{candidate?.birthday | transformBirthDateToAge}}</clr-dg-cell>
+        <clr-dg-cell>{{statuses[candidate?.statusId].name}}</clr-dg-cell>
+    </clr-dg-row>
 
-            <clr-dg-footer>
-                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users
-                <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
-            </clr-dg-footer>
-        </clr-datagrid>
-    </div>
-</div>
+    <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users
+        <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>

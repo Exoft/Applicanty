@@ -11,8 +11,7 @@ export class VacanciesDataService {
         private authService: AuthService) {
     }
 
-    public getVacancies(skip: number = 0, take: number = 10,
-        sortBy: string, sortDir: string, statusType: number): Observable<any> {
+    public getVacancies(skip: number = 0, take: number = 10, sortBy: string = '', sortDir: string = '', statusType: number = 1): Observable<any> {
         return this.http.get(`http://localhost:8000/vacancy?skip=${skip}&take=${take}&sortField=${sortBy}&sortDir=${sortDir}&statusType=${statusType}`, { headers: this.authService.getAuthenticationHeader() });
     }
 

@@ -7,7 +7,6 @@ import { NotificationService } from '../services/notification.service';
 import { NotificationType } from '../enums/notification-type';
 import { Router } from "@angular/router";
 
-
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
 
@@ -34,8 +33,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
                     }, 5000);
                 } else if (err.status === 500) {
                     this.notificationService.notify(NotificationType.Error, 'Internal Server Error');
-                } else if (err.status===404) {
+                } else if (err.status === 404) {
                     this.router.navigate(['notfound']);
+                } else if (err.status === 403) {
+                    this.notificationService.notify(NotificationType.Error, 'Forbidden');
                 }
             }
         )
