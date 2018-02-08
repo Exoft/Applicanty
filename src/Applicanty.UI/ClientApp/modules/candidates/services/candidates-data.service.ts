@@ -12,8 +12,8 @@ export class CandidatesDataService {
     }
 
     public getCandidates(skip: number = 0, take: number = 10,
-        sortBy: string, sortDir: string): Observable<any> {
-        return this.http.get(`http://localhost:8000/candidate?skip=${skip}&take=${take}&sortField=${sortBy}&sortDir=${sortDir}`, { headers: this.authService.getAuthenticationHeader() });
+        sortBy: string, sortDir: string, statusType: number): Observable<any> {
+        return this.http.get(`http://localhost:8000/candidate?skip=${skip}&take=${take}&sortField=${sortBy}&sortDir=${sortDir}&statusType=${statusType}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public getCandidate(candidateId: any): Observable<any> {

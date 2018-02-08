@@ -32,6 +32,7 @@
     <None Remove="ClientApp\modules\auth\components\user-profile-page\user-page.guard.ts" />
     <None Remove="ClientApp\modules\auth\vacancies.module.ts" />
     <None Remove="ClientApp\modules\candidates\components\candidate.component.ts" />
+    <None Remove="ClientApp\modules\candidates\components\candidates-list\transform-birthdate-to-age.pipe.ts" />
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
     <None Remove="ClientApp\modules\notfound\components\notfound.component.ts" />
     <None Remove="ClientApp\services\enum.data.service.ts" />
@@ -46,6 +47,7 @@
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\transform-birthdate-to-age.pipe.ts" />
     <TypeScriptCompile Include="ClientApp\modules\notfound\components\notfound.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\notfound\notfound.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\components\dashboard.component.ts" />
