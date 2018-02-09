@@ -44,7 +44,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
         'birthday': new FormControl(new Date(), Validators.required)
     });
 
-    public candidateAttachVacancyForm: any; 
+    public candidateAttachVacancyForm: any;
 
     constructor(private candidatesDataService: CandidatesDataService,
         private vacanciesDataService: VacanciesDataService,
@@ -200,10 +200,19 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     public showModal(event) {
         this.setStageModalVisible = true;
     }
-    
+
     public attachToVacancyClick(event) {
-        if (this.candidateAttachVacancyForm.valid) {
-            debugger;
+        let that = this;
+        if (that.candidateAttachVacancyForm.valid) {
+            let formData = that.candidateAttachVacancyForm.value;
+            that.candidatesDataService.atachCandidateStageToVacanci(formData).subscribe(
+                data => {
+                    that.notificationService.notify(NotificationType.Success, NotificationMessage.ATACHCANDIDATESTAGETOVACANCI);
+                    that.setStageModalVisible = false;
+                },
+                error => {
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.ATACHCANDIDATESTAGETOVACANCIERROR);
+                });
         }
     }
 }
