@@ -3,6 +3,7 @@ using Applicanty.Core.Data.Repositories;
 using Applicanty.Core.Dto;
 using Applicanty.Core.Dto.VacancyCandidate;
 using Applicanty.Core.Entities;
+using Applicanty.Core.Enums;
 using Applicanty.Core.Services;
 using AutoMapper;
 using System.Collections.Generic;
@@ -28,6 +29,31 @@ namespace Applicanty.Services.Services
             return vacancyCandidates
                     .GroupBy(item => item.VacancyStage)
                     .Select(item => new StageCandidatesCountDto { Stage = item.Key, Count = item.Count() }).ToList();
+        }
+
+        public IEnumerable<VacancyCandidateAttachDto> GetByTechnologyAndExperience(int[] technologyIds, Experience experience)
+        {
+            var vacancies = Repository.GetWithInclude(include => include.VacancyTechnologies).
+                                        Where(item => item.VacancyTechnologies.Any(f => technologyIds.Contains(f.TechnologyId))
+                                                   && item.StatusId == StatusType.Active
+                                                   && item.ExperienceId == experience);
+
+            return Mapper.Map<IEnumerable<Vacancy>, IEnumerable<VacancyCandidateAttachDto>>(vacancies);
+        }
+
+        public IEnumerable<VacancyCandidateAttachDto> GetByCandidate(int candidateId)
+        {
+            var vacancies = Repository.GetWithInclude(include => include.VacancyCandidates)
+                                                .Where(item => item.StatusId == StatusType.Active
+                                                            && item.VacancyCandidates.Any(f => f.CandidateId == candidateId))
+                                                .Select(item => new VacancyCandidateAttachDto
+                                                {
+                                                    Id = item.Id,
+                                                    Title = item.Title,
+                                                    VacancyStage = item.VacancyCandidates.FirstOrDefault(f => f.CandidateId == candidateId).VacancyStage
+                                                });
+
+            return vacancies;
         }
 
         public void AttachCandidate(VacancyCandidateDto model)
@@ -62,7 +88,7 @@ namespace Applicanty.Services.Services
 
             foreach (var technologyId in vacancyDto.TechnologyIds)
                 entity.VacancyTechnologies.Add(new VacancyTechnology
-                                        { VacancyId = entity.Id, TechnologyId = technologyId });
+                { VacancyId = entity.Id, TechnologyId = technologyId });
 
             var updatedEntity = Repository.Update(entity);
             UnitOfWork.Commit();
@@ -84,7 +110,10 @@ namespace Applicanty.Services.Services
 
             foreach (var technologyId in vacancyDto.TechnologyIds)
                 createdEntity.VacancyTechnologies.Add(new VacancyTechnology()
-                                { VacancyId = createdEntity.Id, TechnologyId = technologyId });
+                {
+                    VacancyId = createdEntity.Id,
+                    TechnologyId = technologyId
+                });
 
             UnitOfWork.Commit();
 
