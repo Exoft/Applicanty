@@ -20,5 +20,7 @@
     static CANDIDATECHANGESTATUSSUCCES: string = 'Candidate status changed successfully'
     static CANDIDATESCHANGESTATUSSUCCES: string = 'Candidates status changed successfully'
     static CANDIDATESLISTLOADERROR: string = 'Error occurred during loading candidate data';
-    static LOGINORPASSWORDENTEREDINCORECTLY: string = "login or password entered incorrectly";
+    static LOGINORPASSWORDENTEREDINCORECTLY: string = 'login or password entered incorrectly';
+    static ATTACHCANDIDATESTAGETOVACANCY: string = 'Vacancy and stage successfully added';
+    static ATTACHCANDIDATESTAGETOVACANCYERROR: string = 'Error adding a vacancy';
 }
