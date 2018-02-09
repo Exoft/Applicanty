@@ -11,5 +11,7 @@ namespace Applicanty.Core.Services
         List<StageCandidatesCountDto> CountVacancyStageCandidates(int id);
         void AttachCandidate(VacancyCandidateDto model);
         void ChangeCandidateStage(VacancyCandidateDto model);
+        IEnumerable<VacancyCandidateAttachDto> GetByTechnologyAndExperience(int[] technologyIds, Experience experience);
+        IEnumerable<VacancyCandidateAttachDto> GetByCandidate(int candidateId);
     }
 }

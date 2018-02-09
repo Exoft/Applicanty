@@ -140,5 +140,35 @@ namespace Applicanty.API.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
+
+        [HttpPost("GetByTechnologyAndExperience")]
+        public IActionResult GetByTechnologyAndExperience([FromBody]int[] technologyIds, [FromQuery]Experience experience)
+        {
+            try
+            {
+                var vacancy = _vacancyService.GetByTechnologyAndExperience(technologyIds, experience);
+
+                return Json(vacancy);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
+        [HttpGet("GetByCandidate")]
+        public IActionResult GetByCandidate(int candidateId)
+        {
+            try
+            {
+                var vacancy = _vacancyService.GetByCandidate(candidateId);
+
+                return Json(vacancy);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
     }
 }

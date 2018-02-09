@@ -49,6 +49,9 @@ namespace Applicanty.Core
                     opts => opts.MapFrom(src => src.VacancyTechnologies.Select(f => f.TechnologyId)));
 
             CreateMap<VacancyUpdateDto, Vacancy>();
+
+            CreateMap<Vacancy, VacancyCandidateAttachDto>();
+            CreateMap<VacancyCandidateAttachDto, Vacancy>();
             #endregion
 
             #region TechnologyMap
