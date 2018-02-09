@@ -205,13 +205,13 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
         let that = this;
         if (that.candidateAttachVacancyForm.valid) {
             let formData = that.candidateAttachVacancyForm.value;
-            that.candidatesDataService.atachCandidateStageToVacanci(formData).subscribe(
+            that.candidatesDataService.attachCandidateStageToVacancy(formData).subscribe(
                 data => {
-                    that.notificationService.notify(NotificationType.Success, NotificationMessage.ATACHCANDIDATESTAGETOVACANCI);
+                    that.notificationService.notify(NotificationType.Success, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCY);
                     that.setStageModalVisible = false;
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.ATACHCANDIDATESTAGETOVACANCIERROR);
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCYERROR);
                 });
         }
     }
