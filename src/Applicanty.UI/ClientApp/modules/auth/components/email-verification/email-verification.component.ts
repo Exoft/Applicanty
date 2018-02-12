@@ -16,7 +16,7 @@ export class EmailVerificationComponent implements OnDestroy {
     public confirmed = false;
 
     private countdown = 3;
-    private subscription: Subscription;
+    private subscription: Subscription = new Subscription();
 
     constructor(private authService: AuthService,
         private activeRoute: ActivatedRoute,

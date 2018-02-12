@@ -19,8 +19,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
 
     public setStageModalVisible: boolean = false;
 
-    private id: number;
-    private subscription: Subscription;
+    private id: number = 0;
+    private subscription: Subscription = new Subscription();
 
     private experienceEnumName = EnumNames.EXPERIENCE;
     private stageEnumName = EnumNames.VACANCYSTAGE;

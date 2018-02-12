@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType } from '../enums/notification-type';
 import { Router } from "@angular/router";
+import { NotificationMessage } from "../constants/notification-message";
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -26,17 +27,17 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             succ => { },
             err => {
                 if (err.status === 401) {
-                    this.notificationService.notify(NotificationType.Error, 'Times access is over.');
+                    this.notificationService.notify(NotificationType.Error, NotificationMessage.UNAUTHORIZEDERROR);
                     setTimeout(() => {
                         localStorage.removeItem('accessToken');
                         this.router.navigate(['signin']);
                     }, 5000);
                 } else if (err.status === 500) {
-                    this.notificationService.notify(NotificationType.Error, 'Internal Server Error');
+                    this.notificationService.notify(NotificationType.Error, NotificationMessage.INTERNETSERVICEERROR);
                 } else if (err.status === 404) {
                     this.router.navigate(['notfound']);
                 } else if (err.status === 403) {
-                    this.notificationService.notify(NotificationType.Error, 'Forbidden');
+                    this.notificationService.notify(NotificationType.Error, NotificationMessage.FORBIDDENERROR);
                 }
             }
         )
