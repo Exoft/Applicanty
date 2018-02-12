@@ -33,7 +33,10 @@ namespace Applicanty.Core
             CreateMap<Candidate, CandidateDetailsDto>();
             CreateMap<CandidateDetailsDto, Candidate>();
 
-            CreateMap<Candidate, CandidateCreateUpdateDto>();
+            CreateMap<Candidate, CandidateCreateUpdateDto>()
+                .ForMember(dest => dest.TechnologyIds,
+                opts => opts.MapFrom(src => src.CandidateTechnologies.Select(f=>f.TechnologyId)));
+            
             CreateMap<CandidateCreateUpdateDto, Candidate>();
             #endregion
 

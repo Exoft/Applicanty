@@ -8,6 +8,12 @@ namespace Applicanty.Core.Entities
 {
     public class Candidate : Statable, IEntity, ITrackable
     {
+        public Candidate()
+        {
+            VacancyCandidates = new HashSet<VacancyCandidate>();
+            CandidateTechnologies = new HashSet<CandidateTechnology>();
+        }
+
         public int Id { get; set; }
         public Experience ExperienceId { get; set; }
         public string FirstName { get; set; }
