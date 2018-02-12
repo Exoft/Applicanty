@@ -23,4 +23,7 @@
     static LOGINORPASSWORDENTEREDINCORECTLY: string = 'login or password entered incorrectly';
     static ATTACHCANDIDATESTAGETOVACANCY: string = 'Vacancy and stage successfully added';
     static ATTACHCANDIDATESTAGETOVACANCYERROR: string = 'Error adding a vacancy';
+    static INTERNETSERVICEERROR: string = 'Internal Server Error';
+    static UNAUTHORIZEDERROR: string = 'Session time is over.';
+    static FORBIDDENERROR: string = 'Forbidden';
 }

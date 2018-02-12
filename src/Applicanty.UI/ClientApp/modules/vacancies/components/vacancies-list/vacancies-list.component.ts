@@ -19,20 +19,20 @@ export class VacanciesListComponent implements OnInit {
 
     public loading: boolean = true;
 
-    public vacanciesList: any[];
+    public vacanciesList: any[] = [];
 
     public deleted = StatusCommands.DELETED;
     public archived = StatusCommands.ARCHIVED;
     public active = StatusCommands.ACTIVE;
 
-    public totalCount: number;
+    public totalCount: number = 0;
     private currentPage;
     private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'endDate', reverse: true };
-    private currentState;
+    private currentState: any;
     private currentStatus: number = 0;
 
     private experiences: { [value: number]: any } = {};
-    private statuses;
+    private statuses: any;
 
     constructor(private vacanciesDataService: VacanciesDataService,
         private notificationService: NotificationService,

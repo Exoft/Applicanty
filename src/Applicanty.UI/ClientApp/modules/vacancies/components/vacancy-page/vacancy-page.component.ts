@@ -17,7 +17,7 @@ import { NotificationType } from "../../../../enums/notification-type";
 })
 export class VacancyPageComponent implements OnInit, OnDestroy {
     private id;
-    private subscription: Subscription;
+    private subscription: Subscription = new Subscription();
 
     public technologies: any[] = [];
     public experiences: any[] = [];
@@ -28,8 +28,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         charCounterCount: true,
         toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', '|', 'align', 'formatOL', 'formatUL', '|', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'],
         toolbarButtonsXS: ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
-        toolbarButtonsSM:  ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
-        toolbarButtonsMD:  ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
+        toolbarButtonsSM: ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
+        toolbarButtonsMD: ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
     };
 
     private experienceEnum = EnumNames.EXPERIENCE;
@@ -163,7 +163,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public vacancyTechnologiesChange(event) {
         let id = Number(event.target.value);
-        
+
         let selectedTechnologies = this.vacancyPageForm.get('technologyIds')!.value;
 
         if (event.target.checked) {

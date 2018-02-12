@@ -25,18 +25,18 @@ export class CandidatesListComponent {
     public archived = StatusCommands.ARCHIVED;
     public active = StatusCommands.ACTIVE;
 
-    private vacancyId: number;
-    private stageId: number;
-    private subscription: Subscription;
+    private vacancyId: number = 0;
+    private stageId: number = 0;
+    private subscription: Subscription = new Subscription();
 
-    private totalCount: number;
-    private curentPage;
+    private totalCount: number = 0;
+    private curentPage: any;
     private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'lastName', reverse: false };
-    private currentState;
+    private currentState: any;
     private currentStatus: number = 0;
 
     private experiences: { [value: number]: any } = {};
-    private statuses;
+    private statuses: any[] = [];
 
     constructor(private candidatesDataService: CandidatesDataService,
         private activeRoute: ActivatedRoute,

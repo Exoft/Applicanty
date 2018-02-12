@@ -8,8 +8,8 @@ import { NotificationType } from "../../../../enums/notification-type";
     styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent {
-    public message: string;
-    public notificationType: NotificationType;
+    public message: string = '';
+    public notificationType: NotificationType = NotificationType.Success;
 
     public visible = false;
 
