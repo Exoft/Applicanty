@@ -118,7 +118,7 @@ namespace Applicanty.API.Controllers
             {
                 _vacancyService.AttachCandidate(model);
 
-                return Ok(true);
+                return Ok(model);
             }
             catch (Exception ex)
             {
