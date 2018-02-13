@@ -145,10 +145,10 @@
             <clr-dg-column>Vacancy</clr-dg-column>
             <clr-dg-column>Stage</clr-dg-column>
 
-            <!--<clr-dg-row *ngFor="let user of users">
-                <clr-dg-cell>{{user.id}}</clr-dg-cell>
-                <clr-dg-cell>{{user.name}}</clr-dg-cell>
-            </clr-dg-row>-->
+           <clr-dg-row *ngFor="let candidateVacancy of candidateVacancyStage">
+                <clr-dg-cell>{{candidateVacancy?.title}}</clr-dg-cell>
+                <clr-dg-cell>{{vacancyStages[candidateVacancy?.vacancyStage]?.name}}</clr-dg-cell>
+            </clr-dg-row>
 
             <clr-dg-footer>
 

@@ -36,7 +36,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidate = _candidateService.GetOne<CandidateDetailsDto>(id);
+                var candidate = _candidateService.GetWithInclude<CandidateCreateUpdateDto>(id, include=> include.CandidateTechnologies);
 
                 if (candidate == null)
                     return BadRequest("Candidate not found.");

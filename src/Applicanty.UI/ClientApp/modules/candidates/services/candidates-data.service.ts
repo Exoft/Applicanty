@@ -45,10 +45,19 @@ export class CandidatesDataService {
     }
 
     public getCandidateByVacancyStage(vacancyId: number, stageId: number): Observable<any> {
-        return this.http.get(`http://localhost:8000/candidate/getByVacancy?vacancyId=${vacancyId}&stageId=${stageId}`, { headers: this.authService.getAuthenticationHeader() })
+        return this.http.get(`http://localhost:8000/candidate/getByVacancy?vacancyId=${vacancyId}&stageId=${stageId}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public attachCandidateStageToVacancy(formData: any): Observable<any> {
-        return this.http.post(`http://localhost:8000/Vacancy/AttachCandidate`, formData, { headers: this.authService.getAuthenticationHeader() })
+    public attachCandidateStageToVacancy(formData: number): Observable<any> {
+        return this.http.post(`http://localhost:8000/vacancy/AttachCandidate`, formData, { headers: this.authService.getAuthenticationHeader() });
     }
+   
+    public vacancyGetByCandidate(candidateId: number): Observable<any> {
+        return this.http.get(`http://localhost:8000/vacancy/GetByCandidate?candidateId=${candidateId}`, { headers: this.authService.getAuthenticationHeader() });
+    }
+
+    public vacancyGetByTechnologyAndExperience(experienceId: number, selectedTechnologies): Observable<any> {
+        return this.http.post(`http://localhost:8000/vacancy/GetByTechnologyAndExperience?experience=${experienceId}`, selectedTechnologies , { headers: this.authService.getAuthenticationHeader() });
+    }
+
 }

@@ -21,6 +21,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
 
     private id: number = 0;
     private subscription: Subscription = new Subscription();
+    private experienceId: number = 0;
+    private technologyIds: any[] = [];
 
     private experienceEnumName = EnumNames.EXPERIENCE;
     private stageEnumName = EnumNames.VACANCYSTAGE;
@@ -29,6 +31,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     public technologies: any[] = [];
     public vacancyStages: any[] = [];
     public vacancies: any[] = [];
+    public candidateVacancyStage: any[] = [];
 
     public candidatePageFrom: FormGroup = new FormGroup({
         'id': new FormControl(''),
@@ -75,22 +78,16 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 candidate => {
                     if (candidate) {
                         that.setFormData(candidate);
+                        that.experienceId = candidate.experienceId;
+                        that.technologyIds = candidate.technologyIds ? candidate.technologyIds : [];
                     }
                 },
                 error => {
                     if (error.status == 400)
                         that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATEDETAILSLOADERROR);
                 });
-        }
 
-        that.vacanciesDataService.getVacancies(0, 1000).subscribe(
-            data => {
-                that.vacancies = data['result'];
-            },
-            error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCIESLOADERROR);
-            });
+        }
 
         that.enumService.getEnums(that.experienceEnumName).subscribe(
             data => {
@@ -118,6 +115,16 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, NotificationMessage.TECHNOLOGIESLOADERROR);
             });
+
+        that.candidatesDataService.vacancyGetByCandidate(that.id).subscribe(
+            data => {
+                that.candidateVacancyStage = data;
+            },
+            error => {
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
+            });
+
     }
 
     ngOnDestroy() {
@@ -199,6 +206,15 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
 
     public showModal(event) {
         this.setStageModalVisible = true;
+
+        this.candidatesDataService.vacancyGetByTechnologyAndExperience(this.experienceId, this.technologyIds).subscribe(
+            data => {
+                this.vacancies = data;
+            },
+            error => {
+                if (error.status == 400)
+                    this.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCIESLOADERROR);
+            });
     }
 
     public attachToVacancyClick(event) {
@@ -209,9 +225,11 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 data => {
                     that.notificationService.notify(NotificationType.Success, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCY);
                     that.setStageModalVisible = false;
+                  
                 },
                 error => {
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCYERROR);
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCYERROR);
                 });
         }
     }
