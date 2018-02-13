@@ -11,6 +11,7 @@ import { ValidationService } from "../../../../services/validation.service";
 })
 export class SignInComponent {
     public validateSigIn: boolean = false;
+    public textButtonSignIn: string = "Sign in";
 
     constructor(private authService: AuthService,
         private router: Router,
@@ -25,6 +26,7 @@ export class SignInComponent {
     signIn(event) {
         if (this.authorizationFrom.valid) {
             this.validateSigIn = true;
+            this.textButtonSignIn = "";
             this.authService.signIn(this.authorizationFrom.value);
         }
     }

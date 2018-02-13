@@ -43,7 +43,7 @@
         <clr-dg-cell>{{experiences[candidate?.experienceId]}}</clr-dg-cell>
         <clr-dg-cell>{{candidate?.email}}</clr-dg-cell>
         <clr-dg-cell>{{candidate?.birthday | transformBirthDateToAge}}</clr-dg-cell>
-        <clr-dg-cell>{{statuses[candidate?.statusId].name}}</clr-dg-cell>
+        <clr-dg-cell>{{statuses[candidate?.statusId]?.name}}</clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
