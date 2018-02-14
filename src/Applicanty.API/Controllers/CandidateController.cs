@@ -50,7 +50,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery]GridRequest request, StatusType statusType)
+        public IActionResult GetAll([FromQuery]GridHelper request, StatusType statusType)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<CandidateGridDto>
                 {
-                    Result = request.Sort(candidates),
+                    Result = request.Request(candidates),
                     TotalCount = candidates.Count()
                 };
 

@@ -15,7 +15,15 @@ namespace Applicanty.API.Helpers
         public string SortDir { get; set; }
         public List<FilterItem> Filters { get; set; }
 
-        public IQueryable<TEntity> Sort<TEntity>(IQueryable<TEntity> collection)
+        public IQueryable<TEntity> Request<TEntity>(IQueryable<TEntity> collection)
+        {
+            ApplySorting(ref collection);
+            ApplySorting(ref collection);
+
+            return collection;
+        }
+
+        private void ApplySorting<TEntity>(ref IQueryable<TEntity> collection)
         {
             if (SortField != null)
                 collection = collection.OrderBy($"{SortField } {SortDir}");
@@ -23,10 +31,9 @@ namespace Applicanty.API.Helpers
             if (Take != null && Skip != null)
                 collection = collection.Skip(Skip.Value).Take(Take.Value);
 
-            return collection;
         }
 
-        public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> collection)
+        private void c<TEntity>(ref IQueryable<TEntity> collection)
         {
             if (Filters != null && Filters.Count > 0)
             {
@@ -42,12 +49,8 @@ namespace Applicanty.API.Helpers
                         whereClause +=
                            $" || {BuildWhereClause<TEntity>(i, Filters[i], parameters)}";
                 }
-                return collection = collection.Where(whereClause, parameters.ToArray());
+                collection = collection.Where(whereClause, parameters.ToArray());
             }
-
-            DateTime ddate = DateTime.ParseExact("20180201", "yyyyMMdd", CultureInfo.InvariantCulture);
-
-            return collection;
         }
 
         private static string BuildWhereClause<TEntity>(int index, FilterItem filter,

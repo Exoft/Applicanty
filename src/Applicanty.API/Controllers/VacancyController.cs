@@ -46,7 +46,7 @@ namespace Applicanty.API.Controllers
         }
 
         [HttpPost("GetAll")]
-        public IActionResult GetAll([FromBody]GridRequest request, StatusType statusType)
+        public IActionResult GetAll([FromBody]GridHelper request, StatusType statusType)
         {
             try
             {
@@ -54,8 +54,8 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<VacancyGridDto>
                 {
-                    Result = request.Filter(vacancies),
-                    TotalCount = request.Filter(vacancies).Count()
+                    Result = request.Request(vacancies),
+                    TotalCount = vacancies.Count()
                 };
 
                 return Json(response);
