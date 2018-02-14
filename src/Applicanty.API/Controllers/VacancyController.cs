@@ -14,7 +14,7 @@ using Applicanty.Core.Enums;
 namespace Applicanty.API.Controllers
 {
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class VacancyController : BaseController<Vacancy>
     {
         private readonly IVacancyService _vacancyService;
@@ -45,8 +45,8 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult GetAll([FromQuery]GridRequest request, StatusType statusType)
+        [HttpPost("GetAll")]
+        public IActionResult GetAll([FromBody]GridRequest request, StatusType statusType)
         {
             try
             {
@@ -54,8 +54,8 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<VacancyGridDto>
                 {
-                    Result = request.Sort(vacancies),
-                    TotalCount = vacancies.Count()
+                    Result = request.Filter(vacancies),
+                    TotalCount = request.Filter(vacancies).Count()
                 };
 
                 return Json(response);
