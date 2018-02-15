@@ -18,7 +18,7 @@ namespace Applicanty.API.Helpers
         public IQueryable<TEntity> Request<TEntity>(IQueryable<TEntity> collection)
         {
             ApplySorting(ref collection);
-            ApplySorting(ref collection);
+            ApplyFiltering(ref collection);
 
             return collection;
         }
@@ -33,7 +33,7 @@ namespace Applicanty.API.Helpers
 
         }
 
-        private void c<TEntity>(ref IQueryable<TEntity> collection)
+        private void ApplyFiltering<TEntity>(ref IQueryable<TEntity> collection)
         {
             if (Filters != null && Filters.Count > 0)
             {
@@ -134,7 +134,13 @@ namespace Applicanty.API.Helpers
                     return string.Format("{0}.Contains(@{1})",
                         filter.Field,
                         index);
-                
+                case "containsarray":
+                    var a = filter.Value.Split(',').Select(h => Int32.Parse(h)).ToArray();
+                    parameters.Add(a);
+                    return string.Format("@{1}.Contains({0})",
+                        filter.Field,
+                        index);
+
                 default:
                     throw new ArgumentException("This operator is not yet supported for this Grid", filter.Operator);
             }
