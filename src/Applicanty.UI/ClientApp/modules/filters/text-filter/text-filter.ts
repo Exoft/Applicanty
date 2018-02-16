@@ -17,7 +17,7 @@ export class TextFilter implements Filter<any>, GridFilterCreater, OnInit{
 
     public filter: GridFilterItem;
 
-    @Input() property: string;
+    @Input() propertyName: string;
 
     public textFilterForm: FormGroup = new FormGroup({
         'textInput': new FormControl('', [Validators.required]),
@@ -34,8 +34,8 @@ export class TextFilter implements Filter<any>, GridFilterCreater, OnInit{
 
     changeTextInput(event) {
         this.textInput = this.textFilterForm.get('textInput');
-        this.filter = this.CreateGridFilterItem({ field: this.property, operator: FilterOperators.CONTAINS, value: this.textInput.value });
-        this.changes.emit(this.textInput ? this.textInput.value : false);
+        this.filter = this.CreateGridFilterItem({ field: this.propertyName, operator: FilterOperators.CONTAINS, value: this.textInput.value });
+        this.changes.emit(this.textInput ? this.textInput.value : '');
     }
 
     accepts() {

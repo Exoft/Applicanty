@@ -30,7 +30,6 @@ export class VacanciesListComponent implements OnInit {
     public active = StatusCommands.ACTIVE;
 
     public totalCount: number = 0;
-    private currentPage;
     private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'endDate', reverse: true };
     private currentState: any;
     private currentStatus: number = 0;
@@ -76,7 +75,6 @@ export class VacanciesListComponent implements OnInit {
         let that = this;
         that.currentState = state;
         that.loading = true;
-        that.currentPage = that.currentState.page;
         if (state.sort) {
             that.sortField = that.currentState.sort;
         }

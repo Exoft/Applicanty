@@ -5,6 +5,9 @@ import { NotificationService } from "../../../services/notification.service";
 import { EnumNames } from "../../../constants/enum-names";
 import { NotificationType } from "../../../enums/notification-type";
 import { NotificationMessage } from "../../../constants/notification-message";
+import { GridFilterCreater } from "../grid-filter-creater";
+import { GridFilterItem } from "../grid-filter-item";
+import { FilterOperators } from "../../../constants/filter-opertors";
 
 @Component({
     selector: 'clr-datagrid-experience-filter',
@@ -12,13 +15,17 @@ import { NotificationMessage } from "../../../constants/notification-message";
     providers: [EnumDataService],
     styleUrls: ['./experience-filter.scss']
 })
-export class ExperienceFilter implements Filter<any>, OnInit {
+export class ExperienceFilter implements Filter<any>, GridFilterCreater, OnInit {
     //@Input() experience: { value: number, name: string };
-    selectedExperiences: { [experience: string]: boolean } = {};
-    nbExperiences: number = 0;
-    private allExperiences: any[] = [];
+    @Input() propertyName: string;
+    public filter: GridFilterItem;
+
+    private selectedExperiences: { [experienceId: number]: boolean } = {};
+    private nbExperiences: number = 0;
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
+
+    private allExperiences: any[] = [];
 
     constructor(private enumService: EnumDataService,
         private notificationService: NotificationService) { }
@@ -34,19 +41,20 @@ export class ExperienceFilter implements Filter<any>, OnInit {
             });
     }
 
-    listSelected(): string[] {
-        const list: string[] = [];
-        for (const experience in this.selectedExperiences) {
+    listSelected(): string {
+        let list: string[] = [];
+        for (let experience in this.selectedExperiences) {
             if (this.selectedExperiences[experience]) {
                 list.push(experience);
             }
         }
-        return list;
+        return list.toString();
     }
 
-    toggleExperience(experience: string) {
-        this.selectedExperiences[experience] = !this.selectedExperiences[experience];
-        this.selectedExperiences[experience] ? this.nbExperiences++ : this.nbExperiences--;
+    toggleExperience(experienceId: number) {
+        this.selectedExperiences[experienceId] = !this.selectedExperiences[experienceId];
+        this.selectedExperiences[experienceId] ? this.nbExperiences++ : this.nbExperiences--;
+        this.filter = this.CreateGridFilterItem({ field: this.propertyName, operator: FilterOperators.CONTAINSARRAY, value: this.listSelected() });
         this.changes.emit(this.listSelected());
     }
 
@@ -58,4 +66,9 @@ export class ExperienceFilter implements Filter<any>, OnInit {
         return this.nbExperiences > 0;
     }
 
+    CreateGridFilterItem(item: GridFilterItem): GridFilterItem {
+        let val = item.value;
+
+        return { field: item.field, operator: item.operator, value: val };
+    }
 }
