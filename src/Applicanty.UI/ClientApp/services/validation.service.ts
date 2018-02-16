@@ -19,7 +19,8 @@ export class ValidationService {
             'invalidEmail': 'Entered value is not valid email address',
             'passwordsDoNotMatch': 'Password do not match',
             'invalidEndDate': 'End date can not be later than today',
-            'invalidTechnologiesCount': 'Number of technologies can not be less two'
+            'invalidTechnologiesCount': 'Number of technologies can not be less two'//,
+            //'invalidStartDate':'Start date cann\'t be later than end date'
         };
     }
 
@@ -80,4 +81,16 @@ export class ValidationService {
             return { 'invalidTechnologiesCount': true };
         }
     }
+
+    //public startAndEndDateValidator(formGroup) {
+    //    if (!formGroup.get('startDate').value || !formGroup.get('endDate').value
+    //        || formGroup.get('startDate').value === null || formGroup.get('endDate').value === null)
+    //        return null;
+
+    //    if (new Date(formGroup.get('startDate').value) < new Date(formGroup.get('endDate').value)) {
+    //        return null;
+    //    } else {
+    //        return { 'invalidStartDate': true };
+    //    }
+    //}
 }

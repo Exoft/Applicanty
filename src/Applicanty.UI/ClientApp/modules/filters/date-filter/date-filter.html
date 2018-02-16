@@ -1,0 +1,25 @@
+﻿<form [formGroup]="dateRangeForm">
+    <div>
+        <label for="startDate">Start Date:</label>
+    </div>
+
+    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+         [class.invalid]="dateRangeForm.get('startDate')?.invalid && (dateRangeForm.get('startDate')?.dirty || dateRangeForm.get('startDate')?.touched)">
+        <input class="form-control" type="date" formControlName="startDate" size="25" (change)="changeDate($event)">
+        <span class="tooltip-content">
+            {{ validationService.getValidatorErrorMessage(dateRangeForm.get('startDate')) }}
+        </span>
+    </div>
+
+    <div>
+        <label for="endDate">End Date:</label>
+    </div>
+
+    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+         [class.invalid]="dateRangeForm.get('endDate')?.invalid && (dateRangeForm.get('endDate')?.dirty || dateRangeForm.get('endDate')?.touched)">
+        <input class="form-control" type="date" formControlName="endDate" size="25">
+        <span class="tooltip-content">
+            {{ validationService.getValidatorErrorMessage(dateRangeForm.get('endDate')) }}
+        </span>
+    </div>
+</form>
