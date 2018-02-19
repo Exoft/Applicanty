@@ -12,7 +12,7 @@ import { GridFilterCreater } from "../grid-filter-creater";
     templateUrl: './text-filter.html',
     styleUrls: ['./text-filter.scss']
 })
-export class TextFilter implements Filter<any>, GridFilterCreater, OnInit{
+export class TextFilter implements Filter<any>, GridFilterCreater{
     private textInput;
 
     public filter: GridFilterItem;
@@ -28,14 +28,10 @@ export class TextFilter implements Filter<any>, GridFilterCreater, OnInit{
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
 
-    ngOnInit() {
-
-    }
-
     changeTextInput(event) {
         this.textInput = this.textFilterForm.get('textInput');
-        this.filter = this.CreateGridFilterItem({ field: this.propertyName, operator: FilterOperators.CONTAINS, value: this.textInput.value });
-        this.changes.emit(this.textInput ? this.textInput.value : '');
+        this.filter = this.CreateGridFilterItem();
+        this.changes.emit(this.filter);
     }
 
     accepts() {
@@ -49,9 +45,7 @@ export class TextFilter implements Filter<any>, GridFilterCreater, OnInit{
         return false;
     }
 
-    CreateGridFilterItem(item: GridFilterItem): GridFilterItem {
-        let val = item.value;
-
-        return { field: item.field, operator: item.operator, value: val };
+    CreateGridFilterItem(): GridFilterItem {
+        return { field: this.propertyName, operator: FilterOperators.CONTAINS, value: this.textInput.value };
     }
 }

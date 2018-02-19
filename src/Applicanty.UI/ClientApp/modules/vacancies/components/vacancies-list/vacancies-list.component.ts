@@ -124,12 +124,16 @@ export class VacanciesListComponent implements OnInit {
 
     public getFiltersList(stateFilters: Filter<any>[]) {
         let filterList: any[] = [];
+
         if (stateFilters) {
             for (let item of stateFilters) {
-                filterList.push(item['filter']);
+                if (Array.isArray(item['filter'])) {
+                    filterList = filterList.concat(item['filter']);
+                } else {
+                    filterList.push(item['filter']);
+                }
             }
         }
-
         return filterList;
     }
 

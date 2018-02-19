@@ -54,8 +54,8 @@ export class ExperienceFilter implements Filter<any>, GridFilterCreater, OnInit 
     toggleExperience(experienceId: number) {
         this.selectedExperiences[experienceId] = !this.selectedExperiences[experienceId];
         this.selectedExperiences[experienceId] ? this.nbExperiences++ : this.nbExperiences--;
-        this.filter = this.CreateGridFilterItem({ field: this.propertyName, operator: FilterOperators.CONTAINSARRAY, value: this.listSelected() });
-        this.changes.emit(this.listSelected());
+        this.filter = this.CreateGridFilterItem();
+        this.changes.emit(this.filter);
     }
 
     accepts(item: any) {
@@ -66,9 +66,7 @@ export class ExperienceFilter implements Filter<any>, GridFilterCreater, OnInit 
         return this.nbExperiences > 0;
     }
 
-    CreateGridFilterItem(item: GridFilterItem): GridFilterItem {
-        let val = item.value;
-
-        return { field: item.field, operator: item.operator, value: val };
+    CreateGridFilterItem(): GridFilterItem {
+        return { field: this.propertyName, operator: FilterOperators.CONTAINSARRAY, value: this.listSelected() };
     }
 }

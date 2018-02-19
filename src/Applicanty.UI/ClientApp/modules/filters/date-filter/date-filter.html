@@ -17,7 +17,7 @@
 
     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
          [class.invalid]="dateRangeForm.get('endDate')?.invalid && (dateRangeForm.get('endDate')?.dirty || dateRangeForm.get('endDate')?.touched)">
-        <input class="form-control" type="date" formControlName="endDate" size="25">
+        <input class="form-control" type="date" formControlName="endDate" size="25" (change)="changeDate($event)">
         <span class="tooltip-content">
             {{ validationService.getValidatorErrorMessage(dateRangeForm.get('endDate')) }}
         </span>

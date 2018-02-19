@@ -1,5 +1,7 @@
 ﻿import { GridFilterItem } from "./grid-filter-item";
 
 export interface GridFilterCreater {
-    CreateGridFilterItem(item: GridFilterItem): GridFilterItem;
+    propertyName: string;
+    filter: GridFilterItem | GridFilterItem[];
+    CreateGridFilterItem(): GridFilterItem | GridFilterItem[];
 }

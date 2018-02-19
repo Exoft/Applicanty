@@ -43,7 +43,7 @@
     <clr-dg-column [clrDgField]="'endDate'">
         End Date
         <clr-dg-filter [clrDgFilter]="dateFilter">
-            <clr-datagrid-date-filter #dateFilter>
+            <clr-datagrid-date-filter #dateFilter [propertyName]="'endDate'">
             </clr-datagrid-date-filter>
         </clr-dg-filter>
     </clr-dg-column>
