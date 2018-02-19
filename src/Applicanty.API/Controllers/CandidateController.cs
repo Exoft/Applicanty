@@ -58,7 +58,7 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<CandidateGridDto>
                 {
-                    Result = request.Request(candidates),
+                    Result = request.Request(ref candidates),
                     TotalCount = candidates.Count()
                 };
 

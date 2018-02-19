@@ -15,10 +15,13 @@ namespace Applicanty.API.Helpers
         public string SortDir { get; set; }
         public List<FilterItem> Filters { get; set; }
 
-        public IQueryable<TEntity> Request<TEntity>(IQueryable<TEntity> collection)
+        public IQueryable<TEntity> Request<TEntity>(ref IQueryable<TEntity> collection)
         {
             ApplySorting(ref collection);
             ApplyFiltering(ref collection);
+
+            if (Take != null && Skip != null)
+                collection = collection.Skip(Skip.Value).Take(Take.Value);
 
             return collection;
         }
@@ -47,7 +50,7 @@ namespace Applicanty.API.Helpers
                             $"{BuildWhereClause<TEntity>(i, Filters[i], parameters)}";
                     else
                         whereClause +=
-                           $" || {BuildWhereClause<TEntity>(i, Filters[i], parameters)}";
+                           $" && {BuildWhereClause<TEntity>(i, Filters[i], parameters)}";
                 }
                 collection = collection.Where(whereClause, parameters.ToArray());
             }
@@ -67,7 +70,7 @@ namespace Applicanty.API.Helpers
                     if (typeof(DateTime).IsAssignableFrom(property.PropertyType))
                     {
                         parameters.Add(DateTime.Parse(filter.Value).Date);
-                        return string.Format("EntityFunctions.TruncateTime({0}){1}@{2}",
+                        return string.Format("{0}{1}@{2}",
                             filter.Field,
                             ToLinqOperator(filter.Operator),
                             index);
