@@ -1,10 +1,5 @@
 ﻿import { Component, EventEmitter, Input, OnInit } from "@angular/core";
 import { Filter } from "clarity-angular";
-import { EnumDataService } from "../../../services/enum.data.service";
-import { NotificationService } from "../../../services/notification.service";
-import { EnumNames } from "../../../constants/enum-names";
-import { NotificationType } from "../../../enums/notification-type";
-import { NotificationMessage } from "../../../constants/notification-message";
 import { GridFilterCreater } from "../grid-filter-creater";
 import { GridFilterItem } from "../grid-filter-item";
 import { FilterOperators } from "../../../constants/filter-opertors";
@@ -12,9 +7,9 @@ import { FilterOperators } from "../../../constants/filter-opertors";
 @Component({
     selector: 'clr-datagrid-experience-filter',
     templateUrl: './experience-filter.html',
-    providers: [EnumDataService],
     styleUrls: ['./experience-filter.scss']
 })
+
 export class ExperienceFilter implements Filter<any>, GridFilterCreater{
     @Input() experiences: any[] = [];
     @Input() propertyName: string = '';
@@ -24,9 +19,6 @@ export class ExperienceFilter implements Filter<any>, GridFilterCreater{
     private nbExperiences: number = 0;
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
-
-    constructor(private enumService: EnumDataService,
-        private notificationService: NotificationService) { }
 
     listSelected(): string {
         let list: string[] = [];

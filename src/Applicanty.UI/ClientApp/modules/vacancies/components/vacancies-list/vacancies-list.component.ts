@@ -88,6 +88,7 @@ export class VacanciesListComponent implements OnInit {
             sortDir: that.sortField.reverse == true ? 'desc' : 'asc',
             filters: filters
         };
+
         that.vacanciesDataService.getVacancies(that.currentStatus, gridRequest).subscribe(
             data => {
                 that.vacanciesList = data.result;
@@ -122,16 +123,12 @@ export class VacanciesListComponent implements OnInit {
 
     }
 
-    public getFiltersList(stateFilters: Filter<any>[]) {
+    public getFiltersList(stateFilters: Filter<any>[]): any[] {
         let filterList: any[] = [];
 
         if (stateFilters) {
             for (let item of stateFilters) {
-                if (Array.isArray(item['filter'])) {
                     filterList = filterList.concat(item['filter']);
-                } else {
-                    filterList.push(item['filter']);
-                }
             }
         }
         return filterList;

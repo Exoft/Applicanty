@@ -15,7 +15,7 @@ import { GridFilterCreater } from "../grid-filter-creater";
 export class TextFilter implements Filter<any>, GridFilterCreater{
     private textInput;
 
-    public filter: GridFilterItem | null;
+    public filter: GridFilterItem | null = null;
 
     @Input() propertyName: string='';
 
@@ -24,7 +24,6 @@ export class TextFilter implements Filter<any>, GridFilterCreater{
     });
 
     constructor(private validationService: ValidationService) {
-        this.filter = null;
     }
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);

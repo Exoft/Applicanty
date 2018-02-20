@@ -21,32 +21,30 @@ export class DateFilter implements Filter<any>, GridFilterCreater{
     private endDate;
 
     public dateRangeForm: FormGroup = new FormGroup({
-        'startDate': new FormControl(null, [this.validationService.endDateValidator]),
-        'endDate': new FormControl(null, [this.validationService.endDateValidator])
-    });
+        'lowerDateLimit': new FormControl(null, [this.validationService.endDateValidator]),
+        'upperDateLimit': new FormControl(null, [this.validationService.endDateValidator])
+    }, this.validationService.dateRangeValidator);
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
 
     constructor(private validationService: ValidationService) { }
 
     changeDate(event) {
-        this.startDate = this.dateRangeForm.get('startDate');
-        this.endDate = this.dateRangeForm.get('endDate');
+        this.startDate = this.dateRangeForm.get('lowerDateLimit');
+        this.endDate = this.dateRangeForm.get('upperDateLimit');
         this.filter = this.CreateGridFilterItem();
 
         this.changes.emit(this.filter);
     }
 
-    accepts(item: Date) {
+    accepts() {
         if (this.startDate)
-            //    return true ? this.val.value : false;//this.nbExperiences === 0 || this.selectedExperiences[item];
             return this.startDate.value;
     }
 
     isActive(): boolean {
-        //return this.nbExperiences > 0;
         if (this.startDate || this.endDate)
-            return this.dateRangeForm.valid && (this.startDate.value || this.endDate);
+            return this.dateRangeForm.valid && (this.startDate.value || this.endDate.value);
         return false;
     }
 

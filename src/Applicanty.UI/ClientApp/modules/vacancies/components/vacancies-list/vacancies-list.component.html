@@ -33,9 +33,6 @@
     <clr-dg-column [clrDgField]="'experienceId'">
         Experience Levels
         <clr-dg-filter [clrDgFilter]="experienceFilter">
-            <!--<clr-datagrid-experience-filter #experienceFilter *ngFor="let experience of experiences"
-                                            [experience]="experience">
-            </clr-datagrid-experience-filter>-->
             <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
             </clr-datagrid-experience-filter>
         </clr-dg-filter>

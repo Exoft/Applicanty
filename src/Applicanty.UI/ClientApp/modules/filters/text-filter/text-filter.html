@@ -1,4 +1,7 @@
 ﻿<form [formGroup]="textFilterForm">
+    <div>
+        <label for="textInput">Search:</label>
+    </div>
 
     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
          [class.invalid]="textFilterForm.get('textInput')?.invalid && (textFilterForm.get('textInput')?.dirty || textFilterForm.get('textInput')?.touched)">
@@ -7,5 +10,4 @@
             {{ validationService.getValidatorErrorMessage(textFilterForm.get('textInput')) }}
         </span>
     </div>
-
 </form>
