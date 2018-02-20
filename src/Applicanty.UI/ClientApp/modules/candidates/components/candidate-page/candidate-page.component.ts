@@ -10,6 +10,8 @@ import { EnumDataService } from '../../../../services/enum.data.service';
 import { EnumNames } from '../../../../constants/enum-names';
 import { NotificationMessage } from "../../../../constants/notification-message";
 import { VacanciesDataService } from "../../../vacancies/services/vacancies-data.service";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
     templateUrl: './candidate-page.component.html',
@@ -32,6 +34,8 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     public vacancyStages: any[] = [];
     public vacancies: any[] = [];
     public candidateVacancyStage: any[] = [];
+    public vacanciesOfCadidata: any[] = [];
+    public vacanciesForTheChoice: any[] = [];
 
     public candidatePageFrom: FormGroup = new FormGroup({
         'id': new FormControl(''),
@@ -115,16 +119,6 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, NotificationMessage.TECHNOLOGIESLOADERROR);
             });
-
-        that.candidatesDataService.vacancyGetByCandidate(that.id).subscribe(
-            data => {
-                that.candidateVacancyStage = data;
-            },
-            error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
-            });
-
     }
 
     ngOnDestroy() {
@@ -207,13 +201,28 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     public showModal(event) {
         this.setStageModalVisible = true;
 
-        this.candidatesDataService.vacancyGetByTechnologyAndExperience(this.experienceId, this.technologyIds).subscribe(
+        let formData = this.candidatePageFrom.value;
+
+        Observable.forkJoin(
+            this.candidatesDataService.vacancyGetByCandidate(this.id),
+            this.candidatesDataService.vacancyGetByTechnologyAndExperience(this.experienceId, this.technologyIds))
+            .subscribe(
             data => {
-                this.vacancies = data;
+                this.vacanciesOfCadidata = data[0];
+                this.vacanciesForTheChoice = data[1];
+                for (let i = 0; i < this.vacanciesForTheChoice.length; i++) {
+                    if (this.vacanciesOfCadidata.indexOf(this.vacanciesOfCadidata[i]) == -1) {
+                        this.vacancies.push(this.vacanciesForTheChoice[i]);
+                    }
+                }
+            })
+
+        this.candidatesDataService.updateCandidate(formData).subscribe(
+            data => {
             },
             error => {
                 if (error.status == 400)
-                    this.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCIESLOADERROR);
+                    this.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATECHANGESTATUSERROR);
             });
     }
 
@@ -223,14 +232,27 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             let formData = that.candidateAttachVacancyForm.value;
             that.candidatesDataService.attachCandidateStageToVacancy(formData).subscribe(
                 data => {
-                    that.notificationService.notify(NotificationType.Success, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCY);
                     that.setStageModalVisible = false;
-                  
+                    that.refreshCurrentVacancyList();
                 },
                 error => {
                     if (error.status == 400)
                         that.notificationService.notify(NotificationType.Error, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCYERROR);
                 });
         }
+
+    }
+
+    public refreshCurrentVacancyList() {
+        let that = this;
+
+        that.candidatesDataService.vacancyGetByCandidate(that.id).subscribe(
+            data => {
+                that.candidateVacancyStage = data;
+            },
+            error => {
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
+            });
     }
 }
