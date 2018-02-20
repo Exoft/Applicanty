@@ -4,9 +4,9 @@
               [class.color-selected]="selectedExperiences[experience.name]">
         <span >{{experience.name}}</span>
     </li>-->
-    <li class="color-square color-selectable" *ngFor="let experience of allExperiences"
-        (click)="toggleExperience(experience.value)"
-        [class.color-selected]="selectedExperiences[experience.value]">
-        <span>{{experience.name}}</span>
+    <li class="color-square color-selectable" *ngFor="let experience of experiences"
+        (click)="toggleExperience(experience?.value)"
+        [class.color-selected]="selectedExperiences[experience?.value]">
+        <span>{{experience?.name}}</span>
     </li>
 </ul>

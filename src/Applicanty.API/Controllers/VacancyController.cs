@@ -54,7 +54,7 @@ namespace Applicanty.API.Controllers
 
                 var response = new Response<VacancyGridDto>
                 {
-                    Result = request.Request(ref vacancies),
+                    Result = request.Request(vacancies),
                     TotalCount = vacancies.Count()
                 };
 

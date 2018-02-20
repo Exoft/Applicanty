@@ -13,8 +13,8 @@ import { FilterOperators } from "../../../constants/filter-opertors";
     styleUrls: ['./date-filter.scss']
 })
 export class DateFilter implements Filter<any>, GridFilterCreater{
-    public filter: GridFilterItem[];
-    @Input() propertyName: string;
+    public filter: GridFilterItem[]=[];
+    @Input() propertyName: string='';
     filterOperator: FilterOperators = FilterOperators.GREATETHENOREQUELTO;
 
     private startDate;

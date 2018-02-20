@@ -15,15 +15,16 @@ import { GridFilterCreater } from "../grid-filter-creater";
 export class TextFilter implements Filter<any>, GridFilterCreater{
     private textInput;
 
-    public filter: GridFilterItem;
+    public filter: GridFilterItem | null;
 
-    @Input() propertyName: string;
+    @Input() propertyName: string='';
 
     public textFilterForm: FormGroup = new FormGroup({
         'textInput': new FormControl('', [Validators.required]),
     });
 
     constructor(private validationService: ValidationService) {
+        this.filter = null;
     }
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);

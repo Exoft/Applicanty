@@ -15,31 +15,18 @@ import { FilterOperators } from "../../../constants/filter-opertors";
     providers: [EnumDataService],
     styleUrls: ['./experience-filter.scss']
 })
-export class ExperienceFilter implements Filter<any>, GridFilterCreater, OnInit {
-    //@Input() experience: { value: number, name: string };
-    @Input() propertyName: string;
-    public filter: GridFilterItem;
+export class ExperienceFilter implements Filter<any>, GridFilterCreater{
+    @Input() experiences: any[] = [];
+    @Input() propertyName: string = '';
+    public filter: GridFilterItem | null = null;
 
     private selectedExperiences: { [experienceId: number]: boolean } = {};
     private nbExperiences: number = 0;
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
 
-    private allExperiences: any[] = [];
-
     constructor(private enumService: EnumDataService,
         private notificationService: NotificationService) { }
-
-    ngOnInit() {
-        let that = this;
-        that.enumService.getEnums(EnumNames.EXPERIENCE).subscribe(
-            data => {
-                that.allExperiences = data.result;
-            }, error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
-            });
-    }
 
     listSelected(): string {
         let list: string[] = [];

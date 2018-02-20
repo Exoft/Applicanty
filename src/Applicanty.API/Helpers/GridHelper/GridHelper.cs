@@ -15,7 +15,7 @@ namespace Applicanty.API.Helpers
         public string SortDir { get; set; }
         public List<FilterItem> Filters { get; set; }
 
-        public IQueryable<TEntity> Request<TEntity>(ref IQueryable<TEntity> collection)
+        public IQueryable<TEntity> Request<TEntity>(IQueryable<TEntity> collection)
         {
             ApplySorting(ref collection);
             ApplyFiltering(ref collection);
@@ -30,10 +30,6 @@ namespace Applicanty.API.Helpers
         {
             if (SortField != null)
                 collection = collection.OrderBy($"{SortField } {SortDir}");
-
-            if (Take != null && Skip != null)
-                collection = collection.Skip(Skip.Value).Take(Take.Value);
-
         }
 
         private void ApplyFiltering<TEntity>(ref IQueryable<TEntity> collection)
@@ -60,7 +56,7 @@ namespace Applicanty.API.Helpers
             List<object> parameters)
         {
             var entityType = (typeof(TEntity));
-            var property = entityType.GetProperty(filter.Field);
+            var property = entityType.GetProperty((UppercaseFirst(filter.Field)));
 
             switch (filter.Operator.ToLower())
             {
@@ -172,6 +168,15 @@ namespace Applicanty.API.Helpers
                 default:
                     return null;
             }
+        }
+
+        public static string UppercaseFirst(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return string.Empty;
+            }
+            return char.ToUpper(str[0]) + str.Substring(1);
         }
     }
 }

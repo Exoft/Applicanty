@@ -2,6 +2,6 @@
 
 export interface GridFilterCreater {
     propertyName: string;
-    filter: GridFilterItem | GridFilterItem[];
+    filter: GridFilterItem | GridFilterItem[] | null;
     CreateGridFilterItem(): GridFilterItem | GridFilterItem[];
 }
