@@ -34,20 +34,30 @@
     <None Remove="ClientApp\modules\candidates\components\candidate.component.ts" />
     <None Remove="ClientApp\modules\candidates\components\candidates-list\transform-birthdate-to-age.pipe.ts" />
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
+    <None Remove="ClientApp\modules\filters\date-filter\date-filter.ts" />
+    <None Remove="ClientApp\modules\filters\experience-filter\experience-filter.ts" />
+    <None Remove="ClientApp\modules\filters\text-filter\text-filter.ts" />
     <None Remove="ClientApp\modules\notfound\components\notfound.component.ts" />
     <None Remove="ClientApp\services\enum.data.service.ts" />
+    <None Remove="ClientApp\services\grid-request.ts" />
     <None Remove="ClientApp\services\http-interceptor.ts" />
     <None Remove="ClientApp\services\notification.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\constants\enum-names.ts" />
+    <TypeScriptCompile Include="ClientApp\constants\filter-opertors.ts" />
     <TypeScriptCompile Include="ClientApp\constants\notification-message.ts" />
     <TypeScriptCompile Include="ClientApp\constants\status-commands.ts" />
     <TypeScriptCompile Include="ClientApp\enums\notification-type.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\candidates.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\candidates-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\transform-birthdate-to-age.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\filters\date-filter\date-filter.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\filters\experience-filter\experience-filter.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\filters\grid-filter-item.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\filters\grid-filter-creater.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\filters\text-filter\text-filter.ts" />
     <TypeScriptCompile Include="ClientApp\modules\notfound\components\notfound.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\notfound\notfound.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\components\dashboard.component.ts" />
@@ -58,6 +68,7 @@
     <TypeScriptCompile Include="ClientApp\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\services\vacancies-data.service.ts" />
     <TypeScriptCompile Include="ClientApp\services\enum.data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\services\grid-request.ts" />
     <TypeScriptCompile Include="ClientApp\services\http-interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\services\notification.service.ts" />
   </ItemGroup>
