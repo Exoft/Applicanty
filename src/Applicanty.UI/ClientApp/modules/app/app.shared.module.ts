@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AppComponent } from './components/app/app.component';
 
@@ -44,6 +45,7 @@ import { AuthenticationInterceptor } from "../../services/http-interceptor";
         DashboardModule,
         NotFoundModule,
         CommonModule,
+        HttpModule,
         FormsModule,
         ReactiveFormsModule,
         ClarityModule.forRoot(),
@@ -62,7 +64,8 @@ import { AuthenticationInterceptor } from "../../services/http-interceptor";
             ...notfoundRoutes,
             
             { path: '**', redirectTo: 'notfound' }
-        ])
+        ]),
+        TranslateModule.forRoot()
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -16,7 +16,7 @@ const treeShakableModules = [
     'clarity-icons',
     'clarity-icons/shapes/all-shapes',
     'clarity-angular',
-    'zone.js',
+    'zone.js'
 ];
 const nonTreeShakableModules = [
     "froala-editor/css/froala_editor.pkgd.min.css",

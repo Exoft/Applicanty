@@ -3,54 +3,54 @@
         <clr-button-group class="btn-sm">
             <clr-button class="btn-success-outline" [routerLink]="['newvacancy']">
                 <clr-icon shape="plus"></clr-icon>
-                Add
+                {{'add' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
-                Set active
+                {{'Set active' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
-                Set archived
+               {{'Set archived' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
-                Set deleted
+                {{'Set deleted' | translate}}
             </clr-button>
         </clr-button-group>
         <clr-button-group class="btn-sm align-left-button-group">
             <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
-                Show {{item?.name}}
+                {{'show' | translate}} {{item?.name}}
             </clr-button>
         </clr-button-group>
     </clr-dg-action-bar>
 
 
     <clr-dg-column [clrDgField]="'title'">
-        Title
+        {{'title' | translate}}
         <clr-dg-filter [clrDgFilter]="textFilter">
             <clr-datagrid-text-filter #textFilter [propertyName]="'title'">
             </clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'experienceId'">
-        Experience Levels
+        {{'experience levels' | translate}}
         <clr-dg-filter [clrDgFilter]="experienceFilter">
             <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
             </clr-datagrid-experience-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'endDate'">
-        End Date
+        {{'end date' | translate}}
         <clr-dg-filter [clrDgFilter]="dateFilter">
             <clr-datagrid-date-filter #dateFilter [propertyName]="'endDate'">
             </clr-datagrid-date-filter>
         </clr-dg-filter>
     </clr-dg-column>
-    <clr-dg-column>Status</clr-dg-column>
+    <clr-dg-column>{{'status' | translate}}</clr-dg-column>
 
     <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
         <clr-dg-action-overflow>
-            <button class="action-item" (click)="changeStatus($event, [item], active)">Activate</button>
-            <button class="action-item" (click)="changeStatus($event, [item], archived)">Archive</button>
-            <button class="action-item" (click)="changeStatus($event, [item], deleted)">Delete</button>
+            <button class="action-item" (click)="changeStatus($event, [item], active)">{{'activate' | translate}}</button>
+            <button class="action-item" (click)="changeStatus($event, [item], archived)">{{'archive' | translate}}</button>
+            <button class="action-item" (click)="changeStatus($event, [item], deleted)">{{'delete' | translate}}</button>
         </clr-dg-action-overflow>
 
         <clr-dg-cell>
