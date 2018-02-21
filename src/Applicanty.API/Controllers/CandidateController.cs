@@ -49,18 +49,13 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult GetAll([FromQuery]GridHelper request, StatusType statusType)
+        [HttpPost("GetAll")]
+        public IActionResult GetAll([FromBody]GridHelper request, StatusType statusType)
         {
             try
             {
                 var candidates = _candidateService.GetAll<CandidateGridDto>(item => item.StatusId == statusType).AsQueryable();
-
-                var response = new Response<CandidateGridDto>
-                {
-                    Result = request.Request(candidates),
-                    TotalCount = candidates.Count()
-                };
+                var response = request.FilterAndSort(candidates);
 
                 return Json(response);
             }

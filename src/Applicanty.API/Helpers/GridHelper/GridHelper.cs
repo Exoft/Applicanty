@@ -1,4 +1,5 @@
 ﻿using Applicanty.Core.Entities;
+using Applicanty.Core.Responses;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,15 +16,18 @@ namespace Applicanty.API.Helpers
         public string SortDir { get; set; }
         public List<FilterItem> Filters { get; set; }
 
-        public IQueryable<TEntity> Request<TEntity>(IQueryable<TEntity> collection)
+        public Response<TEntity> FilterAndSort<TEntity>(IQueryable<TEntity> collection)
         {
             ApplySorting(ref collection);
             ApplyFiltering(ref collection);
 
-            if (Take != null && Skip != null)
-                collection = collection.Skip(Skip.Value).Take(Take.Value);
+            var response = new Response<TEntity>
+            {
+                Result = collection.Skip(Skip.Value).Take(Take.Value),
+                TotalCount = collection.Count()
+            };
 
-            return collection;
+            return response;
         }
 
         private void ApplySorting<TEntity>(ref IQueryable<TEntity> collection)
@@ -52,72 +56,18 @@ namespace Applicanty.API.Helpers
             }
         }
 
-        private static string BuildWhereClause<TEntity>(int index, FilterItem filter,
-            List<object> parameters)
+        private static string BuildWhereClause<TEntity>(int index, FilterItem filter, List<object> parameters)
         {
             var entityType = (typeof(TEntity));
             var property = entityType.GetProperty((UppercaseFirst(filter.Field)));
 
             switch (filter.Operator.ToLower())
             {
-                case "eq":
                 case "gte":
                 case "lte":
                     if (typeof(DateTime).IsAssignableFrom(property.PropertyType))
                     {
                         parameters.Add(DateTime.Parse(filter.Value).Date);
-                        return string.Format("{0}{1}@{2}",
-                            filter.Field,
-                            ToLinqOperator(filter.Operator),
-                            index);
-                    }
-                    if (typeof(int).IsAssignableFrom(property.PropertyType))
-                    {
-                        parameters.Add(int.Parse(filter.Value));
-                        return string.Format("{0}{1}@{2}",
-                            filter.Field,
-                            ToLinqOperator(filter.Operator),
-                            index);
-                    }
-                    if (typeof(decimal).IsAssignableFrom(property.PropertyType))
-                    {
-                        parameters.Add(int.Parse(filter.Value));
-                        return string.Format("{0}{1}@{2}",
-                            filter.Field,
-                            ToLinqOperator(filter.Operator),
-                            index);
-                    }
-                    if (typeof(bool).IsAssignableFrom(property.PropertyType))
-                    {
-                        parameters.Add(bool.Parse(filter.Value));
-                        return string.Format("{0}{1}@{2}",
-                            filter.Field,
-                            ToLinqOperator(filter.Operator),
-                            index);
-                    }
-                    if (typeof(string).IsAssignableFrom(property.PropertyType))
-                    {
-                        parameters.Add(filter.Value.ToString());
-                        return string.Format("{0}{1}@{2}",
-                            filter.Field,
-                            ToLinqOperator(filter.Operator),
-                            index);
-                    }
-                    if (typeof(bool).IsAssignableFrom(property.PropertyType))
-                    {
-                        parameters.Add(bool.Parse(filter.Value));
-                        return string.Format("{0}{1}@{2}",
-                            filter.Field,
-                            ToLinqOperator(filter.Operator),
-                            index);
-                    }
-                    if (typeof(Enum).IsAssignableFrom(property.PropertyType))
-                    {
-                        int number;
-                        if (Int32.TryParse(filter.Value, out number))
-                        {
-                            parameters.Add(Enum.ToObject(property.PropertyType, int.Parse(filter.Value)));
-                        }
                         return string.Format("{0}{1}@{2}",
                             filter.Field,
                             ToLinqOperator(filter.Operator),
@@ -149,22 +99,10 @@ namespace Applicanty.API.Helpers
         {
             switch (@operator.ToLower())
             {
-                case "eq":
-                    return " == ";
-                case "neq":
-                    return " != ";
                 case "gte":
                     return " >= ";
-                case "gt":
-                    return " > ";
                 case "lte":
                     return " <= ";
-                case "lt":
-                    return " < ";
-                case "or":
-                    return " || ";
-                case "and":
-                    return " && "; // &amp;&amp; todo
                 default:
                     return null;
             }

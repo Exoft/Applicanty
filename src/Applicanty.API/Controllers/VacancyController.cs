@@ -51,12 +51,7 @@ namespace Applicanty.API.Controllers
             try
             {
                 var vacancies = _vacancyService.GetAll<VacancyGridDto>(item => item.StatusId == statusType).AsQueryable();
-
-                var response = new Response<VacancyGridDto>
-                {
-                    Result = request.Request(vacancies),
-                    TotalCount = vacancies.Count()
-                };
+                var response = request.FilterAndSort(vacancies);
 
                 return Json(response);
             }
