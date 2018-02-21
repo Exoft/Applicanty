@@ -13,6 +13,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { VacanciesListComponent } from '../vacancies/components/vacancies-list/vacancies-list.component';
 import { AuthGuard } from '../../services/authguard.service';
 import { VacancyPageComponent } from '../vacancies/components/vacancy-page/vacancy-page.component';
+import { ExperienceFilter } from "../filters/experience-filter/experience-filter";
+import { DateFilter } from "../filters/date-filter/date-filter";
+import { TextFilter } from "../filters/text-filter/text-filter";
 
 import { VacanciesDataService } from './services/vacancies-data.service';
 import { EnumDataService } from '../../services/enum.data.service';
@@ -30,7 +33,10 @@ export const vacanciesRoutes = [
 @NgModule({
     declarations: [
         VacanciesListComponent,
-        VacancyPageComponent
+        VacancyPageComponent,
+        ExperienceFilter,
+        DateFilter,
+        TextFilter
     ],
     providers: [
         VacanciesDataService,

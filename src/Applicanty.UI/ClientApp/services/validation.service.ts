@@ -19,7 +19,8 @@ export class ValidationService {
             'invalidEmail': 'Entered value is not valid email address',
             'passwordsDoNotMatch': 'Password do not match',
             'invalidEndDate': 'End date can not be later than today',
-            'invalidTechnologiesCount': 'Number of technologies can not be less two'
+            'invalidTechnologiesCount': 'Number of technologies can not be less two',
+            'invalidLowerDateLimit': 'Lower date limit  cannot be later than upper date limit'
         };
     }
 
@@ -78,6 +79,18 @@ export class ValidationService {
             return null;
         } else {
             return { 'invalidTechnologiesCount': true };
+        }
+    }
+
+    public dateRangeValidator(formGroup) {
+        if (!formGroup.get('lowerDateLimit').value || !formGroup.get('upperDateLimit').value
+            || formGroup.get('lowerDateLimit').value === null || formGroup.get('upperDateLimit').value === null)
+            return null;
+
+        if (new Date(formGroup.get('lowerDateLimit').value) < new Date(formGroup.get('upperDateLimit').value)) {
+            return null;
+        } else {
+            return { 'invalidLowerDateLimit': true };
         }
     }
 }

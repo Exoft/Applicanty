@@ -22,10 +22,29 @@
         </clr-button-group>
     </clr-dg-action-bar>
 
-    <clr-dg-column [clrDgField]="'title'">Title</clr-dg-column>
-    <clr-dg-column [clrDgField]="'experienceId'">Experience Levels</clr-dg-column>
-    <clr-dg-column [clrDgField]="'endDate'">End Date</clr-dg-column>
-    <clr-dg-column [clrDgField]="'statusId'">Status</clr-dg-column>
+
+    <clr-dg-column [clrDgField]="'title'">
+        Title
+        <clr-dg-filter [clrDgFilter]="textFilter">
+            <clr-datagrid-text-filter #textFilter [propertyName]="'title'">
+            </clr-datagrid-text-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'experienceId'">
+        Experience Levels
+        <clr-dg-filter [clrDgFilter]="experienceFilter">
+            <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
+            </clr-datagrid-experience-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'endDate'">
+        End Date
+        <clr-dg-filter [clrDgFilter]="dateFilter">
+            <clr-datagrid-date-filter #dateFilter [propertyName]="'endDate'">
+            </clr-datagrid-date-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
+    <clr-dg-column>Status</clr-dg-column>
 
     <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
         <clr-dg-action-overflow>
@@ -39,7 +58,7 @@
                 {{item?.title}}
             </a>
         </clr-dg-cell>
-        <clr-dg-cell>{{experiences[item?.experienceId]}}</clr-dg-cell>
+        <clr-dg-cell>{{experiences[item?.experienceId].name}}</clr-dg-cell>
         <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
         <clr-dg-cell>{{statuses[item?.statusId].name}}</clr-dg-cell>
     </clr-dg-row>
