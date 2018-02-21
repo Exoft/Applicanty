@@ -10,7 +10,7 @@ import { FilterOperators } from "../../../constants/filter-opertors";
     styleUrls: ['./experience-filter.scss']
 })
 
-export class ExperienceFilter implements Filter<any>, GridFilterCreater{
+export class ExperienceFilter implements Filter<any>, GridFilterCreater {
     @Input() experiences: any[] = [];
     @Input() propertyName: string = '';
     public filter: GridFilterItem | null = null;

@@ -14,7 +14,7 @@ using Applicanty.Core.Enums;
 namespace Applicanty.API.Controllers
 {
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class VacancyController : BaseController<Vacancy>
     {
         private readonly IVacancyService _vacancyService;

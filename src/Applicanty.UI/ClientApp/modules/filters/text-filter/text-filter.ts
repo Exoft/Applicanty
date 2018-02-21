@@ -12,12 +12,12 @@ import { GridFilterCreater } from "../grid-filter-creater";
     templateUrl: './text-filter.html',
     styleUrls: ['./text-filter.scss']
 })
-export class TextFilter implements Filter<any>, GridFilterCreater{
+export class TextFilter implements Filter<any>, GridFilterCreater {
     private textInput;
 
     public filter: GridFilterItem | null = null;
 
-    @Input() propertyName: string='';
+    @Input() propertyName: string = '';
 
     public textFilterForm: FormGroup = new FormGroup({
         'textInput': new FormControl('', [Validators.required]),
