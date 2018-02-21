@@ -6,13 +6,13 @@
                 {{'add' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
-                {{'Set active' | translate}}
+                {{'setActive' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
-               {{'Set archived' | translate}}
+               {{'setArchived' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
-                {{'Set deleted' | translate}}
+                {{'setDeleted' | translate}}
             </clr-button>
         </clr-button-group>
         <clr-button-group class="btn-sm align-left-button-group">
@@ -31,14 +31,14 @@
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'experienceId'">
-        {{'experience levels' | translate}}
+        {{'experienceLevels' | translate}}
         <clr-dg-filter [clrDgFilter]="experienceFilter">
             <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
             </clr-datagrid-experience-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'endDate'">
-        {{'end date' | translate}}
+        {{'endDate' | translate}}
         <clr-dg-filter [clrDgFilter]="dateFilter">
             <clr-datagrid-date-filter #dateFilter [propertyName]="'endDate'">
             </clr-datagrid-date-filter>
