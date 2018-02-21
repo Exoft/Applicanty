@@ -8,7 +8,6 @@ import { FilterOperators } from "../../../constants/filter-opertors";
 
 @Component({
     selector: 'clr-datagrid-date-filter',
-    providers: [ValidationService],
     templateUrl: './date-filter.html',
     styleUrls: ['./date-filter.scss']
 })

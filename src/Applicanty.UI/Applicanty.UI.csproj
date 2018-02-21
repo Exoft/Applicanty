@@ -36,6 +36,7 @@
     <None Remove="ClientApp\modules\dashboard\dashboard.module.ts" />
     <None Remove="ClientApp\modules\filters\date-filter\date-filter.ts" />
     <None Remove="ClientApp\modules\filters\experience-filter\experience-filter.ts" />
+    <None Remove="ClientApp\modules\filters\filters.module.ts" />
     <None Remove="ClientApp\modules\filters\text-filter\text-filter.ts" />
     <None Remove="ClientApp\modules\notfound\components\notfound.component.ts" />
     <None Remove="ClientApp\services\enum.data.service.ts" />
@@ -60,6 +61,7 @@
     <TypeScriptCompile Include="ClientApp\modules\candidates\components\candidates-list\transform-birthdate-to-age.pipe.ts" />
     <TypeScriptCompile Include="ClientApp\modules\filters\date-filter\date-filter.ts" />
     <TypeScriptCompile Include="ClientApp\modules\filters\experience-filter\experience-filter.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\filters\filters.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\filters\grid-filter-item.ts" />
     <TypeScriptCompile Include="ClientApp\modules\filters\grid-filter-creater.ts" />
     <TypeScriptCompile Include="ClientApp\modules\filters\text-filter\text-filter.ts" />

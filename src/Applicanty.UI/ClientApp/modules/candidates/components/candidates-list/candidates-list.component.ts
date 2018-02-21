@@ -11,6 +11,8 @@ import { Subscription } from "rxjs/Subscription";
 import { EnumDataService } from "../../../../services/enum.data.service";
 import { EnumNames } from "../../../../constants/enum-names";
 import { TransformBirthDateToAgePipe } from "./transform-birthdate-to-age.pipe";
+import { Filter } from "clarity-angular";
+import { GridRequest } from "../../../../services/grid-request";
 
 @Component({
     templateUrl: './candidates-list.component.html',
@@ -30,12 +32,11 @@ export class CandidatesListComponent {
     private subscription: Subscription = new Subscription();
 
     private totalCount: number = 0;
-    private curentPage: any;
     private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'lastName', reverse: false };
     private currentState: any;
     private currentStatus: number = 0;
 
-    private experiences: { [value: number]: any } = {};
+    private experiences: any;
     private statuses: any[] = [];
 
     constructor(private candidatesDataService: CandidatesDataService,
@@ -56,10 +57,7 @@ export class CandidatesListComponent {
         that.enumService.getEnums(EnumNames.EXPERIENCE).subscribe(
             data => {
                 if (data) {
-                    for (let experience of data.result) {
-                        let { value, name } = <{ value: number, name: string }>experience;
-                        that.experiences[value] = name;
-                    }
+                    that.experiences = data.result;
                 }
             }, error => {
                 if (error.status == 400)
@@ -104,12 +102,22 @@ export class CandidatesListComponent {
         let that = this;
         that.currentState = state;
         that.loading = true;
-        that.curentPage = state.page;
-        if (state.sort)
+        if (state.sort) {
             that.sortField = state.sort;
+        }
+
+        let filters = that.getFiltersList(that.currentState.filters);
+
+        let gridRequest: GridRequest = {
+            take: that.currentState.page.size,
+            skip: that.currentState.page.from,
+            sortField: that.sortField.by.toString(),
+            sortDir: that.sortField.reverse == true ? 'desc' : 'asc',
+            filters: filters
+        };
+
         if (!that.vacancyId && !that.stageId) {
-            that.candidatesDataService.getCandidates(that.curentPage.from, that.curentPage.size,
-                that.sortField.by.toString(), that.sortField.reverse === true ? 'desc' : 'asc', that.currentStatus).subscribe(
+            that.candidatesDataService.getCandidates(that.currentStatus, gridRequest).subscribe(
                 data => {
                     that.candidates = data.result;
                     that.totalCount = data.totalCount;
@@ -139,5 +147,16 @@ export class CandidatesListComponent {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    public getFiltersList(stateFilters: Filter<any>[]): any[] {
+        let filterList: any[] = [];
+
+        if (stateFilters) {
+            for (let item of stateFilters) {
+                filterList = filterList.concat(item['filter']);
+            }
+        }
+        return filterList;
     }
 }

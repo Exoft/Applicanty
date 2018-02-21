@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../../services/auth.service';
-import { GridFilterItem } from "../../filters/grid-filter-item";
 import { GridRequest } from "../../../services/grid-request";
 
 @Injectable()
@@ -13,8 +12,8 @@ export class VacanciesDataService {
         private authService: AuthService) {
     }
 
-    public getVacancies(statusType: number, filters): Observable<any> {
-        return this.http.post(`http://localhost:8000/Vacancy/GetAll?statusType=${statusType}`, filters, { headers: this.authService.getAuthenticationHeader() })
+    public getVacancies(statusType: number, gridRequest: GridRequest): Observable<any> {
+        return this.http.post(`http://localhost:8000/vacancy/getAll?statusType=${statusType}`, gridRequest, { headers: this.authService.getAuthenticationHeader() })
     }
 
     public getVacancy(vacancyId: any): Observable<any> {

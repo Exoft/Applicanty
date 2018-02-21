@@ -79,7 +79,7 @@ export class VacanciesListComponent implements OnInit {
             that.sortField = that.currentState.sort;
         }
 
-        let filters = that.getFiltersList(that.currentState.filters)
+        let filters = that.getFiltersList(that.currentState.filters);
 
         let gridRequest: GridRequest = {
             take: that.currentState.page.size,
