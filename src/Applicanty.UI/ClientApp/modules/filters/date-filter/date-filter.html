@@ -29,7 +29,7 @@
          || dateRangeForm?.get('upperDateLimit')?.touched)">
         <input class="form-control" type="date" formControlName="upperDateLimit" size="25" (change)="changeDate($event)">
         <span class="tooltip-content">
-            {{ validationService.getValidatorErrorMessage(dateRangeForm.get('upperDateLimit')) }}
+            {{ validationService.getValidatorErrorMessage(dateRangeForm?.get('upperDateLimit')) }}
             <br *ngIf="validationService.getValidatorErrorMessage(dateRangeForm?.get('upperDateLimit'))" />
             {{ validationService.getValidatorErrorMessage(dateRangeForm) }}
         </span>

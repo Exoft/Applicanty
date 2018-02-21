@@ -12,6 +12,7 @@ import { CandidatesListComponent } from '../candidates/components/candidates-lis
 import { CandidatePageComponent } from '../candidates/components/candidate-page/candidate-page.component';
 import { TransformBirthDateToAgePipe } from "./components/candidates-list/transform-birthdate-to-age.pipe";
 import { AuthGuard } from '../../services/authguard.service';
+import { FiltersModule } from "../filters/filters.module";
 
 import { CandidatesDataService } from './services/candidates-data.service';
 import { EnumDataService } from '../../services/enum.data.service';
@@ -42,6 +43,7 @@ export const candidateRoutes = [
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
+        FiltersModule,
         ClarityModule.forRoot(),
         BrowserAnimationsModule,
         HttpClientModule

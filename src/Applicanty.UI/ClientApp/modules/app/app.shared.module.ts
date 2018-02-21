@@ -14,6 +14,7 @@ import { VacanciesModule, vacanciesRoutes } from '../vacancies/vacancies.module'
 import { CandidatesModule, candidateRoutes } from '../candidates/candidates.module';
 import { DashboardModule, dashboardRoutes } from '../dashboard/dashboard.module';
 import { NotFoundModule, notfoundRoutes } from "../notfound/notfound.module";
+import { FiltersModule } from "../filters/filters.module";
 
 import { NotificationComponent } from '../auth/components/notification/notification.component';
 
@@ -43,6 +44,7 @@ import { AuthenticationInterceptor } from "../../services/http-interceptor";
         CandidatesModule,
         DashboardModule,
         NotFoundModule,
+        FiltersModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
