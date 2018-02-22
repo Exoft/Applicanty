@@ -50,8 +50,16 @@
             </clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
-    <clr-dg-column [clrDgField]="'birthday'">Age</clr-dg-column>
+    <clr-dg-column [clrDgField]="'birthday'">
+    Age
+        <clr-dg-filter [clrDgFilter]="ageFilter">
+            <clr-datagrid-age-filter #ageFilter [propertyName]="'birthday'">
+            </clr-datagrid-age-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
     <clr-dg-column>Status</clr-dg-column>
+
+    <clr-dg-placeholder>We couldn't find any candidates!</clr-dg-placeholder>
 
     <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
         <clr-dg-action-overflow>

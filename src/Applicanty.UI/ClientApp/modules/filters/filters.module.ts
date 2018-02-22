@@ -9,13 +9,15 @@ import { ClarityModule } from 'clarity-angular';
 import { ExperienceFilter } from "../filters/experience-filter/experience-filter";
 import { DateFilter } from "../filters/date-filter/date-filter";
 import { TextFilter } from "../filters/text-filter/text-filter";
+import { AgeFilter } from "./age-filter/age-filter";
 import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations: [
         ExperienceFilter,
         DateFilter,
-        TextFilter
+        TextFilter,
+        AgeFilter
     ],
     imports: [
         BrowserModule,
@@ -29,7 +31,8 @@ import { RouterModule } from "@angular/router";
     exports: [
         ExperienceFilter,
         DateFilter,
-        TextFilter
+        TextFilter,
+        AgeFilter
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

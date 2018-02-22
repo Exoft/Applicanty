@@ -14,10 +14,9 @@ import { FilterOperators } from "../../../constants/filter-opertors";
 export class DateFilter implements Filter<any>, GridFilterCreater {
     public filter: GridFilterItem[] = [];
     @Input() propertyName: string = '';
-    filterOperator: FilterOperators = FilterOperators.GREATETHENOREQUELTO;
 
-    private startDate;
-    private endDate;
+    private lowerDateLimit;
+    private upperDateLimit;
 
     public dateRangeForm: FormGroup = new FormGroup({
         'lowerDateLimit': new FormControl(null, [this.validationService.endDateValidator]),
@@ -29,31 +28,31 @@ export class DateFilter implements Filter<any>, GridFilterCreater {
     constructor(private validationService: ValidationService) { }
 
     changeDate(event) {
-        this.startDate = this.dateRangeForm.get('lowerDateLimit');
-        this.endDate = this.dateRangeForm.get('upperDateLimit');
-        this.filter = this.CreateGridFilterItem();
+        this.lowerDateLimit = this.dateRangeForm.get('lowerDateLimit');
+        this.upperDateLimit = this.dateRangeForm.get('upperDateLimit');
+        this.filter = this.createGridFilterItem();
 
         this.changes.emit(this.filter);
     }
 
     accepts() {
-        if (this.startDate)
-            return this.startDate.value;
+        if (this.lowerDateLimit)
+            return this.lowerDateLimit.value;
     }
 
     isActive(): boolean {
-        if (this.startDate || this.endDate)
-            return this.dateRangeForm.valid && (this.startDate.value || this.endDate.value);
+        if (this.lowerDateLimit || this.upperDateLimit)
+            return this.dateRangeForm.valid && (this.lowerDateLimit.value || this.upperDateLimit.value);
         return false;
     }
 
-    CreateGridFilterItem(): GridFilterItem[] {
+    createGridFilterItem(): GridFilterItem[] {
         let lst: GridFilterItem[] = [];
-        if (this.startDate.value)
-            lst.push({ field: this.propertyName, value: this.startDate.value, operator: FilterOperators.GREATETHENOREQUELTO });
+        if (this.lowerDateLimit.value)
+            lst.push({ field: this.propertyName, value: this.lowerDateLimit.value, operator: FilterOperators.GREATETHENOREQUELTO });
 
-        if (this.endDate.value)
-            lst.push({ field: this.propertyName, value: this.endDate.value, operator: FilterOperators.LESSTHENOREQUELTO });
+        if (this.upperDateLimit.value)
+            lst.push({ field: this.propertyName, value: this.upperDateLimit.value, operator: FilterOperators.LESSTHENOREQUELTO });
 
         return lst;
     }

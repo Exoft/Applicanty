@@ -46,6 +46,8 @@
     </clr-dg-column>
     <clr-dg-column>{{'status' | translate}}</clr-dg-column>
 
+    <clr-dg-placeholder>We couldn't find any vacancies!</clr-dg-placeholder>
+
     <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
         <clr-dg-action-overflow>
             <button class="action-item" (click)="changeStatus($event, [item], active)">{{'activate' | translate}}</button>
