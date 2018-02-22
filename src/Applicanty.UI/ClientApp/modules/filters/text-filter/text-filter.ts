@@ -30,7 +30,7 @@ export class TextFilter implements Filter<any>, GridFilterCreater {
 
     changeTextInput(event) {
         this.textInput = this.textFilterForm.get('textInput');
-        this.filter = this.CreateGridFilterItem();
+        this.filter = this.createGridFilterItem();
         this.changes.emit(this.filter);
     }
 
@@ -45,7 +45,7 @@ export class TextFilter implements Filter<any>, GridFilterCreater {
         return false;
     }
 
-    CreateGridFilterItem(): GridFilterItem {
+    createGridFilterItem(): GridFilterItem {
         return { field: this.propertyName, operator: FilterOperators.CONTAINS, value: this.textInput.value };
     }
 }

@@ -16,11 +16,13 @@ export class ValidationService {
 
         this.config = {
             'required': 'This field is required',
+            'min':'Entered value must be greater',
             'invalidEmail': 'Entered value is not valid email address',
             'passwordsDoNotMatch': 'Password do not match',
             'invalidEndDate': 'End date can not be later than today',
             'invalidTechnologiesCount': 'Number of technologies can not be less two',
-            'invalidLowerDateLimit': 'Lower date limit  cannot be later than upper date limit'
+            'invalidLowerDateLimit': 'Lower date limit cannot be later than upper date limit',
+            'invalidLowerAgeLimit': 'Lower age limit cannot be greater than upper age limit'
         };
     }
 
@@ -91,6 +93,18 @@ export class ValidationService {
             return null;
         } else {
             return { 'invalidLowerDateLimit': true };
+        }
+    }
+
+    public ageRangeValidator(formGroup) {
+        if (!formGroup.get('lowerAgeLimit').value || !formGroup.get('upperAgeLimit').value
+            || formGroup.get('lowerAgeLimit').value === null || formGroup.get('upperAgeLimit').value === null)
+            return null;
+
+        if (new Date(formGroup.get('lowerAgeLimit').value) < new Date(formGroup.get('upperAgeLimit').value)) {
+            return null;
+        } else {
+            return { 'invalidLowerAgeLimit': true };
         }
     }
 }

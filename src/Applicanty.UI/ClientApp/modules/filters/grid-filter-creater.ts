@@ -3,5 +3,5 @@
 export interface GridFilterCreater {
     propertyName: string;
     filter: GridFilterItem | GridFilterItem[] | null;
-    CreateGridFilterItem(): GridFilterItem | GridFilterItem[];
+    createGridFilterItem(): GridFilterItem | GridFilterItem[];
 }

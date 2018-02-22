@@ -142,6 +142,7 @@ export class CandidatesListComponent {
                         that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
                 }
         }
+
         that.selectedCandidates = [];
     }
 
