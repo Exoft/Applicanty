@@ -67,6 +67,18 @@ namespace Applicanty.Services.Services
             UnitOfWork.Commit();
         }
 
+        public void DetachCandidate(VacancyCandidateDto model)
+        {
+            if (model == null)
+                throw new System.ArgumentNullException(nameof(model));
+
+            var vacancy = Repository.GetWithInclude(model.VacancyId, include => include.VacancyCandidates);
+            vacancy.VacancyCandidates.Remove(vacancy.VacancyCandidates.FirstOrDefault(f => f.CandidateId == model.CandidateId));
+            Repository.Update(vacancy);
+
+            UnitOfWork.Commit();
+        }
+
         public void ChangeCandidateStage(VacancyCandidateDto model)
         {
             var vacancy = GetOne<Vacancy>(model.VacancyId);
