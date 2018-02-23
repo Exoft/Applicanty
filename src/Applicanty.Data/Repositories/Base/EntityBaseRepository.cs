@@ -57,6 +57,16 @@ namespace Applicanty.Data.Repositories
 
             return entity;
         }
+        public void UpdateManyToMany<T, TKey>(IEnumerable<T> currentItems, IEnumerable<T> newItems, Func<T, TKey> getKey)
+            where T : class
+        {
+            foreach (var item in Except(currentItems, newItems, getKey))
+                _entities.Entry(item).State = EntityState.Deleted;
+
+            foreach (var item in Except(newItems, currentItems, getKey))
+                _entities.Entry(item).State = EntityState.Added;
+
+        }
 
         public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
@@ -89,6 +99,15 @@ namespace Applicanty.Data.Repositories
             IQueryable<TEntity> query = _dbSet.AsNoTracking();
             return includeProperties
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
+
+        private IEnumerable<T> Except<T, TKey>(IEnumerable<T> items, IEnumerable<T> other, Func<T, TKey> getKeyFunc)
+        {
+            return items
+                .GroupJoin(other, getKeyFunc, getKeyFunc, (item, tempItems) => new { item, tempItems })
+                .SelectMany(t => t.tempItems.DefaultIfEmpty(), (t, temp) => new { t, temp })
+                .Where(t => ReferenceEquals(null, t.temp) || t.temp.Equals(default(T)))
+                .Select(t => t.t.item);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Applicanty.Core.Data.Repositories;
 using Applicanty.Core.Dto;
 using Applicanty.Core.Entities;
+using Applicanty.Core.Enums;
 using Applicanty.Core.Services;
 using AutoMapper;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Applicanty.Services.Services
         protected override ICandidateRepository InitRepository() =>
             UnitOfWork.CandidateRepository;
 
-        public IEnumerable<CandidateGridDto> GetCandidatesByVacancyStage(int vacancyId, int stageId)
+        public IEnumerable<CandidateGridDto> GetByVacancy(int vacancyId, int stageId)
         {
             var candidates = Repository.GetWithInclude(include => include.VacancyCandidates)
                  .Where(item => item.VacancyCandidates.Any(vc => vc.VacancyId == vacancyId && (int)vc.VacancyStage == stageId));
@@ -70,6 +71,31 @@ namespace Applicanty.Services.Services
             UnitOfWork.Commit();
 
             return Mapper.Map<Candidate, TDto>(createdEntity);
+        }
+
+        public IEnumerable<CandidateVacancyAttachDto> GetByTechnologyAndExperience(int[] technologyIds, Experience experience)
+        {
+            var candidates = Repository.GetWithInclude(include => include.CandidateTechnologies).
+                                        Where(item => item.CandidateTechnologies.Any(f => technologyIds.Contains(f.TechnologyId))
+                                                   && item.StatusId == StatusType.Active
+                                                   && item.ExperienceId == experience);
+
+            return Mapper.Map<IEnumerable<Candidate>, IEnumerable<CandidateVacancyAttachDto>>(candidates);
+        }
+
+        public IEnumerable<CandidateVacancyAttachDto> GetByVacancy(int vacancyId)
+        {
+            var candidates = Repository.GetWithInclude(include => include.VacancyCandidates)
+                                                .Where(item => item.StatusId == StatusType.Active
+                                                            && item.VacancyCandidates.Any(f => f.VacancyId == vacancyId))
+                                                .Select(item => new CandidateVacancyAttachDto
+                                                {
+                                                    Id = item.Id,
+                                                    FullName = $"{item.FirstName} {item.LastName}",
+                                                    VacancyStage = item.VacancyCandidates.FirstOrDefault(f => f.VacancyId == vacancyId).VacancyStage
+                                                });
+
+            return candidates;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Applicanty.Core.Dto;
 using Applicanty.Core.Entities;
 using AutoMapper;
+using System;
 using System.Linq;
 
 namespace Applicanty.Core
@@ -36,7 +37,12 @@ namespace Applicanty.Core
             CreateMap<Candidate, CandidateCreateUpdateDto>()
                 .ForMember(dest => dest.TechnologyIds,
                 opts => opts.MapFrom(src => src.CandidateTechnologies.Select(f=>f.TechnologyId)));
-            
+
+            CreateMap<CandidateVacancyAttachDto, Candidate>();
+            CreateMap<Candidate, CandidateVacancyAttachDto>()
+                .ForMember(dest => dest.FullName,
+                opts => opts.MapFrom(src => string.Format($"{src.FirstName} {src.LastName}")));
+
             CreateMap<CandidateCreateUpdateDto, Candidate>();
             #endregion
 

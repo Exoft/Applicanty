@@ -121,6 +121,21 @@ namespace Applicanty.API.Controllers
             }
         }
 
+        [HttpPost("DetachCandidate")]
+        public IActionResult DetachCandidate([FromBody]VacancyCandidateDto model)
+        {
+            try
+            {
+                _vacancyService.DetachCandidate(model);
+
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
         [HttpPost("ChangeCandidateStage")]
         public IActionResult ChangeCandidateStage([FromBody]VacancyCandidateDto model)
         {

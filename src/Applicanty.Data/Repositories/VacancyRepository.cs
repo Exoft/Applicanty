@@ -3,6 +3,8 @@ using Applicanty.Core.Data.Repositories;
 using System.Security.Principal;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
 
 namespace Applicanty.Data.Repositories
 {
@@ -14,20 +16,14 @@ namespace Applicanty.Data.Repositories
 
         public override Vacancy Update(Vacancy entity)
         {
+            var vacancy = GetWithInclude(f => f.VacancyTechnologies, f => f.VacancyCandidates)
+                          .FirstOrDefault(f => f.Id == entity.Id);
+
             if (entity.VacancyTechnologies != null)
-            {
-                var vacancy = GetWithInclude(f => f.VacancyTechnologies).FirstOrDefault(f => f.Id == entity.Id);
+                UpdateManyToMany(vacancy.VacancyTechnologies, entity.VacancyTechnologies, x => x.TechnologyId);
 
-                foreach (var item in vacancy.VacancyTechnologies.Where(currentTechnology =>
-                                    !entity.VacancyTechnologies.Any(newTechnology => newTechnology.TechnologyId ==
-                                                                                    currentTechnology.TechnologyId)))
-                    _entities.Entry(item).State = EntityState.Deleted;
-
-                foreach (var item in entity.VacancyTechnologies.Where(newTechnology =>
-                                    !vacancy.VacancyTechnologies.Any(currentTechnology => currentTechnology.TechnologyId ==
-                                                                                            newTechnology.TechnologyId)))
-                    _entities.Entry(item).State = EntityState.Added;
-            }
+            if (entity.VacancyCandidates != null)
+                UpdateManyToMany(vacancy.VacancyCandidates, entity.VacancyCandidates, x => x.CandidateId);
 
             return base.Update(entity);
         }

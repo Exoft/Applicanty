@@ -36,7 +36,7 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var candidate = _candidateService.GetWithInclude<CandidateCreateUpdateDto>(id, include=> include.CandidateTechnologies);
+                var candidate = _candidateService.GetWithInclude<CandidateCreateUpdateDto>(id, include => include.CandidateTechnologies);
 
                 if (candidate == null)
                     return BadRequest("Candidate not found.");
@@ -95,12 +95,12 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpGet("GetByVacancy")]
-        public IActionResult GetByVacancy([FromQuery]int vacancyId, [FromQuery]int stageId)
+        [HttpGet("GetByVacancyAndStage")]
+        public IActionResult GetByVacancyAndStage([FromQuery]int vacancyId, [FromQuery]int stageId)
         {
             try
             {
-                var candidates = _candidateService.GetCandidatesByVacancyStage(vacancyId, stageId);
+                var candidates = _candidateService.GetByVacancy(vacancyId, stageId);
 
                 var response = new Response<CandidateGridDto>
                 {
@@ -115,5 +115,42 @@ namespace Applicanty.API.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
             }
         }
+
+        [HttpGet("GetByVacancy")]
+        public IActionResult GetByVacancy([FromQuery]int vacancyId)
+        {
+            try
+            {
+                var candidates = _candidateService.GetByVacancy(vacancyId);
+
+                var response = new Response<CandidateVacancyAttachDto>
+                {
+                    Result = candidates,
+                    TotalCount = candidates.Count()
+                };
+
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
+
+        [HttpPost("GetByTechnologyAndExperience")]
+        public IActionResult GetByTechnologyAndExperience([FromBody]int[] technologyIds, [FromQuery]Experience experience)
+        {
+            try
+            {
+                var vacancy = _candidateService.GetByTechnologyAndExperience(technologyIds, experience);
+
+                return Json(vacancy);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new ErrorResponse(ex));
+            }
+        }
     }
 }
+
