@@ -74,7 +74,7 @@ namespace Applicanty.Services.Services
 
             var vacancy = Repository.GetWithInclude(model.VacancyId, include => include.VacancyCandidates);
             vacancy.VacancyCandidates.Remove(vacancy.VacancyCandidates.FirstOrDefault(f => f.CandidateId == model.CandidateId));
-            Repository.Update(vacancy);
+            Repository.DetachCandidate(vacancy);
 
             UnitOfWork.Commit();
         }

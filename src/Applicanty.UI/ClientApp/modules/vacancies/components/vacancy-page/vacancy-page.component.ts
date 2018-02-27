@@ -10,26 +10,34 @@ import { NotificationMessage } from '../../../../constants/notification-message'
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationService } from "../../../../services/notification.service";
 import { NotificationType } from "../../../../enums/notification-type";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
     templateUrl: './vacancy-page.component.html',
     styleUrls: ['./vacancy-page.component.scss']
 })
 export class VacancyPageComponent implements OnInit, OnDestroy {
+    private setStageModalVisible: boolean = false;
     private id;
     private subscription: Subscription = new Subscription();
 
     public technologies: any[] = [];
     public experiences: any[] = [];
     public vacancyStages: any[] = [];
+    public selectedCandidatesOfVacancy: any[] = [];
     public vacancyStageCount: { [value: number]: any } = {};
+    public candidatesByVacancy: any[] = [];
+    public candidateByTechnologyAndExperience: any[] = [];
+    public addedCandidates: any[] = [];
+    public availableCandidatesForSelection: any[] = [];
 
     public froalaOptions: Object = {
         charCounterCount: true,
-        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', '|', 'align', 'formatOL', 'formatUL', '|', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'],
-        toolbarButtonsXS: ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
-        toolbarButtonsSM: ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
-        toolbarButtonsMD: ['bold', 'italic', 'strikeThrough', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
+        toolbarButtons: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', 'formatOL', 'formatUL', '|', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'],
+        toolbarButtonsXS: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
+        toolbarButtonsSM: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
+        toolbarButtonsMD: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
     };
 
     private experienceEnum = EnumNames.EXPERIENCE;
@@ -46,6 +54,13 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
         'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)])
     });
+
+
+    public candidateAttachVacancyForm: FormGroup = new FormGroup({
+        'candidateId': new FormControl('', Validators.required),
+        'vacancyStage': new FormControl('', Validators.required)
+    })
+
 
     constructor(private vacanciesDataService: VacanciesDataService,
         private enumService: EnumDataService,
@@ -80,18 +95,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                         that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGELOADERROR);
                 });
 
-            that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
-                data => {
-                    if (data) {
-                        for (let statusCount of data) {
-                            let { stage, count } = <{ stage: number, count: any }>statusCount;
-                            that.vacancyStageCount[stage] = count;
-                        }
-                    }
-                }, error => {
-                    if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGESCOUNTLOADERROR);
-                });
+            that.refreshVacancyStageCount();
         }
 
         that.vacanciesDataService.getTechnologies().subscribe(
@@ -109,6 +113,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
             });
+
     }
 
     ngOnDestroy() {
@@ -159,6 +164,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public cancelClick(event) {
         this.router.navigate(['../vacancies']);
+        this.candidateByTechnologyAndExperience = [];
     }
 
     public vacancyTechnologiesChange(event) {
@@ -187,8 +193,120 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public vacancyStageLabelClick(event: Event, idStage: number) {
         event.preventDefault();
 
-        if (this.vacancyStageCount[idStage] !== 0) {
+        if (this.vacancyStageCount[idStage]) {
             this.router.navigate(['../', 'candidates', 'vacancy', this.id, 'stage', idStage]);
         }
+    }
+
+    public showAvailableCandidates(event) {
+        let that = this;
+        let formData = that.vacancyPageForm.value;
+
+        let technologyIds = that.vacancyPageForm.get('technologyIds')!.value;
+        let experienceId = that.vacancyPageForm.get('experienceId')!.value;
+
+        Observable.forkJoin(
+            that.vacanciesDataService.getCandidateByVacancy(that.id),
+            that.vacanciesDataService.candidateGetByTechnologyAndExperience(experienceId, technologyIds))
+            .subscribe(
+            data => {
+                that.addedCandidates = data[0].result;
+                that.availableCandidatesForSelection = data[1];
+
+                let idArray = that.addedCandidates.filter(function (el, index, array) {
+                    return el.id;
+                });
+                that.availableCandidatesForSelection.forEach(function (el, index, arr) {
+                    if (!idArray.some(item => item.id === el.id)) {
+                        that.candidateByTechnologyAndExperience.push(el);
+                    }
+                })
+
+                that.setStageModalVisible = true;
+            });
+
+        that.vacanciesDataService.updateVacancy(formData).subscribe(
+            data => {
+            });
+    }
+
+    public attachToCandidateClick(event) {
+        let that = this;
+        let formData = that.candidateAttachVacancyForm.value;
+        that.vacanciesDataService.attachVacancyToCandidateStage({
+            'vacancyId': that.id,
+            'candidateId': Number(formData.candidateId),
+            'vacancyStage': Number(formData.vacancyStage)
+        }).subscribe(
+            data => {
+                that.refreshCurrentVacancyList();
+                that.setStageModalVisible = false;
+                that.refreshVacancyStageCount();
+            })
+    }
+
+    public deleteCandydateClick(event) {
+        let that = this;
+        
+        if (that.getSelectedVacancies()) {
+            let arr = that.getSelectedVacancies();
+            for (let item of arr) {
+                that.vacanciesDataService.detachCandidate(item).subscribe(
+                    data => {
+                        that.refreshCurrentVacancyList();
+                    });
+            }
+        }
+    }
+
+    private refreshCurrentVacancyList() {
+        let that = this;
+
+        that.vacanciesDataService.getCandidateByVacancy(that.id).subscribe(
+            data => {
+                that.candidatesByVacancy = data.result;
+            },
+            error => {
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
+            });
+
+        that.selectedCandidatesOfVacancy = [];
+        that.clearCandidateAttachVacancyForm();
+        that.refreshVacancyStageCount();
+    }
+
+    private getSelectedVacancies() {
+        let selectedVacancyList: any[] = [];
+        for (let item of this.selectedCandidatesOfVacancy) {
+            selectedVacancyList = selectedVacancyList.concat({
+                "candidateId": item.id,
+                "vacancyId": this.id,
+                "vacancyStage": item.vacancyStage
+            })
+        }
+        return selectedVacancyList;
+    }
+
+    clearCandidateAttachVacancyForm() {
+        this.candidateAttachVacancyForm.get('candidateId')!.setValue(null);
+        this.candidateAttachVacancyForm.get('vacancyStage')!.setValue(null);
+    }
+
+    refreshVacancyStageCount() {
+        let that = this;
+
+        that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
+            data => {
+                if (data) {
+                    for (let statusCount of data) {
+                        let { stage, count } = <{ stage: number, count: any }>statusCount;
+                        that.vacancyStageCount[stage] = count;
+                    }
+                }
+            }, error => {
+                if (error.status == 400)
+                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGESCOUNTLOADERROR);
+            });
     }
 }

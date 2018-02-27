@@ -7,7 +7,7 @@ import { NotificationComponent } from "../modules/auth/components/notification/n
 @Injectable()
 export class NotificationService {
 
-    private notificationComponent: NotificationComponent = new NotificationComponent();
+    private notificationComponent: NotificationComponent | null;
 
     public initialize(notificationComponent: NotificationComponent) {
         if (!this.notificationComponent) {

@@ -110,8 +110,6 @@ export class VacanciesListComponent implements OnInit {
         that.vacanciesDataService.changeVacanciesStatus(vacancies.map(arr => arr.id), status).subscribe(
             data => {
                 if (data) {
-                    that.notificationService.notify(NotificationType.Success,
-                        vacancies.length === 1 ? NotificationMessage.VACANCYCHANGESTATUSSUCCES : NotificationMessage.VACANCIESCHANGESTATUSSUCCES);
                     that.refresh(that.currentState);
                 }
             },

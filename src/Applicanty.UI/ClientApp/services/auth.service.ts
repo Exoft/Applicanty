@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { NotificationService } from "../services/notification.service";
 import { NotificationType } from "../enums/notification-type";
 import { NotificationMessage } from "../constants/notification-message";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AuthService {
@@ -17,20 +18,10 @@ export class AuthService {
         return accessToken !== 'undefined' && accessToken !== undefined && accessToken !== null;
     }
 
-    public signIn(loginData: any) {
+    public signIn(loginData: any):Observable<any> {
         let that = this;
 
-        that.http.post('http://localhost:8000/user/login', loginData).subscribe(
-            data => {
-                localStorage.setItem('accessToken', data['access_token']);
-
-                that.router.navigate(['dashboard']);
-            },
-            error => {
-                if (error.status == 403) {
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYDETAILSLOADERROR);
-                }
-            });
+        return that.http.post('http://localhost:8000/user/login', loginData)
     }
 
     public signOut() {
