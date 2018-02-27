@@ -135,18 +135,23 @@
     </div>
 
     <div class="col-md-5">
-        <clr-datagrid (clrDgRefresh)="refreshCurrentVacancyList()">
+        <clr-datagrid (clrDgRefresh)="refreshCurrentVacancyList()" [(clrDgSelected)]="selectedVacanciesOfCandidtate">
             <clr-dg-action-bar>
                 <clr-button-group class="btn-outline btn-sm">
                     <clr-button [disabled]="candidatePageFrom.get('technologyIds').invalid && candidatePageFrom.get('technologyIds').dirty" (click)="showModal($event)">Add</clr-button>
+                </clr-button-group>
+                <clr-button-group class="btn-danger-outline btn-sm">
+                    <clr-button [disabled]="!selectedVacanciesOfCandidtate || selectedVacanciesOfCandidtate.length===0" (click)="deleteVacancyClick($event)">Delete</clr-button>
                 </clr-button-group>
             </clr-dg-action-bar>
 
             <clr-dg-column>Vacancy</clr-dg-column>
             <clr-dg-column>Stage</clr-dg-column>
 
-           <clr-dg-row *ngFor="let candidateVacancy of candidateVacancyStage">
-                <clr-dg-cell>{{candidateVacancy?.title}}</clr-dg-cell>
+            <clr-dg-row *ngFor="let candidateVacancy of candidateVacancyStage" [clrDgItem]="candidateVacancy">
+                <clr-dg-cell>
+                    <a [routerLink]="['/vacancies/details', candidateVacancy?.id]">{{candidateVacancy?.title}}</a>
+                </clr-dg-cell>
                 <clr-dg-cell>{{vacancyStages[candidateVacancy?.vacancyStage]?.name}}</clr-dg-cell>
             </clr-dg-row>
 

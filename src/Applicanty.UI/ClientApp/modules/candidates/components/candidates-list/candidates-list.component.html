@@ -23,35 +23,35 @@
     </clr-dg-action-bar>
 
     <clr-dg-column [clrDgField]="'firstName'">
-    First Name
+        First Name
         <clr-dg-filter [clrDgFilter]="firstNameFilter">
             <clr-datagrid-text-filter #firstNameFilter [propertyName]="'firstName'">
             </clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'lastName'">
-    Last Name
+        Last Name
         <clr-dg-filter [clrDgFilter]="lastNameFilter">
             <clr-datagrid-text-filter #lastNameFilter [propertyName]="'lastName'">
             </clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'experienceId'">
-    Experience Levels
+        Experience Levels
         <clr-dg-filter [clrDgFilter]="experienceFilter">
             <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
             </clr-datagrid-experience-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'email'">
-    Email
+        Email
         <clr-dg-filter [clrDgFilter]="emailFilter">
             <clr-datagrid-text-filter #emailFilter [propertyName]="'email'">
             </clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'birthday'">
-    Age
+        Age
         <clr-dg-filter [clrDgFilter]="ageFilter">
             <clr-datagrid-age-filter #ageFilter [propertyName]="'birthday'">
             </clr-datagrid-age-filter>
@@ -72,12 +72,11 @@
             <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.firstName}}</a>
         </clr-dg-cell>
         <clr-dg-cell><a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.lastName}}</a></clr-dg-cell>
-        <clr-dg-cell>{{experiences[candidate?.experienceId]?.name}}</clr-dg-cell>
+        <clr-dg-cell>{{experiences ? experiences[candidate?.experienceId]?.name : ''}}</clr-dg-cell>
         <clr-dg-cell>{{candidate?.email}}</clr-dg-cell>
         <clr-dg-cell>{{candidate?.birthday | transformBirthDateToAge}}</clr-dg-cell>
-        <clr-dg-cell>{{statuses[candidate?.statusId]?.name}}</clr-dg-cell>
+        <clr-dg-cell>{{ statuses ? statuses[candidate?.statusId]?.name: ''}}</clr-dg-cell>
     </clr-dg-row>
-
     <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users
         <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>

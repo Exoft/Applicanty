@@ -17,7 +17,7 @@
         </clr-button-group>
         <clr-button-group class="btn-sm align-left-button-group">
             <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
-                {{'show' | translate}} {{item?.name}}
+                {{'show' | translate}} {{ 'enums.statusType.' + item?.name | translate }}
             </clr-button>
         </clr-button-group>
     </clr-dg-action-bar>
@@ -60,9 +60,9 @@
                 {{item?.title}}
             </a>
         </clr-dg-cell>
-        <clr-dg-cell>{{experiences[item?.experienceId].name}}</clr-dg-cell>
+        <clr-dg-cell>{{experiences ? experiences[item?.experienceId]?.name : ''}}</clr-dg-cell>
         <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
-        <clr-dg-cell>{{statuses[item?.statusId].name}}</clr-dg-cell>
+        <clr-dg-cell>{{statuses ? statuses[item?.statusId]?.name : ''}}</clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
