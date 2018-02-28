@@ -13,7 +13,7 @@
     static UPDATEVACANCYERROR: string = 'Error occurred during saving vacancy changes.';
     static VACANCYSTAGESCOUNTLOADERROR: string = 'Error occurred during load vacancy stages count';
     static CANDIDATESCHANGESTATUSERROR: string = 'Candidates status changed successfully'
-    static CANDIDATECHANGESTATUSERROR: string = 'Candidates status changed errore'; 
+    static CANDIDATECHANGESTATUSERROR: string = 'Candidates status changed error'; 
     static CREATECANDIDATEERROR: string = 'Error occurred during create new candidate.';
     static CANDIDATEDETAILSLOADERROR: string = 'Candidate details not loaded.';
     static CANDIDATESSTAGELOADERROR: string = 'Candidates  not loaded.';

@@ -52,8 +52,8 @@ export class VacanciesDataService {
         return this.http.post(`http://localhost:8000/vacancy/attachCandidate`, request, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public detachCandidate(fomrData: any): Observable<any> {
-        return this.http.post(`http://localhost:8000/Vacancy/DetachCandidate`, fomrData, { headers: this.authService.getAuthenticationHeader() })
+    public detachCandidate(formData: any): Observable<any> {
+        return this.http.post(`http://localhost:8000/Vacancy/DetachCandidate`, formData, { headers: this.authService.getAuthenticationHeader() })
     }
 
 

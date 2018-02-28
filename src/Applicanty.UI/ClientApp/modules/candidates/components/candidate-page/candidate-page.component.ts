@@ -36,7 +36,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     public candidateVacancyStage: any[] = [];
     public vacanciesOfCadidate: any[] = [];
     public vacanciesForTheChoice: any[] = [];
-    public selectedVacanciesOfCandidtate: any[] = [];
+    public selectedVacanciesOfCandidate: any[] = [];
     public candidateVacancy: any[] = [];
 
     public candidatePageFrom: FormGroup = new FormGroup({
@@ -276,14 +276,14 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
             });
-        that.selectedVacanciesOfCandidtate = [];
+        that.selectedVacanciesOfCandidate = [];
         that.vacancies = [];
         that.clearCandidateAttachVacancyForm();
     }
 
     private getSelectedVacancies() {
         let selectedCandidateList: any[] = [];
-        for (let item of this.selectedVacanciesOfCandidtate) {
+        for (let item of this.selectedVacanciesOfCandidate) {
             selectedCandidateList = selectedCandidateList.concat({
                 "vacancyId": item.id,
                 "candidateId": this.id,
