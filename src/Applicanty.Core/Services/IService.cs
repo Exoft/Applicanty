@@ -14,5 +14,6 @@ namespace Applicanty.Core.Services
         ICollection<TDto> GetAll<TDto>(Expression<System.Func<TEntity, bool>> predicate);
         IEnumerable<TDto> GetWithInclude<TDto>(params Expression<Func<TEntity, object>>[] includeProperties);
         TDto GetWithInclude<TDto>(int id, params Expression<Func<TEntity, object>>[] includeProperties);
+        void Delete(int id);
     }
 }

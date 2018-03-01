@@ -67,8 +67,6 @@ namespace Applicanty.Core
             CreateMap<Technology, TechnologyDto>();
             CreateMap<TechnologyDto, Technology>();
 
-            CreateMap<Technology, TechnologyCreateOrUpdateDto>();
-            CreateMap<TechnologyCreateOrUpdateDto, Technology>();
             #endregion
 
             #region StatusMap
