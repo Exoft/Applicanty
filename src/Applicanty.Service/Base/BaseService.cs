@@ -87,5 +87,11 @@ namespace Applicanty.Services.Services
 
             return _mapper.Map<TEntity, TDto>(updatedEntity);
         }
+
+        public virtual void Delete(int id)
+        {
+            Repository.Delete(item=>item.Id == id);
+            _unitOfWork.Commit();
+        }
     }
 }
