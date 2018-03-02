@@ -97,17 +97,6 @@ export class ValidationService implements OnDestroy {
         }
     }
 
-    public technologiesValidator(control) {
-        if (!control.value || control.value === null)
-            return null;
-
-        if (control.value.length > 2) {
-            return null;
-        } else {
-            return { 'invalidTechnologiesCount': true };
-        }
-    }
-
     public dateRangeValidator(formGroup) {
         if (!formGroup.get('lowerDateLimit').value || !formGroup.get('upperDateLimit').value
             || formGroup.get('lowerDateLimit').value === null || formGroup.get('upperDateLimit').value === null)

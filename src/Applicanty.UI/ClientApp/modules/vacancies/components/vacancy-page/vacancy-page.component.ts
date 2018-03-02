@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { EnumDataService } from '../../../../services/enum.data.service';
 import { EnumNames } from '../../../../constants/enum-names';
-import { NotificationMessage } from '../../../../constants/notification-message';
 
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationService } from "../../../../services/notification.service";
@@ -49,7 +48,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         'createdBy': new FormControl(''),
         'createdAt': new FormControl(new Date().toLocaleDateString()),
         'endDate': new FormControl(new Date(), [Validators.required, this.validationService.endDateValidator]),
-        'technologyIds': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
+        'technologyIds': new FormControl([]),
         'experienceId': new FormControl(0, Validators.required),
         'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
         'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)])
@@ -84,7 +83,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     }
                 }, error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYDETAILSLOADERROR);
+                        that.notificationService.notify(NotificationType.Error, 'vacancyDetailsLoadError');
                 });
 
             that.enumService.getEnums(that.stageEnum).subscribe(
@@ -92,7 +91,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     that.vacancyStages = data.result;
                 }, error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGELOADERROR);
+                        that.notificationService.notify(NotificationType.Error, 'vacancyStageLoadError');
                 });
 
             that.refreshVacancyStageCount();
@@ -103,7 +102,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 that.technologies = data;
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.TECHNOLOGIESLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'technologiesLoadError');
             });
 
         that.enumService.getEnums(that.experienceEnum).subscribe(
@@ -111,7 +110,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 that.experiences = data.result;
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
             });
 
     }
@@ -148,7 +147,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CREATEVACANCYERROR);
+                        that.notificationService.notify(NotificationType.Error, 'createVacancyError');
                 });
         } else {
             that.vacanciesDataService.updateVacancy(formData).subscribe(
@@ -157,7 +156,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.UPDATEVACANCYERROR);
+                        that.notificationService.notify(NotificationType.Error, 'updateVacancyError');
                 });
         }
     }
@@ -268,7 +267,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'candidatesListLoadError');
             });
 
         that.selectedCandidatesOfVacancy = [];
@@ -306,7 +305,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGESCOUNTLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'vacancyStagesCountLoadError');
             });
     }
 }

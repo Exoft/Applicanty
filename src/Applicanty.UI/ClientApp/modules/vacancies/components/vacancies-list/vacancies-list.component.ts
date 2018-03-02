@@ -8,7 +8,6 @@ import { EnumNames } from "../../../../constants/enum-names";
 import { NotificationType } from "../../../../enums/notification-type";
 import { Comparator } from "clarity-angular";
 import { EnumDataService } from "../../../../services/enum.data.service";
-import { NotificationMessage } from "../../../../constants/notification-message";
 import { GridFilterItem } from "../../../filters/grid-filter-item";
 import { GridRequest } from "../../../../services/grid-request";
 import { FilterOperators } from "../../../../constants/filter-opertors";
@@ -52,7 +51,7 @@ export class VacanciesListComponent implements OnInit {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.EXPERIENCELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
             });
 
         that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
@@ -62,7 +61,7 @@ export class VacanciesListComponent implements OnInit {
                 }
             }, error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.STATUSLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'statusLoadError');
             });
     }
 
@@ -98,7 +97,7 @@ export class VacanciesListComponent implements OnInit {
             error => {
                 that.loading = false;
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCIESLISTLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'vacanciesListLoadError');
             });
 
         that.selectedItems = [];
@@ -111,12 +110,14 @@ export class VacanciesListComponent implements OnInit {
             data => {
                 if (data) {
                     that.refresh(that.currentState);
+                    that.notificationService.notify(NotificationType.Error,
+                        vacancies.length === 1 ? 'vacancyChangeStatusSucces' : 'vacanciesChangeStatusSucces');
                 }
             },
             error => {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error,
-                        NotificationMessage.VACANCYCHANGESTATUSERROR);
+                        'vacancyChangeStatusError');
             });
 
     }

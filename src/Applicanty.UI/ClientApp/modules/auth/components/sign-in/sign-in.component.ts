@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { AuthService } from '../../../../services/auth.service';
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationType } from "../../../../enums/notification-type";
-import { NotificationMessage } from "../../../../constants/notification-message";
+//import { NotificationMessage } from "../../../../constants/notification-message";
 import { NotificationService } from "../../../../services/notification.service";
 
 @Component({
@@ -39,12 +39,13 @@ export class SignInComponent {
                     that.router.navigate(['dashboard']);
                 },
                 error => {
-                    if (error.status === 403 || error.status === 400) {
-                        debugger;
-                        this.validateSigIn = false;
-                        this.textButtonSignIn = "Sign in";
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYDETAILSLOADERROR);
+                    if (error.status === 400) {
+                        that.notificationService.notify(NotificationType.Error, 'signInError');
+                    } if (error.status === 403) {
+                        that.notificationService.notify(NotificationType.Error, 'forbiddenError');
                     }
+                    that.validateSigIn = false;
+                    that.textButtonSignIn = "Sign in";
                 });;
         }
     }
