@@ -1,6 +1,6 @@
 ﻿<form [formGroup]="ageRangeForm">
     <div>
-        <label for="lowerAgeLimit">From:</label>
+        <label for="lowerAgeLimit">{{'lowerLimit' | translate}}:</label>
     </div>
 
     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
@@ -20,7 +20,7 @@
     </div>
 
     <div>
-        <label for="upperAgeLimit">To:</label>
+        <label for="upperAgeLimit">{{'upperLimit' | translate}}:</label>
     </div>
 
     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { NotificationService } from "../services/notification.service";
 import { NotificationType } from "../enums/notification-type";
-import { NotificationMessage } from "../constants/notification-message";
 import { Observable } from "rxjs/Observable";
 
 @Injectable()

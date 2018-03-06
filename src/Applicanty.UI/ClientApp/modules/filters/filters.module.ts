@@ -11,6 +11,7 @@ import { DateFilter } from "../filters/date-filter/date-filter";
 import { TextFilter } from "../filters/text-filter/text-filter";
 import { AgeFilter } from "./age-filter/age-filter";
 import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { RouterModule } from "@angular/router";
         ReactiveFormsModule,
         ClarityModule.forRoot(),
         RouterModule,
+        TranslateModule
     ],
     exports: [
         ExperienceFilter,

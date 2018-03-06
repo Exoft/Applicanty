@@ -1,13 +1,3 @@
 ﻿<form [formGroup]="textFilterForm">
-    <div>
-        <label for="textInput">Search:</label>
-    </div>
-
-    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
-         [class.invalid]="textFilterForm.get('textInput')?.invalid && (textFilterForm.get('textInput')?.dirty || textFilterForm.get('textInput')?.touched)">
-        <input class="form-control" formControlName="textInput" size="25" (change)="changeTextInput($event)">
-        <span class="tooltip-content">
-            {{ validationService.getValidatorErrorMessage(textFilterForm?.get('textInput')) }}
-        </span>
-    </div>
+        <input class="form-control" formControlName="textInput" type="text" placeholder="{{'search' | translate}}" size="25" (change)="changeTextInput($event)">
 </form>

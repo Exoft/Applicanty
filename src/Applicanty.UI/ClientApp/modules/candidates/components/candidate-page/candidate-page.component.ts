@@ -8,7 +8,6 @@ import { NotificationService } from '../../../../services/notification.service';
 import { NotificationType } from "../../../../enums/notification-type";
 import { EnumDataService } from '../../../../services/enum.data.service';
 import { EnumNames } from '../../../../constants/enum-names';
-import { NotificationMessage } from "../../../../constants/notification-message";
 import { VacanciesDataService } from "../../../vacancies/services/vacancies-data.service";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin';
@@ -44,7 +43,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
         'experienceId': new FormControl(0, Validators.required),
         'firstName': new FormControl('', Validators.required),
         'lastName': new FormControl('', Validators.required),
-        'technologyIds': new FormControl([], [Validators.required, this.validationService.technologiesValidator]),
+        'technologyIds': new FormControl([]),
         'email': new FormControl('', Validators.required),
         'skype': new FormControl('', Validators.required),
         'linkedIn': new FormControl(''),
@@ -90,7 +89,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATEDETAILSLOADERROR);
+                        that.notificationService.notify(NotificationType.Error, 'candidateDetailsLoadError');
                 });
 
         }
@@ -101,7 +100,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESSTAGELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
             });
 
         that.enumService.getEnums(that.stageEnumName).subscribe(
@@ -110,7 +109,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.VACANCYSTAGELOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'vacancyStageLoadError');
             });
 
         that.candidatesDataService.getTechnologies().subscribe(
@@ -119,7 +118,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.TECHNOLOGIESLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'technologiesLoadError');
             });
     }
 
@@ -182,7 +181,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CREATECANDIDATEERROR);
+                        that.notificationService.notify(NotificationType.Error, 'createCandidateError');
                 });
         } else {
             that.candidatesDataService.updateCandidate(formData).subscribe(
@@ -191,7 +190,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATECHANGESTATUSERROR);
+                        that.notificationService.notify(NotificationType.Error, 'candidateChangeStatusError');
                 });
         }
     }
@@ -230,7 +229,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATECHANGESTATUSERROR);
+                    that.notificationService.notify(NotificationType.Error, 'candidateChangeStatusError');
             });
     }
 
@@ -245,7 +244,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                 },
                 error => {
                     if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, NotificationMessage.ATTACHCANDIDATESTAGETOVACANCYERROR);
+                        that.notificationService.notify(NotificationType.Error, 'attachCandidateStageToVacancyError');
                 });
         }
 
@@ -274,7 +273,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, NotificationMessage.CANDIDATESLISTLOADERROR);
+                    that.notificationService.notify(NotificationType.Error, 'candidatesListLoadError');
             });
         that.selectedVacanciesOfCandidate = [];
         that.vacancies = [];
