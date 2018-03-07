@@ -52,7 +52,10 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
         'birthday': new FormControl(new Date(), Validators.required)
     });
 
-    public candidateAttachVacancyForm: FormGroup;
+    public candidateAttachVacancyForm: FormGroup = new FormGroup({
+        'vacancyId': new FormControl('', Validators.required),
+        'vacancyStage': new FormControl('', Validators.required)
+    });
 
     constructor(private candidatesDataService: CandidatesDataService,
         private vacanciesDataService: VacanciesDataService,
@@ -66,12 +69,6 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
 
         that.subscription = activeRoute.params.subscribe(params => {
             that.id = params['id'];
-
-            this.candidateAttachVacancyForm = new FormGroup({
-                'candidateId': new FormControl(this.id),
-                'vacancyId': new FormControl('', Validators.required),
-                'vacancyStage': new FormControl('', Validators.required)
-            });
         });
     }
 
@@ -232,12 +229,16 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                     that.notificationService.notify(NotificationType.Error, 'candidateChangeStatusError');
             });
     }
-
+    
     public attachToVacancyClick(event) {
         let that = this;
         if (that.candidateAttachVacancyForm.valid) {
             let formData = that.candidateAttachVacancyForm.value;
-            that.candidatesDataService.attachCandidateStageToVacancy(formData).subscribe(
+            that.candidatesDataService.attachCandidateStageToVacancy({
+                'candidateId': that.id,
+                'vacancyId': Number(formData.vacancyId),
+                'vacancyStage': Number(formData.vacancyStage)
+            }).subscribe(
                 data => {
                     that.setStageModalVisible = false;
                     that.refreshCurrentVacancyList();
@@ -247,7 +248,6 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
                         that.notificationService.notify(NotificationType.Error, 'attachCandidateStageToVacancyError');
                 });
         }
-
     }
 
     public deleteVacancyClick(event) {

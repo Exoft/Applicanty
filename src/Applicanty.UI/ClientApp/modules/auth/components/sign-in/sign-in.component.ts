@@ -5,7 +5,6 @@ import { Router } from "@angular/router";
 import { AuthService } from '../../../../services/auth.service';
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationType } from "../../../../enums/notification-type";
-//import { NotificationMessage } from "../../../../constants/notification-message";
 import { NotificationService } from "../../../../services/notification.service";
 
 @Component({
