@@ -47,7 +47,7 @@ export class CandidatesDataService {
         return this.http.get(`http://localhost:8000/candidate/getByVacancyAndStage?vacancyId=${vacancyId}&stageId=${stageId}`, { headers: this.authService.getAuthenticationHeader() });
     }
 
-    public attachCandidateStageToVacancy(formData: number): Observable<any> {
+    public attachCandidateStageToVacancy(formData: any): Observable<any> {
         return this.http.post(`http://localhost:8000/vacancy/attachCandidate`, formData, { headers: this.authService.getAuthenticationHeader() });
     }
    

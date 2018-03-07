@@ -12,14 +12,14 @@ export class NotificationService {
 
     private messageContainer = {};
 
-    private notificationComponent: NotificationComponent | null;
+    private notificationComponent: NotificationComponent | null = null;
 
     public initialize(notificationComponent: NotificationComponent) {
         if (!this.notificationComponent) {
             this.notificationComponent = notificationComponent;
         }
     }
-    
+
     public notify(notificationType: NotificationType, message: string) {
         if (this.notificationComponent) {
             this.loadMessages();
