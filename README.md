@@ -38,3 +38,10 @@ Also you neet specify Smtp Server and Smtp Port postal service you use. Now Smtp
 `UsernameEmail` - email from which the letters will be sent  <br/>
 `UsernamePassword` - password for this email  <br/>
 `PrimaryPort` - The port, which the server will use to send SMTP transactions (emails)  <br/>
+
+### How to run application
+##### How to run API
+* Select Applicanty.API as startup project and press Start button in Visual Studio. It should build and open brovser on localhost:8000/swagger page. API is runnuning while VS application is running is VS.
+##### How to run UI
+* To run WDS in JIT mode for development open PowerSHell window in Applicanty.UI folder and run "yarn start" command. It will run WDS with auto page refresh enabled and build on save enabled.
+* To build production version of app in AoT mode open PowerSHell window in Applicanty.UI folder and run "yarn build" command. You will get build artifacts located in Applicanty.UI/dist folder.
