@@ -1,5 +1,5 @@
 export const translations = {
-    'applicanty':'Апліканті',
+    'applicanty':'Applicanty',
     'english': 'Англійська',
     'ukrainian': 'Українська',
     'dashboard': 'Панель приладів',
