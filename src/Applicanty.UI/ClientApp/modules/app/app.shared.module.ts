@@ -16,6 +16,7 @@ import { CandidatesModule, candidateRoutes } from '../candidates/candidates.modu
 import { DashboardModule, dashboardRoutes } from '../dashboard/dashboard.module';
 import { NotFoundModule, notfoundRoutes } from "../notfound/notfound.module";
 import { FiltersModule } from "../filters/filters.module";
+import { SettingsModule, settingsRoutes } from "../settings/settings.module"
 
 import { NotificationComponent } from '../auth/components/notification/notification.component';
 
@@ -46,6 +47,7 @@ import { AuthenticationInterceptor } from "../../services/http-interceptor";
         DashboardModule,
         NotFoundModule,
         FiltersModule,
+        SettingsModule,
         CommonModule,
         HttpModule,
         FormsModule,
@@ -64,6 +66,8 @@ import { AuthenticationInterceptor } from "../../services/http-interceptor";
             ...dashboardRoutes,
 
             ...notfoundRoutes,
+
+            ...settingsRoutes,
             
             { path: '**', redirectTo: 'notfound' }
         ]),

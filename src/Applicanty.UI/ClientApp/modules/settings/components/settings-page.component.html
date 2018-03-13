@@ -1,0 +1,46 @@
+﻿<div class="row">
+    <div class="col-md-7">
+        <form [formGroup]="technologiesForm">
+            <section class="form-block">
+
+
+                <div class="form-group">
+                    <label for="technologiesId">Technologies:</label>
+
+                    <div class="checkboxlist-scroll">
+                        <div *ngFor="let technology of technologies" class="checkbox">
+                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}"
+                                   [checked]="technologiesForm?.get('technology')?.value?.indexOf(technology?.id)>=0"
+                                   (change)="vacancyTechnologiesChange($event)">
+                            <label for="{{technology?.id}}">
+                                {{technology?.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" [disabled]="!technologiesForm.valid || technologiesForm.pristine" (click)="saveCandidateClick($event)">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">Cancel</button>
+                <button type="button" class="btn btn-success-outline" (click)="showModalTechnologies(event)">Add technology</button>
+                <button type="button" class="btn btn-danger-outline" (click)="deleteTechnologies($event)">Delete technology</button>
+            </section>
+        </form>
+    </div>
+</div>
+
+<clr-modal [(clrModalOpen)]="setStageModalVisible">
+    <h3 class="modal-title">Attach new tochnology</h3>
+    <div class="modal-body">
+        <form [formGroup]="atachTechnologiesForm">
+            <section class="form-block">
+                <div class="form-group">
+                    <input type="text" formControlName="name"/>
+                </div>
+            </section>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="addTechnology(event)">Save</button>
+        <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">Cancel</button>
+    </div>
+</clr-modal>
+

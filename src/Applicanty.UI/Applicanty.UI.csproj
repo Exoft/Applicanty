@@ -40,6 +40,8 @@
     <None Remove="ClientApp\modules\filters\filters.module.ts" />
     <None Remove="ClientApp\modules\filters\text-filter\text-filter.ts" />
     <None Remove="ClientApp\modules\notfound\components\notfound.component.ts" />
+    <None Remove="ClientApp\modules\settings\components\settings.module.ts" />
+    <None Remove="ClientApp\modules\settings\services\settings-data.services.ts" />
     <None Remove="ClientApp\services\enum.data.service.ts" />
     <None Remove="ClientApp\services\grid-request.ts" />
     <None Remove="ClientApp\services\http-interceptor.ts" />
@@ -70,6 +72,8 @@
     <TypeScriptCompile Include="ClientApp\modules\notfound\notfound.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\components\dashboard.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\dashboard\dashboard.module.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\settings\services\settings-data.services.ts" />
+    <TypeScriptCompile Include="ClientApp\modules\settings\settings.module.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\components\vacancies-list\vacancies-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\modules\vacancies\vacancies.module.ts" />
     <TypeScriptCompile Include="ClientApp\services\authguard.service.ts" />
