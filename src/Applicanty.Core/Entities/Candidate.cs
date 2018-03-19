@@ -29,6 +29,7 @@ namespace Applicanty.Core.Entities
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
         public DateTime ModifiedAt { get; set; }
+        public string CandidatePhoto { get; set; }
 
         public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
         public ICollection<CandidateTechnology> CandidateTechnologies { get; set; }
