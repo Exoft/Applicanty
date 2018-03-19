@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Applicanty.UI", "Applicanty.UI\Applicanty.UI.csproj", "{14C833BA-3212-4552-9A1E-A76FFDE77B7B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Applicanty.Data", "Applicanty.Data\Applicanty.Data.csproj", "{B4DE117E-723B-4262-A04A-77E8DC6B2C1C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Applicanty.API", "Applicanty.API\Applicanty.API.csproj", "{0705BB08-CFE1-4E84-9ECC-B0984675B901}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{14C833BA-3212-4552-9A1E-A76FFDE77B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14C833BA-3212-4552-9A1E-A76FFDE77B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14C833BA-3212-4552-9A1E-A76FFDE77B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14C833BA-3212-4552-9A1E-A76FFDE77B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4DE117E-723B-4262-A04A-77E8DC6B2C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4DE117E-723B-4262-A04A-77E8DC6B2C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4DE117E-723B-4262-A04A-77E8DC6B2C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
