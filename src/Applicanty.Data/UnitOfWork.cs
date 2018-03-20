@@ -33,7 +33,7 @@ namespace Applicanty.Data.UnitOfWork.Services
             get
             {
                 if (_candidateRepository == null)
-                    _candidateRepository = new CandidateRepository(_dbContext);
+                    _candidateRepository = new CandidateRepository(_dbContext, _principal);
 
                 return _candidateRepository;
             }

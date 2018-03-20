@@ -2,13 +2,14 @@
 using Applicanty.Core.Data.Repositories;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 
 namespace Applicanty.Data.Repositories
 {
-    internal class CandidateRepository : StateableRepository<Candidate>, ICandidateRepository
+    internal class CandidateRepository : TrackableRepository<Candidate>, ICandidateRepository
     {
-        public CandidateRepository(AtsDbContext context)
-            : base(context)
+        public CandidateRepository(AtsDbContext context, IPrincipal principal)
+            : base(context, principal)
         { }
 
         public override Candidate Update(Candidate entity)
