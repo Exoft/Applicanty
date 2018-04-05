@@ -30,6 +30,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public candidateByTechnologyAndExperience: any[] = [];
     public addedCandidates: any[] = [];
     public availableCandidatesForSelection: any[] = [];
+    public potentialCandidateList: any[] = [];
+
+    public potentialCandidateGridLoading: boolean = false;
+    public gridloading: boolean = false;
 
     public froalaOptions: Object = {
         charCounterCount: true,
@@ -80,6 +84,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 vacancy => {
                     if (vacancy) {
                         that.setFormData(vacancy);
+                        that.refreshPotentialCandidates();                        
                     }
                 }, error => {
                     if (error.status == 400)
@@ -187,6 +192,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         this.vacancyPageForm.get('technologyIds')!.markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
+
+        this.refreshPotentialCandidates();
     }
 
     public vacancyStageLabelClick(event: Event, idStage: number) {
@@ -199,6 +206,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public showAvailableCandidates(event) {
         let that = this;
+        that.candidateByTechnologyAndExperience=[];
         let formData = that.vacancyPageForm.value;
 
         let technologyIds = that.vacancyPageForm.get('technologyIds')!.value;
@@ -206,7 +214,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
         Observable.forkJoin(
             that.vacanciesDataService.getCandidateByVacancy(that.id),
-            that.vacanciesDataService.candidateGetByTechnologyAndExperience(experienceId, technologyIds))
+            that.vacanciesDataService.getCandidateByTechnologyAndExperience(experienceId, technologyIds))
             .subscribe(
             data => {
                 that.addedCandidates = data[0].result;
@@ -241,12 +249,13 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 that.refreshCurrentVacancyList();
                 that.setStageModalVisible = false;
                 that.refreshVacancyStageCount();
+                that.refreshPotentialCandidates();
             })
     }
 
     public deleteCandydateClick(event) {
         let that = this;
-        
+
         if (that.getSelectedVacancies()) {
             let arr = that.getSelectedVacancies();
             for (let item of arr) {
@@ -256,13 +265,18 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     });
             }
         }
+        
+        that.refreshPotentialCandidates();
     }
 
     private refreshCurrentVacancyList() {
         let that = this;
 
+        that.gridloading = true;
+
         that.vacanciesDataService.getCandidateByVacancy(that.id).subscribe(
             data => {
+                that.gridloading = false;
                 that.candidatesByVacancy = data.result;
             },
             error => {
@@ -303,9 +317,44 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                         that.vacancyStageCount[stage] = count;
                     }
                 }
-            }, error => {
+            }, 
+            error => {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, 'vacancyStagesCountLoadError');
             });
+    }
+
+    refreshPotentialCandidates() {
+        let that = this;
+        that.candidateByTechnologyAndExperience=[];
+        let formData = that.vacancyPageForm.value;
+        that.potentialCandidateGridLoading = true;
+
+        let technologyIds = that.vacancyPageForm.get('technologyIds')!.value;
+        let experienceId = that.vacancyPageForm.get('experienceId')!.value;
+        that.vacanciesDataService.getCandidateByVacancy(that.id),
+        
+        Observable.forkJoin(
+            that.vacanciesDataService.getCandidateByVacancy(that.id),         
+        that.vacanciesDataService.getCandidateByTechnologyAndExperience(experienceId, technologyIds)).subscribe(
+            data => {
+                 that.potentialCandidateGridLoading = false;
+                 that.addedCandidates = data[0].result;
+                 that.availableCandidatesForSelection = data[1];
+     
+                 let idArray = that.addedCandidates.filter(function (el, index, array) {
+                     return el.id;
+                 });
+                 that.availableCandidatesForSelection.forEach(function (el, index, arr) {
+                     if (!idArray.some(item => item.id === el.id)) {
+                         that.candidateByTechnologyAndExperience.push(el);
+                     }
+                 })
+                },   
+                error => {
+                    that.potentialCandidateGridLoading = false;
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, 'potentialCandidatesLoadError');                        
+                });
     }
 }
