@@ -10,7 +10,7 @@ export const translations = {
     'setArchived': 'Архівувати',
     'setDeleted': 'Видалити',
     'show': 'Показати',
-    'title': 'Заголовки',
+    'title': 'Назва',
     'experienceLevels': 'Рівень Досвіду',
     'endDate': 'Дата закінчення',
     'status': 'Статус',
@@ -20,7 +20,20 @@ export const translations = {
     'lowerLimit': 'Від',
     'upperLimit': 'До',
     'search': 'Пошук',
-
+    'placeholderVacancyListDataGrid': 'Вакансій не знайдено!',
+    'placeholderPotentialCandidatesListDataGrid':'Потенційних кандидатів не знайдено!',
+    'potentialCandidates':'Потенційні кандидати',    
+    'stage':'Етап',
+    'save':'Зберегти',
+    'cancel':'Закрити',
+    'attachVacancyToCandidate':'Призначати вакансії кандидата',
+    'viewDetails':'Докладніше',
+    'vacancyDescription':'Опис вакансії',
+    'technologies':'Технології',
+    'experience':'Досвід',
+    'createdAt':'Дата ствонення',
+    'candidatesFooter': 'кандидадів',
+    'of':'з',
     'enums': {
         'statusType': {
             'active': 'Активні',
@@ -67,5 +80,6 @@ export const translations = {
         'unauthorizedError': 'Час сесії вичерпано.',
         'signInError': 'Помилка сталась під час авторизації',
         'forbiddenError': 'Логін або пароль введені неправильно',
+        'potentialCandidatesLoadError':'Помилка сталась під час завантаження вибору потенційних кандидатів'
     }
 }

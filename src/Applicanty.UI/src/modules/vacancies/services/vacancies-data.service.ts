@@ -44,7 +44,7 @@ export class VacanciesDataService {
         return this.http.get(`http://localhost:8000/candidate/getByVacancy?vacancyId=${vacancyId}`, { headers: this.authService.getAuthenticationHeader() })
     } 
 
-    public candidateGetByTechnologyAndExperience(experience: number, technologyIds: number[]): Observable<any> {
+    public getCandidateByTechnologyAndExperience(experience: number, technologyIds: number[]): Observable<any> {
         return this.http.post(`http://localhost:8000/candidate/getByTechnologyAndExperience?experience=${experience}`, technologyIds, { headers: this.authService.getAuthenticationHeader() })
     }
 

@@ -20,6 +20,20 @@ export const translations = {
     'lowerLimit': 'From',
     'upperLimit': 'To',
     'search': 'Search',
+    'placeholderVacancyListDataGrid': 'We couldn\'t find any vacancies!',
+    'placeholderPotentialCandidatesListDataGrid':'We couldn\'t find any potential candidates!',
+    'potentialCandidates':'Potential candidates',    
+    'stage':'Stage',
+    'cancel':'Cancel',
+    'save':'Save',
+    'attachVacancyToCandidate':'Attach vacancy to candidate',
+    'viewDetails':' View details',
+    'vacancyDescription':'Vacancy Description',
+    'technologies':'Technologies',
+    'experience':'Experience',
+    'createdAt':'Created at', 
+    'candidatesFooter': 'candidates',
+    'of':'of',
 
     'enums': {
         'statusType': {
@@ -66,6 +80,7 @@ export const translations = {
         'internetServiceError': 'Internal Server Error',
         'unauthorizedError': 'Session time is over.',
         'signInError': 'Error occurred during authorization',
-        'forbiddenError': 'Login or password entered incorrect'
+        'forbiddenError': 'Login or password entered incorrect',
+        'potentialCandidatesLoadError':'Error occurred during loading a potential candidates'
     }
 }

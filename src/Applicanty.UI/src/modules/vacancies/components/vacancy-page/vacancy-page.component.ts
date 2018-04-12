@@ -1,15 +1,18 @@
 ﻿import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from "rxjs/Observable";
+
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { EnumDataService } from '../../../../services/enum.data.service';
+
 import { EnumNames } from '../../../../constants/enum-names';
 
 import { ValidationService } from "../../../../services/validation.service";
 import { NotificationService } from "../../../../services/notification.service";
 import { NotificationType } from "../../../../enums/notification-type";
-import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/forkJoin';
 
 @Component({
@@ -30,6 +33,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public candidateByTechnologyAndExperience: any[] = [];
     public addedCandidates: any[] = [];
     public availableCandidatesForSelection: any[] = [];
+    public potentialCandidateList: any[] = [];
+
+    public potentialCandidateGridLoading: boolean = false;
+    public gridLoading: boolean = false;
 
     public froalaOptions: Object = {
         charCounterCount: true,
@@ -80,6 +87,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 vacancy => {
                     if (vacancy) {
                         that.setFormData(vacancy);
+                        that.refreshPotentialCandidates();
                     }
                 }, error => {
                     if (error.status == 400)
@@ -187,6 +195,8 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         this.vacancyPageForm.get('technologyIds')!.markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
+
+        this.refreshPotentialCandidates();
     }
 
     public vacancyStageLabelClick(event: Event, idStage: number) {
@@ -199,6 +209,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public showAvailableCandidates(event) {
         let that = this;
+        that.candidateByTechnologyAndExperience = [];
         let formData = that.vacancyPageForm.value;
 
         let technologyIds = that.vacancyPageForm.get('technologyIds')!.value;
@@ -206,7 +217,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
         Observable.forkJoin(
             that.vacanciesDataService.getCandidateByVacancy(that.id),
-            that.vacanciesDataService.candidateGetByTechnologyAndExperience(experienceId, technologyIds))
+            that.vacanciesDataService.getCandidateByTechnologyAndExperience(experienceId, technologyIds))
             .subscribe(
             data => {
                 that.addedCandidates = data[0].result;
@@ -241,12 +252,13 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 that.refreshCurrentVacancyList();
                 that.setStageModalVisible = false;
                 that.refreshVacancyStageCount();
+                that.refreshPotentialCandidates();
             })
     }
 
     public deleteCandydateClick(event) {
         let that = this;
-        
+
         if (that.getSelectedVacancies()) {
             let arr = that.getSelectedVacancies();
             for (let item of arr) {
@@ -256,13 +268,17 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                     });
             }
         }
+        that.refreshPotentialCandidates();
     }
 
     private refreshCurrentVacancyList() {
         let that = this;
 
+        that.gridLoading = true;
+
         that.vacanciesDataService.getCandidateByVacancy(that.id).subscribe(
             data => {
+                that.gridLoading = false;
                 that.candidatesByVacancy = data.result;
             },
             error => {
@@ -303,9 +319,46 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                         that.vacancyStageCount[stage] = count;
                     }
                 }
-            }, error => {
+            },
+            error => {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, 'vacancyStagesCountLoadError');
             });
+    }
+
+    refreshPotentialCandidates() {
+        this.candidateByTechnologyAndExperience = [];
+        let formData = this.vacancyPageForm.value;
+        this.potentialCandidateGridLoading = true;
+
+        let technologyIds = this.vacancyPageForm.get('technologyIds')!.value;
+        let experienceId = this.vacancyPageForm.get('experienceId')!.value;
+        this.vacanciesDataService.getCandidateByVacancy(this.id),
+
+            Observable.forkJoin(
+                this.vacanciesDataService.getCandidateByVacancy(this.id),
+                this.vacanciesDataService
+                    .getCandidateByTechnologyAndExperience(experienceId, technologyIds))
+                    .subscribe( data => {
+                        this.potentialCandidateGridLoading = false;
+                        this.addedCandidates = data[0].result;
+                        this.availableCandidatesForSelection = data[1];
+
+                        let idArray = this.addedCandidates.filter((el, index, array) => {
+                            return el.id;
+                        });
+
+                        this.availableCandidatesForSelection.forEach((el, index, arr) => {
+                            if (!idArray.some(item => item.id === el.id)) {
+                                this.candidateByTechnologyAndExperience.push(el);
+                            }
+                        })
+                    },
+                    error => {
+                        this.potentialCandidateGridLoading = false;
+
+                        if (error.status == 400)
+                            this.notificationService.notify(NotificationType.Error, 'potentialCandidatesLoadError');
+                    });
     }
 }

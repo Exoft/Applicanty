@@ -46,7 +46,7 @@
     </clr-dg-column>
     <clr-dg-column>{{'status' | translate}}</clr-dg-column>
 
-    <clr-dg-placeholder>We couldn't find any vacancies!</clr-dg-placeholder>
+    <clr-dg-placeholder>{{'placeholderVacancyListDataGrid'| translate}}</clr-dg-placeholder>
 
     <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
         <clr-dg-action-overflow>
@@ -56,7 +56,7 @@
         </clr-dg-action-overflow>
 
         <clr-dg-cell>
-            <a [routerLink]="['../','vacancies', 'details', item?.id]" routerLinkActive="active">
+            <a [routerLink]="['details', item?.id]" routerLinkActive="active">
                 {{item?.title}}
             </a>
         </clr-dg-cell>
