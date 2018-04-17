@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SettingsDataService {
@@ -11,15 +12,18 @@ export class SettingsDataService {
     }
 
     public getTechnologies(): Observable<any> {
-        return this.http.get('http://localhost:8000/technology', { headers: this.authService.getAuthenticationHeader() });
+        return this.http.get('${environment.apiRootUrl}technology', { headers: this.authService.getAuthenticationHeader() });
     }
 
     public createNewTechnology(formData: any): Observable<any> {
-        return this.http.post('http://localhost:8000/Technology', formData, { headers: this.authService.getAuthenticationHeader() })
+        return this.http.post('${environment.apiRootUrl}Technology', formData, { headers: this.authService.getAuthenticationHeader() })
     }
 
     public deleteTechnology(id: number): Observable<any> {
-        return this.http.delete(`http://localhost:8000/Technology?id=${id}`, { headers: this.authService.getAuthenticationHeader() })
-    }
+        let params = new HttpParams();
 
+        params = params.set('id', id.toString());
+
+        return this.http.delete(`${environment.apiRootUrl}Technology`, { headers: this.authService.getAuthenticationHeader(), params: params })
+    }
 }

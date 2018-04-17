@@ -16,7 +16,6 @@ namespace Applicanty.API.Helpers
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-
             Execute(email, subject, message).Wait();
             return Task.FromResult(0);
         }
@@ -26,9 +25,10 @@ namespace Applicanty.API.Helpers
             string toEmail = string.IsNullOrEmpty(email)
                              ? _emailSettings.ToEmail
                              : email;
+
             MailMessage mail = new MailMessage()
             {
-                From = new MailAddress(_emailSettings.UsernameEmail, "Muhammad Hassan Tariq")
+                From = new MailAddress(_emailSettings.FromEmail, "Applicanty")
             };
 
             mail.To.Add(new MailAddress(toEmail));
@@ -38,10 +38,10 @@ namespace Applicanty.API.Helpers
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;
 
-            using (SmtpClient smtp = new SmtpClient(_emailSettings.PrimaryDomain, _emailSettings.PrimaryPort))
+            using (SmtpClient smtp = new SmtpClient(_emailSettings.PrimaryDomain))
             {
-                smtp.Credentials = new NetworkCredential(_emailSettings.UsernameEmail, _emailSettings.UsernamePassword);
-                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential(_emailSettings.Username, _emailSettings.Password);
+                smtp.EnableSsl = false;
                 await smtp.SendMailAsync(mail);
             }
         }

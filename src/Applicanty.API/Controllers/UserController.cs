@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -34,7 +35,6 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-
                 var user = await _userManager.FindByEmailAsync(model.Email);
 
                 if (user != null)
@@ -45,8 +45,8 @@ namespace Applicanty.API.Controllers
 
                         if (tokenResponse.HttpStatusCode == HttpStatusCode.OK)
                             return Ok(tokenResponse.Raw);
-
-                        throw new Exception($"{tokenResponse.Error}{Environment.NewLine}{tokenResponse.ErrorDescription}");
+                        else
+                            throw new Exception($"{tokenResponse.Error}{Environment.NewLine}{tokenResponse.ErrorDescription}");
                     }
                     else
                     {
@@ -74,14 +74,14 @@ namespace Applicanty.API.Controllers
                 if (result.Succeeded)
                 {
                     string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
-                    string confirmationLink = $"{Request.Headers["Origin"].ToString()}/confirmEmail?email{user.Email}&token={confirmationToken}";
+                    string confirmationLink = $"{Request.Headers["Origin"].ToString()}/emailverification?email={user.Email}&token={confirmationToken}";
 
                     var message = "<div style=\"width: 640px\"><table><tr><td>Please confirm your email address by clicking the link below:</td></tr>"
-                 + $"<td><a href=\"{confirmationLink}\">Click here  </a></td><tr><td></td></tr>"
-                 + "<tr> <td>Or you can copy and paste this link into your browser: </td></tr>"
-                 + $"<tr><td style=\"padding:15px;background-color:#e2e2e2e2;font-style: italic;\"><p style=\"width:640px;\"><a style=\"color:black;cursor:auto;\" href=\"#\">{confirmationLink}</a></p></tr></table></div>";
+                                     + $"<td><a href=\"{confirmationLink}\">Click here  </a></td><tr><td></td></tr>"
+                                     + "<tr> <td>Or you can copy and paste this link into your browser: </td></tr>"
+                                     + $"<tr><td style=\"padding:15px;background-color:#e2e2e2e2;font-style: italic;\"><p style=\"width:640px;\"><a style=\"color:black;cursor:auto;\" href=\"#\">{confirmationLink}</a></p></tr></table></div>";
 
-                    await _emailSender.SendEmailAsync(user.Email, "ConfirmEmail", message);
+                    await _emailSender.SendEmailAsync(user.Email, "Email confirmation", message);
 
                     return Ok(true);
                 }
@@ -94,16 +94,33 @@ namespace Applicanty.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet("confirm-email")]
         public IActionResult ConfirmEmail([FromQuery]string email, [FromQuery]string token)
         {
             try
             {
                 User user = _userManager.FindByEmailAsync(email).Result;
-                IdentityResult result = _userManager.ConfirmEmailAsync(user, token).Result;
+                IdentityResult result = _userManager.ConfirmEmailAsync(user, WebUtility.HtmlDecode(token)).Result;
 
                 if (result.Succeeded)
                     return Ok(true);
+                else
+                {
+                    var errors = string.Empty;
+
+                    if (result.Errors.ToList().Any())
+                        result.Errors.ToList().ForEach(error =>
+                        {
+                            errors += error.Description;
+
+                            if (result.Errors.ToList().Count > 1)
+                            {
+                                errors += Environment.NewLine;
+                            }
+                        });
+
+                    throw new Exception(errors);
+                }
 
                 throw new Exception("Exception occured during email confirmation.");
             }

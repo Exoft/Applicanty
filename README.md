@@ -31,18 +31,10 @@ To create test users you have to run a Applicanty.API project in debugging mode
 |stepanchik@mail.com|Rerehelpf1@|
 |dudka27@mail.com   |Rerehelpf1@|
 
-### Email Sender
-To set up sending emails you need specify, the email from which the letters will be sent and password from it, in `appsettings.json`.
-Also you neet specify Smtp Server and Smtp Port postal service you use. Now Smtp Server and Smtp Port setted for gmail.
-
-`UsernameEmail` - email from which the letters will be sent  <br/>
-`UsernamePassword` - password for this email  <br/>
-`PrimaryPort` - The port, which the server will use to send SMTP transactions (emails)  <br/>
-
 ### How to run application
 ##### How to run API
 * Select Applicanty.API as startup project and press Start button in Visual Studio. It should build and open brovser on localhost:8000/swagger page. API is runnuning while VS application is running is VS.
 ##### How to run UI
-* To start use Yarn open PowerSHell window in Applicanty.UI folder and run "yarn" command.
-* To run WDS in JIT mode for development open PowerSHell window in Applicanty.UI folder and run "yarn start" command. It will run WDS with auto page refresh enabled and build on save enabled.
-* To build production version of app in AoT mode open PowerSHell window in Applicanty.UI folder and run "yarn build" command. You will get build artifacts located in Applicanty.UI/dist folder.
+* To start use Yarn open PowerShell window in Applicanty.UI folder and run "yarn" command.
+* To run WDS in JIT mode for development open PowerShell window in Applicanty.UI folder and run "yarn start" command. It will run WDS with auto page refresh enabled and build on save enabled.
+* To build production version of app in AoT mode open PowerShell window in Applicanty.UI folder and run "yarn build" command. You will get build artifacts located in Applicanty.UI/dist folder.

@@ -61,15 +61,17 @@ namespace Applicant.API
             services.AddSingleton(Configuration);
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
+#if DEBUG
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Applicanty" });
             });
+#endif
 
             services.AddIdentity<User, IdentityRole<int>>(conf =>
-            {
-                conf.SignIn.RequireConfirmedEmail = true;
-            })
+                {
+                    conf.SignIn.RequireConfirmedEmail = true;
+                })
                 .AddEntityFrameworkStores<AtsDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -92,7 +94,11 @@ namespace Applicant.API
             })
                 .AddIdentityServerAuthentication(options =>
                 {
+#if DEBUG
                     options.Authority = "http://localhost:8000";
+#else
+                    options.Authority = "https://applicanty-api.exoft.net";
+#endif
                     options.RequireHttpsMetadata = false;
 
                     options.ApiName = "applicantyAPI";
@@ -106,7 +112,7 @@ namespace Applicant.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
-            app.UseCors(options => options.WithOrigins("http://localhost:8001").AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(options => options.WithOrigins("http://localhost:8001", "https://applicanty.exoft.net").AllowAnyMethod().AllowAnyHeader());
 
             if (env.IsDevelopment())
             {
@@ -126,11 +132,13 @@ namespace Applicant.API
                 }
             }
 
+#if DEBUG
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Applicanty");
             });
+#endif
 
             app.UseIdentityServer();
             

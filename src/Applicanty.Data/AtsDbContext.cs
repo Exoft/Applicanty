@@ -19,7 +19,11 @@ namespace Applicanty.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
+#if DEBUG
                 optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=AtsDB;Integrated Security=True");
+#else
+                optionsBuilder.UseSqlServer(@"Data Source=office.exoft.net;Initial Catalog=applicanty-db;Integrated Security=False;User ID=sa;Password=M1llions2013;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+#endif
             }
         }
 
