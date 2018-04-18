@@ -73,7 +73,9 @@ namespace Applicanty.API.Controllers
 
                 if (result.Succeeded)
                 {
-                    string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
+                    var createdUser = await _userManager.FindByEmailAsync(model.Email);
+
+                    string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(createdUser).Result;
                     string confirmationLink = $"{Request.Headers["Origin"].ToString()}/emailverification?email={user.Email}&token={confirmationToken}";
 
                     var message = "<div style=\"width: 640px\"><table><tr><td>Please confirm your email address by clicking the link below:</td></tr>"
@@ -100,7 +102,10 @@ namespace Applicanty.API.Controllers
             try
             {
                 User user = _userManager.FindByEmailAsync(email).Result;
-                IdentityResult result = _userManager.ConfirmEmailAsync(user, WebUtility.HtmlDecode(token)).Result;
+
+                var decodedToken = WebUtility.UrlDecode(token);
+
+                IdentityResult result = _userManager.ConfirmEmailAsync(user, decodedToken).Result;
 
                 if (result.Succeeded)
                     return Ok(true);

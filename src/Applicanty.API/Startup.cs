@@ -45,7 +45,7 @@ namespace Applicant.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IPrincipal>(
                 provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
-
+            
             services.AddDbContext<AtsDbContext>(optionsBuilder => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IEmailSender, EmailSender>();

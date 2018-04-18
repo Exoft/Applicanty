@@ -18,11 +18,15 @@ export class EmailVerificationComponent implements OnDestroy {
     private countdown = 3;
     private subscription: Subscription = new Subscription();
 
+    public static router: any;
+
     constructor(private authService: AuthService,
         private activeRoute: ActivatedRoute,
         private router: Router) {
 
         let that = this;
+
+        EmailVerificationComponent.router = this.router;
 
         that.subscription = activeRoute.queryParams.subscribe(params => {
             if (params.hasOwnProperty('email')) {
@@ -54,7 +58,7 @@ export class EmailVerificationComponent implements OnDestroy {
         if (this.countdown > 0) {
             setTimeout(this.countDown, 1000);
         } else {
-            this.router.navigate(['signin']);
+            EmailVerificationComponent.router.navigate(['signin']);
         }
     }
 }

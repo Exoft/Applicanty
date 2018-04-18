@@ -53,8 +53,8 @@ export class AuthService {
         let params = new HttpParams();
 
         params = params.set('email', email);
-        params = params.set('token', token);
+        params = params.set('token', encodeURIComponent(token));
 
-        return this.http.get(`${environment.apiRootUrl}user/confirm-email`, { params: params});
+        return this.http.get(`${environment.apiRootUrl}user/confirm-email`, { params: params });
     }
 }
