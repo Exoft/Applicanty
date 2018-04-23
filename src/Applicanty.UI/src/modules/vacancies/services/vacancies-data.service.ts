@@ -26,7 +26,7 @@ export class VacanciesDataService {
     }
 
     public createVacancy(vacancy: any): Observable<any> {
-        return this.http.post('${environment.apiRootUrl}vacancy', vacancy, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.post(`${environment.apiRootUrl}vacancy`, vacancy, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public updateVacancy(vacancy: any): Observable<any> {
@@ -53,10 +53,10 @@ export class VacanciesDataService {
         return this.http.get(`${environment.apiRootUrl}vacancy/countVacancyStageCandidates`, { headers: this.authService.getAuthenticationHeader(), params: params })
     }
 
-    public getCandidateByVacancy(vacancyId: number): Observable<any> {
+    public getCandidateByVacancy(vacancyId: string): Observable<any> {
         let params = new HttpParams();
 
-        params = params.set('vacancyId', vacancyId.toString());
+        params = params.set('vacancyId', vacancyId);
 
         return this.http.get(`${environment.apiRootUrl}candidate/getByVacancy`, { headers: this.authService.getAuthenticationHeader(), params: params })
     } 
