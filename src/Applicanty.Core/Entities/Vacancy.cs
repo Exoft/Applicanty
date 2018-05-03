@@ -18,6 +18,7 @@ namespace Applicanty.Core.Entities
         [ForeignKey("User")]
         public int CreatedBy { get; set; }
         public Experience ExperienceId { get; set; }
+        public Priority PriorityId { get; set; }
         public string Title { get; set; }
         public string JobDescription { get; set; }
         public string VacancyDescription { get; set; }
@@ -26,7 +27,6 @@ namespace Applicanty.Core.Entities
         public DateTime ModifiedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public int ModifiedBy { get; set; }
-        public DateTime EndDate { get; set; }
 
         public User User { get; set; }
         public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
