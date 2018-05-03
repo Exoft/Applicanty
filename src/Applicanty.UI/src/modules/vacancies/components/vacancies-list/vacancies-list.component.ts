@@ -29,11 +29,11 @@ export class VacanciesListComponent implements OnInit {
     public active = StatusCommands.ACTIVE;
 
     public totalCount: number = 0;
-    private sortField: { by: string | Comparator<any>, reverse: boolean } = { by: 'endDate', reverse: true };
     private currentState: any;
     private currentStatus: number = 0;
 
     public experiences: any[] = [];
+    public priorities: any[] = [];
     public statuses: any[] = [];
 
     constructor(private vacanciesDataService: VacanciesDataService,
@@ -53,7 +53,16 @@ export class VacanciesListComponent implements OnInit {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
             });
-
+            that.enumService.getEnums(EnumNames.PRIORITY).subscribe(
+                data => {
+                    if (data) {
+                        that.priorities = data.result;
+                    }
+                }, error => {
+                    if (error.status == 400)
+                        that.notificationService.notify(NotificationType.Error, 'priorityLoadError');
+                });     
+                    
         that.enumService.getEnums(EnumNames.STATUSTYPE).subscribe(
             data => {
                 if (data) {
@@ -63,7 +72,7 @@ export class VacanciesListComponent implements OnInit {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, 'statusLoadError');
             });
-    }
+        }
 
     public getVacanciesByStatusType(event, status: number) {
         this.currentStatus = status;
@@ -74,17 +83,12 @@ export class VacanciesListComponent implements OnInit {
         let that = this;
         that.currentState = state;
         that.loading = true;
-        if (state.sort) {
-            that.sortField = that.currentState.sort;
-        }
 
         let filters = that.getFiltersList(that.currentState.filters);
 
         let gridRequest: GridRequest = {
             take: that.currentState.page.size,
             skip: that.currentState.page.from,
-            sortField: that.sortField.by.toString(),
-            sortDir: that.sortField.reverse == true ? 'desc' : 'asc',
             filters: filters
         };
 

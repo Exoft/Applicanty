@@ -36,14 +36,14 @@
             <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
             </clr-datagrid-experience-filter>
         </clr-dg-filter>
-    </clr-dg-column>
-    <clr-dg-column [clrDgField]="'endDate'">
-        {{'endDate' | translate}}
-        <clr-dg-filter [clrDgFilter]="dateFilter">
-            <clr-datagrid-date-filter #dateFilter [propertyName]="'endDate'">
-            </clr-datagrid-date-filter>
-        </clr-dg-filter>
-    </clr-dg-column>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'priorityId'">
+    {{'priority' | translate}}
+    <clr-dg-filter [clrDgFilter]="priorityFilter">
+        <clr-datagrid-priority-filter #priorityFilter [propertyName]="'priorityId'" [priorities]="priorities">
+        </clr-datagrid-priority-filter>
+    </clr-dg-filter>
+</clr-dg-column>
     <clr-dg-column>{{'status' | translate}}</clr-dg-column>
 
     <clr-dg-placeholder>{{'placeholderVacancyListDataGrid'| translate}}</clr-dg-placeholder>
@@ -61,7 +61,7 @@
             </a>
         </clr-dg-cell>
         <clr-dg-cell>{{experiences ? experiences[item?.experienceId]?.name : ''}}</clr-dg-cell>
-        <clr-dg-cell>{{item?.endDate | date}}</clr-dg-cell>
+        <clr-dg-cell>{{priorities ? priorities[item?.priorityId]?.name : ''}}</clr-dg-cell>
         <clr-dg-cell>{{statuses ? statuses[item?.statusId]?.name : ''}}</clr-dg-cell>
     </clr-dg-row>
 
