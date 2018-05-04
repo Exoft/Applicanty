@@ -26,7 +26,6 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
 
     public technologies: any[] = [];
     public experiences: any[] = [];
-    public priorities: any[] = [];
     public vacancyStages: any[] = [];
     public selectedCandidatesOfVacancy: any[] = [];
     public vacancyStageCount: { [value: number]: any } = {};
@@ -48,7 +47,6 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     };
 
     private experienceEnum = EnumNames.EXPERIENCE;
-    private priorityEnum = EnumNames.PRIORITY;
     private stageEnum = EnumNames.VACANCYSTAGE;
 
     public vacancyPageForm: FormGroup = new FormGroup({
@@ -56,9 +54,9 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         'title': new FormControl('', Validators.required),
         'createdBy': new FormControl(''),
         'createdAt': new FormControl(new Date().toLocaleDateString()),
+        'endDate': new FormControl(new Date(), [Validators.required, this.validationService.endDateValidator]),
         'technologyIds': new FormControl([]),
         'experienceId': new FormControl(0, Validators.required),
-        'priorityId': new FormControl(0, Validators.required),
         'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
         'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)])
     });
@@ -122,13 +120,7 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 if (error.status == 400)
                     that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
             });
-            that.enumService.getEnums(that.priorityEnum).subscribe(
-                data => {
-                    that.priorities = data.result;
-                }, error => {
-                    if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, 'priorityLoadError');
-                });  
+
     }
 
     ngOnDestroy() {
@@ -136,15 +128,16 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     }
 
     private setFormData(vacancy) {
+        var endDate = new Date(vacancy.endDate);
         var createDate = new Date(vacancy.createdAt);
         this.vacancyPageForm.setValue({
             'id': vacancy.id,
             'title': vacancy.title,
             'createdBy': Number(vacancy.createdBy),
             'createdAt': createDate.getFullYear() + '-' + ((createDate.getMonth() + 1).toString().length === 1 ? '0' + (createDate.getMonth() + 1).toString() : (createDate.getMonth() + 1).toString()) + '-' + (createDate.getDate().toString().length === 1 ? '0' + createDate.getDate().toString() : createDate.getDate()),
+            'endDate': endDate.getFullYear() + '-' + ((endDate.getMonth() + 1).toString().length === 1 ? '0' + (endDate.getMonth() + 1).toString() : (endDate.getMonth() + 1).toString()) + '-' + (endDate.getDate().toString().length === 1 ? '0' + endDate.getDate().toString() : endDate.getDate()),
             'technologyIds': vacancy.technologyIds,
             'experienceId': vacancy.experienceId,
-            'priorityId': vacancy.priorityId,
             'vacancyDescription': vacancy.vacancyDescription,
             'jobDescription': vacancy.jobDescription
         });

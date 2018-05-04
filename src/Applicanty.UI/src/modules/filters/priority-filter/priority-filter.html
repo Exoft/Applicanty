@@ -1,7 +1,0 @@
-<ul>
-    <li class="color-square color-selectable" *ngFor="let priority of priorities"
-        (click)="togglePriority(priority?.value)"
-        [class.color-selected]="selectedPriorities[priority?.value]">
-        <span>{{priority?.name}}</span>
-    </li>
-</ul>

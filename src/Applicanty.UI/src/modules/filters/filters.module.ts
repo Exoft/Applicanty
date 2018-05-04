@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 
 import { ExperienceFilter } from "../filters/experience-filter/experience-filter";
-import { PriorityFilter } from "../filters/priority-filter/priority-filter";
+import { DateFilter } from "../filters/date-filter/date-filter";
 import { TextFilter } from "../filters/text-filter/text-filter";
 import { AgeFilter } from "./age-filter/age-filter";
 import { RouterModule } from "@angular/router";
@@ -16,7 +16,7 @@ import { TranslateModule } from "@ngx-translate/core";
 @NgModule({
     declarations: [
         ExperienceFilter,
-        PriorityFilter,
+        DateFilter,
         TextFilter,
         AgeFilter
     ],
@@ -32,7 +32,7 @@ import { TranslateModule } from "@ngx-translate/core";
     ],
     exports: [
         ExperienceFilter,
-        PriorityFilter,
+        DateFilter,
         TextFilter,
         AgeFilter
     ],
