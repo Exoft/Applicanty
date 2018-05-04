@@ -89,6 +89,7 @@ namespace Applicanty.Data
                     {
                         CreatedAt = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
                         ExperienceId = (Experience)random.Next(0, 4),
+                        PriorityId = (Priority)random.Next(0, 3),
                         CreatedBy = i % 3 + 1,
                         StatusId = (StatusType)random.Next(0, 3),
                         MaxSalary = 300 + random.Next(50, 200),
@@ -97,8 +98,7 @@ namespace Applicanty.Data
                         ModifiedAt = DateTime.Now,
                         VacancyDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
                         JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                        EndDate = DateTime.Now.AddDays(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())
-                    });
+                       });
                 }
                 context.SaveChanges();
             }
