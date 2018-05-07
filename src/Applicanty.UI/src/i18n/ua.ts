@@ -12,7 +12,6 @@ export const translations = {
     'show': 'Показати',
     'title': 'Назва',
     'experienceLevels': 'Рівень Досвіду',
-    'endDate': 'Дата закінчення',
     'status': 'Статус',
     'activate': 'Активувати',
     'archive': 'Архівувати',
@@ -31,6 +30,7 @@ export const translations = {
     'vacancyDescription':'Опис вакансії',
     'technologies':'Технології',
     'experience':'Досвід',
+    'priority':'Пріоритет',
     'createdAt':'Дата ствонення',
     'candidatesFooter': 'кандидадів',
     'of':'з',
@@ -46,8 +46,7 @@ export const translations = {
         'required': 'Це поле є обов\'язковим',
         'min': 'Введене значення має бути більшим',
         'invalidEmail': 'Введене значення недійсна електронна адреса',
-        'passwordsDoNotMatch': 'Пароль не збігається',
-        'invalidEndDate': 'Дата завершення не може бути пізніше, ніж сьогодні',
+        'passwordsDoNotMatch': 'Пароль не збігається',       
         'invalidTechnologiesCount': 'Кількість технологій не може бути менше двох',
         'invalidLowerDateLimit': 'Нижня межа дати не може бути пізнішою, ніж верхня межа дати',
         'invalidLowerAgeLimit': 'Нижня межа віку не може перевищувати межі верхньої вікової категорії'
@@ -55,6 +54,7 @@ export const translations = {
 
     'notificationMessage': {
         'experienceLoadError': 'Помилка завантаження списку рівнів досвіду.',
+        'priorityLoadError': 'Помилка завантаження списку пріоритетів.',
         'statusLoadError': 'Помилка завантаження списку статусів.',
         'vacanciesListLoadError': 'Помилка сталась під час завантаження списку вакансій.',
         'vacancyChangeStatusSucces': 'Статус вакансії змінено успішно.',

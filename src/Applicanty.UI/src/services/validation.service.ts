@@ -37,16 +37,7 @@ export class ValidationService implements OnDestroy {
         let that = this;
 
         that.translateService.get('validation').subscribe(res => {
-            that.config = {
-                'required': res['required'],
-                'min': res['min'],
-                'invalidEmail': res['invalidEmail'],
-                'passwordsDoNotMatch': res['passwordsDoNotMatch'],
-                'invalidEndDate': res['invalidEndDate'],
-                'invalidTechnologiesCount': res['invalidTechnologiesCount'],
-                'invalidLowerDateLimit': res['invalidLowerDateLimit'],
-                'invalidLowerAgeLimit': res['invalidLowerAgeLimit']
-            };
+            that.config = res;
         });
     }
 
@@ -82,18 +73,6 @@ export class ValidationService implements OnDestroy {
             return null;
         } else {
             return { 'passwordsDoNotMatch': true };
-        }
-    }
-
-    public endDateValidator(control) {
-        if (!control.value || control.value === null)
-            return null;
-
-        let endDate = new Date(control.value);
-        if (new Date() < endDate) {
-            return null;
-        } else {
-            return { 'invalidEndDate': true }
         }
     }
 
