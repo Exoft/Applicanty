@@ -55,6 +55,7 @@ export const translations = {
 
     'notificationMessage': {
         'experienceLoadError': 'Experience list not loaded.',
+        'priorityLoadError': 'Priority list not loaded.',
         'statusLoadError': 'Status list not loaded.',
         'vacanciesListLoadError': 'Error occurred during loading vacancy data',
         'vacancyChangeStatusSucces': 'Vacancy status changed successfully',

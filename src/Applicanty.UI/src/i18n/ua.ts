@@ -54,6 +54,7 @@ export const translations = {
 
     'notificationMessage': {
         'experienceLoadError': 'Помилка завантаження списку рівнів досвіду.',
+        'priorityLoadError': 'Помилка завантаження списку пріоритетів.',
         'statusLoadError': 'Помилка завантаження списку статусів.',
         'vacanciesListLoadError': 'Помилка сталась під час завантаження списку вакансій.',
         'vacancyChangeStatusSucces': 'Статус вакансії змінено успішно.',

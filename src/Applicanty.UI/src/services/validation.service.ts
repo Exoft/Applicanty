@@ -37,15 +37,7 @@ export class ValidationService implements OnDestroy {
         let that = this;
 
         that.translateService.get('validation').subscribe(res => {
-            that.config = {
-                'required': res['required'],
-                'min': res['min'],
-                'invalidEmail': res['invalidEmail'],
-                'passwordsDoNotMatch': res['passwordsDoNotMatch'],
-                'invalidTechnologiesCount': res['invalidTechnologiesCount'],
-                'invalidLowerDateLimit': res['invalidLowerDateLimit'],
-                'invalidLowerAgeLimit': res['invalidLowerAgeLimit']
-            };
+            that.config = res;
         });
     }
 
