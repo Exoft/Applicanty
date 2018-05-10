@@ -113,19 +113,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="birthday">Birthday:</label>
-
-                    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
-                         [class.invalid]="candidatePageFrom.get('birthday')?.invalid && (candidatePageFrom.get('birthday')?.dirty || candidatePageFrom.get('birthday')?.touched)">
-                        <input class="form-control" type="date" formControlName="birthday" size="40" required>
-                        <span class="tooltip-content">
-
-                            {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('birthday')) }}
-                        </span>
-                    </div>
-                </div>
-
                 <input type="hidden" formControlName="id">
 
                 <button type="button" class="btn btn-primary" [disabled]="!candidatePageFrom.valid || candidatePageFrom.pristine" (click)="saveCandidateClick($event)">Save</button>

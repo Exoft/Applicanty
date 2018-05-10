@@ -124,7 +124,6 @@ namespace Applicanty.Data
                         ExperienceId = (Experience)random.Next(0, 4),
                         StatusId = (StatusType)random.Next(0, 3),
                         Phone = "0634534599" + i,
-                        Birthday = DateTime.Now.AddYears(random.Next(-30, -20)),
                         ModifiedAt = DateTime.Now,
                         CandidatePhoto = ImagesCandidate[random.Next(0, 2)]
                     });

@@ -14,7 +14,6 @@ namespace Applicanty.Core.Dto
         public string Phone { get; set; }
         public string CVPath { get; set; }
         public string CandidatePhoto { get; set; }
-        public DateTime Birthday { get; set; }
         public int[] TechnologyIds { get; set; }
     }
 }
