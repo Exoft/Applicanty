@@ -9,6 +9,12 @@ namespace Applicanty.Data
 {
     public static class AtsDbInitializer
     {
+        /// <summary>
+        /// That is methosd which seed db
+        /// </summary>
+        /// <param name="context">Current context</param>
+        /// <param name="userManager">user manager</param>
+        /// <returns></returns>
         public static async Task Initialize(AtsDbContext context, UserManager<User> userManager)
         {
             context.Database.EnsureCreated();
