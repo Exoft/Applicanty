@@ -23,7 +23,6 @@ namespace Applicanty.Core.Entities
         public string LinkedIn { get; set; }
         public string Phone { get; set; }
         public string CVPath { get; set; }
-        public DateTime Birthday { get; set; }
         public DateTime CreatedAt { get; set; }
         [ForeignKey("User")]
         public int CreatedBy { get; set; }

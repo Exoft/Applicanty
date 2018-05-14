@@ -13,7 +13,6 @@ namespace Applicanty.Core.Dto
         public string Skype { get; set; }
         public string Phone { get; set; }
         public string CVPath { get; set; }
-        public DateTime Birthday { get; set; }
         public DateTime UpdateOn { get; set; }
     }
 }

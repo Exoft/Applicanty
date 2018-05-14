@@ -14,7 +14,6 @@ namespace Applicanty.Core.Dto
         public string LinkedIn { get; set; }
         public string Phone { get; set; }
         public string CVPath { get; set; }
-        public DateTime Birthday { get; set; }
         public StatusType StatusId { get; set; }
     }
 }
