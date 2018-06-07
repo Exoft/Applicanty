@@ -15,6 +15,12 @@ namespace Applicanty.Core.Enums
         [Description("offer")]
         Offer,
         [Description("hired")]
-        Hired
+        Hired,
+        [Description("rejected")]
+        Rejected,
+        [Description("did not come")]
+        DidNotCome,
+        [Description("failed interview")]
+        FailedInterview
     }
 }
