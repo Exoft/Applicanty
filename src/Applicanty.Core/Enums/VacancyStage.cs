@@ -18,9 +18,9 @@ namespace Applicanty.Core.Enums
         Hired,
         [Description("rejected")]
         Rejected,
-        [Description("did not come")]
+        [Description("didNotCome")]
         DidNotCome,
-        [Description("failed interview")]
+        [Description("failedInterview")]
         FailedInterview
     }
 }
