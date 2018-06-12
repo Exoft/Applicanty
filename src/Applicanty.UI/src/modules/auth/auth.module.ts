@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +41,9 @@ export const authRoutes = [
         FormsModule,
         ClarityModule.forRoot(),
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule
+
     ]
 })
 export class AuthModule {

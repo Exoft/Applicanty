@@ -1,52 +1,161 @@
 export const translations = {
-    'applicanty':'Applicanty',
-    'english': 'Англійська',
-    'ukrainian': 'Українська',
-    'dashboard': 'Панель приладів',
-    'vacancies': 'Вакансії',
-    'candidates': 'Кандидати',
-    'add': 'Додати',
-    'setActive': 'Активувати',
-    'setArchived': 'Архівувати',
-    'setDeleted': 'Видалити',
-    'show': 'Показати',
-    'title': 'Назва',
-    'experienceLevels': 'Рівень Досвіду',
-    'status': 'Статус',
-    'activate': 'Активувати',
-    'archive': 'Архівувати',
-    'delete': 'Видалити',
-    'lowerLimit': 'Від',
-    'upperLimit': 'До',
-    'search': 'Пошук',
-    'placeholderVacancyListDataGrid': 'Вакансій не знайдено!',
-    'placeholderPotentialCandidatesListDataGrid':'Потенційних кандидатів не знайдено!',
-    'potentialCandidates':'Потенційні кандидати',    
-    'stage':'Етап',
-    'save':'Зберегти',
-    'cancel':'Закрити',
-    'attachVacancyToCandidate':'Призначати вакансії кандидата',
-    'viewDetails':'Докладніше',
-    'vacancyDescription':'Опис вакансії',
-    'technologies':'Технології',
-    'experience':'Досвід',
-    'priority':'Пріоритет',
-    'createdAt':'Дата ствонення',
-    'candidatesFooter': 'кандидадів',
-    'of':'з',
+    'app': {
+        'applicanty': 'Applicanty',
+        'english': 'Англійська',
+        'ukrainian': 'Українська',
+        'dashboard': 'Панель приладів',
+        'vacancies': 'Вакансії',
+        'lowerLimit': 'Від',
+        'upperLimit': 'До',
+        'search': 'Пошук',
+        'profile': 'Профіль',
+        'settings': 'Налаштування',
+        'logOut': 'Вийти',
+        'language': 'Мова',
+        'candidates': 'Кандидати',
+    },
+    
+    'vacancyList': {
+        'add': 'Додати',
+        'setActive': 'Активувати',
+        'setArchived': 'Архівувати',
+        'setDeleted': 'Видалити',
+        'show': 'Показати',
+        'title': 'Назва',
+        'experienceLevels': 'Рівень Досвіду',
+        'prioritcy': 'Пріоритет',
+        'status': 'Статус',
+        'placeholderVacancyListDataGrid': 'Вакансій не знайдено!',
+        'activate': 'Активувати',
+        'archive': 'Архівувати',
+        'delete': 'Видалити',
+        'candidates': 'Кандидати',
+    },
+
+    'vacancyPage': {
+        'title': 'Назва',
+        'createdAt': 'Дата ствонення',
+        'experience': 'Досвід',
+        'priority': 'Пріоритет',
+        'technologies': 'Технології',
+        'vacancyDescription': 'Опис вакансії',
+        'potentialCandidates': 'Потенційні кандидати',
+        'placeholderPotentialCandidatesListDataGrid': 'Потенційних кандидатів не знайдено!',
+        'candidates': 'Кандидати',
+        'viewDetails': 'Докладніше',
+        'candidatesFooter': 'кандидадів',
+        'of': 'з',
+        'save': 'Зберегти',
+        'cancel': 'Закрити',
+        'add': 'Додати',
+        'delete': 'Видалити',
+        'stage': 'Етап',
+        'attachVacancyToCandidate': 'Призначати вакансії кандидата',
+        'jobDescription': 'Опис роботи',
+    },
+
+    'candidateList': {
+        'firstName': 'Прізвище',
+        'lastName': 'Ім\'я',
+        'age': 'Вік',
+        'email': 'Електронна адреса',
+        'add': 'Додати',
+        'setActive': 'Активувати',
+        'setArchived': 'Архівувати',
+        'setDeleted': 'Видалити',
+        'show': 'Показати',
+        'experienceLevels': 'Рівень Досвіду',
+        'placeholderCandidateListDataGrid': 'Кандидатів не знайдено',
+        'status': 'Статус',
+        'activate': 'Активні',
+        'archive': 'Архівовані',
+        'delete': 'Видалені',
+    },
+
+    'candidatePage': {
+        'firstName': 'Прізвище',
+        'lastName': 'Ім\'я',
+        'email': 'Електронна адрема',
+        'skype': 'Скайп',
+        'linkedIn': 'LinkedIn',
+        'phone': 'Телефон',
+        'addFile': 'Додати файл',
+        'experience': 'Досвід',
+        'technologies': 'Технології',
+        'save': 'Зберегти',
+        'cancel': 'Закрити',
+        'add': 'Додати',
+        'delete': 'Видалити',
+        'stage': 'Етап',
+        'attachVacancyToCandidate': 'Призначати вакансії кандидата',
+        'vacancies': 'Вакансії',
+        'cv': 'Резюме',
+    },
+
+    'settings': {
+        'technologies': 'Технології',
+        'save': 'Зберегти',
+        'cancel': 'Закрити',
+        'addTechnology': 'Додати технологію',
+        'deleteTechnology': 'Видалити технологію',
+        'attachNewTechnology': 'Прикріпити нову технологію',
+    },
+
+    'notfoundСomponent': {
+        'nothingFound': 'Вибачте, нічого не знайдено',
+        'youRequestedCouldNotBeFound': 'Сторінку не була знайдено на нашому сервері',
+        'error': '404 Error',
+        'homepage': 'Домашня сторінка'
+    },
+
+    'authorization': {
+        'confirmationLinkSentToYourEmail': 'Підтвердження, надіслане на вашу електронну адресу',
+        'pleaseCheckYourInbox': 'Перевірте вашу поштову скриньку',
+        'yourEmailIseingConfimed': 'Ваш електронний лист підтверджується.',
+        'emailSuccessfullyValidated.': 'Email успішно перевірено.',
+        'navigatingToLoginIn.': 'Навігація, щоб увійти в систему',
+        'signUp.': 'Зареєструватися',
+        'welcomeTo.': 'Вітаємо в'
+    },
+
     'enums': {
         'statusType': {
             'active': 'Активні',
             'archived': 'Архівовані',
             'deleted': 'Видалені'
         },
+
+        'vacancyStage': {
+            'cv': 'Резюме',
+            'interview': 'Співбесіда',
+            'customerInterview': 'Співбесіда з замовником',
+            'technicalInterview': 'Технічна співбесіда',
+            'offer': 'Пропозиція',
+            'hired': 'Найнятий',
+            'rejected': 'Відмовлено',
+            'didNotCome': 'Не прийшов',
+            'failedInterview': 'Провалив співбесіду'
+        },
+
+        'expirience': {
+            'trainee': 'Trainee',
+            'junior': 'Junior',
+            'middle': 'Middle',
+            'senior': 'Senior'
+        },
+
+        'priority': {
+            'low': 'Низький',
+            'medium': 'Середній',
+            'high': 'Високий'
+        }
     },
 
     'validation': {
         'required': 'Це поле є обов\'язковим',
         'min': 'Введене значення має бути більшим',
         'invalidEmail': 'Введене значення недійсна електронна адреса',
-        'passwordsDoNotMatch': 'Пароль не збігається',       
+        'passwordsDoNotMatch': 'Пароль не збігається',
         'invalidTechnologiesCount': 'Кількість технологій не може бути менше двох',
         'invalidLowerDateLimit': 'Нижня межа дати не може бути пізнішою, ніж верхня межа дати',
         'invalidLowerAgeLimit': 'Нижня межа віку не може перевищувати межі верхньої вікової категорії'
@@ -80,6 +189,6 @@ export const translations = {
         'unauthorizedError': 'Час сесії вичерпано.',
         'signInError': 'Помилка сталась під час авторизації',
         'forbiddenError': 'Логін або пароль введені неправильно',
-        'potentialCandidatesLoadError':'Помилка сталась під час завантаження вибору потенційних кандидатів'
+        'potentialCandidatesLoadError': 'Помилка сталась під час завантаження вибору потенційних кандидатів'
     }
 }

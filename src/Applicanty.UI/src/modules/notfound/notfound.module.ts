@@ -1,4 +1,5 @@
-﻿import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+﻿import { TranslateModule } from '@ngx-translate/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ClarityModule } from '@clr/angular';
 import { NotFoundComponent } from '../notfound/components/notfound.component';
@@ -16,7 +17,8 @@ export const notfoundRoutes = [
     imports: [
         BrowserModule,
         ClarityModule.forRoot(),
-        RouterModule
+        RouterModule,
+        TranslateModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -4,7 +4,7 @@
         <div class="branding">
             <a href="/" class="nav-link">
                 <clr-icon shape="vm-bug"></clr-icon>
-                <span class="title">{{'applicanty' | translate}}</span>
+                <span class="title">{{'app.applicanty' | translate}}</span>
             </a>
         </div>
         <div class="header-actions">
@@ -15,16 +15,16 @@
                 </button>
                 <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
                     <clr-dropdown>
-                        <button type="button" clrDropdownTrigger>Language</button>
+                        <button type="button" clrDropdownTrigger>{{'app.language' | translate}}</button>
                         <clr-dropdown-menu clrPosition="bottom-left">
-                            <button type="button" clrDropdownItem (click)="changeLanguageClick('en')">{{'english' | translate}}</button>
-                            <button type="button" clrDropdownItem (click)="changeLanguageClick('ua')">{{'ukrainian' | translate}}</button>
+                            <button type="button" clrDropdownItem (click)="changeLanguageClick('en')">{{'app.english' | translate}}</button>
+                            <button type="button" clrDropdownItem (click)="changeLanguageClick('ua')">{{'app.ukrainian' | translate}}</button>
                         </clr-dropdown-menu>
                     </clr-dropdown>
                     <div class="dropdown-divider"></div>
-                    <a [routerLink]="['profile']" clrDropdownItem>Profile</a>
-                    <a [routerLink]="['settings']" clrDropdownItem>Settings</a>
-                    <a clrDropdownItem (click)="logoutClick($event)">Log out</a>
+                    <a [routerLink]="['profile']" clrDropdownItem>{{'app.profile' | translate}}</a>
+                    <a [routerLink]="['settings']" clrDropdownItem>{{'app.settings' | translate}}</a>
+                    <a clrDropdownItem (click)="logoutClick($event)">{{'app.logOut' | translate}}</a>
                 </clr-dropdown-menu>
             </clr-dropdown>
         </div>
@@ -34,9 +34,9 @@
             <router-outlet></router-outlet>
         </div>
         <clr-vertical-nav [clrVerticalNavCollapsible]="true">
-            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">{{'dashboard' | translate}}</a>
-            <a clrVerticalNavLink routerLink="./vacancies" routerLinkActive="active">{{'vacancies' | translate}}</a>
-            <a clrVerticalNavLink routerLink="./candidates" routerLinkActive="active">{{'candidates' | translate}}</a>
+            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">{{'app.dashboard' | translate}}</a>
+            <a clrVerticalNavLink routerLink="./vacancies" routerLinkActive="active">{{'app.vacancies' | translate}}</a>
+            <a clrVerticalNavLink routerLink="./candidates" routerLinkActive="active">{{'app.candidates' | translate}}</a>
         </clr-vertical-nav>
     </div>
     <notification-message></notification-message>
