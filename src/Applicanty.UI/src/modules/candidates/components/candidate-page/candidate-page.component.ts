@@ -18,6 +18,9 @@ import 'rxjs/add/observable/forkJoin';
 })
 export class CandidatePageComponent implements OnInit, OnDestroy {
 
+  myFile: any;
+  filestring: string;
+  files: any;
   public setStageModalVisible: boolean = false;
 
   private id: number = 0;
@@ -26,11 +29,11 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
   private technologyIds: any[] = [];
 
   private experienceEnumName = EnumNames.EXPERIENCE;
-  private stageEnumName = EnumNames.VACANCYSTAGE;
+  // private stageEnumName = EnumNames.VACANCYSTAGE;
 
   public experiences: any[] = [];
   public technologies: any[] = [];
-  public vacancyStages: any[] = [];
+  public vacancyStages: Number[] = [];
   public vacancies: any[] = [];
   public candidateVacancyStage: any[] = [];
   public vacanciesOfCadidate: any[] = [];
@@ -100,7 +103,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
           that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
       });
 
-    that.enumService.getEnums(that.stageEnumName).subscribe(
+    that.enumService.getEnums(EnumNames.VACANCYSTAGE).subscribe(
       data => {
         that.vacancyStages = data.result;
       },
@@ -290,6 +293,20 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
       })
     }
     return selectedCandidateList;
+  }
+
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+  
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+      this.myFile = myReader.result;
+    }
+    myReader.readAsDataURL(file);
   }
 
   clearCandidateAttachVacancyForm() {
