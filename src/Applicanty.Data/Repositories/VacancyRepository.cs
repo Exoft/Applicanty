@@ -21,7 +21,6 @@ namespace Applicanty.Data.Repositories
 
             if (entity.VacancyTechnologies != null && entity.VacancyTechnologies.Count != 0)
                 UpdateManyToMany(vacancy.VacancyTechnologies, entity.VacancyTechnologies, x => x.TechnologyId);
-
             return base.Update(entity);
         }
 

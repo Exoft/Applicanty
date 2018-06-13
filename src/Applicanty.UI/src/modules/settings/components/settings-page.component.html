@@ -3,7 +3,9 @@
         <form [formGroup]="technologiesForm">
             <section class="form-block">
                 <div class="form-group">
-                    <label for="technologiesId">{{'settings.technologies' | translate}}:</label>
+                    <label for="technologiesId">
+                        {{'settings.technologies' | translate}}:
+                    </label>
 
                     <div class="checkboxlist-scroll">
                         <div *ngFor="let technology of technologies" class="checkbox">
@@ -16,29 +18,42 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" [disabled]="!technologiesForm.valid || technologiesForm.pristine">{{'settings.save' | translate}}</button>
-                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">{{'settings.cancel' | translate}}</button>
-                <button type="button" class="btn btn-success-outline" (click)="showModalTechnologies($event)">{{'settings.addTechnology' | translate}}</button>
-                <button type="button" class="btn btn-danger-outline" (click)="deleteTechnologies($event)">{{'settings.deleteTechnology' | translate}}</button>
+                <button type="button" class="btn btn-primary" [disabled]="!technologiesForm.valid || technologiesForm.pristine">
+                    {{'settings.save' | translate}}
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">
+                    {{'settings.cancel' | translate}}
+                </button>
+                <button type="button" class="btn btn-success-outline" (click)="showModalTechnologies($event)">
+                    {{'settings.addTechnology' | translate}}
+                </button>
+                <button type="button" class="btn btn-danger-outline" (click)="deleteTechnologies($event)">
+                    {{'settings.deleteTechnology' | translate}}
+                </button>
             </section>
         </form>
     </div>
 </div>
 
 <clr-modal [(clrModalOpen)]="setStageModalVisible">
-    <h3 class="modal-title">{{'settings.attachNewTechnology' | translate}}</h3>
+    <h3 class="modal-title">
+        {{'settings.attachNewTechnology' | translate}}
+    </h3>
     <div class="modal-body">
         <form [formGroup]="atachTechnologiesForm">
             <section class="form-block">
                 <div class="form-group">
-                    <input type="text" formControlName="name"/>
+                    <input type="text" formControlName="name" />
                 </div>
             </section>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="addTechnology($event)">{{'settings.save' | translate}}</button>
-        <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">{{'settings.cancel' | translate}}</button>
+        <button type="button" class="btn btn-success" (click)="addTechnology($event)">
+            {{'settings.save' | translate}}
+        </button>
+        <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">
+            {{'settings.cancel' | translate}}
+        </button>
     </div>
 </clr-modal>
-

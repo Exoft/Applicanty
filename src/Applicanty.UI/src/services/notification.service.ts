@@ -2,8 +2,8 @@
 
 import { NotificationType } from '../enums/notification-type';
 
-import { NotificationComponent } from "../modules/auth/components/notification/notification.component";
-import { TranslateService } from "@ngx-translate/core";
+import { NotificationComponent } from '../modules/auth/components/notification/notification.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class NotificationService {
@@ -28,11 +28,8 @@ export class NotificationService {
     }
 
     private loadMessages() {
-        let that = this;
-        let message;
-
-        that.translateService.get('notificationMessage').subscribe(res => {
-            that.messageContainer = res;
+        this.translateService.get('notificationMessage').subscribe(res => {
+            this.messageContainer = res;
         });
     }
 }

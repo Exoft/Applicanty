@@ -30,6 +30,7 @@ export const translations = {
         'archive': 'Archive',
         'delete': 'Delete',
     },
+
     'vacancyPage': {
         'title': 'Title',
         'createdAt': 'Created at',
@@ -50,6 +51,8 @@ export const translations = {
         'stage': 'Stage',
         'attachVacancyToCandidate': 'Attach vacancy to candidate',
         'jobDescription': 'Job Description',
+        'comments': 'Comments',
+        'commentText': 'New Comment',
     },
 
     'candidateList': {
@@ -189,4 +192,4 @@ export const translations = {
         'forbiddenError': 'Login or password entered incorrect',
         'potentialCandidatesLoadError': 'Error occurred during loading a potential candidates'
     }
-}
+};

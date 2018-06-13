@@ -1,18 +1,18 @@
-﻿import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
 import { VacanciesDataService } from '../../services/vacancies-data.service';
 import { EnumDataService } from '../../../../services/enum.data.service';
 
 import { EnumNames } from '../../../../constants/enum-names';
 
-import { ValidationService } from "../../../../services/validation.service";
-import { NotificationService } from "../../../../services/notification.service";
-import { NotificationType } from "../../../../enums/notification-type";
+import { ValidationService } from '../../../../services/validation.service';
+import { NotificationService } from '../../../../services/notification.service';
+import { NotificationType } from '../../../../enums/notification-type';
 import 'rxjs/add/observable/forkJoin';
 
 @Component({
@@ -20,7 +20,7 @@ import 'rxjs/add/observable/forkJoin';
     styleUrls: ['./vacancy-page.component.scss']
 })
 export class VacancyPageComponent implements OnInit, OnDestroy {
-    public setStageModalVisible: boolean = false;
+    public setStageModalVisible = false;
     public id;
     private subscription: Subscription = new Subscription();
 
@@ -35,13 +35,19 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     public addedCandidates: any[] = [];
     public availableCandidatesForSelection: any[] = [];
     public potentialCandidateList: any[] = [];
+    public comments: {
+        text: String,
+        createdAt: Date,
+        createdBy: String
+    }[] = [];
 
-    public potentialCandidateGridLoading: boolean = false;
-    public gridLoading: boolean = false;
+    public potentialCandidateGridLoading = true;
+    public gridLoading = true;
 
     public froalaOptions: Object = {
         charCounterCount: true,
-        toolbarButtons: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', 'formatOL', 'formatUL', '|', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'],
+        toolbarButtons: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', 'formatOL',
+            'formatUL', '|', 'selectAll', 'clearFormatting', '|', 'undo', 'redo'],
         toolbarButtonsXS: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
         toolbarButtonsSM: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
         toolbarButtonsMD: ['bold', 'italic', 'underline', '|', 'fontFamily', 'fontSize', '|', 'align', '|', 'undo', 'redo'],
@@ -55,19 +61,20 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         'id': new FormControl(''),
         'title': new FormControl('', Validators.required),
         'createdBy': new FormControl(''),
-        'createdAt': new FormControl(new Date().toLocaleDateString()),       
+        'createdAt': new FormControl(new Date().toLocaleDateString()),
         'technologyIds': new FormControl([]),
         'experienceId': new FormControl(0, Validators.required),
         'priorityId': new FormControl(0, Validators.required),
         'vacancyDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
-        'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)])
+        'jobDescription': new FormControl('', [Validators.required, Validators.minLength(20)]),
+        'commentText': new FormControl('')
     });
 
 
     public candidateAttachVacancyForm: FormGroup = new FormGroup({
         'candidateId': new FormControl('', Validators.required),
         'vacancyStage': new FormControl('', Validators.required)
-    })
+    });
 
 
     constructor(private vacanciesDataService: VacanciesDataService,
@@ -76,59 +83,61 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
         private router: Router,
         public validationService: ValidationService,
         private notificationService: NotificationService) {
-        let that = this;
 
-        that.subscription = activeRoute.params.subscribe(params => that.id = params['id']);
+        this.subscription = activeRoute.params.subscribe(params => this.id = params['id']);
     }
 
     ngOnInit() {
-        let that = this;
-
-        if (that.id) {
-            that.vacanciesDataService.getVacancy(that.id).subscribe(
+        if (this.id) {
+            this.vacanciesDataService.getVacancy(this.id).subscribe(
                 vacancy => {
                     if (vacancy) {
-                        that.setFormData(vacancy);
-                        that.refreshPotentialCandidates();
+                        this.setFormData(vacancy);
+                        this.refreshPotentialCandidates();
                     }
                 }, error => {
-                    if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, 'vacancyDetailsLoadError');
+                    if (error.status === 400) {
+                        this.notificationService.notify(NotificationType.Error, 'vacancyDetailsLoadError');
+                    }
                 });
 
-            that.enumService.getEnums(that.stageEnum).subscribe(
+            this.enumService.getEnums(this.stageEnum).subscribe(
                 data => {
-                    that.vacancyStages = data.result;
+                    this.vacancyStages = data.result;
                 }, error => {
-                    if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, 'vacancyStageLoadError');
+                    if (error.status === 400) {
+                        this.notificationService.notify(NotificationType.Error, 'vacancyStageLoadError');
+                    }
                 });
 
-            that.refreshVacancyStageCount();
+            this.refreshVacancyStageCount();
         }
 
-        that.vacanciesDataService.getTechnologies().subscribe(
+        this.vacanciesDataService.getTechnologies().subscribe(
             data => {
-                that.technologies = data;
+                this.technologies = data;
             }, error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, 'technologiesLoadError');
+                if (error.status === 400) {
+                    this.notificationService.notify(NotificationType.Error, 'technologiesLoadError');
+                }
             });
 
-        that.enumService.getEnums(that.experienceEnum).subscribe(
+        this.enumService.getEnums(this.experienceEnum).subscribe(
             data => {
-                that.experiences = data.result;
+                this.experiences = data.result;
             }, error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, 'experienceLoadError');
+                if (error.status === 400) {
+                    this.notificationService.notify(NotificationType.Error, 'experienceLoadError');
+                }
             });
-        that.enumService.getEnums(that.priorityEnum).subscribe(
+        this.enumService.getEnums(this.priorityEnum).subscribe(
             data => {
-                that.priorities = data.result;
+                this.priorities = data.result;
             }, error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, 'priorityLoadError');
-             });
+                if (error.status === 400) {
+                    this.notificationService.notify(NotificationType.Error, 'priorityLoadError');
+                }
+            });
     }
 
     ngOnDestroy() {
@@ -136,42 +145,55 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     }
 
     private setFormData(vacancy) {
-        var createDate = new Date(vacancy.createdAt);
+        const createDate = new Date(vacancy.createdAt);
         this.vacancyPageForm.setValue({
             'id': vacancy.id,
             'title': vacancy.title,
             'createdBy': Number(vacancy.createdBy),
-            'createdAt': createDate.getFullYear() + '-' + ((createDate.getMonth() + 1).toString().length === 1 ? '0' + (createDate.getMonth() + 1).toString() : (createDate.getMonth() + 1).toString()) + '-' + (createDate.getDate().toString().length === 1 ? '0' + createDate.getDate().toString() : createDate.getDate()),
+            'createdAt': createDate.getFullYear() + '-' + ((createDate.getMonth() + 1).toString().length === 1 ? '0'
+                + (createDate.getMonth() + 1).toString() : (createDate.getMonth() + 1).toString()) + '-'
+                + (createDate.getDate().toString().length === 1 ? '0' + createDate.getDate().toString() : createDate.getDate()),
             'technologyIds': vacancy.technologyIds,
             'experienceId': vacancy.experienceId,
             'priorityId': vacancy.priorityId,
             'vacancyDescription': vacancy.vacancyDescription,
-            'jobDescription': vacancy.jobDescription
+            'jobDescription': vacancy.jobDescription,
+            'commentText': null
         });
+
+        const commentsCount = vacancy.commentText.length;
+        for (let i = 0; i < commentsCount; i++) {
+            this.comments.push({
+                text: vacancy.commentText[i].replace(/(<p>|<\/p>)/, ''),
+                createdAt: vacancy.commentCreatedAt[i],
+                createdBy: vacancy.commentCreatedBy[i]
+            });
+        }
     }
 
     public saveVacancyClick(event) {
-        let that = this;
-        let formData = that.vacancyPageForm.value;
-        if (!that.id) {
+        const formData = this.vacancyPageForm.value;
+        if (!this.id) {
             formData['id'] = 0;
 
-            that.vacanciesDataService.createVacancy(formData).subscribe(
+            this.vacanciesDataService.createVacancy(formData).subscribe(
                 data => {
-                    that.router.navigate(['../vacancies']);
+                    this.router.navigate(['../vacancies']);
                 },
                 error => {
-                    if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, 'createVacancyError');
+                    if (error.status === 400) {
+                        this.notificationService.notify(NotificationType.Error, 'createVacancyError');
+                    }
                 });
         } else {
-            that.vacanciesDataService.updateVacancy(formData).subscribe(
+            this.vacanciesDataService.updateVacancy(formData).subscribe(
                 data => {
-                    that.router.navigate(['../vacancies']);
+                    this.router.navigate(['../vacancies']);
                 },
                 error => {
-                    if (error.status == 400)
-                        that.notificationService.notify(NotificationType.Error, 'updateVacancyError');
+                    if (error.status === 400) {
+                        this.notificationService.notify(NotificationType.Error, 'updateVacancyError');
+                    }
                 });
         }
     }
@@ -182,9 +204,9 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     }
 
     public vacancyTechnologiesChange(event) {
-        let id = Number(event.target.value);
+        const id = Number(event.target.value);
 
-        let selectedTechnologies = this.vacancyPageForm.get('technologyIds')!.value;
+        const selectedTechnologies = this.vacancyPageForm.get('technologyIds').value;
 
         if (event.target.checked) {
             if (selectedTechnologies.indexOf(id) < 0) {
@@ -196,10 +218,10 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.vacancyPageForm.get('technologyIds')!.setValue(selectedTechnologies);
+        this.vacancyPageForm.get('technologyIds').setValue(selectedTechnologies);
 
-        this.vacancyPageForm.get('technologyIds')!.markAsDirty();
-        this.vacancyPageForm.get('technologyIds')!.markAsTouched();
+        this.vacancyPageForm.get('technologyIds').markAsDirty();
+        this.vacancyPageForm.get('technologyIds').markAsTouched();
 
         this.vacancyPageForm.updateValueAndValidity();
 
@@ -215,157 +237,152 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
     }
 
     public showAvailableCandidates(event) {
-        let that = this;
-        that.candidateByTechnologyAndExperience = [];
-        let formData = that.vacancyPageForm.value;
+        this.candidateByTechnologyAndExperience = [];
+        const formData = this.vacancyPageForm.value;
 
-        let technologyIds = that.vacancyPageForm.get('technologyIds')!.value;
-        let experienceId = that.vacancyPageForm.get('experienceId')!.value;
+        const technologyIds = this.vacancyPageForm.get('technologyIds').value;
+        const experienceId = this.vacancyPageForm.get('experienceId').value;
 
         Observable.forkJoin(
-            that.vacanciesDataService.getCandidateByVacancy(that.id),
-            that.vacanciesDataService.getCandidateByTechnologyAndExperience(experienceId, technologyIds))
+            this.vacanciesDataService.getCandidateByVacancy(this.id),
+            this.vacanciesDataService.getCandidateByTechnologyAndExperience(experienceId, technologyIds))
             .subscribe(
-            data => {
-                that.addedCandidates = data[0].result;
-                that.availableCandidatesForSelection = data[1];
+                data => {
+                    this.addedCandidates = data[0].result;
+                    this.availableCandidatesForSelection = data[1];
 
-                let idArray = that.addedCandidates.filter(function (el, index, array) {
-                    return el.id;
+                    const idArray = this.addedCandidates.filter(function (el, index, array) {
+                        return el.id;
+                    });
+                    this.availableCandidatesForSelection.forEach(function (el, index, arr) {
+                        if (!idArray.some(item => item.id === el.id)) {
+                            this.candidateByTechnologyAndExperience.push(el);
+                        }
+                    });
+
+                    this.setStageModalVisible = true;
                 });
-                that.availableCandidatesForSelection.forEach(function (el, index, arr) {
-                    if (!idArray.some(item => item.id === el.id)) {
-                        that.candidateByTechnologyAndExperience.push(el);
-                    }
-                })
 
-                that.setStageModalVisible = true;
-            });
-
-        that.vacanciesDataService.updateVacancy(formData).subscribe(
+        this.vacanciesDataService.updateVacancy(formData).subscribe(
             data => {
             });
     }
 
     public attachToCandidateClick(event) {
-        let that = this;
-        let formData = that.candidateAttachVacancyForm.value;
-        that.vacanciesDataService.attachVacancyToCandidateStage({
-            'vacancyId': that.id,
+        const formData = this.candidateAttachVacancyForm.value;
+        this.vacanciesDataService.attachVacancyToCandidateStage({
+            'vacancyId': this.id,
             'candidateId': Number(formData.candidateId),
             'vacancyStage': Number(formData.vacancyStage)
         }).subscribe(
             data => {
-                that.refreshCurrentVacancyList();
-                that.setStageModalVisible = false;
-                that.refreshVacancyStageCount();
-                that.refreshPotentialCandidates();
-            })
+                this.refreshCurrentVacancyList();
+                this.setStageModalVisible = false;
+                this.refreshVacancyStageCount();
+                this.refreshPotentialCandidates();
+            });
     }
 
     public deleteCandydateClick(event) {
-        let that = this;
-
-        if (that.getSelectedVacancies()) {
-            let arr = that.getSelectedVacancies();
-            for (let item of arr) {
-                that.vacanciesDataService.detachCandidate(item).subscribe(
+        if (this.getSelectedVacancies()) {
+            const arr = this.getSelectedVacancies();
+            for (const item of arr) {
+                this.vacanciesDataService.detachCandidate(item).subscribe(
                     data => {
-                        that.refreshCurrentVacancyList();
+                        this.refreshCurrentVacancyList();
                     });
             }
         }
-        that.refreshPotentialCandidates();
+        this.refreshPotentialCandidates();
     }
 
     private refreshCurrentVacancyList() {
-        let that = this;
+        this.gridLoading = true;
 
-        that.gridLoading = true;
-
-        that.vacanciesDataService.getCandidateByVacancy(that.id).subscribe(
+        this.vacanciesDataService.getCandidateByVacancy(this.id).subscribe(
             data => {
-                that.gridLoading = false;
-                that.candidatesByVacancy = data.result;
+                this.gridLoading = false;
+                this.candidatesByVacancy = data.result;
             },
             error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, 'candidatesListLoadError');
+                if (error.status === 400) {
+                    this.notificationService.notify(NotificationType.Error, 'candidatesListLoadError');
+                }
             });
 
-        that.selectedCandidatesOfVacancy = [];
-        that.clearCandidateAttachVacancyForm();
-        that.refreshVacancyStageCount();
+        this.selectedCandidatesOfVacancy = [];
+        this.clearCandidateAttachVacancyForm();
+        this.refreshVacancyStageCount();
     }
 
     private getSelectedVacancies() {
         let selectedVacancyList: any[] = [];
-        for (let item of this.selectedCandidatesOfVacancy) {
+        for (const item of this.selectedCandidatesOfVacancy) {
             selectedVacancyList = selectedVacancyList.concat({
-                "candidateId": item.id,
-                "vacancyId": this.id,
-                "vacancyStage": item.vacancyStage
-            })
+                'candidateId': item.id,
+                'vacancyId': this.id,
+                'vacancyStage': item.vacancyStage
+            });
         }
         return selectedVacancyList;
     }
 
     clearCandidateAttachVacancyForm() {
-        this.candidateAttachVacancyForm.get('candidateId')!.setValue(null);
-        this.candidateAttachVacancyForm.get('vacancyStage')!.setValue(null);
+        this.candidateAttachVacancyForm.get('candidateId').setValue(null);
+        this.candidateAttachVacancyForm.get('vacancyStage').setValue(null);
     }
 
     refreshVacancyStageCount() {
-        let that = this;
-
-        that.vacanciesDataService.getVacancyStagesCount(that.id).subscribe(
+        this.vacanciesDataService.getVacancyStagesCount(this.id).subscribe(
             data => {
                 if (data) {
-                    for (let statusCount of data) {
-                        let { stage, count } = <{ stage: number, count: any }>statusCount;
-                        that.vacancyStageCount[stage] = count;
+                    for (const statusCount of data) {
+                        const { stage, count } = <{ stage: number, count: any }>statusCount;
+                        this.vacancyStageCount[stage] = count;
                     }
                 }
             },
             error => {
-                if (error.status == 400)
-                    that.notificationService.notify(NotificationType.Error, 'vacancyStagesCountLoadError');
+                if (error.status === 400) {
+                    this.notificationService.notify(NotificationType.Error, 'vacancyStagesCountLoadError');
+                }
             });
     }
 
     refreshPotentialCandidates() {
         this.candidateByTechnologyAndExperience = [];
-        let formData = this.vacancyPageForm.value;
+        const formData = this.vacancyPageForm.value;
         this.potentialCandidateGridLoading = true;
 
-        let technologyIds = this.vacancyPageForm.get('technologyIds')!.value;
-        let experienceId = this.vacancyPageForm.get('experienceId')!.value;
+        const technologyIds = this.vacancyPageForm.get('technologyIds').value;
+        const experienceId = this.vacancyPageForm.get('experienceId').value;
         this.vacanciesDataService.getCandidateByVacancy(this.id),
 
             Observable.forkJoin(
                 this.vacanciesDataService.getCandidateByVacancy(this.id),
                 this.vacanciesDataService
                     .getCandidateByTechnologyAndExperience(experienceId, technologyIds))
-                    .subscribe( data => {
-                        this.potentialCandidateGridLoading = false;
-                        this.addedCandidates = data[0].result;
-                        this.availableCandidatesForSelection = data[1];
+                .subscribe(data => {
+                    this.potentialCandidateGridLoading = false;
+                    this.addedCandidates = data[0].result;
+                    this.availableCandidatesForSelection = data[1];
 
-                        let idArray = this.addedCandidates.filter((el, index, array) => {
-                            return el.id;
-                        });
+                    const idArray = this.addedCandidates.filter((el, index, array) => {
+                        return el.id;
+                    });
 
-                        this.availableCandidatesForSelection.forEach((el, index, arr) => {
-                            if (!idArray.some(item => item.id === el.id)) {
-                                this.candidateByTechnologyAndExperience.push(el);
-                            }
-                        })
-                    },
+                    this.availableCandidatesForSelection.forEach((el, index, arr) => {
+                        if (!idArray.some(item => item.id === el.id)) {
+                            this.candidateByTechnologyAndExperience.push(el);
+                        }
+                    });
+                },
                     error => {
                         this.potentialCandidateGridLoading = false;
 
-                        if (error.status == 400)
+                        if (error.status === 400) {
                             this.notificationService.notify(NotificationType.Error, 'potentialCandidatesLoadError');
+                        }
                     });
     }
 }

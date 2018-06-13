@@ -7,6 +7,7 @@ namespace Applicanty.Core.Data
     {
         IVacancyRepository VacancyRepository { get; }
         ICandidateRepository CandidateRepository { get; }
+        ICommentRepository CommentRepository { get; }
         IStatusRepository StatusRepository { get; }
         ITechnologyRepository TechnologyRepository { get; }
 

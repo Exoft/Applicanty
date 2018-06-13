@@ -5,15 +5,15 @@ import { TranslateService } from '@ngx-translate/core';
 import * as $ from 'jquery';
 
 import { AuthService } from '../../../../services/auth.service';
-import { NotificationService } from "../../../../services/notification.service";
+import { NotificationService } from '../../../../services/notification.service';
 
-import { NotificationComponent } from "../../../auth/components/notification/notification.component";
+import { NotificationComponent } from '../../../auth/components/notification/notification.component';
 
 import { translations as enTranslations } from './../../../../i18n/en';
 import { translations as uaTranslations } from './../../../../i18n/ua';
 
 @Component({
-    selector: 'app',
+    selector: 'apl-app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
@@ -37,7 +37,6 @@ export class AppComponent {
 
         translateService.use('en');
     }
-    
     public logoutClick(e) {
         e.preventDefault();
 
@@ -45,6 +44,6 @@ export class AppComponent {
     }
 
     public changeLanguageClick(lang: string) {
-        this.translateService.use(lang)
+        this.translateService.use(lang);
     }
 }

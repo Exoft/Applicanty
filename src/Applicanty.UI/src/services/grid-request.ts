@@ -1,4 +1,4 @@
-﻿import { GridFilterItem } from "../modules/filters/grid-filter-item";
+﻿import { GridFilterItem } from '../modules/filters/grid-filter-item';
 
 export interface GridRequest {
     take: number;

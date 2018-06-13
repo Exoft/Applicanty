@@ -1,27 +1,27 @@
-﻿import { Component, EventEmitter, Input, OnInit } from "@angular/core";
+﻿import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { Filter } from '@clr/angular';
-import { GridFilterCreater } from "../grid-filter-creater";
-import { GridFilterItem } from "../grid-filter-item";
-import { FilterOperators } from "../../../constants/filter-opertors";
+import { GridFilterCreater } from '../grid-filter-creater';
+import { GridFilterItem } from '../grid-filter-item';
+import { FilterOperators } from '../../../constants/filter-opertors';
 
 @Component({
-    selector: 'clr-datagrid-experience-filter',
+    selector: 'apl-clr-datagrid-experience-filter',
     templateUrl: './experience-filter.html',
     styleUrls: ['./experience-filter.scss']
 })
-export class ExperienceFilter implements Filter<any>, GridFilterCreater {
+export class ExperienceFilterComponent implements GridFilterCreater {
     @Input() experiences: any[] = [];
-    @Input() propertyName: string = '';
+    @Input() propertyName = '';
     public filter: GridFilterItem | null = null;
 
     private selectedExperiences: { [experienceId: number]: boolean } = {};
-    private nbExperiences: number = 0;
+    private nbExperiences = 0;
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
 
     listSelected(): string {
-        let list: string[] = [];
-        for (let experience in this.selectedExperiences) {
+        const list: string[] = [];
+        for (const experience in this.selectedExperiences) {
             if (this.selectedExperiences[experience]) {
                 list.push(experience);
             }

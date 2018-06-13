@@ -36,12 +36,12 @@ namespace Applicanty.Core
 
             CreateMap<Candidate, CandidateCreateUpdateDto>()
                 .ForMember(dest => dest.TechnologyIds,
-                opts => opts.MapFrom(src => src.CandidateTechnologies.Select(f=>f.TechnologyId)));
+                    opts => opts.MapFrom(src => src.CandidateTechnologies.Select(f => f.TechnologyId)));
 
             CreateMap<CandidateVacancyAttachDto, Candidate>();
             CreateMap<Candidate, CandidateVacancyAttachDto>()
                 .ForMember(dest => dest.FullName,
-                opts => opts.MapFrom(src => string.Format($"{src.FirstName} {src.LastName}")));
+                    opts => opts.MapFrom(src => string.Format($"{src.FirstName} {src.LastName}")));
 
             CreateMap<CandidateCreateUpdateDto, Candidate>();
             #endregion
@@ -56,11 +56,21 @@ namespace Applicanty.Core
             CreateMap<Vacancy, VacancyUpdateDto>()
                 .ForMember(dest => dest.TechnologyIds,
                     opts => opts.MapFrom(src => src.VacancyTechnologies.Select(f => f.TechnologyId)));
-
             CreateMap<VacancyUpdateDto, Vacancy>();
 
             CreateMap<Vacancy, VacancyCandidateAttachDto>();
             CreateMap<VacancyCandidateAttachDto, Vacancy>();
+            #endregion
+
+            #region CommentMap
+            CreateMap<Comment, VacancyUpdateDto>();
+            CreateMap<VacancyUpdateDto, Comment>()
+                .ForMember(dest => dest.VacancyId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, opts => opts.Ignore());
+
+            CreateMap<VacancyUpdateDto, VacancyWithCommentsDto>();
+            CreateMap<VacancyWithCommentsDto, VacancyUpdateDto>();
+
             #endregion
 
             #region TechnologyMap

@@ -1,4 +1,4 @@
-﻿import { GridFilterItem } from "./grid-filter-item";
+﻿import { GridFilterItem } from './grid-filter-item';
 
 export interface GridFilterCreater {
     propertyName: string;

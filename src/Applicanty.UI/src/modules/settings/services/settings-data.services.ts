@@ -16,7 +16,7 @@ export class SettingsDataService {
     }
 
     public createNewTechnology(formData: any): Observable<any> {
-        return this.http.post('${environment.apiRootUrl}Technology', formData, { headers: this.authService.getAuthenticationHeader() })
+        return this.http.post('${environment.apiRootUrl}Technology', formData, { headers: this.authService.getAuthenticationHeader() });
     }
 
     public deleteTechnology(id: number): Observable<any> {
@@ -24,6 +24,7 @@ export class SettingsDataService {
 
         params = params.set('id', id.toString());
 
-        return this.http.delete(`${environment.apiRootUrl}Technology`, { headers: this.authService.getAuthenticationHeader(), params: params })
+        return this.http.delete(`${environment.apiRootUrl}Technology`,
+        { headers: this.authService.getAuthenticationHeader(), params: params });
     }
 }

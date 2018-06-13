@@ -31,6 +31,7 @@ namespace Applicanty.Data
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Technology> Technologies { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

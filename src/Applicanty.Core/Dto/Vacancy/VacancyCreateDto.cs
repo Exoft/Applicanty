@@ -13,5 +13,6 @@ namespace Applicanty.Core.Dto
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
         public int[] TechnologyIds { get; set; }
+        public string CommentText { get; set; }
     }
 }

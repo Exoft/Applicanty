@@ -1,19 +1,19 @@
-﻿import { Component, EventEmitter, Input } from "@angular/core";
+﻿import { Component, EventEmitter, Input } from '@angular/core';
 import { Filter } from '@clr/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ValidationService } from "../../../services/validation.service";
-import { GridFilterCreater } from "../grid-filter-creater";
-import { GridFilterItem } from "../grid-filter-item";
-import { FilterOperators } from "../../../constants/filter-opertors";
+import { ValidationService } from '../../../services/validation.service';
+import { GridFilterCreater } from '../grid-filter-creater';
+import { GridFilterItem } from '../grid-filter-item';
+import { FilterOperators } from '../../../constants/filter-opertors';
 
 @Component({
-    selector: 'clr-datagrid-age-filter',
+    selector: 'apl-clr-datagrid-age-filter',
     templateUrl: './age-filter.html',
     styleUrls: ['./age-filter.scss']
 })
-export class AgeFilter implements Filter<any>, GridFilterCreater {
+export class AgeFilterComponent implements GridFilterCreater {
     public filter: GridFilterItem[] = [];
-    @Input() propertyName: string = '';
+    @Input() propertyName = '';
 
     private lowerAgeLimit;
     private upperAgeLimit;
@@ -36,30 +36,36 @@ export class AgeFilter implements Filter<any>, GridFilterCreater {
     }
 
     accepts() {
-        if (this.lowerAgeLimit)
+        if (this.lowerAgeLimit) {
             return this.lowerAgeLimit.value;
+        }
     }
 
     isActive(): boolean {
-        if (this.lowerAgeLimit || this.upperAgeLimit)
+        if (this.lowerAgeLimit || this.upperAgeLimit) {
             return this.ageRangeForm.valid && (this.lowerAgeLimit.value || this.upperAgeLimit.value);
+        }
         return false;
     }
 
     createGridFilterItem(): GridFilterItem[] {
-        let lst: GridFilterItem[] = [];
-        if (this.lowerAgeLimit.value)
-            lst.push({ field: this.propertyName, value: this.transformAgeToBirthDate(this.lowerAgeLimit.value), operator: FilterOperators.LESSTHENOREQUELTO });
+        const lst: GridFilterItem[] = [];
+        if (this.lowerAgeLimit.value) {
+            lst.push({ field: this.propertyName, value:
+                 this.transformAgeToBirthDate(this.lowerAgeLimit.value), operator: FilterOperators.LESSTHENOREQUELTO });
+        }
 
-        if (this.upperAgeLimit.value)
-            lst.push({ field: this.propertyName, value: this.transformAgeToBirthDate(this.upperAgeLimit.value), operator: FilterOperators.GREATETHENOREQUELTO });
+        if (this.upperAgeLimit.value) {
+            lst.push({ field: this.propertyName, value:
+                 this.transformAgeToBirthDate(this.upperAgeLimit.value), operator: FilterOperators.GREATETHENOREQUELTO });
+        }
 
         return lst;
     }
 
     transformAgeToBirthDate(value: number): string {
-        let today = new Date();
-        let birthdate = new Date(today.setFullYear(today.getFullYear() - value - 1, today.getMonth(), today.getDate()));
+        const today = new Date();
+        const birthdate = new Date(today.setFullYear(today.getFullYear() - value - 1, today.getMonth(), today.getDate()));
 
         return birthdate.toLocaleDateString();
     }

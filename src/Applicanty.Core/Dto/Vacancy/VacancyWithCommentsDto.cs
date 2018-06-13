@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Applicanty.Core.Dto
 {
-    public class VacancyUpdateDto
+    public class VacancyWithCommentsDto
     {
         public int Id { get; set; }
         public int CreatedBy { get; set; }
@@ -16,6 +18,8 @@ namespace Applicanty.Core.Dto
         public DateTime CreatedAt { get; set; }
 
         public int[] TechnologyIds { get; set; }
-        public string CommentText { get; set; }
+        public string[] CommentText { get; set; }
+        public string[] CommentCreatedBy { get; set; }
+        public DateTime[] CommentCreatedAt { get; set; }
     }
 }

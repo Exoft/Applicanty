@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { SettingsDataService } from '../services/settings-data.services';
 })
 export class SettingsPageComponent implements OnInit {
 
-    public setStageModalVisible: boolean = false;
+    public setStageModalVisible = false;
     public technologies: any[] = [];
 
 
@@ -24,11 +24,11 @@ export class SettingsPageComponent implements OnInit {
         'technology': new FormControl(),
         'technologyIds': new FormControl(),
         'technologiesId': new FormControl()
-    })
+    });
 
     public atachTechnologiesForm: FormGroup = new FormGroup({
         'name': new FormControl()
-    })
+    });
 
     ngOnInit() {
         this.refreshTechnology();
@@ -39,11 +39,11 @@ export class SettingsPageComponent implements OnInit {
     }
 
     public vacancyTechnologiesChange(event) {
-        let id = Number(event.target.value);
-        console.log(id)
-        return id
-        //let selectedTechnologies = this.technologiesForm.get('technologyIds')!.value;
-        //console.log(selectedTechnologies);
+        const id = Number(event.target.value);
+        console.log(id);
+        return id;
+        // let selectedTechnologies = this.technologiesForm.get('technologyIds')!.value;
+        // console.log(selectedTechnologies);
 
         //    if (event.target.checked) {
         //        if (selectedTechnologies.indexOf(id) < 0) {
@@ -61,33 +61,31 @@ export class SettingsPageComponent implements OnInit {
         //    this.candidatePageFrom.get('technologyIds')!.markAsTouched();
 
         //    this.candidatePageFrom.updateValueAndValidity();
-        //}
+        // }
 
     }
 
 
 
     public addTechnology(event) {
-        debugger
-        let name: string = this.atachTechnologiesForm.value;
+        const name: string = this.atachTechnologiesForm.value;
         this.settingsDataService.createNewTechnology(name).subscribe(
             data => {
                 this.technologies = data;
                 this.refreshTechnology();
                 this.setStageModalVisible = false;
                 this.clearAtachTechnologiesForm();
-            }, )
+            }, );
     }
 
     public deleteTechnologies(event) {
-        debugger
-         let id = this.vacancyTechnologiesChange(event)
+        const id = this.vacancyTechnologiesChange(event);
         this.settingsDataService.deleteTechnology(id).subscribe(
             data => {
                 this.technologies = data;
                 console.log(data);
                 this.refreshTechnology();
-            })
+            });
     }
 
     public cancelClick(event) {
@@ -95,7 +93,6 @@ export class SettingsPageComponent implements OnInit {
     }
 
     public refreshTechnology() {
-        debugger
         this.settingsDataService.getTechnologies().subscribe(
             data => {
                 this.technologies = data;
@@ -103,7 +100,7 @@ export class SettingsPageComponent implements OnInit {
     }
 
     clearAtachTechnologiesForm() {
-        this.atachTechnologiesForm.get('name')!.setValue(null);
+        this.atachTechnologiesForm.get('name').setValue(null);
     }
 
 }

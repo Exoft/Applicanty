@@ -41,7 +41,9 @@ namespace Applicanty.Data.Repositories
         protected int GetUserId()
         {
             if (!_principal.Identity.IsAuthenticated)
-                throw new UnauthorizedAccessException();
+            {
+               throw new UnauthorizedAccessException();
+            }
 
             var val = _principal.Claims.First(f => f.Type == "sub").Value;
 

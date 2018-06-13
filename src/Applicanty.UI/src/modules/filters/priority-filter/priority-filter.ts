@@ -1,27 +1,27 @@
-import { Component, EventEmitter, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { Filter } from '@clr/angular';
-import { GridFilterCreater } from "../grid-filter-creater";
-import { GridFilterItem } from "../grid-filter-item";
-import { FilterOperators } from "../../../constants/filter-opertors";
+import { GridFilterCreater } from '../grid-filter-creater';
+import { GridFilterItem } from '../grid-filter-item';
+import { FilterOperators } from '../../../constants/filter-opertors';
 
 @Component({
-    selector: 'clr-datagrid-priority-filter',
+    selector: 'apl-clr-datagrid-priority-filter',
     templateUrl: './priority-filter.html',
     styleUrls: ['./priority-filter.scss']
 })
-export class PriorityFilter implements Filter<any>, GridFilterCreater {
+export class PriorityFilterComponent implements GridFilterCreater {
     @Input() priorities: any[] = [];
-    @Input() propertyName: string = '';
+    @Input() propertyName = '';
     public filter: GridFilterItem | null = null;
 
     private selectedPriorities: { [priorityId: number]: boolean } = {};
-    private nbPriorities: number = 0;
+    private nbPriorities = 0;
 
     changes: EventEmitter<any> = new EventEmitter<any>(false);
 
     listSelected(): string {
-        let list: string[] = [];
-        for (let priority  in this.selectedPriorities) {
+        const list: string[] = [];
+        for (const priority  in this.selectedPriorities) {
             if (this.selectedPriorities[priority ]) {
                 list.push(priority );
             }

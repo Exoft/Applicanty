@@ -5,7 +5,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/c
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType } from '../enums/notification-type';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -14,7 +14,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         private notificationService: NotificationService) {
     }
 
-    private static badRequestErrorMessage: string = 'Bad Request';
+    private static badRequestErrorMessage = 'Bad Request';
 
     public static set setbadRequestErrorMessage(message: string) {
         AuthenticationInterceptor.badRequestErrorMessage = message;
@@ -38,7 +38,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
                 } else if (err.status === 403) {
                     this.notificationService.notify(NotificationType.Error, 'forbiddenError');
                 }
-            }
-        )
+            });
     }
 }

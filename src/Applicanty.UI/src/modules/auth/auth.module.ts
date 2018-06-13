@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 export const authRoutes = [
     { path: 'profile', component: UserProfilePageComponent, canActivate: [AuthGuard]},
     { path: 'signin', component: SignInComponent },
-    { path: 'signup', component: SignUpComponent },
+    { path: 'app-sign-up-component', component: SignUpComponent },
     { path: 'emailverification', component: EmailVerificationComponent }
 ];
 
@@ -37,9 +37,8 @@ export const authRoutes = [
     ],
     imports: [
         CommonModule,
-        HttpModule,
         FormsModule,
-        ClarityModule.forRoot(),
+        ClarityModule,
         ReactiveFormsModule,
         HttpClientModule,
         TranslateModule

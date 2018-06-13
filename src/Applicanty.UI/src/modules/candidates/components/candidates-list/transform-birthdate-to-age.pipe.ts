@@ -3,9 +3,9 @@
 @Pipe({ name: 'transformBirthDateToAge' })
 export class TransformBirthDateToAgePipe implements PipeTransform {
     transform(value: string): number {
-        var birthday = new Date(value);
-        var today = new Date();
-        var years = today.getFullYear() - birthday.getFullYear();
+        const birthday = new Date(value);
+        const today = new Date();
+        let years = today.getFullYear() - birthday.getFullYear();
 
         birthday.setFullYear(today.getFullYear());
 

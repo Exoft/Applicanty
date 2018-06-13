@@ -4,7 +4,9 @@
         <div class="branding">
             <a href="/" class="nav-link">
                 <clr-icon shape="vm-bug"></clr-icon>
-                <span class="title">{{'app.applicanty' | translate}}</span>
+                <span class="title">
+                    {{'app.applicanty' | translate}}
+                </span>
             </a>
         </div>
         <div class="header-actions">
@@ -17,8 +19,12 @@
                     <clr-dropdown>
                         <button type="button" clrDropdownTrigger>{{'app.language' | translate}}</button>
                         <clr-dropdown-menu clrPosition="bottom-left">
-                            <button type="button" clrDropdownItem (click)="changeLanguageClick('en')">{{'app.english' | translate}}</button>
-                            <button type="button" clrDropdownItem (click)="changeLanguageClick('ua')">{{'app.ukrainian' | translate}}</button>
+                            <button type="button" clrDropdownItem (click)="changeLanguageClick('en')">
+                                {{'app.english' | translate}}
+                            </button>
+                            <button type="button" clrDropdownItem (click)="changeLanguageClick('ua')">
+                                {{'app.ukrainian' | translate}}
+                            </button>
                         </clr-dropdown-menu>
                     </clr-dropdown>
                     <div class="dropdown-divider"></div>
@@ -39,5 +45,5 @@
             <a clrVerticalNavLink routerLink="./candidates" routerLinkActive="active">{{'app.candidates' | translate}}</a>
         </clr-vertical-nav>
     </div>
-    <notification-message></notification-message>
+    <apl-notification-message></apl-notification-message>
 </clr-main-container>

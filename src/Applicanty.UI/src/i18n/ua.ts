@@ -14,7 +14,7 @@ export const translations = {
         'language': 'Мова',
         'candidates': 'Кандидати',
     },
-    
+
     'vacancyList': {
         'add': 'Додати',
         'setActive': 'Активувати',
@@ -29,7 +29,6 @@ export const translations = {
         'activate': 'Активувати',
         'archive': 'Архівувати',
         'delete': 'Видалити',
-        'candidates': 'Кандидати',
     },
 
     'vacancyPage': {
@@ -52,6 +51,8 @@ export const translations = {
         'stage': 'Етап',
         'attachVacancyToCandidate': 'Призначати вакансії кандидата',
         'jobDescription': 'Опис роботи',
+        'comments': 'Коментарі',
+        'commentText': 'Новий коментар',
     },
 
     'candidateList': {
@@ -191,4 +192,4 @@ export const translations = {
         'forbiddenError': 'Логін або пароль введені неправильно',
         'potentialCandidatesLoadError': 'Помилка сталась під час завантаження вибору потенційних кандидатів'
     }
-}
+};

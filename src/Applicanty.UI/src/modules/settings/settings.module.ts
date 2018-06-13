@@ -28,14 +28,12 @@ export const settingsRoutes = [
     imports: [
         BrowserModule,
         CommonModule,
-        HttpModule,
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
-        ClarityModule.forRoot(),
+        ClarityModule,
         BrowserAnimationsModule,
         TranslateModule
-
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

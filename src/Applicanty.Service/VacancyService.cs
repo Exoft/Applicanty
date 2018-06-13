@@ -6,6 +6,7 @@ using Applicanty.Core.Entities;
 using Applicanty.Core.Enums;
 using Applicanty.Core.Services;
 using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -101,8 +102,8 @@ namespace Applicanty.Services.Services
             foreach (var technologyId in vacancyDto.TechnologyIds)
                 entity.VacancyTechnologies.Add(new VacancyTechnology
                 { VacancyId = entity.Id, TechnologyId = technologyId });
-
             var updatedEntity = Repository.Update(entity);
+
             UnitOfWork.Commit();
 
             return Mapper.Map<Vacancy, TDto>(updatedEntity);
@@ -127,8 +128,17 @@ namespace Applicanty.Services.Services
                     TechnologyId = technologyId
                 });
 
+            if (!String.IsNullOrEmpty(vacancyDto.CommentText)) 
+            {
+                createdEntity.Comments.Add(new Comment()
+                {
+                    VacancyId = createdEntity.Id,
+                    CreatedAt = createdEntity.CreatedAt,
+                    CreatedBy = createdEntity.CreatedBy,
+                    CommentText = vacancyDto.CommentText
+                });
+            }
             UnitOfWork.Commit();
-
             return Mapper.Map<Vacancy, TDto>(createdEntity);
         }
     }
