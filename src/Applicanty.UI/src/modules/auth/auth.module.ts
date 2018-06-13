@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 export const authRoutes = [
     { path: 'profile', component: UserProfilePageComponent, canActivate: [AuthGuard]},
     { path: 'signin', component: SignInComponent },
-    { path: 'app-sign-up-component', component: SignUpComponent },
+    { path: 'signup', component: SignUpComponent },
     { path: 'emailverification', component: EmailVerificationComponent }
 ];
 
