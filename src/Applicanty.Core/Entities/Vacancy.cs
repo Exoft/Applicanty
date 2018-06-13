@@ -12,6 +12,7 @@ namespace Applicanty.Core.Entities
         {
             VacancyCandidates = new HashSet<VacancyCandidate>();
             VacancyTechnologies = new HashSet<VacancyTechnology>();
+            Comments = new HashSet<Comment>();
         }
 
         public int Id { get; set; }
@@ -31,5 +32,6 @@ namespace Applicanty.Core.Entities
         public User User { get; set; }
         public ICollection<VacancyCandidate> VacancyCandidates { get; set; }
         public ICollection<VacancyTechnology> VacancyTechnologies { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

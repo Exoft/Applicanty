@@ -9,7 +9,7 @@
                 {{'vacancyList.setActive' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
-               {{'vacancyList.setArchived' | translate}}
+                {{'vacancyList.setArchived' | translate}}
             </clr-button>
             <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
                 {{'vacancyList.setDeleted' | translate}}
@@ -26,35 +26,45 @@
     <clr-dg-column [clrDgField]="'title'">
         {{'vacancyList.title' | translate}}
         <clr-dg-filter [clrDgFilter]="textFilter">
-            <clr-datagrid-text-filter #textFilter [propertyName]="'title'">
-            </clr-datagrid-text-filter>
+            <apl-clr-datagrid-text-filter #textFilter [propertyName]="'title'">
+            </apl-clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'experienceId'">
         {{'vacancyList.experienceLevels' | translate}}
         <clr-dg-filter [clrDgFilter]="experienceFilter">
-            <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
-            </clr-datagrid-experience-filter>
+            <apl-clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
+            </apl-clr-datagrid-experience-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'priorityId'">
         {{'vacancyList.priority' | translate}}
         <clr-dg-filter [clrDgFilter]="priorityFilter">
-             <clr-datagrid-priority-filter #priorityFilter [propertyName]="'priorityId'" [priorities]="priorities">
-             </clr-datagrid-priority-filter>
+            <apl-clr-datagrid-priority-filter #priorityFilter [propertyName]="'priorityId'" [priorities]="priorities">
+            </apl-clr-datagrid-priority-filter>
         </clr-dg-filter>
-     </clr-dg-column>
+    </clr-dg-column>
 
 
-    <clr-dg-column>{{'vacancyList.status' | translate}}</clr-dg-column>
+    <clr-dg-column>
+        {{'vacancyList.status' | translate}}
+    </clr-dg-column>
 
-    <clr-dg-placeholder>{{'vacancyList.placeholderVacancyListDataGrid'| translate}}</clr-dg-placeholder>
+    <clr-dg-placeholder>
+        {{'vacancyList.placeholderVacancyListDataGrid'| translate}}
+    </clr-dg-placeholder>
 
     <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
         <clr-dg-action-overflow>
-            <button class="action-item" (click)="changeStatus($event, [item], active)">{{'vacancyList.activate' | translate}}</button>
-            <button class="action-item" (click)="changeStatus($event, [item], archived)">{{'vacancyList.archive' | translate}}</button>
-            <button class="action-item" (click)="changeStatus($event, [item], deleted)">{{'vacancyList.delete' | translate}}</button>
+            <button class="action-item" (click)="changeStatus($event, [item], active)">
+                {{'vacancyList.activate' | translate}}
+            </button>
+            <button class="action-item" (click)="changeStatus($event, [item], archived)">
+                {{'vacancyList.archive' | translate}}
+            </button>
+            <button class="action-item" (click)="changeStatus($event, [item], deleted)">
+                {{'vacancyList.delete' | translate}}
+            </button>
         </clr-dg-action-overflow>
 
         <clr-dg-cell>
@@ -62,9 +72,15 @@
                 {{item?.title}}
             </a>
         </clr-dg-cell>
-        <clr-dg-cell>{{experiences ? experiences[item?.experienceId]?.name : ''}}</clr-dg-cell>
-        <clr-dg-cell>{{priorities ? priorities[item?.priorityId]?.name : ''}}</clr-dg-cell>
-        <clr-dg-cell>{{statuses ? statuses[item?.statusId]?.name : ''}}</clr-dg-cell>
+        <clr-dg-cell>
+            {{experiences ? experiences[item?.experienceId]?.name : ''}}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{priorities ? priorities[item?.priorityId]?.name : ''}}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{statuses ? statuses[item?.statusId]?.name : ''}}
+        </clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>

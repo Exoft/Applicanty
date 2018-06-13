@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../../../services/auth.service';
-import { GridRequest } from "../../../services/grid-request";
+import { GridRequest } from '../../../services/grid-request';
 
 import { environment } from '../../../environments/environment';
 
@@ -18,7 +18,8 @@ export class CandidatesDataService {
 
         params = params.set('statusType', statusType.toString());
 
-        return this.http.post(`${environment.apiRootUrl}candidate/getAll`, gridRequest, { headers: this.authService.getAuthenticationHeader(), params: params });
+        return this.http.post(`${environment.apiRootUrl}candidate/getAll`, gridRequest,
+         { headers: this.authService.getAuthenticationHeader(), params: params });
     }
 
     public getCandidate(candidateId: any): Observable<any> {
@@ -34,7 +35,8 @@ export class CandidatesDataService {
     }
 
     public deleteCandidate(candidateId: any): Observable<any> {
-        return this.http.delete(`${environment.apiRootUrl}candidate/` + candidateId, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.delete(`${environment.apiRootUrl}candidate/` + candidateId,
+         { headers: this.authService.getAuthenticationHeader() });
     }
 
     public changeCandidateStatus(ids: number[], status: any): Observable<any> {
@@ -42,7 +44,8 @@ export class CandidatesDataService {
 
         params = params.set('status', status);
 
-        return this.http.post(`${environment.apiRootUrl}candidate/changeStatus`, ids, { headers: this.authService.getAuthenticationHeader(), params: params });
+        return this.http.post(`${environment.apiRootUrl}candidate/changeStatus`, ids,
+         { headers: this.authService.getAuthenticationHeader(), params: params });
     }
 
     public getTechnologies(): Observable<any> {
@@ -59,19 +62,22 @@ export class CandidatesDataService {
         params = params.set('vacancyId', vacancyId.toString());
         params = params.set('stageId', stageId.toString());
 
-        return this.http.get(`${environment.apiRootUrl}candidate/getByVacancyAndStage`, { headers: this.authService.getAuthenticationHeader(), params: params });
+        return this.http.get(`${environment.apiRootUrl}candidate/getByVacancyAndStage`,
+         { headers: this.authService.getAuthenticationHeader(), params: params });
     }
 
     public attachCandidateStageToVacancy(formData: any): Observable<any> {
-        return this.http.post(`${environment.apiRootUrl}vacancy/attachCandidate`, formData, { headers: this.authService.getAuthenticationHeader() });
+        return this.http.post(`${environment.apiRootUrl}vacancy/attachCandidate`, formData,
+         { headers: this.authService.getAuthenticationHeader() });
     }
-   
+
     public getByCandidate(candidateId: number): Observable<any> {
         let params = new HttpParams();
 
         params = params.set('candidateId', candidateId.toString());
 
-        return this.http.get(`${environment.apiRootUrl}vacancy/getByCandidate`, { headers: this.authService.getAuthenticationHeader(), params: params });
+        return this.http.get(`${environment.apiRootUrl}vacancy/getByCandidate`,
+         { headers: this.authService.getAuthenticationHeader(), params: params });
     }
 
     public getVacancyByTechnologyAndExperience(experienceId: number, selectedTechnologies): Observable<any> {
@@ -79,10 +85,12 @@ export class CandidatesDataService {
 
         params = params.set('experience', experienceId.toString());
 
-        return this.http.post(`${environment.apiRootUrl}vacancy/getByTechnologyAndExperience`, selectedTechnologies , { headers: this.authService.getAuthenticationHeader(), params: params });
+        return this.http.post(`${environment.apiRootUrl}vacancy/getByTechnologyAndExperience`,
+         selectedTechnologies , { headers: this.authService.getAuthenticationHeader(), params: params });
     }
 
     public detachVacancy(formData: any): Observable<any> {
-        return this.http.post(`${environment.apiRootUrl}vacancy/detachCandidate`, formData, { headers: this.authService.getAuthenticationHeader() }) 
+        return this.http.post(`${environment.apiRootUrl}vacancy/detachCandidate`, formData,
+         { headers: this.authService.getAuthenticationHeader() });
     }
 }

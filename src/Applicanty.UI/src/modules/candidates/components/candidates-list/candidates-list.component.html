@@ -17,7 +17,7 @@
         </clr-button-group>
         <clr-button-group class="btn-sm align-left-button-group">
             <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
-                    {{'candidateList.show' | translate}} {{ 'enums.statusType.' + item?.name | translate }}
+                {{'candidateList.show' | translate}} {{ 'enums.statusType.' + item?.name | translate }}
             </clr-button>
         </clr-button-group>
     </clr-dg-action-bar>
@@ -25,45 +25,49 @@
     <clr-dg-column [clrDgField]="'firstName'">
         {{'candidateList.firstName' | translate}}
         <clr-dg-filter [clrDgFilter]="firstNameFilter">
-            <clr-datagrid-text-filter #firstNameFilter [propertyName]="'firstName'">
-            </clr-datagrid-text-filter>
+            <apl-clr-datagrid-text-filter #firstNameFilter [propertyName]="'firstName'">
+            </apl-clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'lastName'">
         {{'candidateList.lastName' | translate}}
 
         <clr-dg-filter [clrDgFilter]="lastNameFilter">
-            <clr-datagrid-text-filter #lastNameFilter [propertyName]="'lastName'">
-            </clr-datagrid-text-filter>
+            <apl-clr-datagrid-text-filter #lastNameFilter [propertyName]="'lastName'">
+            </apl-clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'experienceId'">
         {{'candidateList.experienceLevels' | translate}}
 
         <clr-dg-filter [clrDgFilter]="experienceFilter">
-            <clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
-            </clr-datagrid-experience-filter>
+            <apl-clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
+            </apl-clr-datagrid-experience-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'email'">
         {{'candidateList.email' | translate}}
 
         <clr-dg-filter [clrDgFilter]="emailFilter">
-            <clr-datagrid-text-filter #emailFilter [propertyName]="'email'">
-            </clr-datagrid-text-filter>
+            <apl-clr-datagrid-text-filter #emailFilter [propertyName]="'email'">
+            </apl-clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'birthday'">
         {{'candidateList.age' | translate}}
 
         <clr-dg-filter [clrDgFilter]="ageFilter">
-            <clr-datagrid-age-filter #ageFilter [propertyName]="'birthday'">
-            </clr-datagrid-age-filter>
+            <apl-clr-datagrid-age-filter #ageFilter [propertyName]="'birthday'">
+            </apl-clr-datagrid-age-filter>
         </clr-dg-filter>
     </clr-dg-column>
-    <clr-dg-column>{{'candidateList.status' | translate}}</clr-dg-column>
+    <clr-dg-column>
+        {{'candidateList.status' | translate}}
+    </clr-dg-column>
 
-    <clr-dg-placeholder> {{'candidateList.placeholderCandidateListDataGrid' | translate}}</clr-dg-placeholder>
+    <clr-dg-placeholder>
+        {{'candidateList.placeholderCandidateListDataGrid' | translate}}
+    </clr-dg-placeholder>
 
     <clr-dg-row *ngFor="let candidate of candidates" [clrDgItem]="candidate">
         <clr-dg-action-overflow>
@@ -73,15 +77,27 @@
         </clr-dg-action-overflow>
 
         <clr-dg-cell>
-            <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.firstName}}</a>
+            <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">
+                {{candidate?.firstName}}
+            </a>
         </clr-dg-cell>
         <clr-dg-cell>
-            <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">{{candidate?.lastName}}</a>
+            <a [routerLink]="['/candidates/details', candidate.id]" routerLinkActive="active">
+                {{candidate?.lastName}}
+            </a>
         </clr-dg-cell>
-        <clr-dg-cell>{{experiences ? experiences[candidate?.experienceId]?.name : ''}}</clr-dg-cell>
-        <clr-dg-cell>{{candidate?.email}}</clr-dg-cell>
-        <clr-dg-cell>{{candidate?.birthday | transformBirthDateToAge}}</clr-dg-cell>
-        <clr-dg-cell>{{ statuses ? statuses[candidate?.statusId]?.name: ''}}</clr-dg-cell>
+        <clr-dg-cell>
+            {{experiences ? experiences[candidate?.experienceId]?.name : ''}}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{candidate?.email}}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{candidate?.birthday | transformBirthDateToAge}}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{ statuses ? statuses[candidate?.statusId]?.name: ''}}
+        </clr-dg-cell>
     </clr-dg-row>
     <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users

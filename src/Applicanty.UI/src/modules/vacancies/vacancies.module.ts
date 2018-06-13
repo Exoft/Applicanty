@@ -14,7 +14,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { VacanciesListComponent } from '../vacancies/components/vacancies-list/vacancies-list.component';
 import { AuthGuard } from '../../services/authguard.service';
 import { VacancyPageComponent } from '../vacancies/components/vacancy-page/vacancy-page.component';
-import { FiltersModule } from "../filters/filters.module";
+import { FiltersModule } from '../filters/filters.module';
 
 import { VacanciesDataService } from './services/vacancies-data.service';
 import { EnumDataService } from '../../services/enum.data.service';
@@ -42,10 +42,9 @@ export const vacanciesRoutes = [
         BrowserModule,
         BrowserAnimationsModule,
         CommonModule,
-        HttpModule,
         FormsModule,
-        ClarityModule.forRoot(),
-        FroalaEditorModule.forRoot(), 
+        ClarityModule,
+        FroalaEditorModule.forRoot(),
         FroalaViewModule.forRoot(),
         FiltersModule,
         ReactiveFormsModule,

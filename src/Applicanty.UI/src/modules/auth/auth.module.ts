@@ -37,9 +37,8 @@ export const authRoutes = [
     ],
     imports: [
         CommonModule,
-        HttpModule,
         FormsModule,
-        ClarityModule.forRoot(),
+        ClarityModule,
         ReactiveFormsModule,
         HttpClientModule,
         TranslateModule

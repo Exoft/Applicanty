@@ -14,7 +14,8 @@ namespace Applicanty.Data.UnitOfWork.Services
         private IVacancyRepository _vacancyRepository;
         private IStatusRepository _statusRepository;
         private ITechnologyRepository _technologyRepository;
-        
+        private ICommentRepository _commentRepository;
+
         private IPrincipal _principal;
 
         public IVacancyRepository VacancyRepository
@@ -36,6 +37,16 @@ namespace Applicanty.Data.UnitOfWork.Services
                     _candidateRepository = new CandidateRepository(_dbContext, _principal);
 
                 return _candidateRepository;
+            }
+        }
+
+        public ICommentRepository CommentRepository
+        {
+            get
+            {
+                if (_commentRepository == null)
+                    _commentRepository = new CommentRepository(_dbContext, _principal);
+                return _commentRepository;
             }
         }
 

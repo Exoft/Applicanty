@@ -1,15 +1,17 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 
-import { AuthService } from "../../../../services/auth.service";
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
     templateUrl: './email-verification.component.html',
     styleUrls: ['./email-verification.component.scss']
 })
 export class EmailVerificationComponent implements OnDestroy {
+
+    public static router: any;
 
     public email: any;
     public token: any;
@@ -18,29 +20,25 @@ export class EmailVerificationComponent implements OnDestroy {
     private countdown = 3;
     private subscription: Subscription = new Subscription();
 
-    public static router: any;
-
     constructor(private authService: AuthService,
         private activeRoute: ActivatedRoute,
         private router: Router) {
 
-        let that = this;
-
         EmailVerificationComponent.router = this.router;
 
-        that.subscription = activeRoute.queryParams.subscribe(params => {
+        this.subscription = activeRoute.queryParams.subscribe(params => {
             if (params.hasOwnProperty('email')) {
-                that.email = params['email'];
+                this.email = params['email'];
             }
 
             if (params.hasOwnProperty('email') && params.hasOwnProperty('token')) {
-                that.token = params['token'];
+                this.token = params['token'];
 
-                that.authService.confirmEmail(params['email'], params['token']).subscribe(
+                this.authService.confirmEmail(params['email'], params['token']).subscribe(
                     data => {
-                        that.confirmed = true;
+                        this.confirmed = true;
 
-                        setTimeout(that.countDown, 1000);
+                        setTimeout(this.countDown, 1000);
                     },
                     error => {
                     });

@@ -14,7 +14,7 @@ export const dashboardRoutes = [
     ],
     imports: [
         BrowserModule,
-        ClarityModule.forRoot()
+        ClarityModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

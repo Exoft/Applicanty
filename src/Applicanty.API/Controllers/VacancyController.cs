@@ -20,14 +20,17 @@ namespace Applicanty.API.Controllers
         private readonly IVacancyService _vacancyService;
         private readonly UserManager<User> _userManager;
         private readonly ITechnologyService _technologyService;
+        private readonly ICommentService _commentService;
 
         public VacancyController(IVacancyService vacancyService,
+            ICommentService commentService,
             UserManager<User> userManager,
             ITechnologyService technologyService) : base(vacancyService)
         {
             _vacancyService = vacancyService;
             _userManager = userManager;
             _technologyService = technologyService;
+            _commentService = commentService;
         }
 
         [HttpGet("{id}")]
@@ -35,9 +38,11 @@ namespace Applicanty.API.Controllers
         {
             try
             {
-                var vacancy = _vacancyService.GetWithInclude<VacancyUpdateDto>(id, include=> include.VacancyTechnologies);
-                
-                return Json(vacancy);
+                 var vacancy = _vacancyService.GetWithInclude<VacancyUpdateDto>(id, include => include.VacancyTechnologies);
+
+                var vacancyWithComments = _commentService.GetByVacancy(vacancy);
+
+                return Json(vacancyWithComments);
             }
             catch (Exception ex)
             {
@@ -83,7 +88,11 @@ namespace Applicanty.API.Controllers
             {
                 var updatedModel = _vacancyService.Update(model);
 
-                return Ok(updatedModel);
+                var createdComment = _commentService.Create(model);
+
+                var updateModelWithComment = _commentService.GetByVacancy(updatedModel);
+
+                return Ok(updateModelWithComment);
             }
             catch (Exception ex)
             {

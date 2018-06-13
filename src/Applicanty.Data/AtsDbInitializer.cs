@@ -103,8 +103,24 @@ namespace Applicanty.Data
                         Title = "Lorem ipsum" + i,
                         ModifiedAt = DateTime.Now,
                         VacancyDescription = i + " Nunc finibus purus dui, vitae semper nisi cursus eget. Duis sed felis sit amet erat pretium auctor et eu ipsum. Nam venenatis auctor ex a sollicitudin.",
-                        JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam.",
-                       });
+                        JobDescription = i + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus mauris, fermentum convallis interdum nec, semper at nulla. Sed quam massa, posuere vestibulum erat sed, interdum ornare diam."
+                    });
+                }
+                context.SaveChanges();
+            }
+
+            if(!context.Comments.Any())
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    context.Comments.Add(new Comment
+                    {
+                        CommentText = "comment" + i,
+                        VacancyId = random.Next(2, 4),
+                        CreatedAt = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
+                        CreatedBy = i % 3 + 1
+
+                    });
                 }
                 context.SaveChanges();
             }

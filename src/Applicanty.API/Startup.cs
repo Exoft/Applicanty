@@ -55,6 +55,7 @@ namespace Applicant.API
             services.AddScoped<ITechnologyService, TechnologyService>();
             services.AddScoped<IVacancyService, VacancyService>();
             services.AddScoped<IStatusService, StatusService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

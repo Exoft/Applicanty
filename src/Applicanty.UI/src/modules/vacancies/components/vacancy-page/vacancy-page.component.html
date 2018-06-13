@@ -1,7 +1,10 @@
 <section class="btn-block">
-    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)" *ngFor="let vacancyStage of vacancyStages">
+    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)"
+       *ngFor="let vacancyStage of vacancyStages">
         {{vacancyStage.name}}
-        <span *ngIf="vacancyStageCount[vacancyStage.value]" class="badge">{{vacancyStageCount[vacancyStage.value]}}</span>
+        <span *ngIf="vacancyStageCount[vacancyStage.value]" class="badge">
+            {{vacancyStageCount[vacancyStage.value]}}
+        </span>
     </a>
 </section>
 <div class="row">
@@ -9,7 +12,9 @@
         <form [formGroup]="vacancyPageForm">
             <section class="form-block">
                 <div class="form-group">
-                    <label for="title">{{'vacancyPage.title' | translate}}:</label>
+                    <label for="title">
+                        {{'vacancyPage.title' | translate}}:
+                    </label>
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="vacancyPageForm.get('title')?.invalid && (vacancyPageForm.get('title')?.dirty || vacancyPageForm.get('title')?.touched)">
                         <input class="form-control" type="text" placeholder="{{'vacancyPage.title' | translate}}" formControlName="title" size="25" />
@@ -20,127 +25,204 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="createdAt">{{'vacancyPage.createdAt' | translate}}:</label>
+                    <label for="createdAt">
+                        {{'vacancyPage.createdAt' | translate}}:
+                    </label>
 
                     <input class="form-control" type="text" readonly formControlName="createdAt" />
                 </div>
                 <div class="form-group">
-                    <label for="experienceId">{{'vacancyPage.experience' | translate}}:</label>
+                    <label for="experienceId">
+                        {{'vacancyPage.experience' | translate}}:
+                    </label>
 
                     <div class="select">
                         <select formControlName="experienceId" (change)="refreshPotentialCandidates()">
-                            <option value="{{experience.value}}" *ngFor="let experience of experiences">{{'enums.experience.' + experience.name | translate }} </option>
+                            <option value="{{experience.value}}" *ngFor="let experience of experiences">
+                                {{'enums.experience.' + experience.name | translate }}
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="priorityId">{{'vacancyPage.priority' | translate}}:</label>
+                    <label for="priorityId">
+                        {{'vacancyPage.priority' | translate}}:
+                    </label>
                     <div class="select">
                         <select formControlName="priorityId">
-                            <option value="{{priority.value}}" *ngFor="let priority of priorities">{{'enums.priority.' + priority.name | translate }} </option>
+                            <option value="{{priority.value}}" *ngFor="let priority of priorities">
+                                {{'enums.priority.' + priority.name | translate }}
+                            </option>
                         </select>
                     </div>
-                </div>    
+                </div>
                 <div class="form-group">
-                    <label for="technologiesId">{{'vacancyPage.technologies' | translate}}:</label>
+                    <label for="technologiesId">
+                        {{'vacancyPage.technologies' | translate}}:
+                    </label>
 
                     <div class="checkboxlist-scroll">
                         <div *ngFor="let technology of technologies" class="checkbox">
-                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}"
-                                   [checked]="vacancyPageForm?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
+                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}" [checked]="vacancyPageForm?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
                                    (change)="vacancyTechnologiesChange($event)">
                             <label for="{{technology?.id}}">
                                 {{technology.name}}
                             </label>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="form-group">
-                    <label for="vacancyDescription">{{'vacancyPage.vacancyDescription' | translate}}:</label>
+                    <label for="vacancyDescription">
+                        {{'vacancyPage.vacancyDescription' | translate}}:
+                    </label>
 
                     <div [froalaEditor]="froalaOptions" formControlName="vacancyDescription"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="jobDescription">{{'vacancyPage.jobDescription' | translate}}:</label>
+                    <label for="jobDescription">
+                        {{'vacancyPage.jobDescription' | translate}}:
+                    </label>
 
                     <div [froalaEditor]="froalaOptions" formControlName="jobDescription"></div>
-                </div>               
+                </div>
                 <input type="hidden" formControlName="id">
                 <div class="form-block" *ngIf="id">
-                    <label> {{'vacancyPage.potentialCandidates' | translate}}:</label>                    
+                    <label>
+                        {{'potentialCandidates' | translate}}:
+                    </label>
                     <clr-datagrid (clrDgRefresh)="refreshPotentialCandidates()" [clrDgLoading]="potentialCandidateGridLoading">
-                        <clr-dg-placeholder>{{'vacancyPage.placeholderPotentialCandidatesListDataGrid'| translate}}</clr-dg-placeholder>
-                        <clr-dg-column>{{'vacancyPage.candidates' | translate}}</clr-dg-column>
-                        <clr-dg-column>{{'vacancyPage.viewDetails' | translate}}</clr-dg-column>
-                                                       
-                        <clr-dg-row *ngFor="let candidateByTechnologyAndExperienc of candidateByTechnologyAndExperience" >
-                            <clr-dg-cell>{{candidateByTechnologyAndExperienc?.fullName}}</clr-dg-cell>
-                                <clr-dg-cell>
-                                     <a [routerLink]="['/candidates/details', candidateByTechnologyAndExperienc?.id]"  routerLinkActive="active" >{{'vacancyPage.viewDetails' | translate}}</a>
-                                </clr-dg-cell>
+                        <clr-dg-placeholder>
+                            {{'placeholderPotentialCandidatesListDataGrid'| translate}}
+                        </clr-dg-placeholder>
+                        <clr-dg-column>
+                            {{'candidates' | translate}}
+                        </clr-dg-column>
+                        <clr-dg-column>
+                            {{'viewDetails' | translate}}
+                        </clr-dg-column>
+
+                        <clr-dg-row *ngFor="let candidateByTechnologyAndExperienc of candidateByTechnologyAndExperience">
+                            <clr-dg-cell>
+                                {{candidateByTechnologyAndExperienc?.fullName}}
+                            </clr-dg-cell>
+                            <clr-dg-cell>
+                                <a [routerLink]="['/candidates/details', candidateByTechnologyAndExperienc?.id]" routerLinkActive="active">
+                                    {{'viewDetails' | translate}}
+                                </a>
+                            </clr-dg-cell>
                         </clr-dg-row>
-                        
+
                         <clr-dg-footer>
-                                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'vacancyPage.of' | translate}} {{pagination.totalItems}} {{'vacancyPage.candidatesFooter' | translate}}
+                                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'of' | translate}} {{pagination.totalItems}} {{'candidatesFooter' | translate}}
                                 <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
                         </clr-dg-footer>
-                    </clr-datagrid>              
+                    </clr-datagrid>
                 </div>
-                <button type="button" class="btn btn-primary" [disabled]="!vacancyPageForm.valid || vacancyPageForm.pristine" (click)="saveVacancyClick($event)">{{'vacancyPage.save' | translate}}</button>
-                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">{{'vacancyPage.cancel'|translate}}</button>
-            </section>            
+                <div class="comment-section">
+                    <h3>
+                        {{'vacancyPage.comments' | translate}}
+                    </h3>
+                    <div class="comments" *ngIf='comments.length > 0'>
+                        <div class="comment" *ngFor='let comment of comments'>
+                            <span class="author">
+                                {{comment.createdBy}}
+                            </span>
+                            <div class="metadata">
+                                <span class="date">
+                                    {{comment.createdAt | date: "medium"}}
+                                </span>
+                            </div>
+                            <div class="text" [innerHTML]="comment.text"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="text">
+                            {{'vacancyPage.commentText' | translate}}:
+                        </label>
+                        <div [froalaEditor]="froalaOptions" formControlName="commentText"></div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary" [disabled]="!vacancyPageForm.valid || vacancyPageForm.pristine" (click)="saveVacancyClick($event)">
+                    {{'vacancyPage.save' | translate}}
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelClick($event)">
+                    {{'vacancyPage.cancel'|translate}}
+                </button>
+            </section>
         </form>
     </div>
 
     <div class="col-md-5" *ngIf="id">
-        <clr-datagrid (clrDgRefresh)="refreshCurrentVacancyList()" [(clrDgSelected)]="selectedCandidatesOfVacancy" [clrDgLoading]="gridLoading" >
+        <clr-datagrid (clrDgRefresh)="refreshCurrentVacancyList()" [(clrDgSelected)]="selectedCandidatesOfVacancy" [clrDgLoading]="gridLoading">
             <clr-dg-action-bar>
                 <clr-button-group class="btn-outline btn-sm">
-                    <clr-button [disabled]="vacancyPageForm.get('technologyIds')?.invalid && vacancyPageForm.get('technologyIds')?.dirty" (click)="showAvailableCandidates($event)">{{'add' | translate}}</clr-button>
+                    <clr-button [disabled]="vacancyPageForm.get('technologyIds')?.invalid && vacancyPageForm.get('technologyIds')?.dirty" (click)="showAvailableCandidates($event)">
+                        {{'add' | translate}}
+                    </clr-button>
                 </clr-button-group>
                 <clr-button-group class="btn-danger-outline btn-sm">
-                    <clr-button [disabled]="!selectedCandidatesOfVacancy || selectedCandidatesOfVacancy.length===0" (click)="deleteCandydateClick($event)">{{'vacancyPage.delete' | translate}}</clr-button>
+                    <clr-button [disabled]="!selectedCandidatesOfVacancy || selectedCandidatesOfVacancy.length===0" (click)="deleteCandydateClick($event)">
+                        {{'delete' | translate}}
+                    </clr-button>
                 </clr-button-group>
             </clr-dg-action-bar>
 
-            <clr-dg-column>{{'vacancyPage.candidates' | translate}}:</clr-dg-column>
-            <clr-dg-column>{{'vacancyPage.stage' | translate}}:</clr-dg-column>
+            <clr-dg-column>
+                {{'candidates' | translate}}:
+            </clr-dg-column>
+            <clr-dg-column>
+                {{'stage' | translate}}:
+            </clr-dg-column>
 
             <clr-dg-row *ngFor="let candidateVacancy of candidatesByVacancy" [clrDgItem]="candidateVacancy">
                 <clr-dg-cell>
-                    <a [routerLink]="['/candidates/details', candidateVacancy?.id]" routerLinkActive="active">{{candidateVacancy?.fullName}}</a>
+                    <a [routerLink]="['/candidates/details', candidateVacancy?.id]" routerLinkActive="active">
+                        {{candidateVacancy?.fullName}}
+                    </a>
                 </clr-dg-cell>
-                <clr-dg-cell>{{vacancyStages ? vacancyStages[candidateVacancy?.vacancyStage]?.name : ''}}</clr-dg-cell>
+                <clr-dg-cell>
+                    {{vacancyStages ? vacancyStages[candidateVacancy?.vacancyStage]?.name : ''}}
+                </clr-dg-cell>
             </clr-dg-row>
 
             <clr-dg-footer>
 
             </clr-dg-footer>
-        </clr-datagrid>       
+        </clr-datagrid>
     </div>
 </div>
-
 <clr-modal [(clrModalOpen)]="setStageModalVisible">
-    <h3 class="modal-title">{{'vacancyPage.attachVacancyToCandidate' | translate}}</h3>
+    <h3 class="modal-title">
+    {{'vacancyPage.attachVacancyToCandidate' | translate}}
+    </h3>
     <div class="modal-body">
         <form [formGroup]="candidateAttachVacancyForm">
             <section class="form-block">
                 <div class="form-group">
-                    <label for="vacancyId" class="required">{{'vacancyPage.candidates' | translate}}:</label>
+                    <label for="vacancyId" class="required">
+                    {{'vacancyPage.candidates' | translate}}:
+                    </label>
 
                     <div class="select">
                         <select formControlName="candidateId">
-                            <option *ngFor="let item of candidateByTechnologyAndExperience" [value]="item?.id">{{item?.fullName}}</option>
+                            <option *ngFor="let item of candidateByTechnologyAndExperience" [value]="item?.id">
+                                {{item?.fullName}}
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="vacancyStage" class="required">{{'vacancyPage.stage' | translate}}:</label>
+                    <label for="vacancyStage" class="required">
+                    {{'vacancyPage.stage' | translate}}:
+                    </label>
 
                     <div class="select">
                         <select formControlName="vacancyStage">
-                            <option *ngFor="let vacancyStage of vacancyStages" [value]="vacancyStage.value">{{vacancyStage.name}}</option>
+                            <option *ngFor="let vacancyStage of vacancyStages" [value]="vacancyStage.value">
+                                {{vacancyStage.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -148,7 +230,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine" (click)="attachToCandidateClick($event)">{{'vacancyPage.save' | translate}}</button>
+        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine" (click)="attachToCandidateClick($event)">
+        {{'vacancyPage.save' | translate}}</button>
         <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">{{'vacancyPage.cancel' | translate}}</button>
     </div>
 </clr-modal>

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ClarityModule } from '@clr/angular';
 import { NotFoundComponent } from '../notfound/components/notfound.component';
 import { AuthGuard } from '../../services/authguard.service';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 export const notfoundRoutes = [
     { path: 'notfound', component: NotFoundComponent, canActivate: [AuthGuard] }
@@ -16,7 +16,7 @@ export const notfoundRoutes = [
     ],
     imports: [
         BrowserModule,
-        ClarityModule.forRoot(),
+        ClarityModule,
         RouterModule,
         TranslateModule
     ],

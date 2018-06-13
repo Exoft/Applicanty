@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../services/auth.service';
-import { ValidationService } from "../../../../services/validation.service";
+import { ValidationService } from '../../../../services/validation.service';
 
 @Component({
-    selector: 'signUp',
+    selector: 'apl-sign-up-component',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-    public identityErrors: any;
-
     static signUpComponentInstance: any;
 
+    public identityErrors: any;
     public registrationForm: any;
 
     constructor(private authService: AuthService,
@@ -35,7 +34,7 @@ export class SignUpComponent {
         SignUpComponent.signUpComponentInstance.identityErrors = undefined;
 
         if (this.registrationForm.valid) {
-            let formData = {
+            const formData = {
                 email: this.registrationForm.value.email,
                 password: this.registrationForm.value.password.password
             };
