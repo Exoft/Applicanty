@@ -53,14 +53,6 @@
             </apl-clr-datagrid-text-filter>
         </clr-dg-filter>
     </clr-dg-column>
-    <clr-dg-column [clrDgField]="'birthday'">
-        {{'candidateList.age' | translate}}
-
-        <clr-dg-filter [clrDgFilter]="ageFilter">
-            <apl-clr-datagrid-age-filter #ageFilter [propertyName]="'birthday'">
-            </apl-clr-datagrid-age-filter>
-        </clr-dg-filter>
-    </clr-dg-column>
     <clr-dg-column>
         {{'candidateList.status' | translate}}
     </clr-dg-column>
@@ -87,20 +79,18 @@
             </a>
         </clr-dg-cell>
         <clr-dg-cell>
-            {{experiences ? experiences[candidate?.experienceId]?.name : ''}}
+            {{'enums.experience.' + experiences[candidate?.experienceId]?.name | translate }}
         </clr-dg-cell>
         <clr-dg-cell>
             {{candidate?.email}}
         </clr-dg-cell>
         <clr-dg-cell>
-            {{candidate?.birthday | transformBirthDateToAge}}
-        </clr-dg-cell>
-        <clr-dg-cell>
-            {{ statuses ? statuses[candidate?.statusId]?.name: ''}}
+            {{'enums.statusType.' + statuses[candidate?.statusId]?.name | translate }}
         </clr-dg-cell>
     </clr-dg-row>
     <clr-dg-footer>
-        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'candidateList.of' | translate}} {{pagination.totalItems}} {{
+        'candidateList.users' | translate }}
         <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>

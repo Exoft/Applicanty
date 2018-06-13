@@ -49,7 +49,6 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
     'linkedIn': new FormControl(''),
     'phone': new FormControl(''),
     'cvPath': new FormControl(''),
-    'birthday': new FormControl(new Date(), Validators.required)
   });
 
   public candidateAttachVacancyForm: FormGroup = new FormGroup({
@@ -98,7 +97,7 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.enumService.getEnums(EnumNames.VACANCYSTAGE).subscribe(
+    this.enumService.getEnums(this.stageEnumName).subscribe(
       data => {
         this.vacancyStages = data.result;
       },
@@ -124,7 +123,6 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
   }
 
   private setFormData(candidate) {
-    const birthdayDate = new Date(candidate.birthday);
 
     this.candidatePageFrom.setValue({
       'id': candidate.id,
@@ -137,9 +135,6 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
       'linkedIn': candidate.linkedIn,
       'phone': candidate.phone,
       'cvPath': candidate.cvPath,
-      'birthday': birthdayDate.getFullYear() + '-' + ((birthdayDate.getMonth() + 1).toString().length === 1 ? '0'
-        + (birthdayDate.getMonth() + 1).toString() : (birthdayDate.getMonth() + 1).toString()) + '-' +
-        (birthdayDate.getDate().toString().length === 1 ? '0' + birthdayDate.getDate().toString() : birthdayDate.getDate())
     });
   }
 

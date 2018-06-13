@@ -1,7 +1,6 @@
 <section class="btn-block">
-    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)"
-       *ngFor="let vacancyStage of vacancyStages">
-        {{vacancyStage.name}}
+    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)" *ngFor="let vacancyStage of vacancyStages">
+        {{'enums.vacancyStage.' + vacancyStage.name | translate }}
         <span *ngIf="vacancyStageCount[vacancyStage.value]" class="badge">
             {{vacancyStageCount[vacancyStage.value]}}
         </span>
@@ -89,17 +88,17 @@
                 <input type="hidden" formControlName="id">
                 <div class="form-block" *ngIf="id">
                     <label>
-                        {{'potentialCandidates' | translate}}:
+                        {{'vacancyPage.potentialCandidates' | translate}}:
                     </label>
                     <clr-datagrid (clrDgRefresh)="refreshPotentialCandidates()" [clrDgLoading]="potentialCandidateGridLoading">
                         <clr-dg-placeholder>
-                            {{'placeholderPotentialCandidatesListDataGrid'| translate}}
+                            {{'vacancyPage.placeholderPotentialCandidatesListDataGrid'| translate}}
                         </clr-dg-placeholder>
                         <clr-dg-column>
-                            {{'candidates' | translate}}
+                            {{'vacancyPage.candidates' | translate}}
                         </clr-dg-column>
                         <clr-dg-column>
-                            {{'viewDetails' | translate}}
+                            {{'vacancyPage.viewDetails' | translate}}
                         </clr-dg-column>
 
                         <clr-dg-row *ngFor="let candidateByTechnologyAndExperienc of candidateByTechnologyAndExperience">
@@ -108,14 +107,14 @@
                             </clr-dg-cell>
                             <clr-dg-cell>
                                 <a [routerLink]="['/candidates/details', candidateByTechnologyAndExperienc?.id]" routerLinkActive="active">
-                                    {{'viewDetails' | translate}}
+                                    {{'vacancyPage.viewDetails' | translate}}
                                 </a>
                             </clr-dg-cell>
                         </clr-dg-row>
 
                         <clr-dg-footer>
-                                {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'of' | translate}} {{pagination.totalItems}} {{'candidatesFooter' | translate}}
-                                <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
+                            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'of' | translate}} {{pagination.totalItems}} {{'candidatesFooter' | translate}}
+                            <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
                         </clr-dg-footer>
                     </clr-datagrid>
                 </div>
@@ -159,21 +158,21 @@
             <clr-dg-action-bar>
                 <clr-button-group class="btn-outline btn-sm">
                     <clr-button [disabled]="vacancyPageForm.get('technologyIds')?.invalid && vacancyPageForm.get('technologyIds')?.dirty" (click)="showAvailableCandidates($event)">
-                        {{'add' | translate}}
+                        {{'vacancyPage.add' | translate}}
                     </clr-button>
                 </clr-button-group>
                 <clr-button-group class="btn-danger-outline btn-sm">
                     <clr-button [disabled]="!selectedCandidatesOfVacancy || selectedCandidatesOfVacancy.length===0" (click)="deleteCandydateClick($event)">
-                        {{'delete' | translate}}
+                        {{'vacancyPage.delete' | translate}}
                     </clr-button>
                 </clr-button-group>
             </clr-dg-action-bar>
 
             <clr-dg-column>
-                {{'candidates' | translate}}:
+                {{'vacancyPage.candidates' | translate}}:
             </clr-dg-column>
             <clr-dg-column>
-                {{'stage' | translate}}:
+                {{'vacancyPage.stage' | translate}}:
             </clr-dg-column>
 
             <clr-dg-row *ngFor="let candidateVacancy of candidatesByVacancy" [clrDgItem]="candidateVacancy">
@@ -195,14 +194,14 @@
 </div>
 <clr-modal [(clrModalOpen)]="setStageModalVisible">
     <h3 class="modal-title">
-    {{'vacancyPage.attachVacancyToCandidate' | translate}}
+        {{'vacancyPage.attachVacancyToCandidate' | translate}}
     </h3>
     <div class="modal-body">
         <form [formGroup]="candidateAttachVacancyForm">
             <section class="form-block">
                 <div class="form-group">
                     <label for="vacancyId" class="required">
-                    {{'vacancyPage.candidates' | translate}}:
+                        {{'vacancyPage.candidates' | translate}}:
                     </label>
 
                     <div class="select">
@@ -215,7 +214,7 @@
                 </div>
                 <div class="form-group">
                     <label for="vacancyStage" class="required">
-                    {{'vacancyPage.stage' | translate}}:
+                        {{'vacancyPage.stage' | translate}}:
                     </label>
 
                     <div class="select">
@@ -231,7 +230,8 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine" (click)="attachToCandidateClick($event)">
-        {{'vacancyPage.save' | translate}}</button>
+            {{'vacancyPage.save' | translate}}
+        </button>
         <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">{{'vacancyPage.cancel' | translate}}</button>
     </div>
 </clr-modal>

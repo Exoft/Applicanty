@@ -29,6 +29,8 @@ export const translations = {
         'activate': 'Activate',
         'archive': 'Archive',
         'delete': 'Delete',
+        'vacancies' : 'vacancies',
+        'of': 'of',
     },
 
     'vacancyPage': {
@@ -71,6 +73,8 @@ export const translations = {
         'activate': 'Activate',
         'archive': 'Archive',
         'delete': 'Delete',
+        'users': 'users',
+        'of': 'of',
     },
 
     'candidatePage': {
