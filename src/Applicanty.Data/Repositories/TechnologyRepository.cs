@@ -1,10 +1,12 @@
-﻿using Applicanty.Data.Entity;
+﻿using Applicanty.Core.Entities;
+using Applicanty.Core.Data.Repositories;
 
 namespace Applicanty.Data.Repositories
 {
-    public class TechnologyRepository : EntityBaseRepository<Technology, int>, ITechnologyRepository
+    internal class TechnologyRepository : EntityBaseRepository<Technology>, ITechnologyRepository
     {
-        public TechnologyRepository(AtsDbContext context) : base(context)
+        public TechnologyRepository(AtsDbContext context) 
+            : base(context)
         {
         }
     }

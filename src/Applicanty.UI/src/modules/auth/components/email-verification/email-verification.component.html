@@ -1,0 +1,25 @@
+<div class="login-wrapper">
+   <div class="login">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div *ngIf="email && !token">
+                {{'authorization.confirmationLinkSentToYourEmail' | translate}}: <strong>{{email}}</strong>
+                <br />
+                {{'authorization.pleaseCheckYourInbox' | translate}}
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <div *ngIf="!confirmed && token">
+                 {{'authorization.yourEmailIseingConfimed' | translate}}
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <div *ngIf="confirmed && token">
+                {{'authorization.emailSuccessfullyValidated' | translate}}
+                <br />
+               {{'authorization.navigatingToLoginIn' | translate}} {{countdown}}.
+            </div>
+        </div>
+    </div>
+</div>

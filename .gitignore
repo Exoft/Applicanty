@@ -259,3 +259,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/src/Applicanty.Data/Migrations/
+/src/Applicanty.API/tempkey.rsa
+/src/Applicanty.UI/ClientApp/dist
+/src/Applicanty.UI/wwwroot/dist

@@ -1,0 +1,41 @@
+﻿<form [formGroup]="ageRangeForm">
+    <div>
+        <label for="lowerAgeLimit">
+            {{'app.lowerLimit' | translate}}:
+        </label>
+    </div>
+
+    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+         [class.invalid]="(ageRangeForm?.invalid
+         && (ageRangeForm?.dirty
+         || ageRangeForm?.touched))
+         ||
+         (ageRangeForm?.get('lowerAgeLimit')?.invalid
+         && (ageRangeForm?.get('lowerAgeLimit')?.dirty
+         || ageRangeForm?.get('lowerAgeLimit')?.touched))">
+        <input class="form-control" type="number" formControlName="lowerAgeLimit" size="25" (change)="changeAge($event)">
+        <span class="tooltip-content">
+            {{ validationService.getValidatorErrorMessage(ageRangeForm?.get('lowerAgeLimit')) }}
+            <br *ngIf="validationService.getValidatorErrorMessage(ageRangeForm?.get('lowerAgeLimit'))" />
+            {{ validationService.getValidatorErrorMessage(ageRangeForm) }}
+        </span>
+    </div>
+
+    <div>
+        <label for="upperAgeLimit">
+            {{'app.upperLimit' | translate}}:
+        </label>
+    </div>
+
+    <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
+         [class.invalid]="ageRangeForm?.get('upperAgeLimit')?.invalid
+         && (ageRangeForm?.get('upperAgeLimit')?.dirty
+         || ageRangeForm?.get('upperAgeLimit')?.touched)">
+        <input class="form-control" type="number" formControlName="upperAgeLimit" size="25" (change)="changeAge($event)">
+        <span class="tooltip-content">
+            {{ validationService.getValidatorErrorMessage(ageRangeForm?.get('upperAgeLimit')) }}
+            <br *ngIf="validationService.getValidatorErrorMessage(ageRangeForm?.get('upperAgeLimit'))" />
+            {{ validationService.getValidatorErrorMessage(ageRangeForm) }}
+        </span>
+    </div>
+</form>

@@ -1,10 +1,12 @@
-﻿using Applicanty.Data.Entity;
+﻿using Applicanty.Core.Entities;
+using Applicanty.Core.Data.Repositories;
 
 namespace Applicanty.Data.Repositories
 {
-    public class StatusRepository : EntityBaseRepository<Status, int>, IStatusRepository
+    internal class StatusRepository : StateableRepository<Status>, IStatusRepository
     {
-        public StatusRepository(AtsDbContext context) : base(context)
+        public StatusRepository(AtsDbContext context) 
+            : base(context)
         {
         }
     }

@@ -1,0 +1,91 @@
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading" [(clrDgSelected)]="selectedItems">
+    <clr-dg-action-bar>
+        <clr-button-group class="btn-sm">
+            <clr-button class="btn-success-outline" [routerLink]="['newvacancy']">
+                <clr-icon shape="plus"></clr-icon>
+                {{'vacancyList.add' | translate}}
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, active)">
+                {{'vacancyList.setActive' | translate}}
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, archived)">
+                {{'vacancyList.setArchived' | translate}}
+            </clr-button>
+            <clr-button class="btn-success-outline" [clrInMenu]="true" [disabled]="selectedItems.length===0" (click)="changeStatus($event, selectedItems, deleted)">
+                {{'vacancyList.setDeleted' | translate}}
+            </clr-button>
+        </clr-button-group>
+        <clr-button-group class="btn-sm align-left-button-group">
+            <clr-button class="btn-secondary-outline" (click)="getVacanciesByStatusType($event,item?.value)" *ngFor="let item of statuses">
+                {{'vacancyList.show' | translate}} {{ 'enums.statusType.' + item?.name | translate }}
+            </clr-button>
+        </clr-button-group>
+    </clr-dg-action-bar>
+
+
+    <clr-dg-column [clrDgField]="'title'">
+        {{'vacancyList.title' | translate}}
+        <clr-dg-filter [clrDgFilter]="textFilter">
+            <apl-clr-datagrid-text-filter #textFilter [propertyName]="'title'">
+            </apl-clr-datagrid-text-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'experienceId'">
+        {{'vacancyList.experienceLevels' | translate}}
+        <clr-dg-filter [clrDgFilter]="experienceFilter">
+            <apl-clr-datagrid-experience-filter #experienceFilter [propertyName]="'experienceId'" [experiences]="experiences">
+            </apl-clr-datagrid-experience-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'priorityId'">
+        {{'vacancyList.priority' | translate}}
+        <clr-dg-filter [clrDgFilter]="priorityFilter">
+            <apl-clr-datagrid-priority-filter #priorityFilter [propertyName]="'priorityId'" [priorities]="priorities">
+            </apl-clr-datagrid-priority-filter>
+        </clr-dg-filter>
+    </clr-dg-column>
+
+
+    <clr-dg-column>
+        {{'vacancyList.status' | translate}}
+    </clr-dg-column>
+
+    <clr-dg-placeholder>
+        {{'vacancyList.placeholderVacancyListDataGrid'| translate}}
+    </clr-dg-placeholder>
+
+    <clr-dg-row *ngFor="let item of vacanciesList" [clrDgItem]="item">
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="changeStatus($event, [item], active)">
+                {{'vacancyList.activate' | translate}}
+            </button>
+            <button class="action-item" (click)="changeStatus($event, [item], archived)">
+                {{'vacancyList.archive' | translate}}
+            </button>
+            <button class="action-item" (click)="changeStatus($event, [item], deleted)">
+                {{'vacancyList.delete' | translate}}
+            </button>
+        </clr-dg-action-overflow>
+
+        <clr-dg-cell>
+            <a [routerLink]="['details', item?.id]" routerLinkActive="active">
+                {{item?.title}}
+            </a>
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{'enums.experience.' +  experiences[item?.experienceId]?.name  | translate }}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{'enums.priority.' +  priorities[item?.priorityId]?.name  | translate}}
+        </clr-dg-cell>
+        <clr-dg-cell>
+            {{'enums.statusType.' +  statuses[item?.statusId]?.name  | translate}}
+        </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        {{'vacancyList.of' | translate}} {{pagination.totalItems}} {{'vacancyList.vacancies' | translate}}
+        <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>

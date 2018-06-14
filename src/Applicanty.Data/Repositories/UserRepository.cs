@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using Applicanty.Data.Entity.Abstract;
+﻿using Applicanty.Core.Entities;
+using Applicanty.Core.Data.Repositories;
 
 namespace Applicanty.Data.Repositories
 {
-    public class UserRepository 
+    internal class UserRepository : EntityBaseRepository<User>, IUserRepository
     {
-        
+        public UserRepository(AtsDbContext context) 
+            : base(context)
+        {
+        }
     }
 }
