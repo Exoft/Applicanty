@@ -263,3 +263,4 @@ __pycache__/
 /src/Applicanty.API/tempkey.rsa
 /src/Applicanty.UI/ClientApp/dist
 /src/Applicanty.UI/wwwroot/dist
+/src/Applicanty.UI/yarn.lock
