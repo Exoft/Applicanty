@@ -14,7 +14,7 @@ namespace Applicanty.Services.Services
 {
     public class CommentService : BaseService<Comment, ICommentRepository>, ICommentService
     {
-        public CommentService(IUnitOfWork unitOfWork, IMapper mapper) 
+        public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
             : base(unitOfWork, mapper)
         { }
 
@@ -38,14 +38,14 @@ namespace Applicanty.Services.Services
                 modelWithComments.CommentCreatedAt[i] = comments[i].CreatedAt;
                 modelWithComments.CommentCreatedBy[i] = comments[i].User.Email;
             }
-            
+
             return modelWithComments;
         }
 
         public override TDto Create<TDto>(TDto dto)
         {
             var vacancyDto = dto as VacancyUpdateDto;
-            if(vacancyDto == null)
+            if (vacancyDto == null)
                 throw new System.ArgumentNullException(nameof(vacancyDto));
 
             var entity = Mapper.Map<TDto, Comment>(dto);
@@ -62,6 +62,5 @@ namespace Applicanty.Services.Services
         }
 
         protected override ICommentRepository InitRepository() => UnitOfWork.CommentRepository;
-
     }
 }
