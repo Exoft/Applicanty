@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiRootUrl: 'http://localhost:8000/'
+  apiRootUrl: 'http://localhost:8000/',
+  version: require('../../package.json').version
 };
