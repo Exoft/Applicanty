@@ -19,6 +19,5 @@ namespace Applicanty.Core.Entities
 
         public DateTime ModifiedAt { get; set; }
         public int ModifiedBy { get; set; }
-
         }
 }

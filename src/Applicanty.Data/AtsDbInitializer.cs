@@ -109,17 +109,16 @@ namespace Applicanty.Data
                 context.SaveChanges();
             }
 
-            if(!context.Comments.Any())
+            if (!context.Comments.Any())
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 60; i++)
                 {
                     context.Comments.Add(new Comment
                     {
                         CommentText = "comment" + i,
-                        VacancyId = random.Next(2, 4),
+                        VacancyId = random.Next(2, 19),
                         CreatedAt = DateTime.Now.AddDays(-(Convert.ToDouble(random.Next(5, 30)) + random.NextDouble())),
                         CreatedBy = i % 3 + 1
-
                     });
                 }
                 context.SaveChanges();

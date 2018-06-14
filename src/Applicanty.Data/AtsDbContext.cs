@@ -77,6 +77,21 @@ namespace Applicanty.Data
                 .HasOne(pt => pt.Vacancy)
                 .WithMany(t => t.VacancyTechnologies)
                 .HasForeignKey(pt => pt.VacancyId);
+
+            modelBuilder.Entity<Comment>()
+                .HasKey(t => t.Id );
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(pt => pt.Vacancy)
+                .WithMany(t => t.Comments)
+                .HasForeignKey(pt => pt.VacancyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(pt => pt.User)
+                .WithMany(t => t.Comments)
+                .HasForeignKey(pt => pt.CreatedBy)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
