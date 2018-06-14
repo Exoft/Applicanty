@@ -73,19 +73,19 @@
             </a>
         </clr-dg-cell>
         <clr-dg-cell>
-            {{experiences ? experiences[item?.experienceId]?.name : ''}}
+            {{'enums.experience.' +  experiences[item?.experienceId]?.name  | translate }}
         </clr-dg-cell>
         <clr-dg-cell>
-            {{priorities ? priorities[item?.priorityId]?.name : ''}}
+            {{'enums.priority.' +  priorities[item?.priorityId]?.name  | translate}}
         </clr-dg-cell>
         <clr-dg-cell>
-            {{statuses ? statuses[item?.statusId]?.name : ''}}
+            {{'enums.statusType.' +  statuses[item?.statusId]?.name  | translate}}
         </clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
-        of {{pagination.totalItems}} vacancies
+        {{'vacancyList.of' | translate}} {{pagination.totalItems}} {{'vacancyList.vacancies' | translate}}
         <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
