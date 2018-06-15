@@ -22,7 +22,7 @@
                     </label>
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
-                         [class.invalid]="candidatePageFrom.get('lastName')?.invalid && (candidatePageFrom.get('lastName')?.dirty || candidatePageFrom.get('v')?.touched)">
+                         [class.invalid]="candidatePageFrom.get('lastName')?.invalid && (candidatePageFrom.get('lastName')?.dirty || candidatePageFrom.get('lastName')?.touched)">
                         <input class="form-control" type="text" placeholder="{{'candidatePage.lastName' | translate}}" formControlName="lastName" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('lastName')) }}
@@ -81,7 +81,7 @@
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="candidatePageFrom.get('skype')?.invalid && (candidatePageFrom.get('skype')?.dirty || candidatePageFrom.get('skype')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'candidatePage.skype' | translate}}" formControlName="skype" size="40" required>
+                        <input class="form-control" type="text" placeholder="{{'candidatePage.skype' | translate}}" formControlName="skype" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('skype')) }}
                         </span>
@@ -95,7 +95,7 @@
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="candidatePageFrom.get('linkedIn')?.invalid && (candidatePageFrom.get('linkedIn')?.dirty || candidatePageFrom.get('linkedIn')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'candidatePage.linkedIn' | translate}}" formControlName="linkedIn" size="40" required>
+                        <input class="form-control" type="text" placeholder="{{'candidatePage.linkedIn' | translate}}" formControlName="linkedIn" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('linkedIn')) }}
                         </span>
@@ -109,7 +109,7 @@
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="candidatePageFrom.get('phone')?.invalid && (candidatePageFrom.get('phone')?.dirty || candidatePageFrom.get('phone')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'candidatePage.phone' | translate}}" formControlName="phone" size="40" required>
+                        <input class="form-control" type="text" placeholder="{{'candidatePage.phone' | translate}}" formControlName="phone" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('phone')) }}
                         </span>
