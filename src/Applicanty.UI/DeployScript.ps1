@@ -1,3 +1,5 @@
+ping office.exoft.net
+
 net use Z: \\office.exoft.net\D$\apltest /user:exoft\Administrator M1llions2014
 dir Z:\
 #copy C:\Windows\win.ini Z:\
