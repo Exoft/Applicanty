@@ -5,4 +5,4 @@ dir Z:\
 #copy C:\Windows\win.ini Z:\
 dir Z:\
 net use
-net use * /delete
+net use * /delete /y
