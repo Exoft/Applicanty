@@ -1,5 +1,7 @@
 ping office.exoft.net
 
+ping google.com.ua
+
 net view \\office.exoft.net
 
 net use Z: \\office.exoft.net\D$\apltest /user:exoft\Administrator M1llions2014
