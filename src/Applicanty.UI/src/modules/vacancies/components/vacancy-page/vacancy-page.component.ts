@@ -250,13 +250,13 @@ export class VacancyPageComponent implements OnInit, OnDestroy {
                 data => {
                     this.addedCandidates = data[0].result;
                     this.availableCandidatesForSelection = data[1];
-
+                    const candidateByTechnologyAndExperienceTemp = this.candidateByTechnologyAndExperience;
                     const idArray = this.addedCandidates.filter(function (el, index, array) {
                         return el.id;
                     });
                     this.availableCandidatesForSelection.forEach(function (el, index, arr) {
                         if (!idArray.some(item => item.id === el.id)) {
-                            this.candidateByTechnologyAndExperience.push(el);
+                            candidateByTechnologyAndExperienceTemp.push(el);
                         }
                     });
 
