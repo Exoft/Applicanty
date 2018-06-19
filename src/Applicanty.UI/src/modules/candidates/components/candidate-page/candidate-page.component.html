@@ -1,4 +1,4 @@
-﻿<div class="row">
+<div class="row">
     <div class="col-md-7">
         <form [formGroup]="candidatePageFrom">
             <section class="form-block">
@@ -9,7 +9,8 @@
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true"
                          role="tooltip" [class.invalid]="candidatePageFrom.get('firstName')?.invalid && (candidatePageFrom.get('firstName')?.dirty || candidatePageFrom.get('firstName')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'candidatePage.firstName' | translate}}" formControlName="firstName" size="40">
+                        <input class="form-control" type="text" placeholder="{{'candidatePage.firstName' | translate}}"
+                               formControlName="firstName" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('firstName')) }}
                         </span>
@@ -23,7 +24,8 @@
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="candidatePageFrom.get('lastName')?.invalid && (candidatePageFrom.get('lastName')?.dirty || candidatePageFrom.get('lastName')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'candidatePage.lastName' | translate}}" formControlName="lastName" size="40">
+                        <input class="form-control" type="text" placeholder="{{'candidatePage.lastName' | translate}}"
+                               formControlName="lastName" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('lastName')) }}
                         </span>
@@ -52,7 +54,7 @@
                     <div class="checkboxlist-scroll">
                         <div *ngFor="let technology of technologies" class="checkbox">
                             <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}" [checked]="candidatePageFrom?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
-                                   (change)="vacancyTechnologiesChange($event)">
+                                (change)="vacancyTechnologiesChange($event)">
                             <label for="{{technology?.id}}">
                                 {{technology.name}}
                             </label>
@@ -95,7 +97,8 @@
 
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="candidatePageFrom.get('linkedIn')?.invalid && (candidatePageFrom.get('linkedIn')?.dirty || candidatePageFrom.get('linkedIn')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'candidatePage.linkedIn' | translate}}" formControlName="linkedIn" size="40">
+                        <input class="form-control" type="text" placeholder="{{'candidatePage.linkedIn' | translate}}"
+                               formControlName="linkedIn" size="40">
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(candidatePageFrom.get('linkedIn')) }}
                         </span>
@@ -138,14 +141,18 @@
         </form>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-5" *ngIf="id">
         <clr-datagrid (clrDgRefresh)="refreshCurrentVacancyList()" [(clrDgSelected)]="selectedVacanciesOfCandidate">
             <clr-dg-action-bar>
                 <clr-button-group class="btn-outline btn-sm">
-                    <clr-button [disabled]="candidatePageFrom.get('technologyIds').invalid && candidatePageFrom.get('technologyIds').dirty" (click)="showModal($event)">{{'candidatePage.add' | translate}}</clr-button>
+                    <clr-button [disabled]="candidatePageFrom.get('technologyIds').invalid && candidatePageFrom.get('technologyIds').dirty" (click)="showModal($event)">
+                        {{'candidatePage.add' | translate}}
+                    </clr-button>
                 </clr-button-group>
                 <clr-button-group class="btn-danger-outline btn-sm">
-                    <clr-button [disabled]="!selectedVacanciesOfCandidate || selectedVacanciesOfCandidate.length===0" (click)="deleteVacancyClick($event)">{{'candidatePage.delete' | translate}}</clr-button>
+                    <clr-button [disabled]="!selectedVacanciesOfCandidate || selectedVacanciesOfCandidate.length===0" (click)="deleteVacancyClick($event)">
+                        {{'candidatePage.delete' | translate}}
+                    </clr-button>
                 </clr-button-group>
             </clr-dg-action-bar>
 
@@ -212,7 +219,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine" (click)="attachToVacancyClick($event)">
+        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine"
+            (click)="attachToVacancyClick($event)">
             {{'candidatePage.save' | translate}}
         </button>
         <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">

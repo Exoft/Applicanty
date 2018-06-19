@@ -1,5 +1,6 @@
 <section class="btn-block">
-    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)" *ngFor="let vacancyStage of vacancyStages">
+    <a href="" class="label label-light-blue btn clickable label-lg" (click)="vacancyStageLabelClick($event, vacancyStage.value)"
+        *ngFor="let vacancyStage of vacancyStages">
         {{'enums.vacancyStage.' + vacancyStage.name | translate }}
         <span *ngIf="vacancyStageCount[vacancyStage.value]" class="badge">
             {{vacancyStageCount[vacancyStage.value]}}
@@ -16,7 +17,8 @@
                     </label>
                     <div class="tooltip tooltip-validation tooltip-sm" aria-haspopup="true" role="tooltip"
                          [class.invalid]="vacancyPageForm.get('title')?.invalid && (vacancyPageForm.get('title')?.dirty || vacancyPageForm.get('title')?.touched)">
-                        <input class="form-control" type="text" placeholder="{{'vacancyPage.title' | translate}}" formControlName="title" size="25" />
+                        <input class="form-control" type="text" placeholder="{{'vacancyPage.title' | translate}}"
+                               formControlName="title" size="25"/>
                         <span class="tooltip-content">
                             {{ validationService.getValidatorErrorMessage(vacancyPageForm.get('title')) }}
                         </span>
@@ -63,7 +65,7 @@
                     <div class="checkboxlist-scroll">
                         <div *ngFor="let technology of technologies" class="checkbox">
                             <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}" [checked]="vacancyPageForm?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
-                                   (change)="vacancyTechnologiesChange($event)">
+                                (change)="vacancyTechnologiesChange($event)">
                             <label for="{{technology?.id}}">
                                 {{technology.name}}
                             </label>
@@ -113,7 +115,8 @@
                         </clr-dg-row>
 
                         <clr-dg-footer>
-                            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'of' | translate}} {{pagination.totalItems}} {{'candidatesFooter' | translate}}
+                            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'of' | translate}}
+                          {{pagination.totalItems}} {{'candidatesFooter' | translate}}
                             <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="totalCount"></clr-dg-pagination>
                         </clr-dg-footer>
                     </clr-datagrid>
@@ -136,7 +139,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="text">
+                        <label for="commentText">
                             {{'vacancyPage.commentText' | translate}}:
                         </label>
                         <div [froalaEditor]="froalaOptions" formControlName="commentText"></div>
@@ -220,7 +223,7 @@
                     <div class="select">
                         <select formControlName="vacancyStage">
                             <option *ngFor="let vacancyStage of vacancyStages" [value]="vacancyStage.value">
-                                {{vacancyStage.name}}
+                                {{ 'enums.vacancyStage.' + vacancyStage.name | translate }}
                             </option>
                         </select>
                     </div>
@@ -229,7 +232,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine" (click)="attachToCandidateClick($event)">
+        <button type="button" class="btn btn-success" [disabled]="!candidateAttachVacancyForm.valid || candidateAttachVacancyForm.pristine"
+            (click)="attachToCandidateClick($event)">
             {{'vacancyPage.save' | translate}}
         </button>
         <button type="button" class="btn btn-info" (click)="setStageModalVisible = false;">{{'vacancyPage.cancel' | translate}}</button>
