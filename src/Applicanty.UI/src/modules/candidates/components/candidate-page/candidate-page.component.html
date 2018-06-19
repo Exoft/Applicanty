@@ -46,20 +46,26 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" (clrDgRefresh)="refreshCurrentTechologyList()">
                     <label for="technologiesId">
                         {{'candidatePage.technologies' | translate}}:
                     </label>
-
-                    <div class="checkboxlist-scroll">
-                        <div *ngFor="let technology of technologies" class="checkbox">
-                            <input type="checkbox" id="{{technology?.id}}" value="{{technology?.id}}" [checked]="candidatePageFrom?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
-                                (change)="vacancyTechnologiesChange($event)">
-                            <label for="{{technology?.id}}">
+                    
+                    <div  data-name="tags-input" >
+                        <div  class="tags-input"  *ngFor="let technology of technologies" >
+                          <div class="tag" *ngIf="technologyIds.indexOf(technology.id) >= 0" >
+                            <input class="tag-hidden" type="checkbox" hidden id="{{technology?.id}}" value="{{technology?.id}}"
+                                [checked]="candidatePageFrom?.get('technologyIds')?.value?.indexOf(technology?.id)>=0"
+                                (change)="vacancyTechnologiesChange($event)" >
+                            <label class="tag-label" for="{{technology?.id}}">
                                 {{technology.name}}
+                                <span (click)="vacancyTechnologiesChange($event)"></span>
                             </label>
+                          </div>
                         </div>
                     </div>
+                    <input type="text" (input)="inputTechnologyName($event)" (keydown)="addTechnology($event)" placeholder="Add techology">
+                    <input class="add-button" type="button" (click)="addTechnologyClick($event)" value="+">                   
                 </div>
 
                 <div class="form-group">
