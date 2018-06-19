@@ -28,6 +28,9 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
   private experienceEnumName = EnumNames.EXPERIENCE;
   private stageEnumName = EnumNames.VACANCYSTAGE;
 
+  public techologyName: any[] = [];
+  public selectedTechnologies: any[] = [];
+  public technologyList: any[] = [];
   public experiences: any[] = [];
   public technologies: any[] = [];
   public vacancyStages: any[] = [];
@@ -37,6 +40,11 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
   public vacanciesForTheChoice: any[] = [];
   public selectedVacanciesOfCandidate: any[] = [];
   public candidateVacancy: any[] = [];
+
+  public newTechnologies: FormGroup = new FormGroup({
+    'id': new FormControl(''),
+    'name': new FormControl(0, Validators.required)
+  });
 
   public candidatePageFrom: FormGroup = new FormGroup({
     'id': new FormControl(''),
@@ -290,5 +298,51 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
   clearCandidateAttachVacancyForm() {
     this.candidateAttachVacancyForm.get('vacancyId').setValue(null);
     this.candidateAttachVacancyForm.get('vacancyStage').setValue(null);
+  }
+  inputTechnologyName(event) {
+    this.techologyName = event.target.value;
+  }
+
+  addTechnologyClick(event) {
+    const formData = this.newTechnologies.value;
+    const technologyLists: any = [];
+    this.selectedTechnologies = this.candidatePageFrom.get('technologyIds').value;
+
+   formData['id'] = 0;
+   formData['name'] = this.techologyName;
+
+   technologyLists.push(NaN);
+   for ( const technology of this.technologies) {
+    technologyLists.push(technology.name);
+    }
+   if ( !technologyLists.includes( this.techologyName) ) {
+    this.candidatesDataService.createTechnologies(formData).subscribe(
+      data => {
+       this.technologies = data;
+      });
+      technologyLists.push(this.techologyName);
+      this.selectedTechnologies.push(technologyLists.indexOf(this.techologyName));
+    } else {
+      this.selectedTechnologies.push(technologyLists.indexOf(this.techologyName));
+    }
+    this.refreshCurrentTechologyList();
+  }
+
+  public refreshCurrentTechologyList() {
+    this.candidatePageFrom.get('technologyIds').setValue(this.selectedTechnologies);
+    this.candidatePageFrom.get('technologyIds').markAsDirty();
+    this.candidatePageFrom.get('technologyIds').markAsTouched();
+    this.candidatesDataService.getTechnologies().subscribe(
+      data => {
+        this.technologies = data;
+      });
+  }
+
+  addTechnology(event: any) {
+    if (event.keyCode === 13) {
+       this.addTechnologyClick(event);
+     } else {
+      this.inputTechnologyName(event);
+    }
   }
 }

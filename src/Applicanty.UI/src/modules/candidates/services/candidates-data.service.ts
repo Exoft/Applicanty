@@ -52,6 +52,10 @@ export class CandidatesDataService {
         return this.http.get(`${environment.apiRootUrl}technology`, { headers: this.authService.getAuthenticationHeader() });
     }
 
+    public createTechnologies(technology: any): Observable<any> {
+        return this.http.post(`${environment.apiRootUrl}technology`, technology, { headers: this.authService.getAuthenticationHeader() });
+    }
+
     public getExperiences(): Observable<any> {
         return this.http.get(`${environment.apiRootUrl}enum/Experience`);
     }
