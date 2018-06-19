@@ -210,12 +210,12 @@ export class CandidatePageComponent implements OnInit, OnDestroy {
           const idArray = this.vacanciesOfCadidate.filter(function (el, index, array) {
             return el.id;
           });
-          const vacanciesTemp = this.vacancies;
-          this.vacanciesForTheChoice.forEach(function (el, index, arr) {
-            if (!idArray.some(item => item.id === el.id)) {
-              vacanciesTemp.push(el);
+
+          for (let i = 0; i < this.vacanciesForTheChoice.length; i++) {
+            if (!idArray.some(item => item.id === this.vacanciesForTheChoice[i].id)) {
+              this.vacancies.push(this.vacanciesForTheChoice[i]);
             }
-          });
+          }
         });
 
     this.candidatesDataService.updateCandidate(formData).subscribe(
